@@ -769,12 +769,12 @@
     }
 
     html.light .project-impact {
-      background: rgba(37,99,235,0.08);
-      color: #1d4ed8;
+      background: rgba(37,99,235,0.12);
+      color: #1e40af;
     }
 
     html.light .project-impact .sep {
-      color: #93c5fd;
+      color: #1e40af;
     }
 
     .project-link {
@@ -865,14 +865,47 @@
     .timeline-item::before {
       content: '';
       position: absolute;
-      left: -2.45rem;
+      left: 0rem;
       top: 1.2rem;
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--grad2);
-      box-shadow: 0 0 10px rgba(37,99,235,0.5);
+      box-shadow: 0 0 8px rgba(37,99,235,0.5);
+      transition: width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .timeline-item.expanded::before {
+      width: 12px;
+      height: 12px;
+      box-shadow: 0 0 16px rgba(56,189,248,0.8);
+    }
+
+    /* Professional icon element */
+    .timeline-icon {
+      position: absolute;
+      left: -3.5rem;
+      top: 0.5rem;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, rgba(38,189,248,0.12) 0%, rgba(37,99,235,0.08) 100%);
+      border: 2px solid rgba(56,189,248,0.3);
+      border-radius: 12px;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+    }
+
+    .timeline-item.expanded .timeline-icon {
+      transform: scale(1.15) rotate(8deg);
+      background: linear-gradient(135deg, rgba(38,189,248,0.25) 0%, rgba(37,99,235,0.15) 100%);
+      border-color: rgba(56,189,248,0.6);
+      box-shadow: 0 8px 24px rgba(56,189,248,0.25);
+    }
+
 
     .timeline-date {
       font-size: 0.8rem;
@@ -909,12 +942,29 @@
       border-radius: 0 0 10px 10px;
       background: var(--card);
       backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .timeline-desc::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(56,189,248,0.6), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease 0.2s;
     }
 
     .timeline-item.expanded .timeline-desc {
       max-height: 800px;
       opacity: 1;
       padding: 1rem 1.2rem 1.2rem;
+    }
+
+    .timeline-item.expanded .timeline-desc::before {
+      opacity: 1;
     }
 
     .timeline-desc li {
@@ -1369,6 +1419,28 @@
       text-decoration: none;
       color: inherit;
       transition: border-color 0.25s, border-top-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .skill-card::after {
+      content: '↗';
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 24px;
+      height: 24px;
+      background: rgba(56,189,248,0.15);
+      border: 1px solid rgba(56,189,248,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: #38bdf8;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.25s, background 0.25s, border-color 0.25s;
     }
 
     .skill-card:hover {
@@ -1376,6 +1448,12 @@
       border-top-color: #38bdf8;
       transform: translateY(-3px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .skill-card:hover::after {
+      opacity: 1;
+      background: rgba(56,189,248,0.25);
+      border-color: rgba(56,189,248,0.5);
     }
 
     .skill-card-icon {
@@ -1415,6 +1493,17 @@
 
     html.light .repo-card,
     html.light .skill-card { background: #ffffff; box-shadow: 0 1px 6px rgba(0,0,0,0.06); }
+
+    html.light .skill-card::after {
+      background: rgba(37,99,235,0.12);
+      border-color: rgba(37,99,235,0.25);
+      color: #2563eb;
+    }
+
+    html.light .skill-card:hover::after {
+      background: rgba(37,99,235,0.2);
+      border-color: rgba(37,99,235,0.4);
+    }
 
     /* ─── INTERACTIVE / CLICKABLE CARD ───────────── */
     .project-card--interactive {
@@ -2206,6 +2295,7 @@
 
     <!-- 1 — Most Recent -->
     <div class="timeline-item">
+      <div class="timeline-icon">💊</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2025 – Present</div>
@@ -2223,6 +2313,7 @@
 
     <!-- 2 -->
     <div class="timeline-item">
+      <div class="timeline-icon">🏥</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2022 – 2025</div>
@@ -2240,6 +2331,7 @@
 
     <!-- 3 -->
     <div class="timeline-item">
+      <div class="timeline-icon">🎯</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2020 – 2022</div>
@@ -2257,6 +2349,7 @@
 
     <!-- 4 -->
     <div class="timeline-item">
+      <div class="timeline-icon">📊</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2017 – 2020</div>
@@ -2274,6 +2367,7 @@
 
     <!-- 5 -->
     <div class="timeline-item">
+      <div class="timeline-icon">🍽️</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2015 – 2017</div>
@@ -2291,6 +2385,7 @@
 
     <!-- 6 -->
     <div class="timeline-item">
+      <div class="timeline-icon">⚙️</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2015</div>
@@ -2308,6 +2403,7 @@
 
     <!-- 7 -->
     <div class="timeline-item">
+      <div class="timeline-icon">📚</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2010 – 2014</div>
