@@ -1266,6 +1266,196 @@
       transform: translateY(-2px);
     }
 
+    /* ─── INTERACTIVE / CLICKABLE CARD ───────────── */
+    .project-card--interactive {
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+
+    .project-card--interactive::after {
+      content: '✦ Click to Explore';
+      position: absolute;
+      top: 0.6rem;
+      right: 0.7rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #06b6d4;
+      background: rgba(6,182,212,0.12);
+      border: 1px solid rgba(6,182,212,0.3);
+      padding: 0.2rem 0.55rem;
+      border-radius: 50px;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .project-card--interactive:hover {
+      border-color: rgba(6,182,212,0.85);
+      box-shadow: 0 0 30px rgba(6,182,212,0.4), 0 0 10px rgba(6,182,212,0.2);
+      transform: translateY(-6px);
+    }
+
+    .project-card--interactive:hover::after {
+      opacity: 1;
+    }
+
+    /* ─── PROJECT MODAL ──────────────────────────── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: var(--bg2);
+      border: 1px solid rgba(37,99,235,0.3);
+      border-radius: 20px;
+      max-width: 780px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalIn 0.3s ease;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(37,99,235,0.3) transparent;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.94) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-header {
+      padding: 1.6rem 2rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+      z-index: 1;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: var(--grad2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.3;
+    }
+
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.65rem;
+      align-items: center;
+    }
+
+    .modal-year {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #38bdf8;
+      border: 1px solid rgba(56,189,248,0.35);
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      white-space: nowrap;
+      background: rgba(56,189,248,0.08);
+    }
+
+    .modal-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+
+    .modal-body { padding: 1.6rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .modal-section h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .modal-section p {
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.75;
+    }
+
+    .modal-impact {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #38bdf8;
+      padding: 0.7rem 1rem;
+      background: rgba(37,99,235,0.1);
+      border-left: 3px solid #2563eb;
+      border-radius: 0 8px 8px 0;
+      line-height: 1.6;
+    }
+
+    .modal-video {
+      width: 100%;
+      border-radius: 12px;
+      max-height: 400px;
+      background: #000;
+      outline: none;
+      border: 1px solid var(--border);
+    }
+
+    .modal-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 50px;
+      background: var(--grad2);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: fit-content;
+    }
+
+    .modal-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37,99,235,0.35);
+    }
+
+    html.light .modal { background: #ffffff; }
+    html.light .modal-header { background: #ffffff; }
+
     /* ─── FOOTER ─────────────────────────────────── */
     footer {
       text-align: center;
@@ -1691,7 +1881,7 @@
   <div class="projects-grid reveal">
 
     <!-- 1: ScienceAI -->
-    <div class="project-card">
+    <div class="project-card project-card--interactive" onclick="document.getElementById('scienceai-modal').classList.add('open')" title="Click to explore">
       <div class="project-header ph-1">🔬</div>
       <div class="project-body">
         <div class="project-tags">
@@ -2231,9 +2421,86 @@
 </footer>
 
 <!-- ───────────────────────────────────────────
+  SCIENCEAI MODAL
+──────────────────────────────────────────── -->
+<div class="modal-backdrop" id="scienceai-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🔬 ScienceAI – Intelligent Research Platform</div>
+        <div class="modal-tags">
+          <span class="tag tag-coral">GenAI · RAG</span>
+          <span class="tag tag-purple">Research Intelligence</span>
+          <span class="tag tag-cyan">AI Platform</span>
+          <span class="modal-year">2026</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('scienceai-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h4>Problem Statement</h4>
+        <p>Researchers face overwhelming information overload, with critical knowledge scattered across papers, clinical trials, conferences, and competitor data that is slow and hard to synthesize. The challenge was to let researchers quickly query all these sources in one place and get sourced, real-time answers in accessible formats.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Solution</h4>
+        <p>Built ScienceAI, a Gen AI platform that lets researchers chat with scientific literature — papers, clinical trials, conferences, and competitor data — in one place. A Langflow RAG pipeline with a Chroma vector database and GPT-5-mini streaming (on Next.js 16) delivers sourced, real-time answers, while ElevenLabs TTS converts insights into on-demand audio summaries and dual-voice podcasts for faster, more accessible research consumption.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Business Value</h4>
+        <div class="modal-impact">⚡ Research time cut by 70% ✦ Sourced answers across 4+ literature types unified ✦ Insights delivered as on-demand audio &amp; podcasts</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Demo Video</h4>
+        <video class="modal-video" controls preload="metadata" poster="">
+          <source src="ScienceAI-Demo.mov" type="video/quicktime">
+          <source src="ScienceAI-Demo.mov" type="video/mp4">
+          Your browser does not support this video format. <a href="ScienceAI-Demo.mov" download>Download the demo video</a>.
+        </video>
+      </div>
+
+      <div class="modal-section">
+        <h4>Documents</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="ScienceAI-Presentation.pptx" download class="modal-download">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Presentation (.pptx)
+          </a>
+          <a href="ScienceAI-PRD.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#6366f1,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            View PRD (.pdf)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────────────────────
   SCRIPTS
 ──────────────────────────────────────────── -->
 <script>
+  // ── Modal ──
+  function closeModal(e) {
+    if (e.target === e.currentTarget) {
+      e.currentTarget.classList.remove('open');
+      e.currentTarget.querySelector('video')?.pause();
+    }
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-backdrop.open').forEach(m => {
+        m.classList.remove('open');
+        m.querySelector('video')?.pause();
+      });
+    }
+  });
+
   // ── Project impact separators ──
   document.querySelectorAll('.project-impact').forEach(el => {
     el.innerHTML = el.innerHTML.replace(/ · /g, ' <span class="sep">✦</span> ');
