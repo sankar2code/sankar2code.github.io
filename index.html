@@ -243,12 +243,41 @@
       font-size: 0.82rem;
       color: var(--muted);
       font-weight: 500;
-      transition: color 0.25s;
+      transition: color 0.25s, opacity 0.25s;
       letter-spacing: 0.01em;
       white-space: nowrap;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      position: relative;
     }
 
-    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover {
+      color: var(--white);
+      background: rgba(37,99,235,0.25);
+    }
+
+    .nav-links a:active,
+    .nav-links a.active {
+      color: var(--coral);
+      font-weight: 600;
+      background: rgba(37,99,235,0.3);
+    }
+
+    html.light .nav-links a {
+      color: #55557a;
+    }
+
+    html.light .nav-links a:hover {
+      color: #111118;
+      background: rgba(37,99,235,0.75);
+    }
+
+    html.light .nav-links a:active,
+    html.light .nav-links a.active {
+      color: #ffffff;
+      font-weight: 600;
+      background: rgba(37,99,235,0.85);
+    }
 
     .nav-right {
       flex: 1;
@@ -2349,7 +2378,7 @@
 
     <!-- 4 -->
     <div class="timeline-item">
-      <div class="timeline-icon">📊</div>
+      <div class="timeline-icon">💊</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2017 – 2020</div>
@@ -2367,7 +2396,7 @@
 
     <!-- 5 -->
     <div class="timeline-item">
-      <div class="timeline-icon">🍽️</div>
+      <div class="timeline-icon">🚀</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2015 – 2017</div>
@@ -2385,7 +2414,7 @@
 
     <!-- 6 -->
     <div class="timeline-item">
-      <div class="timeline-icon">⚙️</div>
+      <div class="timeline-icon">💻</div>
       <div class="timeline-header" onclick="toggleExp(this)">
         <div>
           <div class="timeline-date">2015</div>
@@ -3080,6 +3109,32 @@
       links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:rgba(8,8,15,0.97);padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid rgba(255,255,255,0.08);z-index:99;align-items:flex-start;';
     }
   }
+
+  // ── Navigation active state ──
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function() {
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Update active nav on scroll
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPos = window.scrollY + 100;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute('id');
+      const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+
+      if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        if (navLink) navLink.classList.add('active');
+      }
+    });
+  });
 
   // ── Theme toggle ──
   const html = document.documentElement;
