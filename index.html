@@ -182,6 +182,12 @@
       align-items: center;
       white-space: nowrap;
       text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .nav-logo:hover {
+      opacity: 0.8;
     }
 
     .nav-badge {
@@ -469,6 +475,25 @@
     @keyframes rotateSlow {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
+    }
+
+    /* Mobile spinning avatar */
+    .mobile-avatar {
+      display: none;
+      width: 100px;
+      height: 100px;
+      margin: 2rem auto 1.5rem;
+      position: relative;
+    }
+
+    .mobile-avatar svg {
+      animation: rotateSlow 20s linear infinite;
+    }
+
+    @media (max-width: 600px) {
+      .mobile-avatar {
+        display: block;
+      }
     }
 
     .hero-badge {
@@ -1892,11 +1917,11 @@
   NAV
 ──────────────────────────────────────────── -->
 <nav>
-  <div class="nav-logo">
+  <a href="#hero" class="nav-logo">
     <span class="nav-badge">
       <span class="nav-badge-name">Sankar</span>
     </span>
-  </div>
+  </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#domains">Projects</a></li>
@@ -2025,6 +2050,27 @@
           <circle cx="36" cy="36" r="10" stroke="url(#aiG)" stroke-width="0.8" fill="none" opacity="0.4"/>
         </svg>
       </div>
+    </div>
+
+    <!-- Mobile Spinning Avatar -->
+    <div class="mobile-avatar">
+      <svg viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="mobileG" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2563eb"/>
+            <stop offset="50%" stop-color="#38bdf8"/>
+            <stop offset="100%" stop-color="#6366f1"/>
+          </linearGradient>
+        </defs>
+        <polygon points="65,4 121,33.5 121,96.5 65,126 9,96.5 9,33.5"
+          stroke="url(#mobileG)" stroke-width="2" fill="none" opacity="0.8"/>
+        <circle cx="65"  cy="4"    r="3.5" fill="url(#mobileG)" opacity="1"/>
+        <circle cx="121" cy="33.5" r="3.5" fill="url(#mobileG)" opacity="1"/>
+        <circle cx="121" cy="96.5" r="3.5" fill="url(#mobileG)" opacity="1"/>
+        <circle cx="65"  cy="126"  r="3.5" fill="url(#mobileG)" opacity="1"/>
+        <circle cx="9"   cy="96.5" r="3.5" fill="url(#mobileG)" opacity="1"/>
+        <circle cx="9"   cy="33.5" r="3.5" fill="url(#mobileG)" opacity="1"/>
+      </svg>
     </div>
 
     <!-- Badge -->
@@ -3106,6 +3152,19 @@
   SCRIPTS
 ──────────────────────────────────────────── -->
 <script>
+  // ── Refresh button to landing page ──
+  window.addEventListener('beforeunload', () => {
+    // This will navigate to hero when page refreshes
+    setTimeout(() => {
+      window.location.hash = '#hero';
+    }, 100);
+  });
+
+  // Go to hero when page loads
+  if (!window.location.hash) {
+    window.location.hash = '#hero';
+  }
+
   // ── Modal ──
   function closeModal(e) {
     if (e.target === e.currentTarget) {
