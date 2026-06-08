@@ -354,9 +354,9 @@
     .divider {
       width: 100%;
       height: 1px;
-      background: var(--border);
+      background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
       max-width: 1100px;
-      margin: 0 auto;
+      margin: 1.5rem auto;
     }
 
     /* ─── SCROLL ANIMATION ─────────────────────────── */
@@ -485,6 +485,44 @@
     @keyframes rotateSlow {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      25%      { transform: translate(20px, -20px); }
+      50%      { transform: translate(0, -40px); }
+      75%      { transform: translate(-20px, -20px); }
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes floatLeft {
+      0%, 100% {
+        transform: translateY(-50%) translateX(0);
+        opacity: 0.6;
+      }
+      25% {
+        transform: translateY(-50%) translateX(-30px);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-50%) translateX(-50px);
+        opacity: 0.5;
+      }
+      75% {
+        transform: translateY(-50%) translateX(-30px);
+        opacity: 0.7;
+      }
+    }
+
+    @keyframes floatAround {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(-40px, 30px) scale(1.1); }
+      50% { transform: translate(-60px, 60px) scale(0.9); }
+      75% { transform: translate(-30px, 40px) scale(1.05); }
     }
 
     /* Mobile spinning avatar */
@@ -630,11 +668,99 @@
     /* ═══════════════════════════════════════════════
        ABOUT
     ═══════════════════════════════════════════════ */
+    #about {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #about::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 12s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    #about::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -15%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 15s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
       align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-grid::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 400px;
+      background:
+        repeating-conic-gradient(
+          from 0deg at 50% 50%,
+          rgba(37, 99, 235, 0.08) 0deg 90deg,
+          transparent 90deg 180deg
+        );
+      opacity: 0.5;
+      animation: spin 30s linear infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .about-text::before {
+      content: '';
+      position: absolute;
+      left: -200px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 350px;
+      height: 350px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(37,99,235,0.15) 0%, transparent 30%),
+        radial-gradient(circle at 70% 70%, rgba(56,189,248,0.12) 0%, transparent 30%);
+      border-radius: 50%;
+      animation: floatLeft 8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .about-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-text::after {
+      content: '';
+      position: absolute;
+      left: -150px;
+      top: 20%;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: floatAround 12s ease-in-out infinite;
+      pointer-events: none;
     }
 
     .about-text p {
@@ -856,6 +982,209 @@
     }
 
     .project-link:hover { opacity: 0.75; }
+
+    /* ═══════════════════════════════════════════════
+       RECOMMENDATIONS
+    ═══════════════════════════════════════════════ */
+    .recommendations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .rec-card-small {
+      background: var(--card);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem;
+      padding-left: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      position: relative;
+    }
+
+    .rec-card-small::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #2563eb, #38bdf8);
+      border-radius: 8px 0 0 8px;
+    }
+
+    .rec-card-small:hover {
+      transform: translateY(-4px);
+      border-color: rgba(6,182,212,0.85);
+      box-shadow: 0 0 25px rgba(6,182,212,0.35), 0 0 8px rgba(6,182,212,0.15);
+    }
+
+    .rec-card-small > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .rec-card-icon {
+      display: none;
+    }
+
+    .rec-card-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin: 0;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    .rec-card-role {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .rec-card-rel {
+      display: none;
+    }
+
+    html.light .rec-card-rel {
+      color: white;
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      border-color: rgba(6,182,212,0.5);
+    }
+
+    .rec-stars {
+      font-size: 0.9rem;
+      margin: 0;
+      letter-spacing: 0.1rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       RECOMMENDATION MODALS
+    ═══════════════════════════════════════════════ */
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes modalSlideUp {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .rec-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+    }
+
+    .rec-modal.open {
+      display: flex;
+      animation: modalFadeIn 0.3s ease-out forwards;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .rec-modal-content {
+      background: var(--card);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .rec-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--muted);
+      transition: color 0.3s;
+    }
+
+    .rec-modal-close:hover {
+      color: var(--text);
+    }
+
+    .rec-modal-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .rec-modal-header h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .rec-modal-title {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .rec-quote-full {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text);
+      font-style: italic;
+      margin: 0 0 1rem 0;
+      text-align: justify;
+    }
+
+    .rec-modal-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.2rem;
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .rec-modal-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37,99,235,0.4);
+    }
+
+    html.light .rec-modal-link {
+      background: linear-gradient(135deg, #1e40af, #0891b2);
+    }
 
     /* ═══════════════════════════════════════════════
        EXPERIENCE
@@ -1760,6 +2089,11 @@
     html.light .modal { background: #ffffff; }
     html.light .modal-header { background: #ffffff; }
 
+    /* ─── RECOMMENDATIONS ─────────────────────────── */
+    .LI-profile-badge {
+      display: inline-block !important;
+    }
+
     /* ─── FOOTER ─────────────────────────────────── */
     footer {
       text-align: center;
@@ -1833,6 +2167,14 @@
       .project-body h3  { font-size: 0.95rem; }
       .project-body p   { font-size: 0.82rem; }
       .project-impact   { font-size: 0.75rem; padding: 0.6rem 0.8rem; }
+      .recommendations-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+      .rec-card-small { padding: 0.8rem; padding-left: 1rem; gap: 0.3rem; }
+      .rec-card-name { font-size: 0.85rem; }
+      .rec-card-role { font-size: 0.7rem; }
+      .rec-card-rel { font-size: 0.65rem; margin: 0.3rem 0 0 0; padding: 0.25rem 0.6rem; }
+      .rec-modal-content { max-width: 90vw; padding: 1.5rem; }
+      .rec-modal-header h3 { font-size: 1.1rem; }
+      .rec-quote-full { font-size: 0.9rem; }
 
       .cert-grid        { grid-template-columns: 1fr; }
       .edu-grid         { grid-template-columns: 1fr; }
@@ -1941,6 +2283,7 @@
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#opensource">Collections</a></li>
+    <li><a href="#recommendations">Recommendations</a></li>
     <li><a href="#contact" class="nav-cta">Say Hello</a></li>
   </ul>
   <div class="nav-right">
@@ -2360,87 +2703,6 @@
 <div class="divider"></div>
 
 <!-- ───────────────────────────────────────────
-  OPEN SOURCE — CLAUDE SKILLS
-──────────────────────────────────────────── -->
-<section id="opensource">
-  <div class="reveal">
-    <span class="section-label">Open Source</span>
-    <h2 class="section-title">Claude Skill Builder Collections</h2>
-    <p class="section-sub">A curated set of Claude AI skills for AI product managers & beyond — covering market research, PRD writing, evaluation, user research and many more coming soon. Free to use and contribute.</p>
-  </div>
-
-  <!-- Repo card -->
-  <div class="repo-card reveal">
-    <div class="repo-card-left">
-      <div class="repo-card-icon">🛠️</div>
-      <div class="repo-card-name">sankar2code / Claude-Skill-Builder-Collections</div>
-      <p class="repo-card-desc">A curated set of Claude AI skills for AI product managers & beyond — covering market research, PRD writing, evaluation, user research and many more coming soon. Free to use and contribute.</p>
-      <div class="repo-card-meta">
-        <span class="repo-meta-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-          Public Repository
-        </span>
-        <span class="repo-meta-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub
-        </span>
-      </div>
-    </div>
-    <a href="https://github.com/sankar2code/Claude-Skill-Builder-Collections" target="_blank" class="repo-card-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      View on GitHub
-    </a>
-  </div>
-
-  <!-- Individual skill cards -->
-  <div class="skills-grid reveal">
-
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/market-research.md" target="_blank">
-      <div class="skill-card-icon">📊</div>
-      <div class="skill-card-info">
-        <h4>Market Research</h4>
-        <p>Competitive analysis &amp; market intelligence skill</p>
-      </div>
-    </a>
-
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/prd-eval.md" target="_blank">
-      <div class="skill-card-icon">✅</div>
-      <div class="skill-card-info">
-        <h4>PRD Evaluator</h4>
-        <p>Evaluate and score product requirements docs</p>
-      </div>
-    </a>
-
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/prd-writer.zip" target="_blank">
-      <div class="skill-card-icon">📝</div>
-      <div class="skill-card-info">
-        <h4>PRD Writer</h4>
-        <p>Generate structured product requirements documents</p>
-      </div>
-    </a>
-
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/user-research.md" target="_blank">
-      <div class="skill-card-icon">🔍</div>
-      <div class="skill-card-info">
-        <h4>User Research</h4>
-        <p>Synthesize user interviews &amp; research insights</p>
-      </div>
-    </a>
-
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/README-skills-focused.md" target="_blank">
-      <div class="skill-card-icon">📖</div>
-      <div class="skill-card-info">
-        <h4>Skills Guide</h4>
-        <p>Full documentation &amp; usage guide for all skills</p>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ───────────────────────────────────────────
   EXPERIENCE
 ──────────────────────────────────────────── -->
 <section id="experience">
@@ -2846,6 +3108,264 @@
 <div class="divider"></div>
 
 <!-- ───────────────────────────────────────────
+  OPEN SOURCE — CLAUDE SKILLS
+──────────────────────────────────────────── -->
+<section id="opensource">
+  <div class="reveal">
+    <span class="section-label">Open Source</span>
+    <h2 class="section-title">Claude Skill Builder Collections</h2>
+    <p class="section-sub">A curated set of Claude AI skills for AI product managers & beyond — covering market research, PRD writing, evaluation, user research and many more coming soon. Free to use and contribute.</p>
+  </div>
+
+  <!-- Repo card -->
+  <div class="repo-card reveal">
+    <div class="repo-card-left">
+      <div class="repo-card-icon">🛠️</div>
+      <div class="repo-card-name">sankar2code / Claude-Skill-Builder-Collections</div>
+      <p class="repo-card-desc">A curated set of Claude AI skills for AI product managers & beyond — covering market research, PRD writing, evaluation, user research and many more coming soon. Free to use and contribute.</p>
+      <div class="repo-card-meta">
+        <span class="repo-meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          Public Repository
+        </span>
+        <span class="repo-meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </span>
+      </div>
+    </div>
+    <a href="https://github.com/sankar2code/Claude-Skill-Builder-Collections" target="_blank" class="repo-card-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      View on GitHub
+    </a>
+  </div>
+
+  <!-- Individual skill cards -->
+  <div class="skills-grid reveal">
+
+    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/market-research.md" target="_blank">
+      <div class="skill-card-icon">📊</div>
+      <div class="skill-card-info">
+        <h4>Market Research</h4>
+        <p>Competitive analysis &amp; market intelligence skill</p>
+      </div>
+    </a>
+
+    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/prd-eval.md" target="_blank">
+      <div class="skill-card-icon">✅</div>
+      <div class="skill-card-info">
+        <h4>PRD Evaluator</h4>
+        <p>Evaluate and score product requirements docs</p>
+      </div>
+    </a>
+
+    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/prd-writer.zip" target="_blank">
+      <div class="skill-card-icon">📝</div>
+      <div class="skill-card-info">
+        <h4>PRD Writer</h4>
+        <p>Generate structured product requirements documents</p>
+      </div>
+    </a>
+
+    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/user-research.md" target="_blank">
+      <div class="skill-card-icon">🔍</div>
+      <div class="skill-card-info">
+        <h4>User Research</h4>
+        <p>Synthesize user interviews &amp; research insights</p>
+      </div>
+    </a>
+
+    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/README-skills-focused.md" target="_blank">
+      <div class="skill-card-icon">📖</div>
+      <div class="skill-card-info">
+        <h4>Skills Guide</h4>
+        <p>Full documentation &amp; usage guide for all skills</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────────────────────────────────────
+  RECOMMENDATIONS
+──────────────────────────────────────────── -->
+<section id="recommendations">
+  <div class="reveal">
+    <span class="section-label">Social Proof</span>
+    <h2 class="section-title">Recommendations</h2>
+    <p class="section-sub">LinkedIn recommendations from colleagues and clients.</p>
+  </div>
+
+  <div class="recommendations-grid reveal">
+    <!-- Card 1: Peter Dudek -->
+    <div class="rec-card-small" onclick="openRecModal('peter-dudek')">
+      <div>
+        <p class="rec-card-name">Peter Dudek</p>
+        <p class="rec-card-role">Pega Certified Senior System Architect</p>
+        <p class="rec-card-rel">Worked together on same team</p>
+      </div>
+    </div>
+
+    <!-- Card 2: Paul Atherton -->
+    <div class="rec-card-small" onclick="openRecModal('paul-atherton')">
+      <div>
+        <p class="rec-card-name">Paul Atherton</p>
+        <p class="rec-card-role">Manager Provider Data Management, Healthfirst</p>
+        <p class="rec-card-rel">Worked together on same team</p>
+      </div>
+    </div>
+
+    <!-- Card 3: Ravi Vishwas -->
+    <div class="rec-card-small" onclick="openRecModal('ravi-vishwas')">
+      <div>
+        <p class="rec-card-name">Ravi Vishwas</p>
+        <p class="rec-card-role">Enterprise Technology & ERP Senior Consultant</p>
+        <p class="rec-card-rel">Professional consulting relationship</p>
+      </div>
+    </div>
+
+    <!-- Card 4: Thukkaram Periasamy -->
+    <div class="rec-card-small" onclick="openRecModal('thukkaram-periasamy')">
+      <div>
+        <p class="rec-card-name">Thukkaram Periasamy</p>
+        <p class="rec-card-role">Associate Manager, Accenture</p>
+        <p class="rec-card-rel">Worked together on same team</p>
+      </div>
+    </div>
+
+    <!-- Card 5: Giridhar Golkonda -->
+    <div class="rec-card-small" onclick="openRecModal('giridhar-golkonda')">
+      <div>
+        <p class="rec-card-name">Giridhar Golkonda</p>
+        <p class="rec-card-role">IT Leader & Enterprise Architect</p>
+        <p class="rec-card-rel">Mentor</p>
+      </div>
+    </div>
+
+    <!-- Card 6: Denise Hurley-Forgach -->
+    <div class="rec-card-small" onclick="openRecModal('denise-hurley')">
+      <div>
+        <p class="rec-card-name">Denise Hurley-Forgach</p>
+        <p class="rec-card-role">Senior Manager, Utilities Industries</p>
+        <p class="rec-card-rel">Worked together on same team</p>
+      </div>
+    </div>
+
+    <!-- Card 7: Narayanan Ramaswamy -->
+    <div class="rec-card-small" onclick="openRecModal('narayanan-ramaswamy')">
+      <div>
+        <p class="rec-card-name">Narayanan Ramaswamy</p>
+        <p class="rec-card-role">Sr. Client Partner @ Saama | Health Sciences</p>
+        <p class="rec-card-rel">Managed Sankar directly</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODALS FOR RECOMMENDATIONS -->
+  <!-- Modal 1: Peter Dudek -->
+  <div class="rec-modal" id="peter-dudek-modal" onclick="closeRecModal(event, 'peter-dudek')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'peter-dudek')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Peter Dudek</h3>
+        <p class="rec-modal-title">Pega Certified Senior System Architect</p>
+      </div>
+      <p class="rec-quote-full">"I had the pleasure of working alongside Sankar on the same team at Healthfirst for over 2 years. Sankar impressed me with his professionalism, dedication, and engagement in our work. He has a remarkable work ethic, always going the extra mile to ensure projects are completed to the highest standards. In the ever-evolving IT landscape, his Product Management skills and deep technical knowledge are invaluable and I am confident that he would be a great asset to any organization."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
+  <!-- Modal 2: Paul Atherton -->
+  <div class="rec-modal" id="paul-atherton-modal" onclick="closeRecModal(event, 'paul-atherton')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'paul-atherton')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Paul Atherton</h3>
+        <p class="rec-modal-title">Manager Provider Data Management, Healthfirst</p>
+      </div>
+      <p class="rec-quote-full">"Sankar has been an integral part of our team and a phenomenal asset to both my team and the ProgramTeam he worked within. His leadership on the program aspects that he managed meant that when issues arose for my team, those issues never lingered. I would recommend Sankar for any position where his skills are a match for. His work ethic, collaboration, and results are second to none."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
+  <!-- Modal 3: Ravi Vishwas -->
+  <div class="rec-modal" id="ravi-vishwas-modal" onclick="closeRecModal(event, 'ravi-vishwas')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'ravi-vishwas')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Ravi Vishwas</h3>
+        <p class="rec-modal-title">Enterprise Technology & ERP Senior Consultant</p>
+      </div>
+      <p class="rec-quote-full">"I recommend Sankar as an exceptional IT Consultant and an inspiring motivator. Throughout our professional interactions, I have witnessed Sankar's remarkable ability to deliver outstanding results while uplifting those around him. With a deep understanding of complex technological systems and strategic thinking, Sankar identifies optimization opportunities and drives meaningful change within organizations. His dedication to excellence and unwavering commitment make him an invaluable asset to any project or team. Sankar's blend of technical expertise and motivational leadership extends beyond the workplace, making him a respected role model in both professional and personal domains."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
+  <!-- Modal 4: Thukkaram Periasamy -->
+  <div class="rec-modal" id="thukkaram-periasamy-modal" onclick="closeRecModal(event, 'thukkaram-periasamy')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'thukkaram-periasamy')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Thukkaram Periasamy</h3>
+        <p class="rec-modal-title">Associate Manager, Accenture</p>
+      </div>
+      <p class="rec-quote-full">"I am delighted to write a LinkedIn recommendation for Sankar, who has proven to be an exceptional Project Analyst during our time working together. Sankar possesses a rare blend of analytical process, strategic thinking, and dedication to excellence that makes him an invaluable asset to any project team. Throughout our collaboration, Sankar consistently demonstrated his ability to dissect complex project requirements, identify key deliverables, and develop comprehensive action plans that successfully translated vision into reality."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
+  <!-- Modal 5: Giridhar Golkonda -->
+  <div class="rec-modal" id="giridhar-golkonda-modal" onclick="closeRecModal(event, 'giridhar-golkonda')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'giridhar-golkonda')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Giridhar Golkonda</h3>
+        <p class="rec-modal-title">IT Leader & Enterprise Architect</p>
+      </div>
+      <p class="rec-quote-full">"During Sankar's five-year tenure as a Business Analyst in the pharmaceutical industry, their remarkable analysis and presentation abilities were evident. They adeptly dissected complex data and conveyed clear, actionable insights, enhancing our operational efficiency and guiding strategic decisions. I confidently recommend Sankar for his outstanding professionalism and invaluable skills in this area."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
+  <!-- Modal 6: Denise Hurley-Forgach -->
+  <div class="rec-modal" id="denise-hurley-modal" onclick="closeRecModal(event, 'denise-hurley')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'denise-hurley')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Denise Hurley-Forgach</h3>
+        <p class="rec-modal-title">Senior Manager, Utilities Industries</p>
+      </div>
+      <p class="rec-quote-full">"Sankar is one of the most poised and composed professionals that I have ever worked with. He has the strength and creativity to execute challenging tasks and manifest a quality delivery. Not only would I recommend Sankar, but would be grateful to have him join my team of professionals."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
+  <!-- Modal 7: Narayanan Ramaswamy -->
+  <div class="rec-modal" id="narayanan-ramaswamy-modal" onclick="closeRecModal(event, 'narayanan-ramaswamy')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'narayanan-ramaswamy')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Narayanan Ramaswamy</h3>
+        <p class="rec-modal-title">Sr. Client Partner @ Saama | Health Sciences</p>
+      </div>
+      <p class="rec-quote-full">"I am delighted to provide an enthusiastic recommendation for Sankar, who served as a Business Analyst during his tenure at one of my prior organizations. Sankar consistently delivered exceptional performance, leaving an indelible mark on our then IT department. From the outset, Sankar's analytical prowess was evident. He adeptly gathered and meticulously analyzed business requirements, translating them into actionable insights and strategic plans. His clear communication skills facilitated alignment across stakeholders, ensuring well-executed projects. Sankar's proactive problem-solving abilities were invaluable in our fast-paced environment. His collaborative approach earned him the respect and trust of peers and supervisors alike."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────────────────────────────────────
   CONTACT
 ──────────────────────────────────────────── -->
 <section id="contact">
@@ -3242,6 +3762,23 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+  // ── Recommendation Modal Functions ──
+  function openRecModal(id) {
+    const modal = document.getElementById(id + '-modal');
+    if (modal) {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeRecModal(event, id) {
+    const modal = document.getElementById(id + '-modal');
+    if (modal) {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
   // ── Mobile menu ──
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
@@ -3330,6 +3867,7 @@
     });
   });
 </script>
+
 
 </body>
 </html>
