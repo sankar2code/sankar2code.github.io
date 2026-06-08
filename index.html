@@ -1793,6 +1793,20 @@
       box-shadow: 0 8px 20px rgba(37,99,235,0.35);
     }
 
+    .collection-subsection {
+      margin-bottom: 3rem;
+    }
+
+    .subsection-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      opacity: 0.8;
+    }
+
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1860,6 +1874,7 @@
       justify-content: center;
       font-size: 1rem;
       flex-shrink: 0;
+      margin-top: 0.3rem;
     }
 
     .skill-card-info h4 {
@@ -1876,6 +1891,39 @@
       font-size: 0.72rem;
       color: var(--muted);
       line-height: 1.4;
+    }
+
+    .skill-badge {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      display: inline-block;
+      font-size: 0.55rem;
+      font-weight: 700;
+      padding: 0.25rem 0.45rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    /* Sub-Agent badge — cyan/blue */
+    .skill-badge:not(.skill-badge-default) {
+      color: #38bdf8;
+    }
+
+    html.light .skill-badge:not(.skill-badge-default) {
+      color: #2563eb;
+    }
+
+    /* Skill badge — purple/indigo */
+    .skill-badge-default {
+      color: #a78bfa;
+    }
+
+    html.light .skill-badge-default {
+      color: #7c3aed;
     }
 
     @media (max-width: 900px) {
@@ -3113,16 +3161,16 @@
 <section id="opensource">
   <div class="reveal">
     <span class="section-label">Open Source</span>
-    <h2 class="section-title">Claude Skill Builder Collections</h2>
-    <p class="section-sub">A curated set of Claude AI skills for AI product managers & beyond — covering market research, PRD writing, evaluation, user research and many more coming soon. Free to use and contribute.</p>
+    <h2 class="section-title">Claude Skill/Sub-agent Builder Collections</h2>
+    <p class="section-sub">Open-source Claude AI skills and sub-agents built for product managers. Free to use, fork, and contribute.</p>
   </div>
 
   <!-- Repo card -->
   <div class="repo-card reveal">
     <div class="repo-card-left">
       <div class="repo-card-icon">🛠️</div>
-      <div class="repo-card-name">sankar2code / Claude-Skill-Builder-Collections</div>
-      <p class="repo-card-desc">A curated set of Claude AI skills for AI product managers & beyond — covering market research, PRD writing, evaluation, user research and many more coming soon. Free to use and contribute.</p>
+      <div class="repo-card-name">sankar2code / Claude-Skill_SubAgent-Builder-Collections</div>
+      <p class="repo-card-desc">Curated Claude AI skills and sub-agents for product managers — market research, PRD writing, evaluation, user research, mockup generation & more. Free to use and contribute.</p>
       <div class="repo-card-meta">
         <span class="repo-meta-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
@@ -3140,49 +3188,81 @@
     </a>
   </div>
 
-  <!-- Individual skill cards -->
-  <div class="skills-grid reveal">
+  <!-- SKILLS SECTION -->
+  <div class="collection-subsection reveal">
+    <h3 class="subsection-title">Skills</h3>
+    <div class="skills-grid">
 
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/market-research.md" target="_blank">
-      <div class="skill-card-icon">📊</div>
-      <div class="skill-card-info">
-        <h4>Market Research</h4>
-        <p>Competitive analysis &amp; market intelligence skill</p>
-      </div>
-    </a>
+      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/Skills/README-skills-focused.md" target="_blank">
+        <div class="skill-card-icon">📖</div>
+        <div class="skill-card-info">
+          <h4>Skills Guide</h4>
+          <p>Full documentation &amp; usage guide for all skills</p>
+        </div>
+      </a>
 
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/prd-eval.md" target="_blank">
-      <div class="skill-card-icon">✅</div>
-      <div class="skill-card-info">
-        <h4>PRD Evaluator</h4>
-        <p>Evaluate and score product requirements docs</p>
-      </div>
-    </a>
+      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/market-research.md" target="_blank">
+        <span class="skill-badge skill-badge-default">Skill</span>
+        <div class="skill-card-icon">📊</div>
+        <div class="skill-card-info">
+          <h4>Market Research</h4>
+          <p>Competitive analysis &amp; market intelligence skill</p>
+        </div>
+      </a>
 
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/prd-writer.zip" target="_blank">
-      <div class="skill-card-icon">📝</div>
-      <div class="skill-card-info">
-        <h4>PRD Writer</h4>
-        <p>Generate structured product requirements documents</p>
-      </div>
-    </a>
+      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/prd-eval.md" target="_blank">
+        <span class="skill-badge skill-badge-default">Skill</span>
+        <div class="skill-card-icon">✅</div>
+        <div class="skill-card-info">
+          <h4>PRD Evaluator</h4>
+          <p>Evaluate and score product requirements docs</p>
+        </div>
+      </a>
 
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/user-research.md" target="_blank">
-      <div class="skill-card-icon">🔍</div>
-      <div class="skill-card-info">
-        <h4>User Research</h4>
-        <p>Synthesize user interviews &amp; research insights</p>
-      </div>
-    </a>
+      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/prd-writer.zip" target="_blank">
+        <span class="skill-badge skill-badge-default">Skill</span>
+        <div class="skill-card-icon">📝</div>
+        <div class="skill-card-info">
+          <h4>PRD Writer</h4>
+          <p>Generate structured product requirements documents</p>
+        </div>
+      </a>
 
-    <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/README-skills-focused.md" target="_blank">
-      <div class="skill-card-icon">📖</div>
-      <div class="skill-card-info">
-        <h4>Skills Guide</h4>
-        <p>Full documentation &amp; usage guide for all skills</p>
-      </div>
-    </a>
+      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/blob/main/user-research.md" target="_blank">
+        <span class="skill-badge skill-badge-default">Skill</span>
+        <div class="skill-card-icon">🔍</div>
+        <div class="skill-card-info">
+          <h4>User Research</h4>
+          <p>Synthesize user interviews &amp; research insights</p>
+        </div>
+      </a>
 
+    </div>
+  </div>
+
+  <!-- SUB-AGENTS SECTION -->
+  <div class="collection-subsection reveal">
+    <h3 class="subsection-title">Sub-Agents</h3>
+    <div class="skills-grid">
+
+      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/tree/main/Sub-agent" target="_blank">
+        <div class="skill-card-icon">🤖</div>
+        <div class="skill-card-info">
+          <h4>Sub-Agent Guide</h4>
+          <p>Full documentation &amp; guide for all sub-agents</p>
+        </div>
+      </a>
+
+      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill-Builder-Collections/tree/main/Sub-agent/Mockup-generator" target="_blank">
+        <span class="skill-badge">Sub-Agent</span>
+        <div class="skill-card-icon">🎨</div>
+        <div class="skill-card-info">
+          <h4>Mockup Generator</h4>
+          <p>Turn PRDs into high-fidelity, clickable HTML mockups</p>
+        </div>
+      </a>
+
+    </div>
   </div>
 </section>
 
@@ -3618,6 +3698,10 @@
           <a href="HotelBooking-PRD.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#6366f1,#38bdf8);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             View PRD (.pdf)
+          </a>
+          <a href="https://github.com/sankar2code/Cancellation-Prediction-System" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#6366f1);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub Repo
           </a>
         </div>
       </div>
