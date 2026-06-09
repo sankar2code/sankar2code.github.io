@@ -257,7 +257,7 @@
 
     .nav-links a {
       font-size: 0.82rem;
-      color: var(--muted);
+      color: rgba(255,255,255,0.7);
       font-weight: 500;
       transition: color 0.25s, opacity 0.25s;
       letter-spacing: 0.01em;
@@ -280,7 +280,7 @@
     }
 
     html.light .nav-links a {
-      color: #55557a;
+      color: #333333;
     }
 
     html.light .nav-links a:hover {
@@ -1545,11 +1545,12 @@
     }
 
     .issuer-icon {
-      width: 12px;
-      height: 12px;
+      width: 18px;
+      height: 18px;
       border-radius: 2px;
       flex-shrink: 0;
-      opacity: 0.9;
+      opacity: 1;
+      filter: brightness(1.35);
     }
 
     /* ── Responsive ── */
@@ -3080,6 +3081,7 @@
         <span class="chip">Arize AI</span>
         <span class="chip">Dataiku</span>
         <span class="chip">Figma</span>
+        <span class="chip">GitHub</span>
         <span class="chip">Jira</span>
         <span class="chip">Langchain</span>
         <span class="chip">Langflow</span>
