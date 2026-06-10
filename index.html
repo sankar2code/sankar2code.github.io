@@ -2832,10 +2832,81 @@
       </div>
     </div>
 
+    <!-- 6: AI Analyst -->
+    <div class="project-card project-card--interactive" onclick="document.getElementById('analyst-modal').classList.add('open')" title="Click to explore">
+      <div class="project-header ph-2">📊</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-coral">GenAI · Analytics</span>
+          <span class="tag tag-purple">Product Intelligence</span>
+          <span class="tag tag-gold">2026</span>
+        </div>
+        <h3>AI Analyst Builder: Redefining How Teams Do Product Analysis</h3>
+        <p>AI-powered research partner that handles the execution layer while you keep the judgment layer. 18-agent pipeline frames questions, analyzes data, validates findings across four layers, and builds presentation-ready decks with speaker notes.</p>
+        <div class="project-impact">⚡ Analyses that take weeks now take minutes · One analyst becomes three · Systematic, 4-layer validated methodology replaces intuition</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <div class="divider"></div>
+
+<!-- ───────────────────────────────────────────
+  AI ANALYST MODAL
+──────────────────────────────────────────── -->
+<div class="modal-backdrop" id="analyst-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">📊 AI Analyst Builder: Redefining How Teams Do Product Analysis</div>
+        <div class="modal-tags">
+          <span class="tag tag-coral">GenAI · Analytics</span>
+          <span class="tag tag-purple">Product Intelligence</span>
+          <span class="tag tag-cyan">18-Agent Pipeline</span>
+          <span class="modal-year">2026</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('analyst-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h4>Problem Statement</h4>
+        <p>Product teams spend weeks running analyses that should take days. A business question gets asked Monday. The analyst spends Tuesday-Wednesday exploring data, Thursday writing SQL and building charts, Friday documenting findings, and Monday morning delivering a presentation. By then, the business context has shifted, the question has evolved, and the insight arrives too late to act on.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Solution</h4>
+        <p>AI Analyst v2 is an AI-powered research partner that handles the execution layer while you keep the judgment layer. You ask a business question. The system runs an 18-agent pipeline that frames your question into testable hypotheses, analyzes your data with automated exploration, segmentation, cohort analysis, and root-cause investigation, validates findings across four layers (structural, logical, business rules, paradox detection), tells the story with a narrative arc and Storytelling with Data charts, and builds the deck — a branded, presentation-ready slide deck with speaker notes and export-ready assets.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Business Value</h4>
+        <div class="modal-impact">⚡ Speed — Analyses that take weeks now take minutes. Insights arrive when they matter ✦ Productivity — One analyst becomes three. 80% less time on execution work ✦ Quality — Systematic, 4-layer validated methodology replaces intuition. Fewer errors reach stakeholders</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Documents</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="AI_Analyst.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Presentation (.pdf)
+          </a>
+          <a href="AI_Analyst_Builder_PRD.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#6366f1,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            View PRD (.pdf)
+          </a>
+          <a href="https://github.com/sankar2code/AI-Analyst-Builder" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#6366f1);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub Repo
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- ───────────────────────────────────────────
   EXPERIENCE
