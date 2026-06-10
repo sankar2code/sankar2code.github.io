@@ -708,6 +708,60 @@
       z-index: 2;
     }
 
+    .about-pic-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -10px;
+      min-width: 200px;
+    }
+
+    .about-pic-bg {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(56,189,248,0.2) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(99,102,241,0.15) 0%, transparent 40%);
+      z-index: 0;
+      animation: float 8s ease-in-out infinite;
+      box-shadow:
+        0 0 40px rgba(56,189,248,0.3),
+        0 0 80px rgba(37,99,235,0.2),
+        inset 0 0 40px rgba(56,189,248,0.1);
+      filter: brightness(1.2);
+    }
+
+    .about-profile-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: none;
+      box-shadow: none;
+      opacity: 0.55;
+      position: relative;
+      z-index: 1;
+    }
+
+    html.light .about-pic-bg {
+      background:
+        radial-gradient(circle at 30% 30%, rgba(37,99,235,0.15) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(99,102,241,0.1) 0%, transparent 40%);
+      box-shadow:
+        0 0 40px rgba(37,99,235,0.25),
+        0 0 80px rgba(37,99,235,0.15),
+        inset 0 0 40px rgba(37,99,235,0.08);
+    }
+
+    html.light .about-profile-image {
+      opacity: 0.5;
+    }
+
     .about-grid::before {
       content: '';
       position: absolute;
@@ -2517,7 +2571,15 @@
   <div class="about-grid reveal">
     <div class="about-text">
       <span class="section-label">About Me</span>
-      <h2 class="section-title">Turning Vision<br/>Into Products</h2>
+      <div style="display: flex; gap: 2rem; align-items: flex-start;">
+        <div>
+          <h2 class="section-title">Turning Vision<br/>Into Products</h2>
+        </div>
+        <div class="about-pic-container">
+          <div class="about-pic-bg"></div>
+          <img class="about-profile-image" src="profile-photo.jpeg" alt="Sankar Kumar Palaniappan">
+        </div>
+      </div>
       <p>
         I own the full product lifecycle — from discovery and opportunity sizing to roadmap, delivery, and adoption — partnering with engineering, data science, and design to ship AI capabilities that customers and stakeholders actually use.
       </p>
