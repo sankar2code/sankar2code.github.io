@@ -525,6 +525,11 @@
       75% { transform: translate(-30px, 40px) scale(1.05); }
     }
 
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
     /* Mobile spinning avatar */
     .mobile-avatar {
       display: none;
@@ -725,15 +730,29 @@
       height: 220px;
       border-radius: 50%;
       background:
-        radial-gradient(circle at 30% 30%, rgba(56,189,248,0.2) 0%, transparent 40%),
-        radial-gradient(circle at 70% 70%, rgba(99,102,241,0.15) 0%, transparent 40%);
+        radial-gradient(circle at 20% 20%, rgba(56,189,248,0.25) 0%, transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(99,102,241,0.2) 0%, transparent 35%),
+        radial-gradient(circle at 50% 50%, rgba(139,92,246,0.1) 0%, transparent 50%),
+        conic-gradient(from 0deg, rgba(56,189,248,0.05) 0deg, rgba(99,102,241,0.08) 180deg, rgba(56,189,248,0.05) 360deg);
       z-index: 0;
       animation: float 8s ease-in-out infinite;
       box-shadow:
-        0 0 40px rgba(56,189,248,0.3),
-        0 0 80px rgba(37,99,235,0.2),
-        inset 0 0 40px rgba(56,189,248,0.1);
-      filter: brightness(1.2);
+        0 0 30px rgba(56,189,248,0.4),
+        0 0 60px rgba(37,99,235,0.25),
+        0 0 100px rgba(99,102,241,0.15),
+        inset 0 0 40px rgba(56,189,248,0.12),
+        inset 0 0 60px rgba(99,102,241,0.08);
+      filter: brightness(1.25);
+      border: 2px solid rgba(56,189,248,0.1);
+    }
+
+    .about-pic-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, rgba(56,189,248,0.1) 0%, transparent 70%);
+      animation: pulse 4s ease-in-out infinite;
     }
 
     .about-profile-image {
@@ -750,12 +769,17 @@
 
     html.light .about-pic-bg {
       background:
-        radial-gradient(circle at 30% 30%, rgba(37,99,235,0.15) 0%, transparent 40%),
-        radial-gradient(circle at 70% 70%, rgba(99,102,241,0.1) 0%, transparent 40%);
+        radial-gradient(circle at 20% 20%, rgba(37,99,235,0.2) 0%, transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(99,102,241,0.15) 0%, transparent 35%),
+        radial-gradient(circle at 50% 50%, rgba(139,92,246,0.08) 0%, transparent 50%),
+        conic-gradient(from 0deg, rgba(37,99,235,0.04) 0deg, rgba(99,102,241,0.06) 180deg, rgba(37,99,235,0.04) 360deg);
       box-shadow:
-        0 0 40px rgba(37,99,235,0.25),
-        0 0 80px rgba(37,99,235,0.15),
-        inset 0 0 40px rgba(37,99,235,0.08);
+        0 0 30px rgba(37,99,235,0.35),
+        0 0 60px rgba(37,99,235,0.2),
+        0 0 100px rgba(99,102,241,0.1),
+        inset 0 0 40px rgba(37,99,235,0.1),
+        inset 0 0 60px rgba(99,102,241,0.06);
+      border: 2px solid rgba(37,99,235,0.08);
     }
 
     html.light .about-profile-image {
