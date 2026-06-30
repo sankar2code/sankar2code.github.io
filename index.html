@@ -549,13 +549,13 @@
     .avatar-hex {
       width: 130px;
       height: 130px;
-      animation: rotateSlow 22s linear infinite;
+      animation: rotateSlow 3s linear infinite;
     }
 
     .avatar-hex-inner {
       width: 130px;
       height: 130px;
-      animation: rotateReverse 13s linear infinite;
+      animation: rotateReverse 5s linear infinite;
     }
 
     @keyframes rotateReverse {
@@ -640,7 +640,7 @@
     }
 
     .mobile-avatar svg {
-      animation: rotateSlow 20s linear infinite;
+      animation: rotateSlow 3s linear infinite;
     }
 
     @media (max-width: 600px) {
@@ -2619,10 +2619,34 @@
           <!-- Input nodes -->
           <circle cx="12" cy="22" r="5.5" fill="url(#aiG)" filter="url(#aiGlow)" opacity="0.95"/>
           <circle cx="12" cy="50" r="5.5" fill="url(#aiG)" filter="url(#aiGlow)" opacity="0.95"/>
-          <!-- Center node — larger glow ring + core -->
+          <!-- Center node — Cool Neural/Data Graphic -->
           <circle cx="36" cy="36" r="12" fill="url(#aiG)" opacity="0.08"/>
           <circle cx="36" cy="36" r="8"  fill="url(#aiG)" opacity="0.15"/>
-          <circle cx="36" cy="36" r="6"  fill="url(#aiG)" filter="url(#aiGlow)" opacity="1"/>
+          <!-- Multi-layered holographic core -->
+          <g filter="url(#aiGlow)">
+            <!-- Outer ring -->
+            <circle cx="36" cy="36" r="9" fill="none" stroke="url(#aiG)" stroke-width="0.8" opacity="0.6"/>
+            <!-- Middle ring -->
+            <circle cx="36" cy="36" r="6" fill="none" stroke="url(#aiG)" stroke-width="0.8" opacity="0.7"/>
+            <!-- Inner nodes constellation -->
+            <circle cx="32" cy="32" r="1.2" fill="url(#aiG)" opacity="0.95"/>
+            <circle cx="40" cy="32" r="1.2" fill="url(#aiG)" opacity="0.95"/>
+            <circle cx="36" cy="28" r="1.2" fill="url(#aiG)" opacity="0.95"/>
+            <circle cx="32" cy="40" r="1.2" fill="url(#aiG)" opacity="0.95"/>
+            <circle cx="40" cy="40" r="1.2" fill="url(#aiG)" opacity="0.95"/>
+            <circle cx="36" cy="44" r="1.2" fill="url(#aiG)" opacity="0.95"/>
+            <!-- Central pulsing core -->
+            <circle cx="36" cy="36" r="3" fill="url(#aiG)" opacity="0.9"/>
+            <!-- Connecting lines (data flow) -->
+            <line x1="36" y1="28" x2="32" y2="32" stroke="url(#aiG)" stroke-width="0.5" opacity="0.5"/>
+            <line x1="36" y1="28" x2="40" y2="32" stroke="url(#aiG)" stroke-width="0.5" opacity="0.5"/>
+            <line x1="32" y1="32" x2="36" y2="36" stroke="url(#aiG)" stroke-width="0.5" opacity="0.5"/>
+            <line x1="40" y1="32" x2="36" y2="36" stroke="url(#aiG)" stroke-width="0.5" opacity="0.5"/>
+            <line x1="32" y1="40" x2="36" y2="36" stroke="url(#aiG)" stroke-width="0.5" opacity="0.5"/>
+            <line x1="40" y1="40" x2="36" y2="36" stroke="url(#aiG)" stroke-width="0.5" opacity="0.5"/>
+            <line x1="36" y1="44" x2="32" y2="40" stroke="url(#aiG)" stroke-width="0.5" opacity="0.5"/>
+            <line x1="36" y1="44" x2="40" y2="40" stroke="url(#aiG)" stroke-width="0.5" opacity="0.5"/>
+          </g>
           <!-- Output nodes -->
           <circle cx="60" cy="22" r="5.5" fill="url(#aiG)" filter="url(#aiGlow)" opacity="0.95"/>
           <circle cx="60" cy="50" r="5.5" fill="url(#aiG)" filter="url(#aiGlow)" opacity="0.95"/>
@@ -2641,6 +2665,10 @@
             <stop offset="50%" stop-color="#38bdf8"/>
             <stop offset="100%" stop-color="#6366f1"/>
           </linearGradient>
+          <filter id="mobileDataGlow">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
         </defs>
         <polygon points="65,4 121,33.5 121,96.5 65,126 9,96.5 9,33.5"
           stroke="url(#mobileG)" stroke-width="2" fill="none" opacity="0.8"/>
@@ -2650,6 +2678,34 @@
         <circle cx="65"  cy="126"  r="3.5" fill="url(#mobileG)" opacity="1"/>
         <circle cx="9"   cy="96.5" r="3.5" fill="url(#mobileG)" opacity="1"/>
         <circle cx="9"   cy="33.5" r="3.5" fill="url(#mobileG)" opacity="1"/>
+        <!-- Cool Neural/Data Visualization (larger for mobile) -->
+        <g filter="url(#mobileDataGlow)">
+          <!-- Outer rings -->
+          <circle cx="65" cy="65" r="22" fill="none" stroke="url(#mobileG)" stroke-width="1.2" opacity="0.5"/>
+          <circle cx="65" cy="65" r="16" fill="none" stroke="url(#mobileG)" stroke-width="1.2" opacity="0.6"/>
+          <!-- Constellation nodes -->
+          <circle cx="55" cy="50" r="2" fill="url(#mobileG)" opacity="0.95"/>
+          <circle cx="75" cy="50" r="2" fill="url(#mobileG)" opacity="0.95"/>
+          <circle cx="65" cy="42" r="2" fill="url(#mobileG)" opacity="0.95"/>
+          <circle cx="50" cy="65" r="2" fill="url(#mobileG)" opacity="0.95"/>
+          <circle cx="80" cy="65" r="2" fill="url(#mobileG)" opacity="0.95"/>
+          <circle cx="55" cy="80" r="2" fill="url(#mobileG)" opacity="0.95"/>
+          <circle cx="75" cy="80" r="2" fill="url(#mobileG)" opacity="0.95"/>
+          <circle cx="65" cy="88" r="2" fill="url(#mobileG)" opacity="0.95"/>
+          <!-- Central pulsing core -->
+          <circle cx="65" cy="65" r="5" fill="url(#mobileG)" opacity="0.9"/>
+          <!-- Data flow connections -->
+          <line x1="65" y1="42" x2="55" y2="50" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+          <line x1="65" y1="42" x2="75" y2="50" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+          <line x1="55" y1="50" x2="50" y2="65" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+          <line x1="75" y1="50" x2="80" y2="65" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+          <line x1="50" y1="65" x2="65" y2="65" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+          <line x1="80" y1="65" x2="65" y2="65" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+          <line x1="55" y1="80" x2="65" y2="65" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+          <line x1="75" y1="80" x2="65" y2="65" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+          <line x1="65" y1="88" x2="55" y2="80" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+          <line x1="65" y1="88" x2="75" y2="80" stroke="url(#mobileG)" stroke-width="0.8" opacity="0.5"/>
+        </g>
       </svg>
     </div>
 
@@ -3491,6 +3547,7 @@
         <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Skill</span>
         <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Sub-Agents</span>
         <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=cursor.sh" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Cursor</span>
+        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=atlassian.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Confluence</span>
         <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=dataiku.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Dataiku</span>
         <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=docker.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Docker</span>
         <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=figma.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Figma</span>
