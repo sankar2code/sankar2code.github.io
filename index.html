@@ -986,6 +986,199 @@
     }
 
     /* ═══════════════════════════════════════════════
+       AI TWIN
+    ═══════════════════════════════════════════════ */
+    .twin-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      backdrop-filter: blur(10px);
+      max-width: 620px;
+    }
+
+    .twin-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .twin-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--grad2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .twin-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.98rem;
+    }
+
+    .twin-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    .twin-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-height: 340px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+      padding-right: 0.25rem;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(37,99,235,0.3) transparent;
+    }
+
+    .twin-msg {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      padding: 0.7rem 1rem;
+      border-radius: 14px;
+      max-width: 88%;
+      white-space: pre-wrap;
+    }
+
+    .twin-msg-bot {
+      background: var(--bg3);
+      color: var(--text-body);
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+    }
+
+    .twin-msg-user {
+      background: var(--grad2);
+      color: var(--bg);
+      font-weight: 500;
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+    }
+
+    .twin-msg-error {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #f87171;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .twin-typing {
+      display: inline-flex;
+      gap: 4px;
+      align-self: flex-start;
+      padding: 0.7rem 1rem;
+      background: var(--bg3);
+      border-radius: 14px;
+      border-bottom-left-radius: 4px;
+    }
+
+    .twin-typing span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: twinBounce 1.2s infinite ease-in-out;
+    }
+
+    .twin-typing span:nth-child(2) { animation-delay: 0.15s; }
+    .twin-typing span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes twinBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    .twin-starters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .twin-chip {
+      font-size: 0.78rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-body);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .twin-chip:hover:not(:disabled) {
+      border-color: rgba(37,99,235,0.4);
+      background: rgba(37,99,235,0.08);
+      color: var(--white);
+    }
+
+    .twin-chip:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .twin-input-row {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    #twin-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--bg3);
+      color: var(--white);
+      font-size: 0.88rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #twin-input:focus { border-color: rgba(37,99,235,0.5); }
+    #twin-input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .twin-send {
+      padding: 0.75rem 1.4rem;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .twin-send:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .twin-disclaimer {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
+
+    .twin-disclaimer a { color: #38bdf8; text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .twin-card { padding: 1.25rem; }
+      .twin-messages { max-height: 280px; }
+      .twin-msg { max-width: 94%; font-size: 0.85rem; }
+      .twin-input-row { flex-direction: column; }
+      .twin-send { width: 100%; }
+    }
+
+    /* ═══════════════════════════════════════════════
        FUNCTIONAL DOMAINS
     ═══════════════════════════════════════════════ */
     .domains-grid {
@@ -2503,6 +2696,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#ai-twin">Ask My Twin</a></li>
     <li><a href="#domains">Projects</a></li>
     <li><a href="#work">Built</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -2791,6 +2985,46 @@
         <div class="stat-label">User Problems Solved</div>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────────────────────────────────────
+  AI TWIN
+──────────────────────────────────────────── -->
+<section id="ai-twin">
+  <div class="reveal">
+    <span class="section-label">Ask Before You Email</span>
+    <h2 class="section-title">Not sure if I'm the right fit?<br/>Ask my AI twin.</h2>
+    <p class="section-sub">A Claude-powered version of me, grounded on my real career. Ask about the AI products I've built, my product/data background, or whether I'm a fit for your role — then email the real me. Five questions per session, so make them count.</p>
+  </div>
+
+  <div class="twin-card reveal">
+    <div class="twin-header">
+      <div class="twin-avatar">🤖</div>
+      <div>
+        <div class="twin-name">Sankar's AI twin</div>
+        <div class="twin-sub" id="twin-remaining">5 messages left this session</div>
+      </div>
+    </div>
+
+    <div class="twin-messages" id="twin-messages">
+      <div class="twin-msg twin-msg-bot">Hey, I'm a Claude-powered version of Sankar, grounded on his real career. Ask me anything, or tap a starter below.</div>
+    </div>
+
+    <div class="twin-starters" id="twin-starters">
+      <button type="button" class="twin-chip" data-prompt="What AI products have you actually built?">What have you built with AI?</button>
+      <button type="button" class="twin-chip" data-prompt="What's your experience in pharma and healthcare?">Pharma/healthcare experience?</button>
+      <button type="button" class="twin-chip" data-prompt="Are you a fit for an AI Product Manager role?">Fit for an AI PM role?</button>
+    </div>
+
+    <form class="twin-input-row" id="twin-form">
+      <input type="text" id="twin-input" placeholder="Ask something…" maxlength="600" autocomplete="off" />
+      <button type="submit" class="btn-primary twin-send" id="twin-send-btn">Ask →</button>
+    </form>
+
+    <p class="twin-disclaimer">Grounded on my real career, not a guarantee of accuracy. For anything specific, <a href="mailto:hello@sankar.work">email me directly</a>.</p>
   </div>
 </section>
 
@@ -4607,6 +4841,113 @@
       a.style.color = a.getAttribute('href') === `#${current}` ? '#f5f5f7' : '';
     });
   });
+
+  // ── AI Twin chat widget ──
+  (function () {
+    // TODO: replace with your deployed Cloudflare Worker URL (see README-ai-twin.md)
+    const TWIN_ENDPOINT = 'https://sankar-ai-twin.sankarkumar.workers.dev';
+    const TWIN_MAX_MESSAGES = 5;
+    const STORAGE_KEY = 'twinMsgCount';
+
+    const messagesEl = document.getElementById('twin-messages');
+    const formEl      = document.getElementById('twin-form');
+    const inputEl     = document.getElementById('twin-input');
+    const sendBtn     = document.getElementById('twin-send-btn');
+    const remainingEl = document.getElementById('twin-remaining');
+    const startersEl  = document.getElementById('twin-starters');
+
+    if (!formEl) return; // section not on this page
+
+    let history = []; // { role: 'user'|'assistant', content: string }
+
+    function usedCount() {
+      return parseInt(sessionStorage.getItem(STORAGE_KEY) || '0', 10);
+    }
+
+    function remaining() {
+      return Math.max(0, TWIN_MAX_MESSAGES - usedCount());
+    }
+
+    function updateRemainingLabel() {
+      const left = remaining();
+      remainingEl.textContent = left > 0
+        ? `${left} message${left === 1 ? '' : 's'} left this session`
+        : `Session limit reached`;
+      const disabled = left <= 0;
+      inputEl.disabled = disabled;
+      sendBtn.disabled = disabled;
+      startersEl.querySelectorAll('.twin-chip').forEach(btn => btn.disabled = disabled);
+      inputEl.placeholder = disabled ? 'Email hello@sankar.work for more →' : 'Ask something…';
+    }
+
+    function addMessage(role, text) {
+      const div = document.createElement('div');
+      div.className = 'twin-msg ' + (role === 'user' ? 'twin-msg-user' : role === 'error' ? 'twin-msg-error' : 'twin-msg-bot');
+      div.textContent = text;
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return div;
+    }
+
+    function showTyping() {
+      const div = document.createElement('div');
+      div.className = 'twin-typing';
+      div.id = 'twin-typing-indicator';
+      div.innerHTML = '<span></span><span></span><span></span>';
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function hideTyping() {
+      const el = document.getElementById('twin-typing-indicator');
+      if (el) el.remove();
+    }
+
+    async function sendPrompt(text) {
+      text = text.trim();
+      if (!text || remaining() <= 0) return;
+
+      addMessage('user', text);
+      history.push({ role: 'user', content: text });
+      sessionStorage.setItem(STORAGE_KEY, String(usedCount() + 1));
+      updateRemainingLabel();
+      inputEl.value = '';
+      showTyping();
+
+      try {
+        const res = await fetch(TWIN_ENDPOINT, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ messages: history }),
+        });
+        hideTyping();
+
+        if (!res.ok) {
+          addMessage('error', "Something went wrong reaching my AI twin — try again in a moment, or email me directly at hello@sankar.work.");
+          return;
+        }
+
+        const data = await res.json();
+        const reply = data.reply || "I couldn't generate a reply — email me directly at hello@sankar.work.";
+        addMessage('assistant', reply);
+        history.push({ role: 'assistant', content: reply });
+      } catch (err) {
+        hideTyping();
+        addMessage('error', "Couldn't connect to my AI twin right now — email me directly at hello@sankar.work.");
+      }
+    }
+
+    formEl.addEventListener('submit', (e) => {
+      e.preventDefault();
+      sendPrompt(inputEl.value);
+    });
+
+    startersEl.querySelectorAll('.twin-chip').forEach(btn => {
+      btn.addEventListener('click', () => sendPrompt(btn.dataset.prompt));
+    });
+
+    updateRemainingLabel();
+  })();
 </script>
 
 
