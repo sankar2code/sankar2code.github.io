@@ -1005,6 +1005,7 @@
     }
 
     .twin-avatar {
+      position: relative;
       width: 42px;
       height: 42px;
       border-radius: 50%;
@@ -1012,8 +1013,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
       flex-shrink: 0;
+      box-shadow: 0 0 0 0 rgba(56,189,248,0.5);
+      animation: twinAvatarPulse 2.8s ease-in-out infinite;
+    }
+
+    .twin-avatar svg {
+      width: 20px;
+      height: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes twinAvatarPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(56,189,248,0.45); }
+      70%  { box-shadow: 0 0 0 8px rgba(56,189,248,0); }
+      100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); }
     }
 
     .twin-name {
@@ -3002,7 +3017,12 @@
 
   <div class="twin-card reveal">
     <div class="twin-header">
-      <div class="twin-avatar">🤖</div>
+      <div class="twin-avatar">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.5c.55 3.1 1.15 4.9 2.35 6.15C15.55 9.9 17.35 10.5 20.5 11c-3.15.5-4.95 1.1-6.15 2.35C13.15 14.6 12.55 16.4 12 19.5c-.55-3.1-1.15-4.9-2.35-6.15C8.45 12.1 6.65 11.5 3.5 11c3.15-.5 4.95-1.1 6.15-2.35C10.85 7.4 11.45 5.6 12 2.5z" fill="#fff"/>
+          <path d="M18.5 14.5c.28 1.05.6 1.66 1.15 2.2.54.53 1.16.85 2.35 1.1-1.19.25-1.81.57-2.35 1.1-.55.54-.87 1.15-1.15 2.2-.28-1.05-.6-1.66-1.15-2.2-.54-.53-1.16-.85-2.35-1.1 1.19-.25 1.81-.57 2.35-1.1.55-.54.87-1.15 1.15-2.2z" fill="#fff" opacity="0.85"/>
+        </svg>
+      </div>
       <div>
         <div class="twin-name">Sankar's AI twin</div>
         <div class="twin-sub" id="twin-remaining">5 messages left this session</div>
