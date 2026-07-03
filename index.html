@@ -5037,9 +5037,29 @@
       if (el) el.remove();
     }
 
+    // Basic client-side profanity/abuse filter — blocks obvious bad language before
+    // it's even sent, so it doesn't cost the visitor a message or an API call.
+    // The worker has its own server-side check as a backstop in case this is bypassed.
+    const TWIN_BLOCKED_WORDS = [
+      'fuck', 'shit', 'bitch', 'asshole', 'bastard', 'cunt', 'dick', 'piss',
+      'slut', 'whore', 'nigger', 'nigga', 'faggot', 'retard', 'twat', 'douche'
+    ];
+    const TWIN_BLOCKED_RE = new RegExp('\\b(' + TWIN_BLOCKED_WORDS.join('|') + ')\\b', 'i');
+
+    function containsBadLanguage(text) {
+      return TWIN_BLOCKED_RE.test(text);
+    }
+
     async function sendPrompt(text) {
       text = text.trim();
       if (!text || remaining() <= 0) return;
+
+      if (containsBadLanguage(text)) {
+        addMessage('user', text);
+        addMessage('error', "Let's keep it professional — try rephrasing that, or email me directly at hello@sankar.work.");
+        inputEl.value = '';
+        return; // not sent to the API, doesn't count against the message limit
+      }
 
       addMessage('user', text);
       history.push({ role: 'user', content: text });
