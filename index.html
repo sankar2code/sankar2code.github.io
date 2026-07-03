@@ -955,17 +955,18 @@
     }
 
     .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: linear-gradient(160deg, rgba(37,99,235,0.14), rgba(56,189,248,0.06) 60%, var(--card));
+      border: 1px solid rgba(56,189,248,0.18);
       border-radius: var(--radius);
       padding: 1.5rem;
       backdrop-filter: blur(10px);
-      transition: border-color 0.3s, transform 0.3s;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
     }
 
     .stat-card:hover {
-      border-color: rgba(37,99,235,0.3);
+      border-color: rgba(56,189,248,0.45);
       transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(37,99,235,0.18);
     }
 
     .stat-num {
@@ -976,11 +977,13 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 0 14px rgba(56,189,248,0.35));
     }
 
     .stat-label {
       font-size: 0.82rem;
-      color: var(--muted);
+      font-weight: 500;
+      color: #ffffff;
       margin-top: 0.2rem;
       text-align: left;
     }
@@ -992,9 +995,9 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 1.75rem;
+      padding: 2rem;
       backdrop-filter: blur(10px);
-      max-width: 620px;
+      width: 100%;
     }
 
     .twin-header {
@@ -1009,6 +1012,7 @@
       width: 42px;
       height: 42px;
       border-radius: 50%;
+      padding: 2px;
       background: var(--grad2);
       display: flex;
       align-items: center;
@@ -1019,10 +1023,30 @@
     }
 
     .twin-avatar svg {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       position: relative;
       z-index: 1;
+    }
+
+    .twin-avatar .twin-node-ring {
+      animation: twinSpin 6s linear infinite;
+      transform-origin: 12px 12px;
+    }
+
+    .twin-avatar .twin-node-center {
+      animation: twinNodePulse 2.2s ease-in-out infinite;
+      transform-origin: 12px 12px;
+    }
+
+    @keyframes twinSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes twinNodePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.7; transform: scale(1.25); }
     }
 
     @keyframes twinAvatarPulse {
@@ -1047,7 +1071,8 @@
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
-      max-height: 340px;
+      max-height: 480px;
+      min-height: 260px;
       overflow-y: auto;
       margin-bottom: 1rem;
       padding-right: 0.25rem;
@@ -1056,11 +1081,11 @@
     }
 
     .twin-msg {
-      font-size: 0.88rem;
-      line-height: 1.6;
-      padding: 0.7rem 1rem;
+      font-size: 1.02rem;
+      line-height: 1.7;
+      padding: 0.8rem 1.15rem;
       border-radius: 14px;
-      max-width: 88%;
+      max-width: min(75%, 560px);
       white-space: pre-wrap;
     }
 
@@ -1089,28 +1114,51 @@
 
     .twin-typing {
       display: inline-flex;
-      gap: 4px;
+      align-items: center;
+      gap: 0.65rem;
       align-self: flex-start;
-      padding: 0.7rem 1rem;
+      padding: 0.65rem 1.1rem;
       background: var(--bg3);
       border-radius: 14px;
       border-bottom-left-radius: 4px;
     }
 
-    .twin-typing span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--muted);
-      animation: twinBounce 1.2s infinite ease-in-out;
+    .twin-thinking-svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      overflow: visible;
     }
 
-    .twin-typing span:nth-child(2) { animation-delay: 0.15s; }
-    .twin-typing span:nth-child(3) { animation-delay: 0.3s; }
+    .twin-thinking-orbit {
+      animation: twinSpin 1s linear infinite;
+      transform-origin: 12px 12px;
+    }
 
-    @keyframes twinBounce {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
-      30% { transform: translateY(-4px); opacity: 1; }
+    .twin-thinking-core {
+      animation: twinNodePulse 1s ease-in-out infinite;
+      transform-origin: 12px 12px;
+    }
+
+    .twin-thinking-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .twin-thinking-dots span {
+      display: inline-block;
+      animation: twinDotFade 1.4s ease-in-out infinite;
+      opacity: 0.25;
+    }
+
+    .twin-thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .twin-thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes twinDotFade {
+      0%, 100% { opacity: 0.25; }
+      50%       { opacity: 1; }
     }
 
     .twin-starters {
@@ -1121,7 +1169,7 @@
     }
 
     .twin-chip {
-      font-size: 0.78rem;
+      font-size: 0.86rem;
       padding: 0.5rem 0.9rem;
       border-radius: 50px;
       border: 1px solid var(--border);
@@ -1154,7 +1202,7 @@
       border: 1px solid var(--border);
       background: var(--bg3);
       color: var(--white);
-      font-size: 0.88rem;
+      font-size: 0.98rem;
       font-family: 'Inter', sans-serif;
       outline: none;
       transition: border-color 0.2s;
@@ -3019,8 +3067,21 @@
     <div class="twin-header">
       <div class="twin-avatar">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2.5c.55 3.1 1.15 4.9 2.35 6.15C15.55 9.9 17.35 10.5 20.5 11c-3.15.5-4.95 1.1-6.15 2.35C13.15 14.6 12.55 16.4 12 19.5c-.55-3.1-1.15-4.9-2.35-6.15C8.45 12.1 6.65 11.5 3.5 11c3.15-.5 4.95-1.1 6.15-2.35C10.85 7.4 11.45 5.6 12 2.5z" fill="#fff"/>
-          <path d="M18.5 14.5c.28 1.05.6 1.66 1.15 2.2.54.53 1.16.85 2.35 1.1-1.19.25-1.81.57-2.35 1.1-.55.54-.87 1.15-1.15 2.2-.28-1.05-.6-1.66-1.15-2.2-.54-.53-1.16-.85-2.35-1.1 1.19-.25 1.81-.57 2.35-1.1.55-.54.87-1.15 1.15-2.2z" fill="#fff" opacity="0.85"/>
+          <g class="twin-node-ring">
+            <line x1="12" y1="12" x2="12" y2="4"  stroke="#fff" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+            <line x1="12" y1="12" x2="19" y2="8"  stroke="#fff" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+            <line x1="12" y1="12" x2="19" y2="16" stroke="#fff" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+            <line x1="12" y1="12" x2="12" y2="20" stroke="#fff" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+            <line x1="12" y1="12" x2="5"  y2="16" stroke="#fff" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+            <line x1="12" y1="12" x2="5"  y2="8"  stroke="#fff" stroke-width="1.3" stroke-linecap="round" opacity="0.8"/>
+            <circle cx="12" cy="4"  r="1.5" fill="#fff"/>
+            <circle cx="19" cy="8"  r="1.5" fill="#fff"/>
+            <circle cx="19" cy="16" r="1.5" fill="#fff"/>
+            <circle cx="12" cy="20" r="1.5" fill="#fff"/>
+            <circle cx="5"  cy="16" r="1.5" fill="#fff"/>
+            <circle cx="5"  cy="8"  r="1.5" fill="#fff"/>
+          </g>
+          <circle class="twin-node-center" cx="12" cy="12" r="2.6" fill="#fff"/>
         </svg>
       </div>
       <div>
@@ -4900,10 +4961,25 @@
       inputEl.placeholder = disabled ? 'Email hello@sankar.work for more →' : 'Ask something…';
     }
 
+    // Safety net: strip stray markdown in case the model slips any in,
+    // even though the system prompt asks it to avoid formatting entirely.
+    function stripMarkdown(text) {
+      return text
+        .replace(/^#{1,6}\s+/gm, '')            // headers
+        .replace(/\*\*(.*?)\*\*/g, '$1')        // **bold**
+        .replace(/__(.*?)__/g, '$1')            // __bold__
+        .replace(/\*(.*?)\*/g, '$1')            // *italic*
+        .replace(/_(.*?)_/g, '$1')              // _italic_
+        .replace(/`{1,3}([^`]*)`{1,3}/g, '$1')  // `code`
+        .replace(/^\s*[-*•]\s+/gm, '')          // bullet list markers
+        .replace(/^\s*\d+\.\s+/gm, '')          // numbered list markers
+        .trim();
+    }
+
     function addMessage(role, text) {
       const div = document.createElement('div');
       div.className = 'twin-msg ' + (role === 'user' ? 'twin-msg-user' : role === 'error' ? 'twin-msg-error' : 'twin-msg-bot');
-      div.textContent = text;
+      div.textContent = role === 'assistant' ? stripMarkdown(text) : text;
       messagesEl.appendChild(div);
       messagesEl.scrollTop = messagesEl.scrollHeight;
       return div;
@@ -4913,7 +4989,19 @@
       const div = document.createElement('div');
       div.className = 'twin-typing';
       div.id = 'twin-typing-indicator';
-      div.innerHTML = '<span></span><span></span><span></span>';
+      div.innerHTML = `
+        <svg class="twin-thinking-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g class="twin-thinking-orbit">
+            <circle cx="12" cy="3.5"  r="1.7" fill="#38bdf8"/>
+            <circle cx="19.5" cy="9"  r="1.5" fill="#6366f1" opacity="0.85"/>
+            <circle cx="16.7" cy="18.2" r="1.3" fill="#2563eb" opacity="0.7"/>
+            <circle cx="7.3" cy="18.2" r="1.1" fill="#a5b4fc" opacity="0.55"/>
+            <circle cx="4.5" cy="9"   r="0.9" fill="#38bdf8" opacity="0.4"/>
+          </g>
+          <circle class="twin-thinking-core" cx="12" cy="12" r="2.4" fill="#fff"/>
+        </svg>
+        <span class="twin-thinking-label">Thinking<span class="twin-thinking-dots"><span>.</span><span>.</span><span>.</span></span></span>
+      `;
       messagesEl.appendChild(div);
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
