@@ -3060,7 +3060,7 @@
   <div class="reveal">
     <span class="section-label">Ask Before You Email</span>
     <h2 class="section-title">Not sure if I'm the right fit?<br/>Ask my AI twin.</h2>
-    <p class="section-sub">A Claude-powered version of me, grounded on my real career. Ask about the AI products I've built, my product/data background, or whether I'm a fit for your role — then email the real me. Five questions per session, so make them count.</p>
+    <p class="section-sub">A Claude-powered version of me, grounded on my real career. Ask about the AI products I've built, my product/data background, or whether I'm a fit for your role — then email the real me. Five questions per hour, resetting automatically, so make them count.</p>
   </div>
 
   <div class="twin-card reveal">
@@ -4932,7 +4932,8 @@
     // TODO: replace with your deployed Cloudflare Worker URL (see README-ai-twin.md)
     const TWIN_ENDPOINT = 'https://sankar-ai-twin.sankarkumar.workers.dev';
     const TWIN_MAX_MESSAGES = 5;
-    const STORAGE_KEY = 'twinMsgCount';
+    const TWIN_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+    const STORAGE_KEY = 'twinSession';
 
     const messagesEl = document.getElementById('twin-messages');
     const formEl      = document.getElementById('twin-form');
@@ -4945,19 +4946,40 @@
 
     let history = []; // { role: 'user'|'assistant', content: string }
 
-    function usedCount() {
-      return parseInt(sessionStorage.getItem(STORAGE_KEY) || '0', 10);
+    // Session = { count, resetAt }. Persisted in localStorage so it survives
+    // page reloads / tab closes, but rolls over automatically once resetAt passes.
+    function getSession() {
+      let session = null;
+      try { session = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch { session = null; }
+      const now = Date.now();
+      if (!session || typeof session.resetAt !== 'number' || now >= session.resetAt) {
+        session = { count: 0, resetAt: now + TWIN_WINDOW_MS };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+      }
+      return session;
+    }
+
+    function recordMessage() {
+      const session = getSession();
+      session.count += 1;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
     }
 
     function remaining() {
-      return Math.max(0, TWIN_MAX_MESSAGES - usedCount());
+      const session = getSession();
+      return Math.max(0, TWIN_MAX_MESSAGES - session.count);
+    }
+
+    function minutesUntilReset() {
+      const session = getSession();
+      return Math.max(1, Math.ceil((session.resetAt - Date.now()) / 60000));
     }
 
     function updateRemainingLabel() {
       const left = remaining();
       remainingEl.textContent = left > 0
-        ? `${left} message${left === 1 ? '' : 's'} left this session`
-        : `Session limit reached`;
+        ? `${left} message${left === 1 ? '' : 's'} left this hour`
+        : `Limit reached — resets in ${minutesUntilReset()} min`;
       const disabled = left <= 0;
       inputEl.disabled = disabled;
       sendBtn.disabled = disabled;
@@ -5021,7 +5043,7 @@
 
       addMessage('user', text);
       history.push({ role: 'user', content: text });
-      sessionStorage.setItem(STORAGE_KEY, String(usedCount() + 1));
+      recordMessage();
       updateRemainingLabel();
       inputEl.value = '';
       showTyping();
@@ -5059,6 +5081,7 @@
     });
 
     updateRemainingLabel();
+    setInterval(updateRemainingLabel, 30000); // keep the countdown/reset accurate without needing a new message
   })();
 </script>
 
