@@ -5058,13 +5058,18 @@
 
         if (!res.ok) {
           addMessage('error', "Something went wrong reaching my AI twin — try again in a moment, or email me directly at hello@sankar.work.");
+          history.pop(); // don't leave an unanswered user turn in context
           return;
         }
 
         const data = await res.json();
-        const reply = data.reply || "I couldn't generate a reply — email me directly at hello@sankar.work.";
-        addMessage('assistant', reply);
-        history.push({ role: 'assistant', content: reply });
+        if (!data.reply) {
+          addMessage('error', "I couldn't generate a reply that time — try rephrasing, or email me directly at hello@sankar.work.");
+          history.pop(); // don't poison future turns with a fake assistant reply
+          return;
+        }
+        addMessage('assistant', data.reply);
+        history.push({ role: 'assistant', content: data.reply });
       } catch (err) {
         hideTyping();
         addMessage('error', "Couldn't connect to my AI twin right now — email me directly at hello@sankar.work.");
