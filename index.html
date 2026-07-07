@@ -2634,6 +2634,13 @@
 
     .ascent-svg text.now { fill: #7dd3fc; }
 
+    .ascent-svg text.ascent-loc {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      opacity: 0.85;
+    }
+
     .ascent-step {
       position: absolute;
       width: 16px;
@@ -4716,26 +4723,33 @@
   </div>
 
   <div class="career-ascent reveal" id="career-ascent" aria-label="Career progression, 2010 to present">
-    <svg class="ascent-svg" viewBox="0 0 700 140" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <svg class="ascent-svg" viewBox="0 0 700 154" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <path class="ascent-base" d="M20,112 H110 V96 H200 V80 H290 V64 H380 V48 H470 V32 H560 V16 H680"/>
       <path class="ascent-pulse" d="M20,112 H110 V96 H200 V80 H290 V64 H380 V48 H470 V32 H560 V16 H680" pathLength="100">
         <animate attributeName="stroke-dashoffset" from="100" to="0" dur="3.4s" repeatCount="indefinite"/>
       </path>
       <text x="65" y="130">2010</text>
+      <text class="ascent-loc" x="65" y="142">🇮🇳 India</text>
       <text x="155" y="114">2015</text>
+      <text class="ascent-loc" x="155" y="126">🇺🇸 USA</text>
       <text x="245" y="98">2016</text>
+      <text class="ascent-loc" x="245" y="110">🇺🇸 USA</text>
       <text x="335" y="82">2017</text>
+      <text class="ascent-loc" x="335" y="94">🇺🇸 NJ, USA</text>
       <text x="425" y="66">2020</text>
+      <text class="ascent-loc" x="425" y="78">🇺🇸 NJ, USA</text>
       <text x="515" y="50">2022</text>
+      <text class="ascent-loc" x="515" y="62">🇺🇸 NY, USA</text>
       <text class="now" x="620" y="36">NOW</text>
+      <text class="ascent-loc" x="620" y="48">🇺🇸 NJ, USA</text>
     </svg>
-    <button type="button" class="ascent-step" data-tl="6" data-role="Project Engineer · WIPRO" style="left:9.29%; top:80%;" aria-label="2010, Project Engineer at WIPRO"></button>
-    <button type="button" class="ascent-step" data-tl="5" data-role="Business Analyst · Upchannel" style="left:22.14%; top:68.6%;" aria-label="2015, Business Analyst at Upchannel"></button>
-    <button type="button" class="ascent-step" data-tl="4" data-role="Senior BA · Cloudculina" style="left:35%; top:57.1%;" aria-label="2015 to 2017, Senior Business Analyst at Cloudculina"></button>
-    <button type="button" class="ascent-step" data-tl="3" data-role="BA / Product Owner · Grapnel" style="left:47.86%; top:45.7%;" aria-label="2017 to 2020, Business Analyst and Product Owner at Grapnel"></button>
-    <button type="button" class="ascent-step" data-tl="2" data-role="Senior BA / PO · HCL" style="left:60.71%; top:34.3%;" aria-label="2020 to 2022, Senior BA and Product Owner at HCL"></button>
-    <button type="button" class="ascent-step" data-tl="1" data-role="Data Engineer / PO · HealthFirst" style="left:73.57%; top:22.9%;" aria-label="2022 to 2025, Data Engineer and Product Owner at HealthFirst"></button>
-    <button type="button" class="ascent-step ascent-step--now" data-tl="0" data-role="Senior BA / PO · Otsuka" style="left:88.57%; top:11.4%;" aria-label="2025 to present, Senior BA and Product Owner at Otsuka"></button>
+    <button type="button" class="ascent-step" data-tl="6" data-role="Project Engineer · WIPRO · 🇮🇳 India" style="left:9.29%; top:72.7%;" aria-label="2010, Project Engineer at WIPRO, India"></button>
+    <button type="button" class="ascent-step" data-tl="5" data-role="Business Analyst · Upchannel · 🇺🇸 USA" style="left:22.14%; top:62.3%;" aria-label="2015, Business Analyst at Upchannel, USA"></button>
+    <button type="button" class="ascent-step" data-tl="4" data-role="Senior BA · Cloudculina · 🇺🇸 USA" style="left:35%; top:51.9%;" aria-label="2015 to 2017, Senior Business Analyst at Cloudculina, USA"></button>
+    <button type="button" class="ascent-step" data-tl="3" data-role="BA / Product Owner · Grapnel · 🇺🇸 NJ" style="left:47.86%; top:41.6%;" aria-label="2017 to 2020, Business Analyst and Product Owner at Grapnel, New Jersey"></button>
+    <button type="button" class="ascent-step" data-tl="2" data-role="Senior BA / PO · HCL · 🇺🇸 NJ" style="left:60.71%; top:31.2%;" aria-label="2020 to 2022, Senior BA and Product Owner at HCL, New Jersey"></button>
+    <button type="button" class="ascent-step" data-tl="1" data-role="Data Engineer / PO · HealthFirst · 🇺🇸 NY" style="left:73.57%; top:20.8%;" aria-label="2022 to 2025, Data Engineer and Product Owner at HealthFirst, New York"></button>
+    <button type="button" class="ascent-step ascent-step--now" data-tl="0" data-role="Senior BA / PO · Otsuka · 🇺🇸 NJ" style="left:88.57%; top:10.4%;" aria-label="2025 to present, Senior BA and Product Owner at Otsuka, New Jersey"></button>
   </div>
 
   <button type="button" class="exp-toggle reveal" id="exp-toggle-all">⊞ Expand all roles</button>
