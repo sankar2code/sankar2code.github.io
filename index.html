@@ -369,13 +369,16 @@
       box-shadow: 0 0 10px rgba(251,191,36,0.6);
     }
 
-    /* ─── THEME WAVE TRANSITION ─────────────────── */
+    /* ─── THEME RING PULSE TRANSITION ───────────── */
     #theme-wave {
       position: fixed;
       width: 10px;
       height: 10px;
       margin: -5px 0 0 -5px;
       border-radius: 50%;
+      border: 2px solid #38bdf8;
+      background: transparent;
+      box-shadow: 0 0 14px rgba(56,189,248,0.8), inset 0 0 10px rgba(56,189,248,0.4);
       transform: scale(0);
       opacity: 0;
       pointer-events: none;
@@ -6379,27 +6382,27 @@
     }
 
     themeWaving = true;
+    applyTheme(next);
+
     const r = btn.getBoundingClientRect();
     const cx = r.left + r.width / 2;
     const cy = r.top + r.height / 2;
     const reach = Math.hypot(Math.max(cx, window.innerWidth - cx), Math.max(cy, window.innerHeight - cy));
     wave.style.left = cx + 'px';
     wave.style.top = cy + 'px';
-    wave.style.background = next === 'light' ? 'rgba(250,250,250,0.72)' : 'rgba(8,8,15,0.72)';
+    wave.style.transition = 'none';
+    wave.style.transform = 'scale(0)';
     wave.style.opacity = '1';
-    wave.style.transition = 'transform 0.55s ease-in';
-    wave.style.transform = 'scale(' + (reach * 2.2 / 10) + ')';
-
-    setTimeout(() => {
-      applyTheme(next);
-      wave.style.transition = 'opacity 0.35s ease';
+    requestAnimationFrame(() => {
+      wave.style.transition = 'transform 0.8s ease-out, opacity 0.8s ease-out';
+      wave.style.transform = 'scale(' + (reach * 2.2 / 10) + ')';
       wave.style.opacity = '0';
       setTimeout(() => {
         wave.style.transition = 'none';
         wave.style.transform = 'scale(0)';
         themeWaving = false;
-      }, 380);
-    }, 560);
+      }, 820);
+    });
   }
 
   // Apply saved preference on load
