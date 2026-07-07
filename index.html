@@ -6385,7 +6385,7 @@
     const reach = Math.hypot(Math.max(cx, window.innerWidth - cx), Math.max(cy, window.innerHeight - cy));
     wave.style.left = cx + 'px';
     wave.style.top = cy + 'px';
-    wave.style.background = next === 'light' ? '#fafafa' : '#08080f';
+    wave.style.background = next === 'light' ? 'rgba(250,250,250,0.72)' : 'rgba(8,8,15,0.72)';
     wave.style.opacity = '1';
     wave.style.transition = 'transform 0.55s ease-in';
     wave.style.transform = 'scale(' + (reach * 2.2 / 10) + ')';
