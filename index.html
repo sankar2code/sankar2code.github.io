@@ -305,27 +305,82 @@
 
     /* ─── THEME TOGGLE BUTTON ────────────────────── */
     .theme-toggle {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: var(--bg3);
-      color: var(--white);
+      position: relative;
+      width: 64px;
+      height: 32px;
+      border-radius: 20px;
+      border: 1px solid rgba(56,189,248,0.4);
+      background: linear-gradient(90deg, #0c1445, #1a1a3a);
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.25s;
+      padding: 0;
+      overflow: hidden;
       flex-shrink: 0;
+      transition: background 0.6s, border-color 0.25s, box-shadow 0.25s;
     }
 
     .theme-toggle:hover {
-      border-color: rgba(37,99,235,0.4);
-      background: rgba(37,99,235,0.1);
-      transform: rotate(20deg);
+      border-color: rgba(56,189,248,0.7);
+      box-shadow: 0 0 12px rgba(56,189,248,0.3);
     }
 
-    .theme-toggle svg { transition: transform 0.4s; }
+    .tt-star {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      transition: opacity 0.5s;
+    }
+
+    .tt-star-1 { top: 7px;  left: 12px; width: 2px;   height: 2px;   opacity: 0.9; }
+    .tt-star-2 { top: 19px; left: 22px; width: 1.5px; height: 1.5px; opacity: 0.7; }
+    .tt-star-3 { top: 10px; left: 33px; width: 2px;   height: 2px;   opacity: 0.8; }
+
+    .tt-knob {
+      position: absolute;
+      top: 2px;
+      left: 33px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #e8e8f5;
+      box-shadow: 0 0 10px rgba(232,232,245,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1;
+      transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.5s;
+    }
+
+    html.light .theme-toggle {
+      background: linear-gradient(90deg, #7dd3fc, #bae6fd);
+      border-color: rgba(37,99,235,0.45);
+    }
+
+    html.light .theme-toggle:hover {
+      border-color: rgba(37,99,235,0.7);
+      box-shadow: 0 0 12px rgba(37,99,235,0.25);
+    }
+
+    html.light .tt-star { opacity: 0; }
+
+    html.light .tt-knob {
+      left: 3px;
+      background: #fff7d6;
+      box-shadow: 0 0 10px rgba(251,191,36,0.6);
+    }
+
+    /* ─── THEME WAVE TRANSITION ─────────────────── */
+    #theme-wave {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      margin: -5px 0 0 -5px;
+      border-radius: 50%;
+      transform: scale(0);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
 
     .nav-logo {
       flex: 1;
@@ -3948,22 +4003,10 @@
   </ul>
   <div class="nav-right">
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle dark/light mode">
-      <!-- Sun icon (shown in dark mode) -->
-      <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="5"/>
-        <line x1="12" y1="1" x2="12" y2="3"/>
-        <line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/>
-        <line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-      <!-- Moon icon (shown in light mode) -->
-      <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
+      <span class="tt-star tt-star-1"></span>
+      <span class="tt-star tt-star-2"></span>
+      <span class="tt-star tt-star-3"></span>
+      <span class="tt-knob" id="tt-knob">🌙</span>
     </button>
     <div class="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -3972,6 +4015,7 @@
 </nav>
 
 <div id="scroll-progress" aria-hidden="true"></div>
+<div id="theme-wave" aria-hidden="true"></div>
 
 <!-- ───────────────────────────────────────────
   HERO
@@ -6314,40 +6358,61 @@
 
   // ── Theme toggle ──
   const html = document.documentElement;
-  const sun  = document.getElementById('icon-sun');
-  const moon = document.getElementById('icon-moon');
+  const ttKnob = document.getElementById('tt-knob');
+  let themeWaving = false;
 
   function applyTheme(theme) {
-    if (theme === 'light') {
-      html.classList.add('light');
-      sun.style.display  = 'none';
-      moon.style.display = 'block';
-    } else {
-      html.classList.remove('light');
-      sun.style.display  = 'block';
-      moon.style.display = 'none';
-    }
+    html.classList.toggle('light', theme === 'light');
+    if (ttKnob) ttKnob.textContent = theme === 'light' ? '☀️' : '🌙';
   }
 
   function toggleTheme() {
     const next = html.classList.contains('light') ? 'dark' : 'light';
     localStorage.setItem('theme', next);
-    applyTheme(next);
+
+    const wave = document.getElementById('theme-wave');
+    const btn = document.querySelector('.theme-toggle');
+    const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!wave || !btn || noMotion || themeWaving) {
+      applyTheme(next);
+      return;
+    }
+
+    themeWaving = true;
+    const r = btn.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const reach = Math.hypot(Math.max(cx, window.innerWidth - cx), Math.max(cy, window.innerHeight - cy));
+    wave.style.left = cx + 'px';
+    wave.style.top = cy + 'px';
+    wave.style.background = next === 'light' ? '#fafafa' : '#08080f';
+    wave.style.opacity = '1';
+    wave.style.transition = 'transform 0.55s ease-in';
+    wave.style.transform = 'scale(' + (reach * 2.2 / 10) + ')';
+
+    setTimeout(() => {
+      applyTheme(next);
+      wave.style.transition = 'opacity 0.35s ease';
+      wave.style.opacity = '0';
+      setTimeout(() => {
+        wave.style.transition = 'none';
+        wave.style.transform = 'scale(0)';
+        themeWaving = false;
+      }, 380);
+    }, 560);
   }
 
   // Apply saved preference on load
   applyTheme(localStorage.getItem('theme') || 'dark');
 
   // ── Nav scroll effect ──
-  window.addEventListener('scroll', () => {
+  function updateNavBg() {
     const nav = document.querySelector('nav');
-    const isLight = html.classList.contains('light');
-    if (window.scrollY > 50) {
-      nav.style.background = isLight ? 'rgba(250,250,250,0.97)' : 'rgba(8,8,15,0.95)';
-    } else {
-      nav.style.background = isLight ? 'rgba(250,250,250,0.8)' : 'rgba(8,8,15,0.75)';
-    }
-  });
+    if (!nav) return;
+    nav.style.background = window.scrollY > 50 ? 'var(--nav-bg-scroll)' : 'var(--nav-bg)';
+  }
+  window.addEventListener('scroll', updateNavBg, { passive: true });
+  updateNavBg();
 
   // ── Scroll effects: progress bar, parallax blobs, rocket ──
   const progressBar = document.getElementById('scroll-progress');
