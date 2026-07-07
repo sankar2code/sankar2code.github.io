@@ -388,6 +388,89 @@
       100% { left: 180%; }
     }
 
+    /* ─── NAV BADGE LIGHT TRACE ─────────────────── */
+    .nav-badge-trace {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .nav-badge-trace polygon {
+      fill: none;
+      stroke: #7dd3fc;
+      stroke-width: 2.5;
+      vector-effect: non-scaling-stroke;
+      stroke-linecap: round;
+      stroke-dasharray: 14 86;
+      filter: drop-shadow(0 0 3px rgba(56,189,248,0.9));
+      animation: badgeTrace 3.2s linear infinite;
+    }
+
+    @keyframes badgeTrace {
+      to { stroke-dashoffset: -100; }
+    }
+
+    html.light .nav-badge-trace polygon {
+      stroke: #1d4ed8;
+      filter: drop-shadow(0 0 3px rgba(37,99,235,0.6));
+    }
+
+    /* ─── NAV BADGE HOVER GLITCH ────────────────── */
+    .nav-badge-name {
+      position: relative;
+      display: inline-block;
+    }
+
+    .nav-badge-name::before,
+    .nav-badge-name::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      text-shadow: none;
+      pointer-events: none;
+    }
+
+    .nav-badge-name::before {
+      color: #fb7185;
+      clip-path: inset(0 0 52% 0);
+    }
+
+    .nav-badge-name::after {
+      color: #818cf8;
+      clip-path: inset(48% 0 0 0);
+    }
+
+    .nav-badge:hover .nav-badge-name::before { animation: glitchTop 0.45s steps(2, end); }
+    .nav-badge:hover .nav-badge-name::after  { animation: glitchBot 0.45s steps(2, end); }
+    .nav-badge:hover .nav-badge-name         { animation: glitchBase 0.45s steps(2, end); }
+
+    @keyframes glitchTop {
+      0%   { opacity: 1; transform: translate(-3px, -1px); }
+      25%  { transform: translate(2.5px, 1px); }
+      50%  { opacity: 1; transform: translate(-2px, 1px); }
+      75%  { transform: translate(3px, -1px); }
+      100% { opacity: 0; transform: translate(0, 0); }
+    }
+
+    @keyframes glitchBot {
+      0%   { opacity: 1; transform: translate(3px, 1px); }
+      25%  { transform: translate(-2.5px, -1px); }
+      50%  { opacity: 1; transform: translate(2px, -1px); }
+      75%  { transform: translate(-3px, 1px); }
+      100% { opacity: 0; transform: translate(0, 0); }
+    }
+
+    @keyframes glitchBase {
+      0%, 100% { transform: translate(0, 0); }
+      30%      { transform: translate(1px, 0); }
+      60%      { transform: translate(-1px, 0); }
+    }
+
     .nav-links {
       display: flex;
       gap: 1.2rem;
@@ -519,7 +602,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8rem 2rem 4rem;
+      padding: 8rem 2rem 9rem;
       max-width: 100%;
       overflow: hidden;
     }
@@ -813,6 +896,93 @@
       box-shadow: 0 12px 30px rgba(37,99,235,0.4);
     }
 
+    /* ─── HERO CTA: SHINE SWEEP + ARROW REVEAL ──── */
+    .btn-shine {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-shine::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -90%;
+      width: 45%;
+      height: 220%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      transform: rotate(18deg);
+      pointer-events: none;
+    }
+
+    .btn-shine:hover::after {
+      left: 140%;
+      transition: left 0.55s ease;
+    }
+
+    .btn-shine:hover {
+      box-shadow: 0 12px 32px rgba(56,189,248,0.55);
+    }
+
+    .btn-arrow {
+      display: inline-block;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: width 0.28s, margin-left 0.28s;
+    }
+
+    .btn-shine:hover .btn-arrow {
+      width: 1.05em;
+      margin-left: 0.5rem;
+    }
+
+    /* ─── HERO CTA: GHOST BUTTON LIGHT TRACE ────── */
+    .btn-trace {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-trace > span { position: relative; z-index: 1; }
+
+    .btn-trace-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .btn-trace-svg rect {
+      x: 1px;
+      y: 1px;
+      width: calc(100% - 2px);
+      height: calc(100% - 2px);
+      rx: 25px;
+      fill: none;
+      stroke: #7dd3fc;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-dasharray: 16 84;
+      filter: drop-shadow(0 0 4px rgba(56,189,248,0.9));
+      animation: badgeTrace 3.2s linear infinite;
+    }
+
+    .btn-trace:hover .btn-trace-svg rect {
+      animation-duration: 1.3s;
+      stroke: #a5d8ff;
+    }
+
+    html.light .btn-trace-svg rect {
+      stroke: #1d4ed8;
+      filter: drop-shadow(0 0 3px rgba(37,99,235,0.5));
+    }
+
     .btn-secondary {
       padding: 0.85rem 2rem;
       border-radius: 50px;
@@ -834,22 +1004,197 @@
     /* Scroll hint */
     .scroll-hint {
       position: absolute;
-      bottom: 2.5rem;
+      bottom: 1.6rem;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4rem;
-      color: var(--muted);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      animation: bounceDown 2s ease-in-out infinite;
+      gap: 0.45rem;
+      pointer-events: none;
     }
 
-    @keyframes bounceDown {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(6px); }
+    @media (max-height: 700px), (max-width: 640px) {
+      .scroll-hint { display: none; }
+    }
+
+    .scroll-mouse {
+      width: 24px;
+      height: 38px;
+      border: 1.5px solid rgba(56,189,248,0.8);
+      border-radius: 13px;
+      position: relative;
+      box-shadow: 0 0 12px rgba(56,189,248,0.35), inset 0 0 8px rgba(56,189,248,0.1);
+    }
+
+    .scroll-wheel {
+      position: absolute;
+      left: 50%;
+      top: 7px;
+      width: 4px;
+      height: 7px;
+      margin-left: -2px;
+      border-radius: 3px;
+      background: #38bdf8;
+      box-shadow: 0 0 6px rgba(56,189,248,0.9);
+      animation: wheelDrop 1.8s ease-in-out infinite;
+    }
+
+    @keyframes wheelDrop {
+      0%   { transform: translateY(0);    opacity: 0; }
+      20%  { opacity: 1; }
+      75%  { transform: translateY(13px); opacity: 1; }
+      100% { transform: translateY(13px); opacity: 0; }
+    }
+
+    .scroll-chevrons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .scroll-chevrons span {
+      width: 8px;
+      height: 8px;
+      border-right: 1.5px solid #38bdf8;
+      border-bottom: 1.5px solid #38bdf8;
+      transform: rotate(45deg);
+      opacity: 0.2;
+      animation: chevFade 1.8s ease-in-out infinite;
+    }
+
+    .scroll-chevrons span:nth-child(2) { animation-delay: 0.2s; }
+    .scroll-chevrons span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes chevFade {
+      0%, 100% { opacity: 0.15; }
+      40%      { opacity: 1; }
+    }
+
+    html.light .scroll-mouse { border-color: rgba(37,99,235,0.7); box-shadow: 0 0 10px rgba(37,99,235,0.2); }
+    html.light .scroll-wheel { background: #1d4ed8; }
+    html.light .scroll-chevrons span { border-color: #1d4ed8; }
+
+    /* ─── SCROLL PROGRESS BAR ───────────────────── */
+    #scroll-progress {
+      position: fixed;
+      top: 62px;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--grad);
+      z-index: 99;
+      box-shadow: 0 0 10px rgba(56,189,248,0.55);
+      pointer-events: none;
+      transition: width 0.1s linear;
+    }
+
+    /* ─── ROCKET BACK-TO-TOP ────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 1.6rem;
+      right: 1.6rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(56,189,248,0.5);
+      background: var(--grad2);
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 98;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(14px);
+      transition: opacity 0.3s, visibility 0.3s, transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 18px rgba(56,189,248,0.45);
+    }
+
+    #back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    #back-to-top:hover {
+      box-shadow: 0 0 28px rgba(56,189,248,0.7);
+      transform: translateY(-3px) scale(1.06);
+    }
+
+    #back-to-top::before {
+      content: 'Back to top';
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) translateY(5px);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: #7dd3fc;
+      background: var(--bg2);
+      border: none;
+      border-radius: 50px;
+      padding: 0.35rem 0.8rem;
+      box-shadow: 0 0 14px rgba(37,99,235,0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    #back-to-top::after {
+      content: '';
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%) translateY(5px);
+      border: 5px solid transparent;
+      border-top-color: var(--bg2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+
+    #back-to-top.show::before,
+    #back-to-top.show::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #back-to-top.launch::before,
+    #back-to-top.launch::after { opacity: 0 !important; }
+
+    html.light #back-to-top::before {
+      color: #1d4ed8;
+      background: #ffffff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    }
+
+    #back-to-top.launch { animation: rocketLaunch 0.7s ease-in forwards; }
+
+    @keyframes rocketLaunch {
+      0%   { transform: translateY(0) scale(1); opacity: 1; }
+      25%  { transform: translateY(4px) scale(0.94); }
+      100% { transform: translateY(-110px) scale(0.75); opacity: 0; }
+    }
+
+    /* ─── NAV SCROLLSPY UNDERLINE ───────────────── */
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      left: 0.8rem;
+      right: 0.8rem;
+      bottom: 0.1rem;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--grad2);
+      box-shadow: 0 0 8px rgba(56,189,248,0.6);
     }
 
     /* ═══════════════════════════════════════════════
@@ -2166,9 +2511,236 @@
       top: 8px;
       bottom: 8px;
       width: 2px;
-      background: linear-gradient(180deg, #2563eb, #38bdf8, #6366f1);
+      background: rgba(136,136,168,0.18);
       border-radius: 2px;
     }
+
+    .timeline-progress {
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 2px;
+      height: 0;
+      background: linear-gradient(180deg, #2563eb, #38bdf8);
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(56,189,248,0.7);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .timeline-progress::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #38bdf8;
+      box-shadow: 0 0 14px rgba(56,189,248,1), 0 0 30px rgba(37,99,235,0.6);
+    }
+
+    .timeline-icon.lit {
+      border-color: rgba(56,189,248,0.75);
+      background: linear-gradient(135deg, rgba(38,189,248,0.22) 0%, rgba(37,99,235,0.14) 100%);
+      box-shadow: 0 0 16px rgba(56,189,248,0.35);
+    }
+
+    .tl-duration {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #7dd3fc;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.3);
+      border-radius: 50px;
+      padding: 0.12rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    .tl-now {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #4ade80;
+      background: rgba(74,222,128,0.1);
+      border: 1px solid rgba(74,222,128,0.4);
+      border-radius: 50px;
+      padding: 0.12rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    .tl-now-dot {
+      position: relative;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px rgba(74,222,128,0.9);
+      flex-shrink: 0;
+    }
+
+    .tl-now-dot::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 1px solid rgba(74,222,128,0.7);
+      animation: dotPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    html.light .tl-duration { color: #1d4ed8; background: rgba(37,99,235,0.08); border-color: rgba(37,99,235,0.28); }
+    html.light .tl-now { color: #15803d; background: rgba(21,128,61,0.08); border-color: rgba(21,128,61,0.35); }
+    html.light .tl-now-dot { background: #16a34a; }
+    html.light .tl-now-dot::after { border-color: rgba(22,163,74,0.6); }
+
+    /* ─── CAREER ASCENT: CIRCUIT STAIRCASE ──────── */
+    .career-ascent {
+      position: relative;
+      max-width: 700px;
+      margin: 0 auto 1.75rem;
+    }
+
+    .ascent-svg { width: 100%; height: auto; display: block; }
+
+    .ascent-base {
+      fill: none;
+      stroke: rgba(56,189,248,0.28);
+      stroke-width: 2;
+    }
+
+    .ascent-pulse {
+      fill: none;
+      stroke: #38bdf8;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 10 90;
+      filter: drop-shadow(0 0 5px rgba(56,189,248,0.9));
+    }
+
+    .ascent-svg text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      fill: var(--muted);
+      text-anchor: middle;
+    }
+
+    .ascent-svg text.now { fill: #7dd3fc; }
+
+    .ascent-step {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 1.5px solid #38bdf8;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      transition: background 0.25s, box-shadow 0.25s;
+    }
+
+    .ascent-step:hover {
+      background: rgba(37,99,235,0.45);
+      box-shadow: 0 0 12px rgba(56,189,248,0.7);
+    }
+
+    .ascent-step--now {
+      width: 20px;
+      height: 20px;
+      background: rgba(37,99,235,0.5);
+      box-shadow: 0 0 14px rgba(56,189,248,0.8);
+    }
+
+    .ascent-step--now::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(56,189,248,0.7);
+      animation: dotPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    .ascent-step::after {
+      content: attr(data-role);
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(5px);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      color: #7dd3fc;
+      background: var(--bg2);
+      border: 1px solid rgba(56,189,248,0.5);
+      border-radius: 50px;
+      padding: 0.32rem 0.75rem;
+      box-shadow: 0 0 14px rgba(37,99,235,0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s, transform 0.22s;
+      z-index: 5;
+    }
+
+    .ascent-step:hover::after,
+    .ascent-step:focus-visible::after {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* first nodes: tooltip would clip left — nudge inward */
+    .ascent-step[data-tl="6"]::after { left: 0; transform: translateX(0) translateY(5px); }
+    .ascent-step[data-tl="6"]:hover::after { transform: translateX(0) translateY(0); }
+    .ascent-step[data-tl="0"]::after { left: auto; right: 0; transform: translateX(0) translateY(5px); }
+    .ascent-step[data-tl="0"]:hover::after { transform: translateX(0) translateY(0); }
+
+    html.light .ascent-base { stroke: rgba(37,99,235,0.3); }
+    html.light .ascent-pulse { stroke: #1d4ed8; filter: drop-shadow(0 0 4px rgba(37,99,235,0.5)); }
+    html.light .ascent-step { background: #ffffff; border-color: #2563eb; }
+    html.light .ascent-step--now { background: rgba(37,99,235,0.35); }
+    html.light .ascent-svg text.now { fill: #1d4ed8; }
+    html.light .ascent-step::after {
+      color: #1d4ed8;
+      background: #ffffff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    }
+
+    @media (max-width: 640px) {
+      .ascent-svg text { font-size: 16px; }
+      .ascent-step { width: 14px; height: 14px; }
+    }
+
+    .exp-toggle {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      padding: 0.45rem 1.15rem;
+      border-radius: 50px;
+      background: var(--bg3);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-bottom: 1.5rem;
+    }
+
+    .exp-toggle:hover {
+      color: var(--white);
+      border-color: rgba(56,189,248,0.5);
+      box-shadow: 0 0 12px rgba(56,189,248,0.2);
+    }
+
+    html.light .exp-toggle { background: #ededf5; color: #55557a; }
 
     .timeline-item {
       position: relative;
@@ -2272,6 +2844,10 @@
       font-weight: 600;
       letter-spacing: 0.08em;
       margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .timeline-role {
@@ -3344,7 +3920,10 @@
 <nav>
   <a href="#hero" class="nav-logo">
     <span class="nav-badge">
-      <span class="nav-badge-name">Sankar</span>
+      <svg class="nav-badge-trace" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <polygon points="10,0 100,0 90,100 0,100" pathLength="100"/>
+      </svg>
+      <span class="nav-badge-name" data-text="Sankar">Sankar</span>
     </span>
   </a>
   <ul class="nav-links">
@@ -3384,6 +3963,8 @@
     </div>
   </div>
 </nav>
+
+<div id="scroll-progress" aria-hidden="true"></div>
 
 <!-- ───────────────────────────────────────────
   HERO
@@ -3575,17 +4156,18 @@
 
     <!-- CTAs -->
     <div class="hero-buttons">
-      <a href="#work" class="btn-primary">View My Work</a>
-      <a href="#contact" class="btn-secondary">Get in Touch</a>
+      <a href="#work" class="btn-primary btn-shine"><span>View My Work</span><span class="btn-arrow" aria-hidden="true">→</span></a>
+      <a href="#contact" class="btn-secondary btn-trace">
+        <svg class="btn-trace-svg" aria-hidden="true"><rect pathLength="100"/></svg>
+        <span>Get in Touch</span>
+      </a>
     </div>
   </div>
 
   <!-- Scroll hint -->
-  <div class="scroll-hint">
-    <span>scroll</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M12 5v14M5 12l7 7 7-7"/>
-    </svg>
+  <div class="scroll-hint" aria-hidden="true">
+    <div class="scroll-mouse"><span class="scroll-wheel"></span></div>
+    <div class="scroll-chevrons"><span></span><span></span><span></span></div>
   </div>
 </section>
 
@@ -4132,6 +4714,31 @@
     <h2 class="section-title">Experience</h2>
     <p class="section-sub">Where I've built products and driven impact.</p>
   </div>
+
+  <div class="career-ascent reveal" id="career-ascent" aria-label="Career progression, 2010 to present">
+    <svg class="ascent-svg" viewBox="0 0 700 140" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <path class="ascent-base" d="M20,112 H110 V96 H200 V80 H290 V64 H380 V48 H470 V32 H560 V16 H680"/>
+      <path class="ascent-pulse" d="M20,112 H110 V96 H200 V80 H290 V64 H380 V48 H470 V32 H560 V16 H680" pathLength="100">
+        <animate attributeName="stroke-dashoffset" from="100" to="0" dur="3.4s" repeatCount="indefinite"/>
+      </path>
+      <text x="65" y="130">2010</text>
+      <text x="155" y="114">2015</text>
+      <text x="245" y="98">2016</text>
+      <text x="335" y="82">2017</text>
+      <text x="425" y="66">2020</text>
+      <text x="515" y="50">2022</text>
+      <text class="now" x="620" y="36">NOW</text>
+    </svg>
+    <button type="button" class="ascent-step" data-tl="6" data-role="Project Engineer · WIPRO" style="left:9.29%; top:80%;" aria-label="2010, Project Engineer at WIPRO"></button>
+    <button type="button" class="ascent-step" data-tl="5" data-role="Business Analyst · Upchannel" style="left:22.14%; top:68.6%;" aria-label="2015, Business Analyst at Upchannel"></button>
+    <button type="button" class="ascent-step" data-tl="4" data-role="Senior BA · Cloudculina" style="left:35%; top:57.1%;" aria-label="2015 to 2017, Senior Business Analyst at Cloudculina"></button>
+    <button type="button" class="ascent-step" data-tl="3" data-role="BA / Product Owner · Grapnel" style="left:47.86%; top:45.7%;" aria-label="2017 to 2020, Business Analyst and Product Owner at Grapnel"></button>
+    <button type="button" class="ascent-step" data-tl="2" data-role="Senior BA / PO · HCL" style="left:60.71%; top:34.3%;" aria-label="2020 to 2022, Senior BA and Product Owner at HCL"></button>
+    <button type="button" class="ascent-step" data-tl="1" data-role="Data Engineer / PO · HealthFirst" style="left:73.57%; top:22.9%;" aria-label="2022 to 2025, Data Engineer and Product Owner at HealthFirst"></button>
+    <button type="button" class="ascent-step ascent-step--now" data-tl="0" data-role="Senior BA / PO · Otsuka" style="left:88.57%; top:11.4%;" aria-label="2025 to present, Senior BA and Product Owner at Otsuka"></button>
+  </div>
+
+  <button type="button" class="exp-toggle reveal" id="exp-toggle-all">⊞ Expand all roles</button>
 
   <div class="timeline reveal">
 
@@ -4949,6 +5556,8 @@
 </section>
 
 <!-- ─── FOOTER ────────────────────────────── -->
+<button id="back-to-top" aria-label="Back to top">🚀</button>
+
 <footer>
   <p>© 2026 Sankar Kumar Palaniappan · Built with care ❤️</p>
 </footer>
@@ -5726,19 +6335,119 @@
     }
   });
 
-  // ── Active nav link highlight ──
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
+  // ── Scroll effects: progress bar, parallax blobs, rocket ──
+  const progressBar = document.getElementById('scroll-progress');
+  const backToTop = document.getElementById('back-to-top');
+  const pBlob1 = document.querySelector('.blob-1');
+  const pBlob2 = document.querySelector('.blob-2');
+  const pBlob3 = document.querySelector('.blob-3');
+  const heroInner = document.querySelector('.hero-inner');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let scrollTicking = false;
 
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  // ── Timeline: duration chips + NOW badge ──
+  document.querySelectorAll('.timeline-date').forEach(el => {
+    const m = el.textContent.match(/(\d{4})(?:\s*[–-]\s*(\d{4}|Present))?/);
+    if (!m) return;
+    const start = parseInt(m[1], 10);
+    const isNow = m[2] === 'Present';
+    const end = isNow ? new Date().getFullYear() : (m[2] ? parseInt(m[2], 10) : start);
+    const diff = Math.max(end - start, 0);
+    const label = (diff < 1 ? '<1 yr' : diff + (isNow ? '+' : '') + ' yr' + (diff > 1 ? 's' : ''));
+    if (isNow) {
+      const now = document.createElement('span');
+      now.className = 'tl-now';
+      now.innerHTML = '<span class="tl-now-dot"></span>Now';
+      el.appendChild(now);
+    }
+    const dur = document.createElement('span');
+    dur.className = 'tl-duration';
+    dur.textContent = label;
+    el.appendChild(dur);
+  });
+
+  // ── Timeline: expand all + auto-open current ──
+  const expToggle = document.getElementById('exp-toggle-all');
+  const tlItems = document.querySelectorAll('.timeline-item');
+  if (tlItems.length) tlItems[0].classList.add('expanded');
+  if (expToggle) {
+    expToggle.addEventListener('click', () => {
+      const anyClosed = Array.from(tlItems).some(i => !i.classList.contains('expanded'));
+      tlItems.forEach(i => i.classList.toggle('expanded', anyClosed));
+      expToggle.textContent = anyClosed ? '⊟ Collapse all roles' : '⊞ Expand all roles';
     });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === `#${current}` ? '#f5f5f7' : '';
+  }
+
+  // ── Career ascent meter: click jumps to role ──
+  document.querySelectorAll('.ascent-step').forEach(step => {
+    step.addEventListener('click', () => {
+      const target = tlItems[parseInt(step.dataset.tl, 10)];
+      if (!target) return;
+      target.classList.add('expanded');
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   });
+
+  // ── Timeline: scroll-drawn progress line ──
+  const timelineEl = document.querySelector('.timeline');
+  let timelineProgress = null;
+  if (timelineEl) {
+    timelineProgress = document.createElement('div');
+    timelineProgress.className = 'timeline-progress';
+    timelineEl.appendChild(timelineProgress);
+  }
+
+  function onScrollFx() {
+    scrollTicking = false;
+    const y = window.scrollY;
+
+    if (progressBar) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (max > 0 ? Math.min(y / max * 100, 100) : 0) + '%';
+    }
+
+    if (backToTop && !backToTop.classList.contains('launch')) {
+      backToTop.classList.toggle('show', y > window.innerHeight * 0.8);
+    }
+
+    if (timelineEl && timelineProgress) {
+      const tr = timelineEl.getBoundingClientRect();
+      const trigger = window.innerHeight * 0.65;
+      const maxH = timelineEl.clientHeight - 16;
+      const h = Math.max(0, Math.min(trigger - tr.top, maxH));
+      timelineProgress.style.height = h + 'px';
+      timelineEl.querySelectorAll('.timeline-item').forEach(item => {
+        const icon = item.querySelector('.timeline-icon');
+        if (icon) icon.classList.toggle('lit', h >= item.offsetTop + 24);
+      });
+    }
+
+    if (!reduceMotion && y < window.innerHeight * 1.2) {
+      if (pBlob1) pBlob1.style.translate = '0 ' + (y * 0.25) + 'px';
+      if (pBlob2) pBlob2.style.translate = '0 ' + (y * 0.45) + 'px';
+      if (pBlob3) pBlob3.style.translate = '0 ' + (y * 0.12) + 'px';
+      if (heroInner) {
+        heroInner.style.opacity = String(Math.max(1 - y / (window.innerHeight * 0.9), 0));
+        heroInner.style.translate = '0 ' + (y * 0.18) + 'px';
+      }
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) { scrollTicking = true; requestAnimationFrame(onScrollFx); }
+  }, { passive: true });
+  onScrollFx();
+
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      backToTop.classList.add('launch');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        backToTop.classList.remove('launch');
+        backToTop.classList.remove('show');
+      }, 750);
+    });
+  }
 
   // ── AI Twin chat widget ──
   (function () {
