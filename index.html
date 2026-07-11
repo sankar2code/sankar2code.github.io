@@ -4462,11 +4462,27 @@
   <div class="project-filters reveal" id="project-filters">
     <button type="button" class="filter-chip active" data-filter="all">All</button>
     <button type="button" class="filter-chip" data-filter="genai">GenAI</button>
+    <button type="button" class="filter-chip" data-filter="agentic">Agentic AI</button>
     <button type="button" class="filter-chip" data-filter="ml">ML &amp; Predictive</button>
   </div>
   <div class="projects-grid reveal">
 
-    <!-- 1: ProjectPilot AI (Q3 2026) - LATEST -->
+    <!-- 0: Enterprise AI Data Copilot Suite (Q3 2026) - LATEST -->
+    <div class="project-card project-card--interactive project-card--featured" data-cat="genai agentic" onclick="document.getElementById('datacopilot-modal').classList.add('open')" title="Click to explore">
+      <div class="project-header ph-1">🗂️</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-coral">GenAI · Data Governance</span>
+          <span class="tag tag-purple">Agentic AI</span>
+          <span class="tag tag-gold">Coming Soon · Q3 2026</span>
+        </div>
+        <h3>Enterprise AI Data Copilot Suite</h3>
+        <p>Agentic AI platform that lets organizations understand, govern, and analyze enterprise data through natural language — pairing deterministic engines for data quality, SQL safety, and PII detection with an LLM layer that only explains, classifies, and narrates. Built on a GxP-style clinical dataset via Langflow, n8n, and MCP to demonstrate production-grade data trust, not demo-ware.</p>
+        <div class="project-impact">⚡ Deterministic engines own the ground truth, LLM only narrates · Four-agent architecture (Quality, Catalog, Analytics, Governance) via Langflow + n8n + MCP · Built for HIPAA, GDPR &amp; 21 CFR Part 11 compliance</div>
+      </div>
+    </div>
+
+    <!-- 1: ProjectPilot AI (Q3 2026) -->
     <div class="project-card project-card--interactive project-card--featured" data-cat="genai" onclick="document.getElementById('projectpilot-modal').classList.add('open')" title="Click to explore">
       <div class="project-header ph-4">🚀</div>
       <div class="project-body">
@@ -4590,6 +4606,59 @@
 </section>
 
 <div class="divider"></div>
+
+<!-- ───────────────────────────────────────────
+  ENTERPRISE AI DATA COPILOT SUITE MODAL
+──────────────────────────────────────────── -->
+<div class="modal-backdrop" id="datacopilot-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🗂️ Enterprise AI Data Copilot Suite</div>
+        <div class="modal-tags">
+          <span class="tag tag-coral">GenAI · Data Governance</span>
+          <span class="tag tag-purple">Agentic AI</span>
+          <span class="tag tag-cyan">Multi-Agent (MCP)</span>
+          <span class="modal-year">Coming Soon · Q3 2026</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('datacopilot-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h4>Problem Statement</h4>
+        <p>Most "AI data copilot" demos ask an LLM to do everything — including things LLMs are bad at, like guaranteeing a SQL query is safe or reliably counting nulls. Enterprises don't just need a plausible-sounding answer about their data; they need to trust it, and in regulated industries, prove that trust to an auditor.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Solution</h4>
+        <p>An agentic platform built around one rule: deterministic engines own the ground truth, the LLM only explains, classifies, and narrates. Four agents each pair a real profiling, validation, or detection engine with an LLM interpretation layer on top — a Data Quality Agent (ydata-profiling / Great Expectations) for nulls, duplicates, and schema drift; a Catalog Agent (pgvector + metadata graph) for lineage and semantic search; an Analytics Agent (sqlglot) that only ever executes safe, read-only, LIMIT-bound SQL generated from natural language; and a Governance Agent (Microsoft Presidio) that scans for PII/PHI and maps findings to HIPAA, GDPR, and 21 CFR Part 11. Langflow handles the reasoning for each agent, n8n orchestrates scheduling, routing, and the audit trail, and MCP is the bridge connecting them — no brittle glue-code HTTP calls. The whole pipeline runs against a synthetic pharma/clinical-trial dataset deliberately seeded with real data-quality issues and PII/PHI fields, so it's inspectable end to end rather than a polished demo.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Business Value</h4>
+        <div class="modal-impact">⚡ Deterministic engines (data profiling, SQL safety, PII detection) pair with LLM narration for auditable, not just plausible, answers ✦ Four-agent architecture orchestrated via Langflow + n8n + MCP, with a per-step audit trail built in ✦ Designed for regulated-industry compliance — HIPAA, GDPR, and 21 CFR Part 11 mapped directly into the Governance Agent's output</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Status</h4>
+        <p>Coming soon, targeting Q3 2026 — architecture and roadmap defined, with the phased build plan documented in the repo.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Documents</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="https://github.com/sankar2code/Enterprise-AI-Data-Copilot-Suite" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#6366f1);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub Repo
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- ───────────────────────────────────────────
   AI ANALYST MODAL
