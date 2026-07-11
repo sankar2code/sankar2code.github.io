@@ -1948,6 +1948,21 @@
     .tag-purple  { background: rgba(99,102,241,0.15); color: #c084fc; border: 1px solid rgba(99,102,241,0.2); }
     .tag-cyan    { background: rgba(6,182,212,0.15);  color: #67e8f9; border: 1px solid rgba(6,182,212,0.2); }
 
+    /* ─── COMING SOON GLOW BADGE ─────────────────── */
+    .tag-coming-soon {
+      background: linear-gradient(135deg, rgba(56,189,248,0.22), rgba(168,85,247,0.22));
+      color: #f5f5f7;
+      border: 1px solid rgba(168,85,247,0.4);
+      animation: comingSoonGlow 2.2s ease-in-out infinite;
+    }
+
+    @keyframes comingSoonGlow {
+      0%, 100% { box-shadow: 0 0 4px rgba(56,189,248,0.25), 0 0 4px rgba(168,85,247,0.15); }
+      50%       { box-shadow: 0 0 14px rgba(56,189,248,0.55), 0 0 18px rgba(168,85,247,0.45); }
+    }
+
+    html.light .tag-coming-soon { color: #4c1d95; }
+
     /* ─── PROJECT FILTERS ───────────────────────── */
     .project-filters {
       display: flex;
@@ -4474,7 +4489,7 @@
         <div class="project-tags">
           <span class="tag tag-coral">GenAI · Data Governance</span>
           <span class="tag tag-purple">Agentic AI</span>
-          <span class="tag tag-gold">Coming Soon · Q3 2026</span>
+          <span class="tag tag-coming-soon">Coming Soon · Q3 2026</span>
         </div>
         <h3>Enterprise AI Data Copilot Suite</h3>
         <p>Agentic AI platform that lets organizations understand, govern, and analyze enterprise data through natural language — pairing deterministic engines for data quality, SQL safety, and PII detection with an LLM layer that only explains, classifies, and narrates. Built on a GxP-style clinical dataset via Langflow, n8n, and MCP to demonstrate production-grade data trust, not demo-ware.</p>
@@ -4619,7 +4634,7 @@
           <span class="tag tag-coral">GenAI · Data Governance</span>
           <span class="tag tag-purple">Agentic AI</span>
           <span class="tag tag-cyan">Multi-Agent (MCP)</span>
-          <span class="modal-year">Coming Soon · Q3 2026</span>
+          <span class="modal-year tag-coming-soon">Coming Soon · Q3 2026</span>
         </div>
       </div>
       <button class="modal-close" onclick="document.getElementById('datacopilot-modal').classList.remove('open')">✕</button>
