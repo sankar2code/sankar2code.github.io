@@ -2265,6 +2265,13 @@
       color: #fff;
       background: var(--grad2);
       box-shadow: 0 0 10px rgba(37,99,235,0.4);
+      overflow: hidden;
+    }
+    .rec-spot-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
     .rec-spot-name { font-size: 0.85rem; font-weight: 700; color: var(--white); line-height: 1.25; }
     .rec-spot-role { font-size: 0.72rem; color: var(--muted); line-height: 1.25; }
@@ -5625,23 +5632,23 @@
   </div>
 
   <div class="recommendations-grid reveal">
-    <!-- Card 1: Peter Dudek -->
-    <div class="rec-card-small" onclick="openRecModal('peter-dudek')">
+    <!-- Card 1: Imthias Shaffiullah -->
+    <div class="rec-card-small" onclick="openRecModal('imthias-shaffiullah')">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Peter Dudek</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Pega Certified Senior System Architect</p>
+        <p class="rec-card-name" style="margin: 0;">Imthias Shaffiullah</p>
+        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Software Engineer, Spotline, Inc.</p>
         <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #38bdf8); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'24</p>
+        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #6366f1); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'26</p>
       </div>
     </div>
 
-    <!-- Card 2: Paul Atherton -->
-    <div class="rec-card-small" onclick="openRecModal('paul-atherton')">
+    <!-- Card 2: Rajesh Sundarraj -->
+    <div class="rec-card-small" onclick="openRecModal('rajesh-sundarraj')">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Paul Atherton</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Manager Provider Data Management, Healthfirst</p>
+        <p class="rec-card-name" style="margin: 0;">Rajesh Sundarraj</p>
+        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Group Technical Specialist, HCL Technology</p>
         <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #1d4ed8, #2563eb); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'24</p>
+        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #6366f1); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'26</p>
       </div>
     </div>
 
@@ -5655,17 +5662,7 @@
       </div>
     </div>
 
-    <!-- Card 4: Thukkaram Periasamy -->
-    <div class="rec-card-small" onclick="openRecModal('thukkaram-periasamy')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Thukkaram Periasamy</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Associate Manager, Accenture</p>
-        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #1e40af, #2563eb); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q4'23</p>
-      </div>
-    </div>
-
-    <!-- Card 5: Giridhar Golkonda -->
+    <!-- Card 4: Giridhar Golkonda -->
     <div class="rec-card-small" onclick="openRecModal('giridhar-golkonda')">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
         <p class="rec-card-name" style="margin: 0;">Giridhar Golkonda</p>
@@ -5675,7 +5672,27 @@
       </div>
     </div>
 
-    <!-- Card 6: Denise Hurley-Forgach -->
+    <!-- Card 5: Peter Dudek -->
+    <div class="rec-card-small" onclick="openRecModal('peter-dudek')">
+      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
+        <p class="rec-card-name" style="margin: 0;">Peter Dudek</p>
+        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Pega Certified Senior System Architect</p>
+        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
+        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #38bdf8); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'24</p>
+      </div>
+    </div>
+
+    <!-- Card 6: Paul Atherton -->
+    <div class="rec-card-small" onclick="openRecModal('paul-atherton')">
+      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
+        <p class="rec-card-name" style="margin: 0;">Paul Atherton</p>
+        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Manager Provider Data Management, Healthfirst</p>
+        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
+        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #1d4ed8, #2563eb); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'24</p>
+      </div>
+    </div>
+
+    <!-- Card 7: Denise Hurley-Forgach -->
     <div class="rec-card-small" onclick="openRecModal('denise-hurley')">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
         <p class="rec-card-name" style="margin: 0;">Denise Hurley-Forgach</p>
@@ -5685,7 +5702,7 @@
       </div>
     </div>
 
-    <!-- Card 7: Narayanan Ramaswamy -->
+    <!-- Card 8: Narayanan Ramaswamy -->
     <div class="rec-card-small" onclick="openRecModal('narayanan-ramaswamy')">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
         <p class="rec-card-name" style="margin: 0;">Narayanan Ramaswamy</p>
@@ -5695,13 +5712,13 @@
       </div>
     </div>
 
-    <!-- Card 8: Imthias Shaffiullah -->
-    <div class="rec-card-small" onclick="openRecModal('imthias-shaffiullah')">
+    <!-- Card 9: Thukkaram Periasamy -->
+    <div class="rec-card-small" onclick="openRecModal('thukkaram-periasamy')">
       <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Imthias Shaffiullah</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Software Engineer, Spotline, Inc.</p>
+        <p class="rec-card-name" style="margin: 0;">Thukkaram Periasamy</p>
+        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Associate Manager, Accenture</p>
         <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #6366f1); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'26</p>
+        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #1e40af, #2563eb); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q4'23</p>
       </div>
     </div>
   </div>
@@ -5814,6 +5831,20 @@
         <p class="rec-modal-title">Software Engineer, Spotline, Inc.</p>
       </div>
       <p class="rec-quote-full">"I had the pleasure of working with Sankar on a data engineering and reporting project, and he consistently impressed me with his product management and business analysis skills. He has strong analytical and problem-solving abilities, a talent for project planning, and he always delivered on time without sacrificing quality. Sankar worked seamlessly across functional teams, communicating clearly and building trust easily along the way. He's also a great mentor, generous with his knowledge, and always pushing himself to learn something new. Any team would be lucky to have him."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
+  <!-- Modal 9: Rajesh Sundarraj -->
+  <div class="rec-modal" id="rajesh-sundarraj-modal" onclick="closeRecModal(event, 'rajesh-sundarraj')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'rajesh-sundarraj')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Rajesh Sundarraj</h3>
+        <p class="rec-modal-title">Group Technical Specialist, HCL Technology</p>
+      </div>
+      <p class="rec-quote-full">"I've had the opportunity to work closely with Sankar on several strategic initiatives and have always been impressed by his ability to translate complex business needs into practical, technology-driven solutions. He is highly collaborative, proactive, and consistently brings clarity to challenging problems while building strong partnerships across technical and business teams. Beyond his expertise, Sankar is dependable, adaptable, and someone I would gladly work with again on any high-impact initiative."</p>
       <p class="rec-stars">⭐⭐⭐⭐⭐</p>
       <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
     </div>
@@ -6305,14 +6336,15 @@
 
   // ── Recommendation spotlight carousel ──
   const recSpotData = [
-    { id: 'peter-dudek', name: 'Peter Dudek', role: 'Pega Certified Senior System Architect', quote: 'His Product Management skills and deep technical knowledge are invaluable — I am confident that he would be a great asset to any organization.' },
-    { id: 'paul-atherton', name: 'Paul Atherton', role: 'Manager Provider Data Management, Healthfirst', quote: 'His leadership meant that when issues arose for my team, those issues never lingered. His work ethic, collaboration, and results are second to none.' },
-    { id: 'ravi-vishwas', name: 'Ravi Vishwas', role: 'Enterprise Technology & ERP Senior Consultant', quote: 'With a deep understanding of complex technological systems and strategic thinking, Sankar identifies optimization opportunities and drives meaningful change.' },
-    { id: 'thukkaram-periasamy', name: 'Thukkaram Periasamy', role: 'Associate Manager, Accenture', quote: 'Sankar consistently demonstrated his ability to dissect complex requirements and develop comprehensive action plans that translated vision into reality.' },
-    { id: 'giridhar-golkonda', name: 'Giridhar Golkonda', role: 'IT Leader & Enterprise Architect', quote: 'He adeptly dissected complex data and conveyed clear, actionable insights — enhancing operational efficiency and guiding strategic decisions.' },
-    { id: 'denise-hurley', name: 'Denise Hurley-Forgach', role: 'Senior Manager, Utilities Industries', quote: 'Sankar is one of the most poised and composed professionals I have ever worked with. Not only would I recommend him — I would be grateful to have him on my team.' },
-    { id: 'narayanan-ramaswamy', name: 'Narayanan Ramaswamy', role: 'Sr. Client Partner @ Saama | Health Sciences', quote: 'Sankar consistently delivered exceptional performance, leaving an indelible mark on our IT department. His proactive problem-solving was invaluable.' },
-    { id: 'imthias-shaffiullah', name: 'Imthias Shaffiullah', role: 'Software Engineer, Spotline, Inc.', quote: 'He consistently impressed me with his product management and business analysis skills, and always delivered on time without sacrificing quality.' }
+    { id: 'imthias-shaffiullah', name: 'Imthias Shaffiullah', role: 'Software Engineer, Spotline, Inc.', quote: 'He consistently impressed me with his product management and business analysis skills, and always delivered on time without sacrificing quality.', img: 'imthias-shaffiullah.jpeg' },
+    { id: 'rajesh-sundarraj', name: 'Rajesh Sundarraj', role: 'Group Technical Specialist, HCL Technology', quote: 'His ability to translate complex business needs into practical, technology-driven solutions is impressive — highly collaborative, proactive, and dependable.', img: 'rajesh-sundarraj.jpeg' },
+    { id: 'ravi-vishwas', name: 'Ravi Vishwas', role: 'Enterprise Technology & ERP Senior Consultant', quote: 'With a deep understanding of complex technological systems and strategic thinking, Sankar identifies optimization opportunities and drives meaningful change.', img: 'ravi-vishwas.jpeg' },
+    { id: 'giridhar-golkonda', name: 'Giridhar Golkonda', role: 'IT Leader & Enterprise Architect', quote: 'He adeptly dissected complex data and conveyed clear, actionable insights — enhancing operational efficiency and guiding strategic decisions.', img: 'giridhar-golkonda.jpeg' },
+    { id: 'peter-dudek', name: 'Peter Dudek', role: 'Pega Certified Senior System Architect', quote: 'His Product Management skills and deep technical knowledge are invaluable — I am confident that he would be a great asset to any organization.', img: 'peter-dudek.jpeg' },
+    { id: 'paul-atherton', name: 'Paul Atherton', role: 'Manager Provider Data Management, Healthfirst', quote: 'His leadership meant that when issues arose for my team, those issues never lingered. His work ethic, collaboration, and results are second to none.', img: 'paul-atherton.jpeg' },
+    { id: 'denise-hurley', name: 'Denise Hurley-Forgach', role: 'Senior Manager, Utilities Industries', quote: 'Sankar is one of the most poised and composed professionals I have ever worked with. Not only would I recommend him — I would be grateful to have him on my team.', img: 'denise-hurley.jpeg' },
+    { id: 'narayanan-ramaswamy', name: 'Narayanan Ramaswamy', role: 'Sr. Client Partner @ Saama | Health Sciences', quote: 'Sankar consistently delivered exceptional performance, leaving an indelible mark on our IT department. His proactive problem-solving was invaluable.', img: 'narayanan-ramaswamy.jpeg' },
+    { id: 'thukkaram-periasamy', name: 'Thukkaram Periasamy', role: 'Associate Manager, Accenture', quote: 'Sankar consistently demonstrated his ability to dissect complex requirements and develop comprehensive action plans that translated vision into reality.', img: 'thukkaram-periasamy.jpeg' }
   ];
   const recQuoteEl = document.getElementById('rec-spot-quote');
   if (recQuoteEl) {
@@ -6323,6 +6355,13 @@
     const recDotsEl = document.getElementById('rec-dots');
     let recIdx = 0, recTimer = null;
     const recInitials = (n) => n.split(/[\s-]+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+    function renderRecAvatar(r) {
+      if (r.img) {
+        recAvatarEl.innerHTML = '<img src="' + r.img + '" alt="' + r.name + '">';
+      } else {
+        recAvatarEl.textContent = recInitials(r.name);
+      }
+    }
 
     recSpotData.forEach((_, i) => {
       const dot = document.createElement('button');
@@ -6342,7 +6381,7 @@
         recQuoteEl.textContent = '“' + r.quote + '”';
         recNameEl.textContent = r.name;
         recRoleEl.textContent = r.role;
-        recAvatarEl.textContent = recInitials(r.name);
+        renderRecAvatar(r);
         recQuoteEl.style.opacity = '1';
         recMetaEl.style.opacity = '1';
       }, 350);
@@ -6361,7 +6400,7 @@
     recQuoteEl.textContent = '“' + r0.quote + '”';
     recNameEl.textContent = r0.name;
     recRoleEl.textContent = r0.role;
-    recAvatarEl.textContent = recInitials(r0.name);
+    renderRecAvatar(r0);
     recDotsEl.querySelector('.rec-dot').classList.add('active');
     restartRecTimer();
   }
