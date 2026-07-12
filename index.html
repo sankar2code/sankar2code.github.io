@@ -1385,6 +1385,168 @@
     }
 
     /* ═══════════════════════════════════════════════
+       RECENTLY SHIPPED
+    ═══════════════════════════════════════════════ */
+    #shipped { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+
+    .shipped-card {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid rgba(56,189,248,0.28);
+      border-radius: 20px;
+      padding: 1.6rem 1.9rem;
+      overflow: hidden;
+      box-shadow: 0 0 0 rgba(56,189,248,0);
+      transition: box-shadow 0.4s;
+    }
+
+    .shipped-card:hover {
+      box-shadow: 0 0 40px rgba(37,99,235,0.18), 0 0 10px rgba(56,189,248,0.12);
+    }
+
+    .shipped-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #2563eb, #38bdf8, #6366f1, transparent);
+      background-size: 200% 100%;
+      animation: shippedSheen 6s linear infinite;
+    }
+
+    @keyframes shippedSheen {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .shipped-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .shipped-live-dot {
+      position: relative;
+      width: 8px;
+      height: 8px;
+      background: #38bdf8;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(56,189,248,0.9);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .shipped-live-dot::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(56,189,248,0.7);
+      animation: dotPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    .shipped-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--grad2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .shipped-sub {
+      margin-left: auto;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .shipped-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .ship-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.7rem 0.5rem;
+      border-radius: 12px;
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .ship-item:hover {
+      background: rgba(37,99,235,0.08);
+      transform: translateX(4px);
+    }
+
+    .ship-item:not(:last-child) {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ship-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .ship-body { flex: 1; min-width: 0; }
+
+    .ship-text {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .ship-when {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin: 2px 0 0;
+    }
+
+    .ship-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 50px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ship-tag-feature { color: #7dd3fc; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); }
+    .ship-tag-build   { color: #c4b5fd; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3); }
+    .ship-tag-update  { color: #f0abfc; background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.3); }
+
+    html.light .shipped-card { background: #ffffff; }
+    html.light .ship-icon { background: #f1f5f9; }
+    html.light .ship-text { color: #111118; }
+    html.light .ship-tag-feature { color: #0369a1; }
+    html.light .ship-tag-build   { color: #4338ca; }
+    html.light .ship-tag-update  { color: #7e22ce; }
+
+    @media (max-width: 600px) {
+      .shipped-card { padding: 1.2rem 1.1rem; }
+      .ship-text { font-size: 0.82rem; }
+      .ship-icon { width: 30px; height: 30px; font-size: 0.9rem; }
+      .shipped-sub { display: none; }
+    }
+
+    /* ═══════════════════════════════════════════════
        ABOUT
     ═══════════════════════════════════════════════ */
     #about {
@@ -5900,6 +6062,62 @@
   </div>
 </section>
 
+<!-- ───────────────────────────────────────────
+  RECENTLY SHIPPED
+──────────────────────────────────────────── -->
+<section id="shipped">
+  <div class="reveal">
+    <span class="section-label">Build Log</span>
+    <h2 class="section-title">Recently Shipped</h2>
+    <p class="section-sub">What I've shipped and updated most recently on this site.</p>
+  </div>
+
+  <div class="shipped-card reveal">
+    <div class="shipped-header">
+      <span class="shipped-live-dot"></span>
+      <span class="shipped-label">Recently shipped</span>
+      <span class="shipped-sub">Building in public</span>
+    </div>
+    <div class="shipped-list" id="shipped-list">
+      <div class="ship-item">
+        <span class="ship-icon">🤖</span>
+        <div class="ship-body">
+          <p class="ship-text">Launched "Ask My Twin" — an AI chatbot grounded on my real career, built with Claude and Cloudflare Workers</p>
+        </div>
+        <span class="ship-tag ship-tag-feature">Feature</span>
+      </div>
+      <div class="ship-item">
+        <span class="ship-icon">⌘</span>
+        <div class="ship-body">
+          <p class="ship-text">Added a command palette (Cmd+K) for instant navigation across the site</p>
+        </div>
+        <span class="ship-tag ship-tag-feature">Feature</span>
+      </div>
+      <div class="ship-item">
+        <span class="ship-icon">🗂️</span>
+        <div class="ship-body">
+          <p class="ship-text">Shipped the Enterprise AI Data Copilot Suite build card and opened it up for collaborators</p>
+        </div>
+        <span class="ship-tag ship-tag-build">Build</span>
+      </div>
+      <div class="ship-item">
+        <span class="ship-icon">🏢</span>
+        <div class="ship-body">
+          <p class="ship-text">Published the Compliance Lease Tool with a live GitHub repo and mockup</p>
+        </div>
+        <span class="ship-tag ship-tag-build">Build</span>
+      </div>
+      <div class="ship-item">
+        <span class="ship-icon">⭐</span>
+        <div class="ship-body">
+          <p class="ship-text">Added new recommendations from colleagues at HCL and Spotline</p>
+        </div>
+        <span class="ship-tag ship-tag-update">Update</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="divider"></div>
 
 <!-- ───────────────────────────────────────────
@@ -6313,6 +6531,7 @@
   // ── Command palette ──
   const cmdkCommands = [
     { label: 'Ask my AI twin', icon: '🤖', run: () => { location.hash = '#ai-twin'; setTimeout(() => document.getElementById('twin-input')?.focus(), 400); } },
+    { label: 'Recently shipped', icon: '🚀', run: () => location.hash = '#shipped' },
     { label: 'About Sankar', icon: '👋', run: () => location.hash = '#about' },
     { label: 'View functional domains', icon: '🧭', run: () => location.hash = '#domains' },
     { label: 'View built projects', icon: '🛠️', run: () => location.hash = '#work' },
@@ -6412,6 +6631,102 @@
     }
   });
 
+  // ── Recently shipped — live from GitHub ──
+  (function loadShippedFromGitHub() {
+    const GH_USER = 'sankar2code';
+    const listEl = document.getElementById('shipped-list');
+    const subEl = document.querySelector('#shipped .shipped-sub');
+    if (!listEl) return;
+
+    function timeAgo(dateStr) {
+      const diffMs = Date.now() - new Date(dateStr).getTime();
+      const mins = Math.floor(diffMs / 60000);
+      if (mins < 60) return mins <= 1 ? 'just now' : `${mins}m ago`;
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return `${hrs}h ago`;
+      const days = Math.floor(hrs / 24);
+      if (days < 30) return `${days}d ago`;
+      const months = Math.floor(days / 30);
+      return months <= 1 ? '1mo ago' : `${months}mo ago`;
+    }
+
+    function repoName(fullName) {
+      return fullName.split('/').slice(1).join('/');
+    }
+
+    function eventToShipItem(ev) {
+      const repo = repoName(ev.repo.name);
+      if (ev.type === 'PushEvent' && ev.payload.commits && ev.payload.commits.length) {
+        const msg = ev.payload.commits[ev.payload.commits.length - 1].message.split('\n')[0];
+        const count = ev.payload.commits.length;
+        return {
+          icon: '🚀',
+          tagClass: 'ship-tag-update',
+          tag: 'Update',
+          text: `Pushed ${count > 1 ? count + ' commits' : '1 commit'} to <strong>${repo}</strong> — ${msg}`,
+          when: ev.created_at,
+        };
+      }
+      if (ev.type === 'CreateEvent' && ev.payload.ref_type === 'repository') {
+        return {
+          icon: '🗂️',
+          tagClass: 'ship-tag-build',
+          tag: 'Build',
+          text: `Created a new repository — <strong>${repo}</strong>`,
+          when: ev.created_at,
+        };
+      }
+      if (ev.type === 'ReleaseEvent') {
+        return {
+          icon: '🏷️',
+          tagClass: 'ship-tag-update',
+          tag: 'Release',
+          text: `Released ${ev.payload.release?.tag_name || 'a new version'} of <strong>${repo}</strong>`,
+          when: ev.created_at,
+        };
+      }
+      if (ev.type === 'PublicEvent') {
+        return {
+          icon: '🌐',
+          tagClass: 'ship-tag-build',
+          tag: 'Build',
+          text: `Open-sourced <strong>${repo}</strong>`,
+          when: ev.created_at,
+        };
+      }
+      return null;
+    }
+
+    fetch(`https://api.github.com/users/${GH_USER}/events/public?per_page=40`)
+      .then((res) => {
+        if (!res.ok) throw new Error('GitHub API error ' + res.status);
+        return res.json();
+      })
+      .then((events) => {
+        const items = events
+          .map(eventToShipItem)
+          .filter(Boolean)
+          .slice(0, 6);
+        if (!items.length) return;
+
+        listEl.innerHTML = items.map((item) => `
+          <div class="ship-item visible">
+            <span class="ship-icon">${item.icon}</span>
+            <div class="ship-body">
+              <p class="ship-text">${item.text}</p>
+              <p class="ship-when">${timeAgo(item.when)}</p>
+            </div>
+            <span class="ship-tag ${item.tagClass}">${item.tag}</span>
+          </div>
+        `).join('');
+
+        if (subEl) subEl.textContent = 'Live from GitHub';
+      })
+      .catch(() => {
+        // Keep the static fallback list already in the markup.
+      });
+  })();
+
   // ── Project impact separators ──
   document.querySelectorAll('.project-impact').forEach(el => {
     el.innerHTML = el.innerHTML.replace(/ · /g, ' <span class="sep">✦</span> ');
@@ -6453,7 +6768,7 @@
       if (e.isIntersecting) {
         e.target.classList.add('visible');
         // stagger children
-        e.target.querySelectorAll('.domain-card, .project-card, .cert-card, .edu-card, .stat-card, .timeline-item, .tools-category').forEach((el, i) => {
+        e.target.querySelectorAll('.domain-card, .project-card, .cert-card, .edu-card, .stat-card, .timeline-item, .tools-category, .ship-item').forEach((el, i) => {
           el.style.transitionDelay = `${i * 0.08}s`;
           el.classList.add('reveal', 'visible');
         });
