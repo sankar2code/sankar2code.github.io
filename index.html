@@ -2378,47 +2378,42 @@
     ═══════════════════════════════════════════════ */
     .recommendations-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 0.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 0.75rem 0.55rem;
+      margin-top: 0.6rem;
       margin-bottom: 0.5rem;
     }
 
-    .rec-card-small {
+    .rec-row {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.65rem 0.75rem;
+      cursor: pointer;
       background: var(--card);
       border: 0.5px solid var(--border);
       border-radius: var(--radius);
-      padding: 0.9rem;
-      padding-left: 1.1rem;
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
       position: relative;
     }
 
-    .rec-card-small::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: linear-gradient(180deg, #2563eb, #38bdf8);
-      border-radius: 8px 0 0 8px;
-    }
-
-    .rec-card-small:hover {
-      transform: translateY(-4px);
+    .rec-row:hover {
+      transform: translateY(-3px);
       border-color: rgba(6,182,212,0.85);
-      box-shadow: 0 0 25px rgba(6,182,212,0.35), 0 0 8px rgba(6,182,212,0.15);
+      box-shadow: 0 0 20px rgba(6,182,212,0.3), 0 0 6px rgba(6,182,212,0.12);
     }
 
-    .rec-card-small > div {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
+    .rec-row-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .rec-row-info {
+      flex: 1;
+      min-width: 0;
     }
 
     .rec-card-icon {
@@ -2427,27 +2422,37 @@
 
     .rec-card-name {
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.78rem;
       margin: 0;
       color: var(--text);
       line-height: 1.25;
     }
 
     .rec-card-role {
-      font-size: 0.75rem;
+      font-size: 0.64rem;
       color: var(--muted);
-      margin: 0;
-      line-height: 1.3;
+      margin: 1px 0 0;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .rec-row-badge {
+      position: absolute;
+      top: -8px;
+      right: 10px;
+      font-size: 0.58rem;
+      font-weight: 600;
+      color: #fff;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
     }
 
     .rec-card-rel {
       display: none;
-    }
-
-    html.light .rec-card-rel {
-      color: white;
-      background: linear-gradient(135deg, #0891b2, #0e7490);
-      border-color: rgba(6,182,212,0.5);
     }
 
     .rec-stars {
@@ -3903,11 +3908,11 @@
       .project-body h3  { font-size: 0.95rem; }
       .project-body p   { font-size: 0.82rem; }
       .project-impact   { font-size: 0.75rem; padding: 0.6rem 0.8rem; }
-      .recommendations-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.8rem; margin-top: 1rem; }
-      .rec-card-small { padding: 0.8rem; padding-left: 1rem; gap: 0.3rem; }
-      .rec-card-name { font-size: 0.85rem; }
-      .rec-card-role { font-size: 0.7rem; }
-      .rec-card-rel { font-size: 0.65rem; margin: 0.3rem 0 0 0; padding: 0.25rem 0.6rem; }
+      .recommendations-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin-top: 1rem; }
+      .rec-row { padding: 1.25rem 0.6rem 0.5rem; gap: 0.5rem; }
+      .rec-row-avatar { width: 28px; height: 28px; }
+      .rec-card-name { font-size: 0.72rem; }
+      .rec-card-role { font-size: 0.6rem; }
       .rec-modal-content { max-width: 90vw; padding: 1.5rem; }
       .rec-modal-header h3 { font-size: 1.1rem; }
       .rec-quote-full { font-size: 0.9rem; }
@@ -5632,94 +5637,94 @@
   </div>
 
   <div class="recommendations-grid reveal">
-    <!-- Card 1: Imthias Shaffiullah -->
-    <div class="rec-card-small" onclick="openRecModal('imthias-shaffiullah')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Imthias Shaffiullah</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Software Engineer, Spotline, Inc.</p>
-        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #6366f1); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'26</p>
+    <!-- Row 1: Imthias Shaffiullah -->
+    <div class="rec-row" onclick="openRecModal('imthias-shaffiullah')">
+      <img class="rec-row-avatar" src="imthias-shaffiullah.jpeg" alt="Imthias Shaffiullah">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Imthias Shaffiullah</p>
+        <p class="rec-card-role">Software Engineer, Spotline, Inc.</p>
       </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
 
-    <!-- Card 2: Rajesh Sundarraj -->
-    <div class="rec-card-small" onclick="openRecModal('rajesh-sundarraj')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Rajesh Sundarraj</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Group Technical Specialist, HCL Technology</p>
-        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #6366f1); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'26</p>
+    <!-- Row 2: Rajesh Sundarraj -->
+    <div class="rec-row" onclick="openRecModal('rajesh-sundarraj')">
+      <img class="rec-row-avatar" src="rajesh-sundarraj.jpeg" alt="Rajesh Sundarraj">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Rajesh Sundarraj</p>
+        <p class="rec-card-role">Group Technical Specialist, HCL Technology</p>
       </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
 
-    <!-- Card 3: Ravi Vishwas -->
-    <div class="rec-card-small" onclick="openRecModal('ravi-vishwas')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Ravi Vishwas</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Enterprise Technology & ERP Senior Consultant</p>
-        <p class="rec-card-rel" style="margin: 0;">Professional consulting relationship</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #0284c7, #0ea5e9); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q2'25</p>
+    <!-- Row 3: Ravi Vishwas -->
+    <div class="rec-row" onclick="openRecModal('ravi-vishwas')">
+      <img class="rec-row-avatar" src="ravi-vishwas.jpeg" alt="Ravi Vishwas">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Ravi Vishwas</p>
+        <p class="rec-card-role">Enterprise Technology & ERP Senior Consultant</p>
       </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #0284c7, #0ea5e9);">Q2'25</span>
     </div>
 
-    <!-- Card 4: Giridhar Golkonda -->
-    <div class="rec-card-small" onclick="openRecModal('giridhar-golkonda')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Giridhar Golkonda</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">IT Leader & Enterprise Architect</p>
-        <p class="rec-card-rel" style="margin: 0;">Mentor</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #0369a1, #0284c7); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q1'25</p>
+    <!-- Row 4: Giridhar Golkonda -->
+    <div class="rec-row" onclick="openRecModal('giridhar-golkonda')">
+      <img class="rec-row-avatar" src="giridhar-golkonda.jpeg" alt="Giridhar Golkonda">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Giridhar Golkonda</p>
+        <p class="rec-card-role">IT Leader & Enterprise Architect</p>
       </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #0369a1, #0284c7);">Q1'25</span>
     </div>
 
-    <!-- Card 5: Peter Dudek -->
-    <div class="rec-card-small" onclick="openRecModal('peter-dudek')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Peter Dudek</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Pega Certified Senior System Architect</p>
-        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #38bdf8); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'24</p>
+    <!-- Row 5: Peter Dudek -->
+    <div class="rec-row" onclick="openRecModal('peter-dudek')">
+      <img class="rec-row-avatar" src="peter-dudek.jpeg" alt="Peter Dudek">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Peter Dudek</p>
+        <p class="rec-card-role">Pega Certified Senior System Architect</p>
       </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #38bdf8);">Q3'24</span>
     </div>
 
-    <!-- Card 6: Paul Atherton -->
-    <div class="rec-card-small" onclick="openRecModal('paul-atherton')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Paul Atherton</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Manager Provider Data Management, Healthfirst</p>
-        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #1d4ed8, #2563eb); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'24</p>
+    <!-- Row 6: Paul Atherton -->
+    <div class="rec-row" onclick="openRecModal('paul-atherton')">
+      <img class="rec-row-avatar" src="paul-atherton.jpeg" alt="Paul Atherton">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Paul Atherton</p>
+        <p class="rec-card-role">Manager Provider Data Management, Healthfirst</p>
       </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #1d4ed8, #2563eb);">Q3'24</span>
     </div>
 
-    <!-- Card 7: Denise Hurley-Forgach -->
-    <div class="rec-card-small" onclick="openRecModal('denise-hurley')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Denise Hurley-Forgach</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Senior Manager, Utilities Industries</p>
-        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #60a5fa); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q2'24</p>
+    <!-- Row 7: Denise Hurley-Forgach -->
+    <div class="rec-row" onclick="openRecModal('denise-hurley')">
+      <img class="rec-row-avatar" src="denise-hurley.jpeg" alt="Denise Hurley-Forgach">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Denise Hurley-Forgach</p>
+        <p class="rec-card-role">Senior Manager, Utilities Industries</p>
       </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #60a5fa);">Q2'24</span>
     </div>
 
-    <!-- Card 8: Narayanan Ramaswamy -->
-    <div class="rec-card-small" onclick="openRecModal('narayanan-ramaswamy')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Narayanan Ramaswamy</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Sr. Client Partner @ Saama | Health Sciences</p>
-        <p class="rec-card-rel" style="margin: 0;">Managed Sankar directly</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #1e3a8a, #3b82f6); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q1'24</p>
+    <!-- Row 8: Narayanan Ramaswamy -->
+    <div class="rec-row" onclick="openRecModal('narayanan-ramaswamy')">
+      <img class="rec-row-avatar" src="narayanan-ramaswamy.jpeg" alt="Narayanan Ramaswamy">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Narayanan Ramaswamy</p>
+        <p class="rec-card-role">Sr. Client Partner @ Saama | Health Sciences</p>
       </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">Q1'24</span>
     </div>
 
-    <!-- Card 9: Thukkaram Periasamy -->
-    <div class="rec-card-small" onclick="openRecModal('thukkaram-periasamy')">
-      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
-        <p class="rec-card-name" style="margin: 0;">Thukkaram Periasamy</p>
-        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Associate Manager, Accenture</p>
-        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
-        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #1e40af, #2563eb); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q4'23</p>
+    <!-- Row 9: Thukkaram Periasamy -->
+    <div class="rec-row" onclick="openRecModal('thukkaram-periasamy')">
+      <img class="rec-row-avatar" src="thukkaram-periasamy.jpeg" alt="Thukkaram Periasamy">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Thukkaram Periasamy</p>
+        <p class="rec-card-role">Associate Manager, Accenture</p>
       </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #1e40af, #2563eb);">Q4'23</span>
     </div>
   </div>
 
