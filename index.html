@@ -1508,14 +1508,24 @@
       z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 0.15rem;
+      gap: 0.9rem;
+      padding-left: 40px;
+    }
+
+    /* Connecting rail — brightest near the newest item, fading with age */
+    .ship-rail {
+      position: absolute;
+      left: 14.5px;
+      top: 16px;
+      bottom: 16px;
+      width: 2px;
+      border-radius: 2px;
+      background: linear-gradient(180deg, rgba(56,189,248,0.55), rgba(99,102,241,0.22), transparent);
     }
 
     .ship-item {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      padding: 0.7rem 0.5rem;
+      position: relative;
+      padding: 0.35rem 0.6rem 0.35rem 0.15rem;
       border-radius: 12px;
       transition: background 0.25s, transform 0.25s;
     }
@@ -1525,29 +1535,33 @@
       transform: translateX(4px);
     }
 
-    .ship-item:not(:last-child) {
-      border-bottom: 1px solid var(--border);
-    }
-
     .ship-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
+      position: absolute;
+      left: -40px;
+      top: 0;
+      width: 29px;
+      height: 29px;
+      border-radius: 9px;
       background: var(--bg3);
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
+      font-size: 0.9rem;
     }
 
-    .ship-body { flex: 1; min-width: 0; }
+    .ship-rail + .ship-item .ship-icon {
+      border-color: rgba(56,189,248,0.4);
+      box-shadow: 0 0 10px rgba(56,189,248,0.35);
+    }
+
+    .ship-body { min-width: 0; }
 
     .ship-text {
       font-size: 0.88rem;
       color: var(--text-body);
       margin: 0;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     .ship-when {
@@ -1557,14 +1571,16 @@
     }
 
     .ship-tag {
-      font-size: 0.65rem;
+      display: inline-block;
+      margin-left: 0.5rem;
+      font-size: 0.6rem;
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      padding: 0.25rem 0.6rem;
+      padding: 0.2rem 0.55rem;
       border-radius: 50px;
       white-space: nowrap;
-      flex-shrink: 0;
+      vertical-align: middle;
     }
 
     .ship-tag-feature { color: #7dd3fc; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); }
@@ -1604,7 +1620,9 @@
     @media (max-width: 600px) {
       .shipped-card { padding: 1.2rem 1.1rem; }
       .ship-text { font-size: 0.82rem; }
-      .ship-icon { width: 30px; height: 30px; font-size: 0.9rem; }
+      .shipped-list { padding-left: 34px; gap: 0.75rem; }
+      .ship-icon { width: 25px; height: 25px; font-size: 0.8rem; left: -34px; }
+      .ship-rail { left: 11.5px; }
       .shipped-sub { display: none; }
       .shipped-streak { font-size: 0.65rem; padding: 0.24rem 0.55rem; }
       .shipped-card::after { filter: blur(28px); }
@@ -6147,40 +6165,36 @@
       <span class="shipped-sub">Building in public</span>
     </div>
     <div class="shipped-list" id="shipped-list">
+      <div class="ship-rail"></div>
       <div class="ship-item">
         <span class="ship-icon">🤖</span>
         <div class="ship-body">
-          <p class="ship-text">Launched "Ask My Twin" — an AI chatbot grounded on my real career, built with Claude and Cloudflare Workers</p>
+          <p class="ship-text">Launched "Ask My Twin" — an AI chatbot grounded on my real career, built with Claude and Cloudflare Workers<span class="ship-tag ship-tag-feature">Feature</span></p>
         </div>
-        <span class="ship-tag ship-tag-feature">Feature</span>
       </div>
       <div class="ship-item">
         <span class="ship-icon">⌘</span>
         <div class="ship-body">
-          <p class="ship-text">Added a command palette (Cmd+K) for instant navigation across the site</p>
+          <p class="ship-text">Added a command palette (Cmd+K) for instant navigation across the site<span class="ship-tag ship-tag-feature">Feature</span></p>
         </div>
-        <span class="ship-tag ship-tag-feature">Feature</span>
       </div>
       <div class="ship-item">
         <span class="ship-icon">🗂️</span>
         <div class="ship-body">
-          <p class="ship-text">Shipped the Enterprise AI Data Copilot Suite build card and opened it up for collaborators</p>
+          <p class="ship-text">Shipped the Enterprise AI Data Copilot Suite build card and opened it up for collaborators<span class="ship-tag ship-tag-build">Build</span></p>
         </div>
-        <span class="ship-tag ship-tag-build">Build</span>
       </div>
       <div class="ship-item">
         <span class="ship-icon">🏢</span>
         <div class="ship-body">
-          <p class="ship-text">Published the Compliance Lease Tool with a live GitHub repo and mockup</p>
+          <p class="ship-text">Published the Compliance Lease Tool with a live GitHub repo and mockup<span class="ship-tag ship-tag-build">Build</span></p>
         </div>
-        <span class="ship-tag ship-tag-build">Build</span>
       </div>
       <div class="ship-item">
         <span class="ship-icon">⭐</span>
         <div class="ship-body">
-          <p class="ship-text">Added new recommendations from colleagues at HCL and Spotline</p>
+          <p class="ship-text">Added new recommendations from colleagues at HCL and Spotline<span class="ship-tag ship-tag-update">Update</span></p>
         </div>
-        <span class="ship-tag ship-tag-update">Update</span>
       </div>
     </div>
   </div>
@@ -6724,19 +6738,17 @@
 
     // Coordinates the "reveal" animations so they play once the section
     // actually scrolls into view — not buried off-screen at page load.
-    // The newest-item animation (typewriter + flash) is a one-shot: it only
-    // needs (a) the section visible and (b) its own data ready, so it can't
-    // be silently skipped by the streak animation firing first. The streak
-    // count-up, on the other hand, replays every time the section is
-    // scrolled into view (from above or below), regardless of order.
+    // Both the newest-item animation (typewriter + flash) and the streak
+    // count-up replay every time the section is scrolled into view (from
+    // above or below), regardless of whether the GitHub fetch has settled
+    // yet — each only needs (a) the section visible and (b) its own data
+    // ready, so neither can be silently skipped by the other firing first.
     let sectionVisible = false;
     let listReady = false;
-    let itemAnimDone = false;
     let pendingStreak = null; // { streak, commitsThisWeek }
 
-    function tryPlayItemAnim() {
-      if (itemAnimDone || !sectionVisible || !listReady) return;
-      itemAnimDone = true;
+    function playItemAnim() {
+      if (!sectionVisible || !listReady) return;
       animateNewestShipItem(listEl);
     }
 
@@ -6766,7 +6778,7 @@
         entries.forEach((e) => {
           if (e.isIntersecting) {
             sectionVisible = true;
-            tryPlayItemAnim();
+            playItemAnim();
             playStreakCountUp();
           }
         });
@@ -6776,9 +6788,15 @@
 
     // Newest item gets a one-time typewriter reveal on its text plus a soft
     // "just shipped" ring flash — signals "this is what's freshest" without
-    // re-animating the whole list.
+    // re-animating the whole list. Replays every time it's called (e.g. the
+    // section is scrolled into view again), so a run-token guards against
+    // an interrupted earlier pass fighting with a fresh one.
+    let typeRunId = 0;
     function animateNewestShipItem(root) {
-      const firstItem = root.querySelector('.ship-item:first-child');
+      // Note: .ship-rail is the actual first DOM child of #shipped-list, so
+      // the newest .ship-item is the first *matching* element, not literally
+      // :first-child.
+      const firstItem = root.querySelector('.ship-item');
       if (!firstItem) return;
 
       // Keeps pulsing indefinitely (not just once) to mark the newest item.
@@ -6786,14 +6804,26 @@
 
       const textEl = firstItem.querySelector('.ship-text');
       if (!textEl) return;
-      const finalHTML = textEl.innerHTML;
-      const plain = textEl.textContent;
+
+      // Cache the canonical rich HTML on first run so replays always type
+      // out the real content, even if an earlier pass was interrupted
+      // mid-way (which would otherwise leave textContent truncated).
+      if (!textEl.dataset.fullHtml) {
+        textEl.dataset.fullHtml = textEl.innerHTML;
+      }
+      const finalHTML = textEl.dataset.fullHtml;
+      const tmp = document.createElement('div');
+      tmp.innerHTML = finalHTML;
+      const plain = tmp.textContent;
+
+      const runId = ++typeRunId;
       textEl.textContent = '';
       textEl.classList.add('ship-typing');
 
       let i = 0;
       const speed = 16;
       (function step() {
+        if (runId !== typeRunId) return; // superseded by a newer replay
         i++;
         textEl.textContent = plain.slice(0, i);
         if (i < plain.length) {
@@ -6863,8 +6893,36 @@
       playStreakCountUp();
     }
 
+    // Most events on the rail end up being PushEvent (that's the bulk of
+    // day-to-day activity), which would otherwise give every item the same
+    // 🚀 icon. Map known repos to their own icon so the rail stays visually
+    // distinct per project regardless of which event type triggered it.
+    const REPO_ICONS = {
+      'sankar2code.github.io': '🧑‍💻',
+      'Compliance-Lease-Tool': '🏢',
+      'Enterprise-AI-Data-Copilot-Suite': '🗂️',
+      'Claude-Skill_SubAgent-Builder-Collections': '🧩',
+      'AI-Analyst-Builder': '📊',
+    };
+
+    // Push events are the bulk of activity and don't carry any signal beyond
+    // "code changed" — so any repo NOT in the curated map above still needs
+    // its own look. Hash the repo name into a small icon palette: same repo
+    // always lands on the same icon (stable across reloads), different repos
+    // usually land on different ones (no manual mapping upkeep required).
+    const PUSH_ICON_PALETTE = ['🚀', '⚙️', '🧪', '📈', '🔧', '🌱', '📡', '🧭', '🛰️', '🔩'];
+    function fallbackPushIcon(repoFullName) {
+      let hash = 0;
+      for (let i = 0; i < repoFullName.length; i++) {
+        hash = (hash * 31 + repoFullName.charCodeAt(i)) >>> 0;
+      }
+      return PUSH_ICON_PALETTE[hash % PUSH_ICON_PALETTE.length];
+    }
+
     function eventToShipItem(ev) {
       const repo = repoName(ev.repo.name);
+      const repoIcon = REPO_ICONS[repo];
+
       if (ev.type === 'PushEvent') {
         const commits = ev.payload.commits;
         if (commits && commits.length) {
@@ -6872,7 +6930,7 @@
           const count = commits.length;
           return {
             repoFull: ev.repo.name,
-            icon: '🚀',
+            icon: repoIcon || fallbackPushIcon(ev.repo.name),
             tagClass: 'ship-tag-update',
             tag: 'Update',
             text: `Pushed ${count > 1 ? count + ' commits' : '1 commit'} to <strong>${repo}</strong> — ${msg}`,
@@ -6885,7 +6943,7 @@
         const branch = (ev.payload.ref || '').split('/').pop();
         return {
           repoFull: ev.repo.name,
-          icon: '🚀',
+          icon: repoIcon || fallbackPushIcon(ev.repo.name),
           tagClass: 'ship-tag-update',
           tag: 'Update',
           text: `Pushed updates to <strong>${repo}</strong>${branch ? ` (${branch})` : ''}`,
@@ -6895,7 +6953,7 @@
       if (ev.type === 'CreateEvent' && ev.payload.ref_type === 'repository') {
         return {
           repoFull: ev.repo.name,
-          icon: '🗂️',
+          icon: repoIcon || '🗂️',
           tagClass: 'ship-tag-build',
           tag: 'Build',
           text: `Created a new repository — <strong>${repo}</strong>`,
@@ -6908,7 +6966,7 @@
         // the project's kickoff, so treat it as a Build milestone.
         return {
           repoFull: ev.repo.name,
-          icon: '🗂️',
+          icon: repoIcon || '🗂️',
           tagClass: 'ship-tag-build',
           tag: 'Build',
           text: `Started a new project — <strong>${repo}</strong>: ${ev.payload.description}`,
@@ -6918,7 +6976,7 @@
       if (ev.type === 'ReleaseEvent') {
         return {
           repoFull: ev.repo.name,
-          icon: '🏷️',
+          icon: repoIcon || '🏷️',
           tagClass: 'ship-tag-update',
           tag: 'Release',
           text: `Released ${ev.payload.release?.tag_name || 'a new version'} of <strong>${repo}</strong>`,
@@ -6928,7 +6986,7 @@
       if (ev.type === 'PublicEvent') {
         return {
           repoFull: ev.repo.name,
-          icon: '🌐',
+          icon: repoIcon || '🌐',
           tagClass: 'ship-tag-build',
           tag: 'Build',
           text: `Open-sourced <strong>${repo}</strong>`,
@@ -6960,14 +7018,13 @@
           .slice(0, 6);
 
         if (items.length) {
-          listEl.innerHTML = items.map((item) => `
+          listEl.innerHTML = '<div class="ship-rail"></div>' + items.map((item) => `
             <div class="ship-item visible">
               <span class="ship-icon">${item.icon}</span>
               <div class="ship-body">
-                <p class="ship-text">${item.text}</p>
+                <p class="ship-text">${item.text}<span class="ship-tag ${item.tagClass}">${item.tag}</span></p>
                 <p class="ship-when">${timeAgo(item.when)}</p>
               </div>
-              <span class="ship-tag ${item.tagClass}">${item.tag}</span>
             </div>
           `).join('');
           if (subEl) subEl.textContent = 'Live from GitHub';
@@ -6978,13 +7035,13 @@
         renderStreak(events);
 
         listReady = true;
-        tryPlayItemAnim();
+        playItemAnim();
       })
       .catch(() => {
         // Keep the static fallback list already in the markup — it still
         // deserves its reveal animation even without live GitHub data.
         listReady = true;
-        tryPlayItemAnim();
+        playItemAnim();
       });
   })();
 
