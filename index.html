@@ -5694,6 +5694,16 @@
         <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #1e3a8a, #3b82f6); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q1'24</p>
       </div>
     </div>
+
+    <!-- Card 8: Imthias Shaffiullah -->
+    <div class="rec-card-small" onclick="openRecModal('imthias-shaffiullah')">
+      <div style="text-align: center; display: flex; flex-direction: column; gap: 0.4rem; height: 100%;">
+        <p class="rec-card-name" style="margin: 0;">Imthias Shaffiullah</p>
+        <p class="rec-card-role" style="margin: 0; flex-grow: 1;">Software Engineer, Spotline, Inc.</p>
+        <p class="rec-card-rel" style="margin: 0;">Worked together on same team</p>
+        <p style="font-size: 0.75rem; font-weight: 600; color: #fff; background: linear-gradient(135deg, #2563eb, #6366f1); padding: 0.35rem 0.6rem; border-radius: 4px; margin: 0; display: inline-block; align-self: center;">Q3'26</p>
+      </div>
+    </div>
   </div>
 
   <!-- MODALS FOR RECOMMENDATIONS -->
@@ -5790,6 +5800,20 @@
         <p class="rec-modal-title">Sr. Client Partner @ Saama | Health Sciences</p>
       </div>
       <p class="rec-quote-full">"I am delighted to provide an enthusiastic recommendation for Sankar, who served as a Business Analyst during his tenure at one of my prior organizations. Sankar consistently delivered exceptional performance, leaving an indelible mark on our then IT department. From the outset, Sankar's analytical prowess was evident. He adeptly gathered and meticulously analyzed business requirements, translating them into actionable insights and strategic plans. His clear communication skills facilitated alignment across stakeholders, ensuring well-executed projects. Sankar's proactive problem-solving abilities were invaluable in our fast-paced environment. His collaborative approach earned him the respect and trust of peers and supervisors alike."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
+  <!-- Modal 8: Imthias Shaffiullah -->
+  <div class="rec-modal" id="imthias-shaffiullah-modal" onclick="closeRecModal(event, 'imthias-shaffiullah')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'imthias-shaffiullah')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Imthias Shaffiullah</h3>
+        <p class="rec-modal-title">Software Engineer, Spotline, Inc.</p>
+      </div>
+      <p class="rec-quote-full">"I had the pleasure of working with Sankar on a data engineering and reporting project, and he consistently impressed me with his product management and business analysis skills. He has strong analytical and problem-solving abilities, a talent for project planning, and he always delivered on time without sacrificing quality. Sankar worked seamlessly across functional teams, communicating clearly and building trust easily along the way. He's also a great mentor, generous with his knowledge, and always pushing himself to learn something new. Any team would be lucky to have him."</p>
       <p class="rec-stars">⭐⭐⭐⭐⭐</p>
       <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
     </div>
@@ -6287,7 +6311,8 @@
     { id: 'thukkaram-periasamy', name: 'Thukkaram Periasamy', role: 'Associate Manager, Accenture', quote: 'Sankar consistently demonstrated his ability to dissect complex requirements and develop comprehensive action plans that translated vision into reality.' },
     { id: 'giridhar-golkonda', name: 'Giridhar Golkonda', role: 'IT Leader & Enterprise Architect', quote: 'He adeptly dissected complex data and conveyed clear, actionable insights — enhancing operational efficiency and guiding strategic decisions.' },
     { id: 'denise-hurley', name: 'Denise Hurley-Forgach', role: 'Senior Manager, Utilities Industries', quote: 'Sankar is one of the most poised and composed professionals I have ever worked with. Not only would I recommend him — I would be grateful to have him on my team.' },
-    { id: 'narayanan-ramaswamy', name: 'Narayanan Ramaswamy', role: 'Sr. Client Partner @ Saama | Health Sciences', quote: 'Sankar consistently delivered exceptional performance, leaving an indelible mark on our IT department. His proactive problem-solving was invaluable.' }
+    { id: 'narayanan-ramaswamy', name: 'Narayanan Ramaswamy', role: 'Sr. Client Partner @ Saama | Health Sciences', quote: 'Sankar consistently delivered exceptional performance, leaving an indelible mark on our IT department. His proactive problem-solving was invaluable.' },
+    { id: 'imthias-shaffiullah', name: 'Imthias Shaffiullah', role: 'Software Engineer, Spotline, Inc.', quote: 'He consistently impressed me with his product management and business analysis skills, and always delivered on time without sacrificing quality.' }
   ];
   const recQuoteEl = document.getElementById('rec-spot-quote');
   if (recQuoteEl) {
