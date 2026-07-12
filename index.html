@@ -1410,10 +1410,12 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #2563eb, #38bdf8, #6366f1, transparent);
-      background-size: 200% 100%;
-      animation: shippedSheen 6s linear infinite;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, transparent, #38bdf8, #818cf8, #38bdf8, transparent, transparent);
+      background-size: 260% 100%;
+      box-shadow: 0 0 10px rgba(56,189,248,0.5);
+      animation: shippedSheen 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      z-index: 2;
     }
 
     @keyframes shippedSheen {
@@ -1421,7 +1423,31 @@
       100% { background-position: -200% 0; }
     }
 
+    /* Ambient smoke — slow drifting blurred haze behind the card content */
+    .shipped-card::after {
+      content: '';
+      position: absolute;
+      inset: -25%;
+      background:
+        radial-gradient(circle at 22% 28%, rgba(56,189,248,0.20), transparent 58%),
+        radial-gradient(circle at 78% 66%, rgba(99,102,241,0.18), transparent 55%),
+        radial-gradient(circle at 48% 92%, rgba(129,140,248,0.14), transparent 60%);
+      filter: blur(45px);
+      opacity: 0.85;
+      animation: shippedSmoke 16s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes shippedSmoke {
+      0%, 100% { transform: translate(0%, 0%) scale(1); }
+      33%      { transform: translate(4%, -5%) scale(1.1); }
+      66%      { transform: translate(-4%, 4%) scale(1.05); }
+    }
+
     .shipped-header {
+      position: relative;
+      z-index: 1;
       display: flex;
       align-items: center;
       gap: 0.6rem;
@@ -1435,17 +1461,13 @@
       background: #38bdf8;
       border-radius: 50%;
       box-shadow: 0 0 8px rgba(56,189,248,0.9);
-      animation: pulse 2s ease-in-out infinite;
+      animation: dotBlink 1.6s ease-in-out infinite;
       flex-shrink: 0;
     }
 
-    .shipped-live-dot::after {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(56,189,248,0.7);
-      animation: dotPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    @keyframes dotBlink {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(56,189,248,0.9); }
+      50%      { opacity: 0.35; box-shadow: 0 0 3px rgba(56,189,248,0.4); }
     }
 
     .shipped-label {
@@ -1460,6 +1482,21 @@
       background-clip: text;
     }
 
+    .shipped-streak {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      padding: 0.28rem 0.65rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      color: #fb923c;
+      background: rgba(251,146,60,0.12);
+      border: 1px solid rgba(251,146,60,0.3);
+      white-space: nowrap;
+    }
+
     .shipped-sub {
       margin-left: auto;
       font-size: 0.75rem;
@@ -1467,6 +1504,8 @@
     }
 
     .shipped-list {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       gap: 0.15rem;
@@ -1532,18 +1571,43 @@
     .ship-tag-build   { color: #c4b5fd; background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3); }
     .ship-tag-update  { color: #f0abfc; background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.3); }
 
+    /* Newest item: typewriter caret while typing + a one-time "just shipped" flash ring */
+    .ship-text.ship-typing {
+      display: inline-block;
+      border-right: 2px solid #38bdf8;
+      animation: caretBlink 0.75s step-end infinite;
+    }
+
+    @keyframes caretBlink {
+      0%, 100% { border-color: #38bdf8; }
+      50%      { border-color: transparent; }
+    }
+
+    .ship-item.ship-item-flash {
+      animation: shipFlash 2.4s ease-in-out infinite;
+    }
+
+    @keyframes shipFlash {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(56,189,248,0.5); background: rgba(56,189,248,0.08); }
+      50%      { box-shadow: 0 0 0 8px rgba(56,189,248,0); background: transparent; }
+    }
+
+    html.light .shipped-card::after { opacity: 0.35; }
     html.light .shipped-card { background: #ffffff; }
     html.light .ship-icon { background: #f1f5f9; }
     html.light .ship-text { color: #111118; }
     html.light .ship-tag-feature { color: #0369a1; }
     html.light .ship-tag-build   { color: #4338ca; }
     html.light .ship-tag-update  { color: #7e22ce; }
+    html.light .shipped-streak { color: #c2410c; background: rgba(251,146,60,0.14); border-color: rgba(251,146,60,0.35); }
 
     @media (max-width: 600px) {
       .shipped-card { padding: 1.2rem 1.1rem; }
       .ship-text { font-size: 0.82rem; }
       .ship-icon { width: 30px; height: 30px; font-size: 0.9rem; }
       .shipped-sub { display: none; }
+      .shipped-streak { font-size: 0.65rem; padding: 0.24rem 0.55rem; }
+      .shipped-card::after { filter: blur(28px); }
     }
 
     /* ═══════════════════════════════════════════════
@@ -6079,6 +6143,7 @@
     <div class="shipped-header">
       <span class="shipped-live-dot"></span>
       <span class="shipped-label">Recently shipped</span>
+      <span class="shipped-streak" id="shipped-streak" style="display:none;"></span>
       <span class="shipped-sub">Building in public</span>
     </div>
     <div class="shipped-list" id="shipped-list">
@@ -6657,21 +6722,179 @@
       return fullName.split('/').slice(1).join('/');
     }
 
+    // Coordinates the "reveal" animations so they play once the section
+    // actually scrolls into view — not buried off-screen at page load.
+    // The newest-item animation (typewriter + flash) is a one-shot: it only
+    // needs (a) the section visible and (b) its own data ready, so it can't
+    // be silently skipped by the streak animation firing first. The streak
+    // count-up, on the other hand, replays every time the section is
+    // scrolled into view (from above or below), regardless of order.
+    let sectionVisible = false;
+    let listReady = false;
+    let itemAnimDone = false;
+    let pendingStreak = null; // { streak, commitsThisWeek }
+
+    function tryPlayItemAnim() {
+      if (itemAnimDone || !sectionVisible || !listReady) return;
+      itemAnimDone = true;
+      animateNewestShipItem(listEl);
+    }
+
+    function playStreakCountUp() {
+      if (!sectionVisible || !pendingStreak) return;
+      const streakEl = document.getElementById('shipped-streak');
+      if (!streakEl) return;
+      const { streak, commitsThisWeek } = pendingStreak;
+      const weekPart = commitsThisWeek > 0 ? `commit${commitsThisWeek > 1 ? 's' : ''} this week` : '';
+
+      if (streak > 0) {
+        animateMultiCountUp(streakEl, [streak, commitsThisWeek], ([s, c]) => (
+          `🔥 ${s}-day streak${weekPart ? ` · ${c} ${weekPart}` : ''}`
+        ));
+      } else if (commitsThisWeek > 0) {
+        animateMultiCountUp(streakEl, [commitsThisWeek], ([c]) => (
+          `🔥 streak paused · ${c} ${weekPart}`
+        ));
+      } else {
+        streakEl.textContent = '🔥 streak paused';
+      }
+    }
+
+    const shippedCardEl = document.querySelector('.shipped-card');
+    if (shippedCardEl) {
+      const shippedRevealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            sectionVisible = true;
+            tryPlayItemAnim();
+            playStreakCountUp();
+          }
+        });
+      }, { threshold: 0.25 });
+      shippedRevealObserver.observe(shippedCardEl);
+    }
+
+    // Newest item gets a one-time typewriter reveal on its text plus a soft
+    // "just shipped" ring flash — signals "this is what's freshest" without
+    // re-animating the whole list.
+    function animateNewestShipItem(root) {
+      const firstItem = root.querySelector('.ship-item:first-child');
+      if (!firstItem) return;
+
+      // Keeps pulsing indefinitely (not just once) to mark the newest item.
+      firstItem.classList.add('ship-item-flash');
+
+      const textEl = firstItem.querySelector('.ship-text');
+      if (!textEl) return;
+      const finalHTML = textEl.innerHTML;
+      const plain = textEl.textContent;
+      textEl.textContent = '';
+      textEl.classList.add('ship-typing');
+
+      let i = 0;
+      const speed = 16;
+      (function step() {
+        i++;
+        textEl.textContent = plain.slice(0, i);
+        if (i < plain.length) {
+          setTimeout(step, speed);
+        } else {
+          textEl.innerHTML = finalHTML; // restore rich formatting (bold repo name, links)
+          textEl.classList.remove('ship-typing');
+        }
+      })();
+    }
+
+    // Animates one or more numbers counting up from 0 to their targets in
+    // lockstep, calling `format([values])` on every frame to produce the
+    // displayed string. Re-runs cleanly on repeat calls (e.g. re-entering
+    // the section on scroll) by tracking its own animation "run" token.
+    let countUpRunId = 0;
+    function animateMultiCountUp(el, targets, format, duration = 1700) {
+      const runId = ++countUpRunId;
+      if (targets.every((t) => t <= 0)) { el.textContent = format(targets); return; }
+      const start = performance.now();
+      function frame(now) {
+        if (runId !== countUpRunId) return; // a newer run superseded this one
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = format(targets.map((t) => Math.round(eased * t)));
+        if (progress < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // Consecutive-day activity streak + commits-this-week, computed from the
+    // same events already fetched — no extra API call needed.
+    function renderStreak(events) {
+      const streakEl = document.getElementById('shipped-streak');
+      if (!streakEl) return;
+
+      const toDateKey = (iso) => new Date(iso).toISOString().slice(0, 10);
+      const activeDays = new Set(events.map((ev) => toDateKey(ev.created_at)));
+
+      let streak = 0;
+      const cursor = new Date();
+      if (!activeDays.has(toDateKey(cursor.toISOString()))) {
+        cursor.setDate(cursor.getDate() - 1); // today's quiet — streak may still be "alive" via yesterday
+      }
+      while (activeDays.has(toDateKey(cursor.toISOString()))) {
+        streak++;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+
+      const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+      let commitsThisWeek = 0;
+      events.forEach((ev) => {
+        if (ev.type !== 'PushEvent') return;
+        if (new Date(ev.created_at).getTime() < weekAgo) return;
+        commitsThisWeek += (ev.payload.commits && ev.payload.commits.length)
+          ? ev.payload.commits.length
+          : (ev.payload.size || 1);
+      });
+
+      if (streak === 0 && commitsThisWeek === 0) return; // nothing to show, keep it hidden
+
+      streakEl.style.display = 'inline-flex';
+
+      // Hand off to playStreakCountUp() so the count-up plays when the
+      // section scrolls into view rather than immediately at page load.
+      pendingStreak = { streak, commitsThisWeek };
+      playStreakCountUp();
+    }
+
     function eventToShipItem(ev) {
       const repo = repoName(ev.repo.name);
-      if (ev.type === 'PushEvent' && ev.payload.commits && ev.payload.commits.length) {
-        const msg = ev.payload.commits[ev.payload.commits.length - 1].message.split('\n')[0];
-        const count = ev.payload.commits.length;
+      if (ev.type === 'PushEvent') {
+        const commits = ev.payload.commits;
+        if (commits && commits.length) {
+          const msg = commits[commits.length - 1].message.split('\n')[0];
+          const count = commits.length;
+          return {
+            repoFull: ev.repo.name,
+            icon: '🚀',
+            tagClass: 'ship-tag-update',
+            tag: 'Update',
+            text: `Pushed ${count > 1 ? count + ' commits' : '1 commit'} to <strong>${repo}</strong> — ${msg}`,
+            when: ev.created_at,
+          };
+        }
+        // GitHub's public events endpoint doesn't always include the commits
+        // array (e.g. for older or squashed pushes) — fall back to a generic
+        // "pushed to" message using the branch ref instead of dropping it.
+        const branch = (ev.payload.ref || '').split('/').pop();
         return {
+          repoFull: ev.repo.name,
           icon: '🚀',
           tagClass: 'ship-tag-update',
           tag: 'Update',
-          text: `Pushed ${count > 1 ? count + ' commits' : '1 commit'} to <strong>${repo}</strong> — ${msg}`,
+          text: `Pushed updates to <strong>${repo}</strong>${branch ? ` (${branch})` : ''}`,
           when: ev.created_at,
         };
       }
       if (ev.type === 'CreateEvent' && ev.payload.ref_type === 'repository') {
         return {
+          repoFull: ev.repo.name,
           icon: '🗂️',
           tagClass: 'ship-tag-build',
           tag: 'Build',
@@ -6679,8 +6902,22 @@
           when: ev.created_at,
         };
       }
+      if (ev.type === 'CreateEvent' && ev.payload.ref_type === 'branch' && ev.payload.description) {
+        // First branch on a brand-new repo — GitHub reports this as a
+        // "branch" create event (not "repository"), but it's effectively
+        // the project's kickoff, so treat it as a Build milestone.
+        return {
+          repoFull: ev.repo.name,
+          icon: '🗂️',
+          tagClass: 'ship-tag-build',
+          tag: 'Build',
+          text: `Started a new project — <strong>${repo}</strong>: ${ev.payload.description}`,
+          when: ev.created_at,
+        };
+      }
       if (ev.type === 'ReleaseEvent') {
         return {
+          repoFull: ev.repo.name,
           icon: '🏷️',
           tagClass: 'ship-tag-update',
           tag: 'Release',
@@ -6690,6 +6927,7 @@
       }
       if (ev.type === 'PublicEvent') {
         return {
+          repoFull: ev.repo.name,
           icon: '🌐',
           tagClass: 'ship-tag-build',
           tag: 'Build',
@@ -6700,33 +6938,53 @@
       return null;
     }
 
-    fetch(`https://api.github.com/users/${GH_USER}/events/public?per_page=40`)
+    fetch(`https://api.github.com/users/${GH_USER}/events/public?per_page=100`)
       .then((res) => {
         if (!res.ok) throw new Error('GitHub API error ' + res.status);
         return res.json();
       })
       .then((events) => {
+        // Dedupe to one entry per repo (keeping the most recent, since the
+        // API returns newest-first) so a burst of commits to one repo — e.g.
+        // this portfolio site while actively editing it — doesn't crowd out
+        // activity on every other project.
+        const seenRepos = new Set();
         const items = events
           .map(eventToShipItem)
           .filter(Boolean)
+          .filter((item) => {
+            if (seenRepos.has(item.repoFull)) return false;
+            seenRepos.add(item.repoFull);
+            return true;
+          })
           .slice(0, 6);
-        if (!items.length) return;
 
-        listEl.innerHTML = items.map((item) => `
-          <div class="ship-item visible">
-            <span class="ship-icon">${item.icon}</span>
-            <div class="ship-body">
-              <p class="ship-text">${item.text}</p>
-              <p class="ship-when">${timeAgo(item.when)}</p>
+        if (items.length) {
+          listEl.innerHTML = items.map((item) => `
+            <div class="ship-item visible">
+              <span class="ship-icon">${item.icon}</span>
+              <div class="ship-body">
+                <p class="ship-text">${item.text}</p>
+                <p class="ship-when">${timeAgo(item.when)}</p>
+              </div>
+              <span class="ship-tag ${item.tagClass}">${item.tag}</span>
             </div>
-            <span class="ship-tag ${item.tagClass}">${item.tag}</span>
-          </div>
-        `).join('');
+          `).join('');
+          if (subEl) subEl.textContent = 'Live from GitHub';
+        }
 
-        if (subEl) subEl.textContent = 'Live from GitHub';
+        // Compute the streak/commit stat only after the list DOM is settled,
+        // since it may synchronously trigger the newest-item reveal animation.
+        renderStreak(events);
+
+        listReady = true;
+        tryPlayItemAnim();
       })
       .catch(() => {
-        // Keep the static fallback list already in the markup.
+        // Keep the static fallback list already in the markup — it still
+        // deserves its reveal animation even without live GitHub data.
+        listReady = true;
+        tryPlayItemAnim();
       });
   })();
 
