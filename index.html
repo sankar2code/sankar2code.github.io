@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sankar - Product Owner / Manager</title>
+  <title>Sankar Kumar Palaniappan — AI Product Manager</title>
+  <meta name="description" content="AI Product Manager with 15+ years shipping data- and AI-powered products across pharma, healthcare, and tech — up to $16M revenue impact. Live AI products, PRDs, and an AI twin you can interview." />
+  <link rel="canonical" href="https://sankar.work/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sankar.work/" />
+  <meta property="og:title" content="Sankar Kumar Palaniappan — AI Product Manager" />
+  <meta property="og:description" content="15+ years shipping data- and AI-powered products across pharma, healthcare, and tech. Explore live AI products, PRDs, and ask my AI twin." />
+  <meta property="og:image" content="https://sankar.work/images/profile-photo.jpeg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Sankar Kumar Palaniappan — AI Product Manager" />
+  <meta name="twitter:description" content="15+ years shipping data- and AI-powered products across pharma, healthcare, and tech. Explore live AI products, PRDs, and ask my AI twin." />
+  <meta name="twitter:image" content="https://sankar.work/images/profile-photo.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
@@ -1608,6 +1619,104 @@
       50%      { box-shadow: 0 0 0 8px rgba(56,189,248,0); background: transparent; }
     }
 
+    /* GitHub-style contribution heatmap, recolored to the site's cyan accent */
+    .ship-heatmap {
+      position: relative;
+      z-index: 1;
+      margin-top: 1.4rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .heatmap-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .heatmap-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-body);
+    }
+
+    .heatmap-sub {
+      margin-left: auto;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .heatmap-body { width: 100%; }
+
+    /* 24 hour-of-day columns spanning the full card width */
+    .heatmap-hourlabels {
+      display: grid;
+      grid-template-columns: repeat(24, 1fr);
+      margin-left: 36px;
+      margin-bottom: 5px;
+      font-size: 0.56rem;
+      color: var(--muted);
+    }
+
+    .heatmap-row { display: flex; gap: 6px; width: 100%; }
+
+    .heatmap-daylabels {
+      display: grid;
+      grid-template-rows: repeat(7, 1fr);
+      gap: 3px;
+      width: 28px;
+      flex-shrink: 0;
+      font-size: 0.58rem;
+      color: var(--muted);
+    }
+
+    .heatmap-daylabels span { display: flex; align-items: center; }
+
+    .heatmap-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(24, 1fr);
+      grid-template-rows: repeat(7, 15px);
+      gap: 3px;
+    }
+
+    .heatmap-cell {
+      width: 100%;
+      height: 100%;
+      border-radius: 3px;
+      background: var(--bg3);
+    }
+
+    .heatmap-cell[data-level="1"] { background: rgba(56,189,248,0.25); }
+    .heatmap-cell[data-level="2"] { background: rgba(56,189,248,0.5); }
+    .heatmap-cell[data-level="3"] { background: rgba(56,189,248,0.78); }
+    .heatmap-cell[data-level="4"] { background: #38bdf8; box-shadow: 0 0 4px rgba(56,189,248,0.5); }
+
+    .heatmap-legend {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 0.8rem;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    .heatmap-legend .heatmap-cell {
+      width: 11px;
+      height: 11px;
+      flex-shrink: 0;
+      display: inline-block;
+    }
+
+    @media (max-width: 600px) {
+      .heatmap-hourlabels { margin-left: 26px; font-size: 0.5rem; }
+      .heatmap-daylabels { width: 20px; font-size: 0.5rem; }
+      .heatmap-grid { grid-template-rows: repeat(7, 10px); gap: 2px; }
+    }
+
     html.light .shipped-card::after { opacity: 0.35; }
     html.light .shipped-card { background: #ffffff; }
     html.light .ship-icon { background: #f1f5f9; }
@@ -2335,6 +2444,61 @@
     }
 
     html.light .tag-coming-soon { color: #4c1d95; }
+
+    .tag-live {
+      background: rgba(74,222,128,0.12);
+      color: #4ade80;
+      border: 1px solid rgba(74,222,128,0.45);
+      box-shadow: 0 0 10px rgba(74,222,128,0.2);
+    }
+    html.light .tag-live { color: #15803d; background: rgba(21,128,61,0.08); border-color: rgba(21,128,61,0.4); }
+
+    .domains-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 0.5rem;
+      opacity: 0.85;
+    }
+
+    .nb-head { margin-top: 3rem; }
+
+    .nb-head .section-label {
+      font-size: 1.2rem;
+      letter-spacing: 0.22em;
+      animation: nbGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes nbGlow {
+      0%, 100% { filter: drop-shadow(0 0 6px rgba(56,189,248,0.5)) drop-shadow(0 0 16px rgba(37,99,235,0.3)); }
+      50%      { filter: drop-shadow(0 0 12px rgba(56,189,248,0.95)) drop-shadow(0 0 28px rgba(37,99,235,0.55)); }
+    }
+
+    html.light .nb-head .section-label {
+      animation: none;
+      filter: drop-shadow(0 0 8px rgba(37,99,235,0.35));
+    }
+
+    .nb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .nb-grid .project-card {
+      border-style: dashed;
+      border-color: rgba(168,85,247,0.35);
+      opacity: 0.92;
+    }
+
+    .nb-grid .project-card:hover {
+      border-style: solid;
+      border-color: rgba(168,85,247,0.6);
+    }
+
+    @media (max-width: 640px) {
+      .nb-grid { grid-template-columns: 1fr; gap: 1rem; }
+    }
 
     /* ─── PROJECT FILTERS ───────────────────────── */
     .project-filters {
@@ -4573,7 +4737,7 @@
       </div>
       <div class="stat-card">
         <div class="stat-num" data-count="16" data-prefix="$" data-suffix="M">$16M</div>
-        <div class="stat-label">Revenue Impact Delivered</div>
+        <div class="stat-label">Peak Program Revenue Impact</div>
       </div>
     </div>
   </div>
@@ -4645,6 +4809,7 @@
     <span class="section-label">Portfolio</span>
     <h2 class="section-title">Projects Delivered by<br/>Functional Domains</h2>
     <p class="section-sub">Real products built and shipped across industries — from publishing and healthcare to pharma and consumer tech.</p>
+    <p class="domains-note">Project names anonymized for client confidentiality · Outcomes from internal program reporting</p>
   </div>
   <div class="projects-grid reveal">
 
@@ -4659,7 +4824,7 @@
         </div>
         <h3>InsightMD – AI Medical Affairs Insights</h3>
         <p>AI product mining medical, clinical, and field-engagement data to surface new drug insights for MSL and Medical Affairs teams — using NLP and ML to detect trends and knowledge gaps.</p>
-        <div class="project-impact">🧠 60% faster insight discovery · Stronger scientific engagement · Compliance maintained</div>
+        <div class="project-impact">🧠 ~60% faster insight discovery · Stronger scientific engagement · Compliance maintained</div>
       </div>
     </div>
 
@@ -4674,7 +4839,7 @@
         </div>
         <h3>ProviderIQ – AI Provider Lifecycle Management</h3>
         <p>AI-driven PLM platform automating provider onboarding, credentialing, claims processing, and compliance tracking — integrating structured healthcare data across enrollment workflows.</p>
-        <div class="project-impact">⚡ 40% faster onboarding · 98%+ claims accuracy · Compliance fully automated</div>
+        <div class="project-impact">⚡ ~40% faster onboarding · ~98% claims accuracy · Compliance tracking automated</div>
       </div>
     </div>
 
@@ -4689,7 +4854,7 @@
         </div>
         <h3>TrialHub – Custom CTMS</h3>
         <p>Custom Clinical Trial Management System centralizing site selection, enrollment tracking, milestone monitoring, and document control — integrated with EDC, regulatory, and safety systems.</p>
-        <div class="project-impact">🏥 50+ sites centralized · 30% faster setup · 100% GxP / 21 CFR Part 11 audit readiness</div>
+        <div class="project-impact">🏥 50+ sites centralized · ~30% faster setup · GxP / 21 CFR Part 11 audit-ready</div>
       </div>
     </div>
 
@@ -4719,7 +4884,7 @@
         </div>
         <h3>AppCow – Android App Marketplace</h3>
         <p>Android app store connecting developers and users through a unified storefront with secure payment processing, catalog management, and purchase-based app entitlement at scale.</p>
-        <div class="project-impact">🚀 500+ apps at launch · 99%+ transaction success · 40% faster developer onboarding</div>
+        <div class="project-impact">🚀 500+ apps at launch · ~99% transaction success · ~40% faster developer onboarding</div>
       </div>
     </div>
 
@@ -4734,7 +4899,7 @@
         </div>
         <h3>BookSense – Publishing Feasibility Predictor</h3>
         <p>Predictive analytics product that scores a book's market feasibility before publishing — automating go/no-go decisions using historical sales, genre, and market-trend data.</p>
-        <div class="project-impact">📈 30% fewer costly misses · Decision time: 3 weeks → &lt;1 day · 25% lift in title success rate</div>
+        <div class="project-impact">📈 ~30% fewer costly misses · Decision time cut from weeks to a day · ~25% lift in title success rate</div>
       </div>
     </div>
 
@@ -4760,38 +4925,38 @@
   </div>
   <div class="projects-grid reveal">
 
-    <!-- 0: Enterprise AI Data Copilot Suite (Q3 2026) - LATEST -->
-    <div class="project-card project-card--interactive project-card--featured" data-cat="genai agentic" onclick="document.getElementById('datacopilot-modal').classList.add('open')" title="Click to explore">
-      <div class="project-header ph-1">🗂️</div>
+    <!-- 1: ProjectPilot AI (Q3 2026) -->
+    <div class="project-card project-card--interactive project-card--featured" data-cat="genai" onclick="document.getElementById('projectpilot-modal').classList.add('open')" title="Click to explore">
+      <div class="project-header ph-4">🚀</div>
       <div class="project-body">
         <div class="project-tags">
-          <span class="tag tag-coral">GenAI · Data Governance</span>
-          <span class="tag tag-purple">Agentic AI</span>
-          <span class="tag tag-coming-soon">Coming Soon · Q3 2026</span>
+          <span class="tag tag-live">● Live App</span>
+          <span class="tag tag-coral">GenAI · Project Management</span>
+          <span class="tag tag-gold">Q3 2026</span>
         </div>
-        <h3>Enterprise AI Data Copilot Suite</h3>
-        <p>Agentic AI platform that lets organizations understand, govern, and analyze enterprise data through natural language — pairing deterministic engines for data quality, SQL safety, and PII detection with an LLM layer that only explains, classifies, and narrates. Built on a GxP-style clinical dataset via Langflow, n8n, and MCP to demonstrate production-grade data trust, not demo-ware.</p>
-        <div class="project-impact">⚡ Deterministic engines own the ground truth, LLM only narrates · Four-agent architecture (Quality, Catalog, Analytics, Governance) via Langflow + n8n + MCP · Built for HIPAA, GDPR &amp; 21 CFR Part 11 compliance</div>
+        <h3>ProjectPilot AI – AI-Powered Project Management</h3>
+        <p>AI-powered project management platform with Kanban boards, real-time collaboration, AI assistant, and team workspaces. Move fast, stay aligned, and ship together with intelligent project tracking and AI-powered insights.</p>
+        <div class="project-impact">⚡ Move fast with visual Kanban boards · Stay aligned with real-time collaboration · Ship together with AI insights</div>
       </div>
     </div>
 
-    <!-- 0b: ContractIQ (Aug 2026) - COMING SOON -->
-    <div class="project-card project-card--interactive project-card--featured" data-cat="genai agentic" onclick="document.getElementById('contractiq-modal').classList.add('open')" title="Click to explore">
-      <div class="project-header ph-4">⚖️</div>
+    <!-- 2: ScienceAI (Q2 2026) -->
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('scienceai-modal').classList.add('open')" title="Click to explore">
+      <div class="project-header ph-1">🔬</div>
       <div class="project-body">
         <div class="project-tags">
-          <span class="tag tag-coral">GenAI · Legal Tech</span>
-          <span class="tag tag-purple">Built with Claude Code</span>
-          <span class="tag tag-coming-soon">Coming Soon · Aug 2026</span>
+          <span class="tag tag-live">▶ Demo Video</span>
+          <span class="tag tag-coral">GenAI · RAG</span>
+          <span class="tag tag-gold">Q2 2026</span>
         </div>
-        <h3>ContractIQ</h3>
-        <p>A live AI-powered legal tool that helps people review, summarize, and ask plain-language questions about contracts — built end-to-end using Claude Code as the primary development partner, as a real test of what an agentic coding workflow can ship in a high-stakes domain.</p>
-        <div class="project-impact">⚡ Makes contract review accessible without a legal background · Built end-to-end with Claude Code, not just prototyped · A live, usable tool — not a slide deck</div>
+        <h3>ScienceAI – Intelligent Research Platform</h3>
+        <p>Gen AI platform that lets researchers chat with scientific literature — papers, clinical trials, conferences, and competitor data — via a Langflow RAG pipeline, Chroma vector DB, and GPT streaming. ElevenLabs TTS delivers insights as on-demand audio and dual-voice podcasts.</p>
+        <div class="project-impact">⚡ Research time cut by 70% · 4+ literature types unified · Insights delivered as audio & podcasts</div>
       </div>
     </div>
 
-    <!-- 0c: Compliance Lease Tool - COMING SOON -->
-    <div class="project-card project-card--interactive project-card--featured" data-cat="genai" onclick="document.getElementById('complianceleasetool-modal').classList.add('open')" title="Click to explore">
+    <!-- 3: Compliance Lease Tool (Q3 2026) -->
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('complianceleasetool-modal').classList.add('open')" title="Click to explore">
       <div class="project-header ph-2">🏢</div>
       <div class="project-body">
         <div class="project-tags">
@@ -4805,22 +4970,7 @@
       </div>
     </div>
 
-    <!-- 1: ProjectPilot AI (Q3 2026) -->
-    <div class="project-card project-card--interactive project-card--featured" data-cat="genai" onclick="document.getElementById('projectpilot-modal').classList.add('open')" title="Click to explore">
-      <div class="project-header ph-4">🚀</div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="tag tag-coral">GenAI · Project Management</span>
-          <span class="tag tag-purple">Collaboration</span>
-          <span class="tag tag-gold">Q3 2026</span>
-        </div>
-        <h3>ProjectPilot AI – AI-Powered Project Management</h3>
-        <p>AI-powered project management platform with Kanban boards, real-time collaboration, AI assistant, and team workspaces. Move fast, stay aligned, and ship together with intelligent project tracking and AI-powered insights.</p>
-        <div class="project-impact">⚡ Move fast with visual Kanban boards · Stay aligned with real-time collaboration · Ship together with AI insights</div>
-      </div>
-    </div>
-
-    <!-- 2: Ad Genie (Q2 2026) -->
+    <!-- 4: Ad Genie (Q2 2026) -->
     <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('adgenie-modal').classList.add('open')" title="Click to explore">
       <div class="project-header ph-3">🎯</div>
       <div class="project-body">
@@ -4832,21 +4982,6 @@
         <h3>Ad Genie – AI-Powered Advertising Automation Platform</h3>
         <p>AI-powered advertising automation platform that auto-generates high-performing ad copy variants, intelligently optimizes targeting and budget allocation, and continuously monitors performance across Google Ads, Meta, LinkedIn, and TikTok — transforming manual, fragmented workflows into a unified, intelligent advertising control center.</p>
         <div class="project-impact">⚡ Campaign setup time reduced by 70% · 35-45% improvement in ROI · 60% faster market response</div>
-      </div>
-    </div>
-
-    <!-- 3: ScienceAI (Q2 2026) -->
-    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('scienceai-modal').classList.add('open')" title="Click to explore">
-      <div class="project-header ph-1">🔬</div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="tag tag-coral">GenAI · RAG</span>
-          <span class="tag tag-purple">Research Intelligence</span>
-          <span class="tag tag-gold">Q2 2026</span>
-        </div>
-        <h3>ScienceAI – Intelligent Research Platform</h3>
-        <p>Gen AI platform that lets researchers chat with scientific literature — papers, clinical trials, conferences, and competitor data — via a Langflow RAG pipeline, Chroma vector DB, and GPT streaming. ElevenLabs TTS delivers insights as on-demand audio and dual-voice podcasts.</p>
-        <div class="project-impact">⚡ Research time cut by 70% · 4+ literature types unified · Insights delivered as audio & podcasts</div>
       </div>
     </div>
 
@@ -4922,6 +5057,45 @@
         <h3>Gen AI Powered Review Categorization</h3>
         <p>LLM-powered solution that automates the classification of customer reviews — predicting categories, assigning priority, suggesting actions, and generating sentiment-based responses at scale.</p>
         <div class="project-impact">⚡ Review handling automated end-to-end · Response time reduced significantly · Higher customer satisfaction & efficiency</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NOW BUILDING — pipeline projects -->
+  <div class="nb-head reveal">
+    <span class="section-label">🔭 Now Building</span>
+    <p class="section-sub">In the lab — architecture defined, builds in progress. Open to collaborators.</p>
+  </div>
+  <div class="nb-grid reveal">
+
+    <!-- Enterprise AI Data Copilot Suite (Q3 2026) -->
+    <div class="project-card project-card--interactive" onclick="document.getElementById('datacopilot-modal').classList.add('open')" title="Click to explore">
+      <div class="project-header ph-1">🗂️</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-coral">GenAI · Data Governance</span>
+          <span class="tag tag-purple">Agentic AI</span>
+          <span class="tag tag-coming-soon">Coming Soon · Q3 2026</span>
+        </div>
+        <h3>Enterprise AI Data Copilot Suite</h3>
+        <p>Agentic AI platform that lets organizations understand, govern, and analyze enterprise data through natural language — pairing deterministic engines for data quality, SQL safety, and PII detection with an LLM layer that only explains, classifies, and narrates. Built on a GxP-style clinical dataset via Langflow, n8n, and MCP to demonstrate production-grade data trust, not demo-ware.</p>
+        <div class="project-impact">⚡ Deterministic engines own the ground truth, LLM only narrates · Four-agent architecture (Quality, Catalog, Analytics, Governance) via Langflow + n8n + MCP · Built for HIPAA, GDPR &amp; 21 CFR Part 11 compliance</div>
+      </div>
+    </div>
+
+    <!-- ContractIQ (Aug 2026) -->
+    <div class="project-card project-card--interactive" onclick="document.getElementById('contractiq-modal').classList.add('open')" title="Click to explore">
+      <div class="project-header ph-4">⚖️</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-coral">GenAI · Legal Tech</span>
+          <span class="tag tag-purple">Built with Claude Code</span>
+          <span class="tag tag-coming-soon">Coming Soon · Aug 2026</span>
+        </div>
+        <h3>ContractIQ</h3>
+        <p>A live AI-powered legal tool that helps people review, summarize, and ask plain-language questions about contracts — built end-to-end using Claude Code as the primary development partner, as a real test of what an agentic coding workflow can ship in a high-stakes domain.</p>
+        <div class="project-impact">⚡ Makes contract review accessible without a legal background · Built end-to-end with Claude Code, not just prototyped · A live, usable tool — not a slide deck</div>
       </div>
     </div>
 
@@ -5353,7 +5527,7 @@
         <div class="timeline-chevron">▾</div>
       </div>
       <ul class="timeline-desc">
-        <li>Scaled enterprise IT products and platforms from $0.5M to $4M investment with revenue impact of up to $16M, owning CRM and commercial platform strategy across Salesforce, Veeva, and Microsoft Dynamics to improve engagement, conversion, and retention.</li>
+        <li>Scaled the multi-year Otsuka platform program (begun in my Grapnel role) from $0.5M to $4M investment with revenue impact of up to $16M, owning CRM and commercial platform strategy across Salesforce, Veeva, and Microsoft Dynamics to improve engagement, conversion, and retention.</li>
         <li>Delivered audit-ready global pharma programs and drug launches as Product Owner in a SAFe Agile Release Train, aligning epics and roadmaps to business value and regulatory requirements (GxP, 21 CFR Part 11, GCP, EMA, ICH, GDPR, HIPAA) with full IQ/OQ/PQ and UAT validation.</li>
         <li>Reduced project schedule variance to 4% while delivering enterprise analytics, dashboards, and KPI frameworks — integrating CRM, ERP, CTMS, IQVIA, and market access data with strengthened governance and MDM.</li>
       </ul>
@@ -5372,7 +5546,7 @@
         <div class="timeline-chevron">▾</div>
       </div>
       <ul class="timeline-desc">
-        <li>Scaled enterprise IT platforms from $0.5M to $4M investment and delivered up to $2M in lifecycle cost savings by owning CRM and commercial platform strategy across Salesforce, Veeva, and Microsoft Dynamics, improving customer engagement, conversion, and retention.</li>
+        <li>Launched the first phase of a multi-year Otsuka platform program (continued through my HCL role), building the CRM and commercial platform foundation across Salesforce, Veeva, and Microsoft Dynamics and delivering up to $2M in lifecycle cost savings.</li>
         <li>Enabled audit-ready global drug launches as Product Owner in a SAFe Agile Release Train, aligning roadmaps to business value and regulatory requirements (GxP, 21 CFR Part 11) across Commercial, Regulatory, Medical Affairs, and IT.</li>
         <li>Drove an 80% productivity increase and $5M in annual cost savings through end-to-end Tableau/big data analytics and AI-enabled reporting, impacting 5K+ global users after evaluating 200+ vendor products (Cloudera, Tableau, IBM, Inova).</li>
       </ul>
@@ -6245,6 +6419,31 @@
         </div>
       </div>
     </div>
+
+    <div class="ship-heatmap" id="ship-heatmap" style="display:none;">
+      <div class="heatmap-header">
+        <span class="heatmap-title">Build activity</span>
+        <span class="heatmap-sub">By hour · last 3 weeks</span>
+      </div>
+      <div class="heatmap-body">
+        <div class="heatmap-hourlabels" id="heatmap-hourlabels"></div>
+        <div class="heatmap-row">
+          <div class="heatmap-daylabels">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div class="heatmap-grid" id="heatmap-grid"></div>
+        </div>
+      </div>
+      <div class="heatmap-legend">
+        <span>Less</span>
+        <span class="heatmap-cell" data-level="0"></span>
+        <span class="heatmap-cell" data-level="1"></span>
+        <span class="heatmap-cell" data-level="2"></span>
+        <span class="heatmap-cell" data-level="3"></span>
+        <span class="heatmap-cell" data-level="4"></span>
+        <span>More</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -6941,6 +7140,59 @@
       playStreakCountUp();
     }
 
+    // Activity heatmap, built from the same events already fetched. With
+    // only a 3-week window there aren't enough distinct days to fill a wide
+    // GitHub-style day-column grid, so instead this aggregates every event
+    // into a day-of-week × hour-of-day matrix (24 columns × 7 rows) — a
+    // "punch card" view of when work actually happens, which naturally
+    // fills the full card width regardless of how much history exists.
+    function renderHeatmap(events) {
+      const heatmapEl = document.getElementById('ship-heatmap');
+      const gridEl = document.getElementById('heatmap-grid');
+      const hourLabelsEl = document.getElementById('heatmap-hourlabels');
+      if (!heatmapEl || !gridEl || !hourLabelsEl) return;
+
+      const weeksBack = 3;
+      const cutoff = Date.now() - weeksBack * 7 * 24 * 60 * 60 * 1000;
+
+      // counts[dayOfWeek][hourOfDay] — Sun=0..Sat=6, hour in local time
+      const counts = Array.from({ length: 7 }, () => new Array(24).fill(0));
+      events.forEach((ev) => {
+        const d = new Date(ev.created_at);
+        if (d.getTime() < cutoff) return;
+        const weight = ev.type === 'PushEvent'
+          ? ((ev.payload.commits && ev.payload.commits.length) ? ev.payload.commits.length : (ev.payload.size || 1))
+          : 1;
+        counts[d.getDay()][d.getHours()] += weight;
+      });
+
+      const levelForCount = (c) => (c === 0 ? 0 : c === 1 ? 1 : c <= 3 ? 2 : c <= 6 ? 3 : 4);
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+      gridEl.innerHTML = '';
+      for (let day = 0; day < 7; day++) {
+        for (let hour = 0; hour < 24; hour++) {
+          const count = counts[day][hour];
+          const cell = document.createElement('div');
+          cell.className = 'heatmap-cell';
+          cell.dataset.level = String(levelForCount(count));
+          cell.title = `${count} update${count === 1 ? '' : 's'} on ${dayNames[day]}s around ${hour}:00`;
+          gridEl.appendChild(cell);
+        }
+      }
+
+      hourLabelsEl.innerHTML = '';
+      for (let hour = 0; hour < 24; hour++) {
+        const label = document.createElement('span');
+        if (hour % 6 === 0) {
+          label.textContent = hour === 0 ? '12am' : hour === 12 ? '12pm' : hour > 12 ? `${hour - 12}pm` : `${hour}am`;
+        }
+        hourLabelsEl.appendChild(label);
+      }
+
+      heatmapEl.style.display = 'block';
+    }
+
     // Most events on the rail end up being PushEvent (that's the bulk of
     // day-to-day activity), which would otherwise give every item the same
     // 🚀 icon. Map known repos to their own icon so the rail stays visually
@@ -7081,6 +7333,7 @@
         // Compute the streak/commit stat only after the list DOM is settled,
         // since it may synchronously trigger the newest-item reveal animation.
         renderStreak(events);
+        renderHeatmap(events);
 
         listReady = true;
         playItemAnim();
@@ -7104,12 +7357,71 @@
     item.classList.toggle('expanded');
   }
 
+  // ── Inline contact form ──
+  function toggleContactForm() {
+    const form = document.getElementById('contact-form');
+    const label = document.getElementById('contact-form-toggle-label');
+    if (!form || !label) return;
+    const opening = form.style.display !== 'block';
+    form.style.display = opening ? 'block' : 'none';
+    label.textContent = opening ? 'Hide Form ✕' : 'Send a Message';
+    if (opening) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  (function setupContactForm() {
+    const form = document.getElementById('contact-form');
+    const statusEl = document.getElementById('contact-form-status');
+    if (!form || !statusEl) return;
+
+    // Composer grows with the message instead of showing a scrollbar
+    const composerTextarea = form.querySelector('.chat-composer textarea');
+    if (composerTextarea) {
+      composerTextarea.addEventListener('input', () => {
+        composerTextarea.style.height = 'auto';
+        composerTextarea.style.height = Math.min(composerTextarea.scrollHeight, 96) + 'px';
+      });
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('.chat-send-btn');
+      const originalIcon = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.textContent = '⋯';
+      statusEl.textContent = '';
+      statusEl.className = 'contact-form-status';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      })
+        .then((res) => {
+          if (res.ok) {
+            statusEl.textContent = "Thanks! I'll get back to you soon.";
+            statusEl.classList.add('success');
+            form.reset();
+          } else {
+            throw new Error('Form submission failed');
+          }
+        })
+        .catch(() => {
+          statusEl.textContent = 'Something went wrong — email me directly at hello@sankar.work instead.';
+          statusEl.classList.add('error');
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalIcon;
+        });
+    });
+  })();
+
   // ── Rotating hero title ──
   const titles = [
-    'AI Generalist',
-    'AI Data Strategist',
-    'AI/ML Product Innovation Maven',
-    'Product Management Extraordinaire'
+    'AI Product Manager · Data Strategist',
+    'GenAI & Agentic AI Builder',
+    'Pharma & Healthcare Product Owner',
+    '15+ Years · Up to $16M Impact'
   ];
   const titleEl = document.getElementById('hero-title-rotator');
   if (titleEl) {
