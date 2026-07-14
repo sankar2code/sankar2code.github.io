@@ -6077,7 +6077,17 @@
   </div>
 
   <div class="recommendations-grid reveal">
-    <!-- Row 1: Muthamizhselvan Kalidoss -->
+    <!-- Row 1: Vivek Thomas -->
+    <div class="rec-row" onclick="openRecModal('vivek-thomas')">
+      <img class="rec-row-avatar" src="images/vivek-thomas.jpeg" alt="Vivek Thomas">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Vivek Thomas</p>
+        <p class="rec-card-role">Senior Manager, Data Informatics</p>
+      </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
+    </div>
+
+    <!-- Row 2: Muthamizhselvan Kalidoss -->
     <div class="rec-row" onclick="openRecModal('muthamizhselvan-kalidoss')">
       <img class="rec-row-avatar" src="images/muthamizhselvan-kalidoss.jpeg" alt="Muthamizhselvan Kalidoss">
       <div class="rec-row-info">
@@ -6199,6 +6209,20 @@
   </div>
 
   <!-- MODALS FOR RECOMMENDATIONS -->
+  <!-- Modal: Vivek Thomas -->
+  <div class="rec-modal" id="vivek-thomas-modal" onclick="closeRecModal(event, 'vivek-thomas')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'vivek-thomas')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Vivek Thomas</h3>
+        <p class="rec-modal-title">Senior Manager, Data Informatics</p>
+      </div>
+      <p class="rec-quote-full">"I had the pleasure of working with Sankar in the past. He is a dedicated, talented professional with strong analytical and problem-solving abilities. He excels at translating complex business needs into practical solutions and consistently takes ownership to deliver work efficiently, on time, and without follow-up or quality concerns. His deep expertise in Data, Data Management, Data Strategy, and AI would make him an asset to any team. He is highly collaborative and consistently goes the extra mile to ensure work is completed to the highest standard."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
   <!-- Modal: Muthamizhselvan Kalidoss -->
   <div class="rec-modal" id="muthamizhselvan-kalidoss-modal" onclick="closeRecModal(event, 'muthamizhselvan-kalidoss')">
     <div class="rec-modal-content" onclick="event.stopPropagation()">
@@ -7357,65 +7381,6 @@
     item.classList.toggle('expanded');
   }
 
-  // ── Inline contact form ──
-  function toggleContactForm() {
-    const form = document.getElementById('contact-form');
-    const label = document.getElementById('contact-form-toggle-label');
-    if (!form || !label) return;
-    const opening = form.style.display !== 'block';
-    form.style.display = opening ? 'block' : 'none';
-    label.textContent = opening ? 'Hide Form ✕' : 'Send a Message';
-    if (opening) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  (function setupContactForm() {
-    const form = document.getElementById('contact-form');
-    const statusEl = document.getElementById('contact-form-status');
-    if (!form || !statusEl) return;
-
-    // Composer grows with the message instead of showing a scrollbar
-    const composerTextarea = form.querySelector('.chat-composer textarea');
-    if (composerTextarea) {
-      composerTextarea.addEventListener('input', () => {
-        composerTextarea.style.height = 'auto';
-        composerTextarea.style.height = Math.min(composerTextarea.scrollHeight, 96) + 'px';
-      });
-    }
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const submitBtn = form.querySelector('.chat-send-btn');
-      const originalIcon = submitBtn.innerHTML;
-      submitBtn.disabled = true;
-      submitBtn.textContent = '⋯';
-      statusEl.textContent = '';
-      statusEl.className = 'contact-form-status';
-
-      fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
-      })
-        .then((res) => {
-          if (res.ok) {
-            statusEl.textContent = "Thanks! I'll get back to you soon.";
-            statusEl.classList.add('success');
-            form.reset();
-          } else {
-            throw new Error('Form submission failed');
-          }
-        })
-        .catch(() => {
-          statusEl.textContent = 'Something went wrong — email me directly at hello@sankar.work instead.';
-          statusEl.classList.add('error');
-        })
-        .finally(() => {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalIcon;
-        });
-    });
-  })();
-
   // ── Rotating hero title ──
   const titles = [
     'AI Product Manager · Data Strategist',
@@ -7480,6 +7445,7 @@
 
   // ── Recommendation spotlight carousel ──
   const recSpotData = [
+    { id: 'vivek-thomas', name: 'Vivek Thomas', role: 'Senior Manager, Data Informatics', quote: 'He excels at translating complex business needs into practical solutions and consistently takes ownership to deliver efficient, high-quality work.', img: 'images/vivek-thomas.jpeg' },
     { id: 'muthamizhselvan-kalidoss', name: 'Muthamizhselvan Kalidoss', role: 'Senior Manager, Cloud & Infrastructure Services', quote: 'His ability to quickly understand complex AI concepts and translate them into practical, value-driven product solutions truly stood out.', img: 'images/muthamizhselvan-kalidoss.jpeg' },
     { id: 'imthias-shaffiullah', name: 'Imthias Shaffiullah', role: 'Software Engineer, Spotline, Inc.', quote: 'He consistently impressed me with his product management and business analysis skills, and always delivered on time without sacrificing quality.', img: 'images/imthias-shaffiullah.jpeg' },
     { id: 'rajesh-sundarraj', name: 'Rajesh Sundarraj', role: 'Group Technical Specialist, HCL Technology', quote: 'His ability to translate complex business needs into practical, technology-driven solutions is impressive — highly collaborative, proactive, and dependable.', img: 'images/rajesh-sundarraj.jpeg' },
