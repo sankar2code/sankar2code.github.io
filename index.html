@@ -511,7 +511,13 @@
     html.light .cmdk-item-icon { background: #f1f5f9; }
 
     @media (max-width: 600px) {
-      .cmdk-trigger span:not(.cmdk-kbd) { display: none; }
+      .cmdk-trigger span { display: none; }
+      .cmdk-trigger {
+        padding: 0.5rem;
+        border-radius: 50%;
+        gap: 0;
+      }
+      .nav-right { gap: 0.5rem; }
     }
 
     html.light .tt-knob {
@@ -6178,7 +6184,17 @@
   </div>
 
   <div class="recommendations-grid reveal">
-    <!-- Row 1: Carolyn Hudson -->
+    <!-- Row 1: Sri Kumaran Thirupathy -->
+    <div class="rec-row" onclick="openRecModal('sri-kumaran-thirupathy')">
+      <img class="rec-row-avatar" src="images/sri-kumaran-thirupathy.jpeg" alt="Sri Kumaran Thirupathy">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Sri Kumaran Thirupathy</p>
+        <p class="rec-card-role">Platform & Product Leader | Data Thinker | Curious Mind in Tech & Beyond</p>
+      </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
+    </div>
+
+    <!-- Row 2: Carolyn Hudson -->
     <div class="rec-row" onclick="openRecModal('carolyn-hudson')">
       <img class="rec-row-avatar" src="images/carolyn-hudson.jpeg" alt="Carolyn Hudson">
       <div class="rec-row-info">
@@ -6320,6 +6336,20 @@
   </div>
 
   <!-- MODALS FOR RECOMMENDATIONS -->
+  <!-- Modal: Sri Kumaran Thirupathy -->
+  <div class="rec-modal" id="sri-kumaran-thirupathy-modal" onclick="closeRecModal(event, 'sri-kumaran-thirupathy')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'sri-kumaran-thirupathy')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Sri Kumaran Thirupathy</h3>
+        <p class="rec-modal-title">Platform & Product Leader | Data Thinker | Curious Mind in Tech & Beyond</p>
+      </div>
+      <p class="rec-quote-full">"I had the pleasure of working with Sankar in an innovation team focused on data strategy and value creation, where he led industry analysis and strategic initiatives. Sankar consistently demonstrated a strong curiosity for learning and an ability to think beyond conventional approaches. His product mindset enabled him to transform insights into practical, innovative, and impactful outcomes. What sets Sankar apart is his passion for emerging technologies and his continuous drive to stay ahead of industry trends. His broad knowledge, commitment to staying current with industry developments, and extensive professional network make him a valuable asset to any organization. Sankar combines strategic thinking, innovation, and execution excellence with a collaborative approach. His ability to connect industry insights with business opportunities helped drive meaningful value for our team. I am confident that he will continue to make significant contributions wherever he goes and achieve great success in his career. I wish him all the very best in his future endeavors."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
   <!-- Modal: Carolyn Hudson -->
   <div class="rec-modal" id="carolyn-hudson-modal" onclick="closeRecModal(event, 'carolyn-hudson')">
     <div class="rec-modal-content" onclick="event.stopPropagation()">
@@ -7570,6 +7600,7 @@
 
   // ── Recommendation spotlight carousel ──
   const recSpotData = [
+    { id: 'sri-kumaran-thirupathy', name: 'Sri Kumaran Thirupathy', role: 'Platform & Product Leader | Data Thinker | Curious Mind in Tech & Beyond', quote: 'Sankar consistently demonstrated a strong curiosity for learning and an ability to think beyond conventional approaches — his product mindset enabled him to transform insights into practical, innovative, and impactful outcomes.', img: 'images/sri-kumaran-thirupathy.jpeg' },
     { id: 'carolyn-hudson', name: 'Carolyn Hudson, MBA', role: 'Program Director, Healthfirst', quote: 'His ability to blend high level strategy with practical execution helped the team deliver the highest ROI in less than four months post implementation.', img: 'images/carolyn-hudson.jpeg' },
     { id: 'vivek-thomas', name: 'Vivek Thomas', role: 'Senior Manager, Data Informatics', quote: 'He excels at translating complex business needs into practical solutions and consistently takes ownership to deliver efficient, high-quality work.', img: 'images/vivek-thomas.jpeg' },
     { id: 'muthamizhselvan-kalidoss', name: 'Muthamizhselvan Kalidoss', role: 'Senior Manager, Cloud & Infrastructure Services', quote: 'His ability to quickly understand complex AI concepts and translate them into practical, value-driven product solutions truly stood out.', img: 'images/muthamizhselvan-kalidoss.jpeg' },
