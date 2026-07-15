@@ -2784,6 +2784,9 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 0 24px rgba(37,99,235,0.12);
+      transform: perspective(800px) rotateX(0deg) rotateY(0deg);
+      transition: transform 0.25s ease-out;
+      will-change: transform;
     }
     .rec-spotlight::before {
       content: '';
@@ -2836,6 +2839,10 @@
       flex-wrap: wrap;
       transition: opacity 0.35s;
     }
+    .rec-spot-avatar-frame {
+      position: relative;
+      flex-shrink: 0;
+    }
     .rec-spot-avatar {
       width: 34px;
       height: 34px;
@@ -2858,6 +2865,23 @@
       object-fit: cover;
       border-radius: 50%;
     }
+    .rec-spot-badge {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #0a66c2;
+      border: 2px solid var(--card);
+      color: #fff;
+      font-size: 0.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
     .rec-spot-name { font-size: 0.85rem; font-weight: 700; color: var(--white); line-height: 1.25; }
     .rec-spot-role { font-size: 0.72rem; color: var(--muted); line-height: 1.25; }
     .rec-spot-controls {
@@ -2879,24 +2903,41 @@
       transition: all 0.25s;
     }
     .rec-arrow:hover { border-color: rgba(56,189,248,0.7); background: rgba(37,99,235,0.2); box-shadow: 0 0 10px rgba(56,189,248,0.3); }
-    .rec-dots { display: flex; gap: 5px; }
-    .rec-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--border);
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+    .rec-spot-counter {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      min-width: 34px;
+      text-align: center;
     }
-    .rec-dot.active { background: #38bdf8; transform: scale(1.3); box-shadow: 0 0 8px rgba(56,189,248,0.7); }
+    .rec-progress-track {
+      position: relative;
+      z-index: 1;
+      margin-top: 0.85rem;
+      height: 3px;
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .rec-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--grad2);
+      border-radius: 2px;
+    }
     html.light .rec-arrow { color: #1d4ed8; }
     html.light .rec-spotlight { box-shadow: 0 2px 16px rgba(37,99,235,0.08); }
+    html.light .rec-progress-track { background: rgba(37,99,235,0.12); }
     @media (max-width: 640px) {
       .rec-spotlight { padding: 1.1rem 1rem 0.9rem; }
       .rec-spot-quote { font-size: 0.92rem; min-height: 6.5em; padding-right: 1.5rem; }
       .rec-spot-controls { margin-left: 0; width: 100%; justify-content: center; }
+    }
+    @media (hover: none) {
+      .rec-spotlight { transform: none !important; }
     }
 
     .project-body h3 {
@@ -6113,20 +6154,26 @@
     <p class="section-sub">LinkedIn recommendations from colleagues and clients.</p>
   </div>
 
-  <div class="rec-spotlight reveal">
+  <div class="rec-spotlight reveal" id="rec-spotlight">
     <div class="rec-quote-mark">"</div>
     <p class="rec-spot-quote" id="rec-spot-quote"></p>
     <div class="rec-spot-meta" id="rec-spot-meta">
-      <div class="rec-spot-avatar" id="rec-spot-avatar"></div>
+      <div class="rec-spot-avatar-frame">
+        <div class="rec-spot-avatar" id="rec-spot-avatar"></div>
+        <span class="rec-spot-badge" aria-hidden="true">in</span>
+      </div>
       <div>
         <p class="rec-spot-name" id="rec-spot-name"></p>
         <p class="rec-spot-role" id="rec-spot-role"></p>
       </div>
       <div class="rec-spot-controls">
         <button type="button" class="rec-arrow" id="rec-prev" aria-label="Previous recommendation">←</button>
-        <div class="rec-dots" id="rec-dots"></div>
+        <span class="rec-spot-counter" id="rec-spot-counter"></span>
         <button type="button" class="rec-arrow" id="rec-next" aria-label="Next recommendation">→</button>
       </div>
+    </div>
+    <div class="rec-progress-track">
+      <div class="rec-progress-fill" id="rec-progress-fill"></div>
     </div>
   </div>
 
@@ -7544,7 +7591,10 @@
     const recNameEl = document.getElementById('rec-spot-name');
     const recRoleEl = document.getElementById('rec-spot-role');
     const recAvatarEl = document.getElementById('rec-spot-avatar');
-    const recDotsEl = document.getElementById('rec-dots');
+    const recCounterBadgeEl = document.getElementById('rec-spot-counter');
+    const recProgressFillEl = document.getElementById('rec-progress-fill');
+    const recSpotlightEl = document.getElementById('rec-spotlight');
+    const recTotalCount = recSpotData.length;
     let recIdx = 0, recTimer = null;
     const recInitials = (n) => n.split(/[\s-]+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
     function renderRecAvatar(r) {
@@ -7554,15 +7604,6 @@
         recAvatarEl.textContent = recInitials(r.name);
       }
     }
-
-    recSpotData.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'rec-dot';
-      dot.setAttribute('aria-label', 'Show recommendation ' + (i + 1));
-      dot.addEventListener('click', () => { showRec(i); restartRecTimer(); });
-      recDotsEl.appendChild(dot);
-    });
 
     function showRec(i) {
       recIdx = (i + recSpotData.length) % recSpotData.length;
@@ -7577,23 +7618,48 @@
         recQuoteEl.style.opacity = '1';
         recMetaEl.style.opacity = '1';
       }, 350);
-      recDotsEl.querySelectorAll('.rec-dot').forEach((d, di) => d.classList.toggle('active', di === recIdx));
+      recCounterBadgeEl.textContent = (recIdx + 1) + ' / ' + recTotalCount;
+    }
+
+    function playRecProgress() {
+      if (!recProgressFillEl) return;
+      recProgressFillEl.style.transition = 'none';
+      recProgressFillEl.style.width = '0%';
+      void recProgressFillEl.offsetWidth;
+      recProgressFillEl.style.transition = 'width 7000ms linear';
+      recProgressFillEl.style.width = '100%';
     }
 
     function restartRecTimer() {
-      clearInterval(recTimer);
-      recTimer = setInterval(() => showRec(recIdx + 1), 7000);
+      clearTimeout(recTimer);
+      playRecProgress();
+      recTimer = setTimeout(() => { showRec(recIdx + 1); restartRecTimer(); }, 7000);
     }
 
     document.getElementById('rec-prev').addEventListener('click', () => { showRec(recIdx - 1); restartRecTimer(); });
     document.getElementById('rec-next').addEventListener('click', () => { showRec(recIdx + 1); restartRecTimer(); });
+
+    if (recSpotlightEl && window.matchMedia('(hover: hover)').matches) {
+      recSpotlightEl.addEventListener('mousemove', (e) => {
+        const rect = recSpotlightEl.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const maxTilt = 5;
+        const rotateY = (px - 0.5) * maxTilt * 2;
+        const rotateX = (0.5 - py) * maxTilt * 2;
+        recSpotlightEl.style.transform = 'perspective(800px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg)';
+      });
+      recSpotlightEl.addEventListener('mouseleave', () => {
+        recSpotlightEl.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+      });
+    }
 
     const r0 = recSpotData[0];
     recQuoteEl.textContent = '“' + r0.quote + '”';
     recNameEl.textContent = r0.name;
     recRoleEl.textContent = r0.role;
     renderRecAvatar(r0);
-    recDotsEl.querySelector('.rec-dot').classList.add('active');
+    recCounterBadgeEl.textContent = '1 / ' + recTotalCount;
     restartRecTimer();
   }
 
