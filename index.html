@@ -6185,7 +6185,17 @@
   </div>
 
   <div class="recommendations-grid reveal">
-    <!-- Row 1: Sri Kumaran Thirupathy -->
+    <!-- Row 1: Prag Ravichandran -->
+    <div class="rec-row" onclick="openRecModal('prag-ravichandran')">
+      <img class="rec-row-avatar" src="images/prag-ravichandran.jpeg" alt="Prag Ravichandran">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Prag Ravichandran</p>
+        <p class="rec-card-role">Founder | Salesforce MVP | Certified Architect | 10x Dreamforce Speaker</p>
+      </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
+    </div>
+
+    <!-- Row 2: Sri Kumaran Thirupathy -->
     <div class="rec-row" onclick="openRecModal('sri-kumaran-thirupathy')">
       <img class="rec-row-avatar" src="images/sri-kumaran-thirupathy.jpeg" alt="Sri Kumaran Thirupathy">
       <div class="rec-row-info">
@@ -6337,6 +6347,20 @@
   </div>
 
   <!-- MODALS FOR RECOMMENDATIONS -->
+  <!-- Modal: Prag Ravichandran -->
+  <div class="rec-modal" id="prag-ravichandran-modal" onclick="closeRecModal(event, 'prag-ravichandran')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'prag-ravichandran')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Prag Ravichandran</h3>
+        <p class="rec-modal-title">Founder | Salesforce MVP | Certified Architect | 10x Dreamforce Speaker</p>
+      </div>
+      <p class="rec-quote-full">"I had the pleasure of working with Sankar and was always impressed by his ability to solve complex challenges with a thoughtful and collaborative approach. He brings a rare combination of strategic thinking, technical depth, and a genuine willingness to support those around him, making him a trusted partner on every initiative. I would highly recommend Sankar to any team looking for someone who consistently delivers results while fostering strong relationships."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
   <!-- Modal: Sri Kumaran Thirupathy -->
   <div class="rec-modal" id="sri-kumaran-thirupathy-modal" onclick="closeRecModal(event, 'sri-kumaran-thirupathy')">
     <div class="rec-modal-content" onclick="event.stopPropagation()">
@@ -7601,6 +7625,7 @@
 
   // ── Recommendation spotlight carousel ──
   const recSpotData = [
+    { id: 'prag-ravichandran', name: 'Prag Ravichandran', role: 'Founder | Salesforce MVP | Certified Architect | 10x Dreamforce Speaker', quote: 'He brings a rare combination of strategic thinking, technical depth, and a genuine willingness to support those around him, making him a trusted partner on every initiative.', img: 'images/prag-ravichandran.jpeg' },
     { id: 'sri-kumaran-thirupathy', name: 'Sri Kumaran Thirupathy', role: 'Platform & Product Leader | Data Thinker | Curious Mind in Tech & Beyond', quote: 'Sankar consistently demonstrated a strong curiosity for learning and an ability to think beyond conventional approaches — his product mindset enabled him to transform insights into practical, innovative, and impactful outcomes.', img: 'images/sri-kumaran-thirupathy.jpeg' },
     { id: 'carolyn-hudson', name: 'Carolyn Hudson, MBA', role: 'Program Director, Healthfirst', quote: 'His ability to blend high level strategy with practical execution helped the team deliver the highest ROI in less than four months post implementation.', img: 'images/carolyn-hudson.jpeg' },
     { id: 'vivek-thomas', name: 'Vivek Thomas', role: 'Senior Manager, Data Informatics', quote: 'He excels at translating complex business needs into practical solutions and consistently takes ownership to deliver efficient, high-quality work.', img: 'images/vivek-thomas.jpeg' },
