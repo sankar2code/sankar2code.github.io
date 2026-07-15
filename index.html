@@ -1684,9 +1684,10 @@
 
     .heatmap-header {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.85rem;
+      flex-wrap: wrap;
     }
 
     .heatmap-title {
@@ -1703,38 +1704,37 @@
       color: var(--muted);
     }
 
-    .heatmap-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.64rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      color: #ffffff;
-      background: var(--grad2);
-      border: none;
+    .heatmap-tabs {
+      display: flex;
+      gap: 2px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
       border-radius: 50px;
-      padding: 0.32rem 0.75rem;
-      cursor: pointer;
-      white-space: nowrap;
-      box-shadow: 0 0 8px rgba(56,189,248,0.3);
-      animation: heatmapTogglePulse 2.4s ease-in-out infinite;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .heatmap-toggle-icon {
+      padding: 3px;
       flex-shrink: 0;
     }
 
-    .heatmap-toggle:hover {
-      transform: translateY(-1px) scale(1.04);
-      box-shadow: 0 0 16px rgba(56,189,248,0.65);
-      animation-play-state: paused;
+    .heatmap-tab {
+      font-family: inherit;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      border-radius: 50px;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.25s, color 0.25s, box-shadow 0.25s;
     }
 
-    @keyframes heatmapTogglePulse {
-      0%, 100% { box-shadow: 0 0 8px rgba(56,189,248,0.3); }
-      50% { box-shadow: 0 0 16px rgba(56,189,248,0.65); }
+    .heatmap-tab:hover { color: var(--white); }
+
+    .heatmap-tab.active {
+      color: #ffffff;
+      background: var(--grad2);
+      box-shadow: 0 0 10px rgba(56,189,248,0.4);
     }
 
     .heatmap-body { width: 100%; }
@@ -4004,6 +4004,162 @@
       border: 1px solid var(--border);
       border-radius: 50px;
       background: rgba(37,99,235,0.06);
+    }
+
+    /* ── Contact terminal (say-hello form) ── */
+    .contact-form-toggle {
+      display: flex;
+      width: fit-content;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0 auto 1.5rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--grad2);
+      border: none;
+      border-radius: 50px;
+      padding: 0.6rem 1.25rem;
+      cursor: pointer;
+      box-shadow: 0 0 14px rgba(56,189,248,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .contact-form-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(56,189,248,0.45);
+    }
+
+    .contact-wizard {
+      text-align: center;
+      max-width: 440px;
+      margin: 0 auto 1.5rem;
+      background: var(--card);
+      border: 1px solid rgba(56,189,248,0.3);
+      border-radius: 16px;
+      padding: 1.8rem 1.8rem 1.5rem;
+      box-shadow: 0 0 30px rgba(37,99,235,0.12);
+    }
+
+    .wizard-progress {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 1.3rem;
+    }
+
+    .wizard-dot {
+      width: 18px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+      transition: background 0.3s, width 0.3s;
+    }
+
+    .wizard-dot.active { background: #38bdf8; width: 26px; }
+    .wizard-dot.done { background: rgba(56,189,248,0.5); }
+
+    .wizard-step {
+      display: none;
+      animation: wizardStepIn 0.35s ease;
+    }
+
+    .wizard-step.active { display: block; }
+
+    @keyframes wizardStepIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .wizard-eyebrow {
+      margin: 0 0 0.4rem;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .wizard-question {
+      display: block;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .wizard-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid rgba(56,189,248,0.3);
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.4rem 0.1rem;
+      text-align: center;
+      resize: none;
+      transition: border-color 0.2s;
+    }
+
+    .wizard-input:focus {
+      outline: none;
+      border-bottom-color: #38bdf8;
+    }
+
+    .wizard-textarea { min-height: 54px; }
+
+    .wizard-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.4rem;
+    }
+
+    .wizard-back {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.4rem 0.2rem;
+      visibility: hidden;
+    }
+
+    .wizard-back.visible { visibility: visible; }
+
+    .wizard-hint {
+      font-size: 0.66rem;
+      color: var(--muted);
+    }
+
+    .wizard-next {
+      background: var(--grad2);
+      color: #ffffff;
+      border: none;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.45rem 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(56,189,248,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .wizard-next:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(56,189,248,0.45);
+    }
+
+    .wizard-status {
+      margin: 0.8rem 0 0;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      .contact-wizard { padding: 1.4rem 1.2rem 1.2rem; max-width: 100%; }
     }
 
     .contact-email {
@@ -6674,16 +6830,11 @@
     <div class="ship-heatmap" id="ship-heatmap" style="display:none;">
       <div class="heatmap-header">
         <span class="heatmap-title">Build activity</span>
-        <span class="heatmap-sub" id="heatmap-sub-label">Peak coding hours · last 3 weeks</span>
-        <button type="button" class="heatmap-toggle" id="heatmap-toggle-btn" onclick="toggleHeatmapView()">
-          <svg class="heatmap-toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="17 1 21 5 17 9"></polyline>
-            <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
-            <polyline points="7 23 3 19 7 15"></polyline>
-            <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
-          </svg>
-          <span id="heatmap-toggle-label">View 3 weeks</span>
-        </button>
+        <span class="heatmap-sub" id="heatmap-sub-label">Peak coding hours</span>
+        <div class="heatmap-tabs" id="heatmap-tabs">
+          <button type="button" class="heatmap-tab active" id="heatmap-tab-skyline" onclick="setHeatmapView(false)">Skyline</button>
+          <button type="button" class="heatmap-tab" id="heatmap-tab-grid" onclick="setHeatmapView(true)">3 weeks</button>
+        </div>
       </div>
 
       <div class="ship-skyline-view" id="ship-skyline-view">
@@ -6733,6 +6884,42 @@
     <div class="contact-location">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       🇺🇸 New York / New Jersey, USA
+    </div>
+
+    <button type="button" class="contact-form-toggle" id="contact-form-toggle-btn" onclick="toggleContactWizard()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      <span id="contact-form-toggle-label">Send a message</span>
+    </button>
+
+    <div class="contact-wizard" id="contact-wizard" style="display:none;">
+      <div class="wizard-progress">
+        <span class="wizard-dot active" data-step="0"></span>
+        <span class="wizard-dot" data-step="1"></span>
+        <span class="wizard-dot" data-step="2"></span>
+      </div>
+      <form id="contact-wizard-form" novalidate>
+        <div class="wizard-step active" data-step="0">
+          <p class="wizard-eyebrow">Step 1 of 3</p>
+          <label class="wizard-question" for="wizard-name">What's your name?</label>
+          <input type="text" id="wizard-name" class="wizard-input" autocomplete="name">
+        </div>
+        <div class="wizard-step" data-step="1">
+          <p class="wizard-eyebrow">Step 2 of 3</p>
+          <label class="wizard-question" for="wizard-email">What's your email?</label>
+          <input type="email" id="wizard-email" class="wizard-input" autocomplete="email">
+        </div>
+        <div class="wizard-step" data-step="2">
+          <p class="wizard-eyebrow">Step 3 of 3</p>
+          <label class="wizard-question" for="wizard-message">What would you like to say?</label>
+          <textarea id="wizard-message" class="wizard-input wizard-textarea" rows="2"></textarea>
+        </div>
+        <div class="wizard-controls">
+          <button type="button" class="wizard-back" id="wizard-back-btn">← Back</button>
+          <span class="wizard-hint" id="wizard-hint">press Enter ↵</span>
+          <button type="submit" class="wizard-next" id="wizard-next-btn">Next →</button>
+        </div>
+        <p class="wizard-status" id="wizard-status"></p>
+      </form>
     </div>
 
     <div class="social-row">
@@ -7532,26 +7719,27 @@
       });
     }
 
-    function toggleHeatmapView() {
-      heatmapShowingGrid = !heatmapShowingGrid;
+    function setHeatmapView(showGrid) {
+      heatmapShowingGrid = showGrid;
       const skylineView = document.getElementById('ship-skyline-view');
       const gridView = document.getElementById('heatmap-grid-view');
       const subLabel = document.getElementById('heatmap-sub-label');
-      const toggleLabel = document.getElementById('heatmap-toggle-label');
-      if (!skylineView || !gridView || !subLabel || !toggleLabel) return;
-      if (heatmapShowingGrid) {
+      const tabSkyline = document.getElementById('heatmap-tab-skyline');
+      const tabGrid = document.getElementById('heatmap-tab-grid');
+      if (!skylineView || !gridView || !subLabel || !tabSkyline || !tabGrid) return;
+      if (showGrid) {
         skylineView.style.display = 'none';
         gridView.style.display = 'block';
-        subLabel.textContent = 'By hour · last 3 weeks';
-        toggleLabel.textContent = 'View skyline';
+        subLabel.textContent = 'By hour, over 3 weeks';
       } else {
         skylineView.style.display = 'block';
         gridView.style.display = 'none';
-        subLabel.textContent = 'Peak coding hours · last 3 weeks';
-        toggleLabel.textContent = 'View 3 weeks';
+        subLabel.textContent = 'Peak coding hours';
       }
+      tabSkyline.classList.toggle('active', !showGrid);
+      tabGrid.classList.toggle('active', showGrid);
     }
-    window.toggleHeatmapView = toggleHeatmapView;
+    window.setHeatmapView = setHeatmapView;
 
     // Most events on the rail end up being PushEvent (that's the bulk of
     // day-to-day activity), which would otherwise give every item the same
@@ -8117,6 +8305,130 @@
       document.body.style.overflow = '';
     }
   }
+
+  // ── Contact wizard (say-hello form) ──
+  function toggleContactWizard() {
+    const panel = document.getElementById('contact-wizard');
+    const label = document.getElementById('contact-form-toggle-label');
+    if (!panel || !label) return;
+    const isHidden = panel.style.display === 'none' || !panel.style.display;
+    panel.style.display = isHidden ? 'block' : 'none';
+    label.textContent = isHidden ? 'Close' : 'Send a message';
+    if (isHidden) {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      resetWizard();
+    }
+  }
+  window.toggleContactWizard = toggleContactWizard;
+
+  (function setupContactWizard() {
+    const form = document.getElementById('contact-wizard-form');
+    const statusEl = document.getElementById('wizard-status');
+    const backBtn = document.getElementById('wizard-back-btn');
+    const nextBtn = document.getElementById('wizard-next-btn');
+    const hintEl = document.getElementById('wizard-hint');
+    if (!form || !statusEl || !backBtn || !nextBtn) return;
+
+    const steps = Array.from(form.querySelectorAll('.wizard-step'));
+    const dots = Array.from(document.querySelectorAll('.wizard-dot'));
+    const fieldIds = ['wizard-name', 'wizard-email', 'wizard-message'];
+    let step = 0;
+
+    function showStep(n) {
+      step = n;
+      steps.forEach((el) => el.classList.toggle('active', Number(el.dataset.step) === n));
+      dots.forEach((el) => {
+        const i = Number(el.dataset.step);
+        el.classList.toggle('active', i === n);
+        el.classList.toggle('done', i < n);
+      });
+      backBtn.classList.toggle('visible', n > 0);
+      nextBtn.textContent = n === steps.length - 1 ? 'Send →' : 'Next →';
+      hintEl.textContent = n === steps.length - 1 ? 'press Enter ↵ to send' : 'press Enter ↵';
+      statusEl.textContent = '';
+      const field = document.getElementById(fieldIds[n]);
+      if (field) setTimeout(() => field.focus(), 50);
+    }
+
+    window.resetWizard = () => showStep(0);
+
+    // Explicit Enter handling on every field rather than relying on the
+    // browser's implicit-form-submission behavior, which was inconsistent
+    // about advancing past step 1 (name) — the required/type=email fields
+    // on the still-hidden later steps sometimes got included in native
+    // constraint validation and silently blocked the submit.
+    fieldIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          form.requestSubmit();
+        }
+      });
+    });
+
+    backBtn.addEventListener('click', () => { if (step > 0) showStep(step - 1); });
+
+    // Sends silently in the background via Web3Forms — the access key is
+    // designed to be public in client-side code (it's an alias to your
+    // email, not a secret credential), so no server/proxy is needed here.
+    const WEB3FORMS_ACCESS_KEY = '1b4d5632-04e2-496f-a6ea-747866eb6c54';
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const field = document.getElementById(fieldIds[step]);
+      if (!field.value.trim()) {
+        statusEl.textContent = '✕ this one\'s required.';
+        statusEl.style.color = '#f87171';
+        return;
+      }
+      if (step < steps.length - 1) {
+        showStep(step + 1);
+        return;
+      }
+
+      const name = document.getElementById('wizard-name').value.trim();
+      const email = document.getElementById('wizard-email').value.trim();
+      const message = document.getElementById('wizard-message').value.trim();
+
+      nextBtn.disabled = true;
+      statusEl.textContent = 'sending…';
+      statusEl.style.color = 'var(--muted)';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Portfolio contact from ${name}`,
+          name,
+          email,
+          message,
+        }),
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          nextBtn.disabled = false;
+          if (data.success) {
+            statusEl.textContent = '✓ sent — thanks, I\'ll get back to you soon!';
+            statusEl.style.color = '#4ade80';
+            form.reset();
+            setTimeout(() => toggleContactWizard(), 1800);
+          } else {
+            statusEl.textContent = '✕ something went wrong — try again?';
+            statusEl.style.color = '#f87171';
+          }
+        })
+        .catch(() => {
+          nextBtn.disabled = false;
+          statusEl.textContent = '✕ network error — try again?';
+          statusEl.style.color = '#f87171';
+        });
+    });
+
+    showStep(0);
+  })();
 
   // ── Mobile menu ──
   function toggleMenu() {
