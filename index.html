@@ -1703,7 +1703,54 @@
       color: var(--muted);
     }
 
+    .heatmap-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #ffffff;
+      background: var(--grad2);
+      border: none;
+      border-radius: 50px;
+      padding: 0.32rem 0.75rem;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 0 8px rgba(56,189,248,0.3);
+      animation: heatmapTogglePulse 2.4s ease-in-out infinite;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .heatmap-toggle-icon {
+      flex-shrink: 0;
+    }
+
+    .heatmap-toggle:hover {
+      transform: translateY(-1px) scale(1.04);
+      box-shadow: 0 0 16px rgba(56,189,248,0.65);
+      animation-play-state: paused;
+    }
+
+    @keyframes heatmapTogglePulse {
+      0%, 100% { box-shadow: 0 0 8px rgba(56,189,248,0.3); }
+      50% { box-shadow: 0 0 16px rgba(56,189,248,0.65); }
+    }
+
     .heatmap-body { width: 100%; }
+
+    /* ── Build skyline (hour-of-day area chart) ── */
+    .ship-skyline-view { width: 100%; }
+
+    .ship-skyline-view svg { display: block; width: 100%; height: 90px; }
+
+    .skyline-hourlabels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 0.58rem;
+      color: var(--muted);
+    }
 
     /* 24 hour-of-day columns spanning the full card width */
     .heatmap-hourlabels {
@@ -6627,9 +6674,26 @@
     <div class="ship-heatmap" id="ship-heatmap" style="display:none;">
       <div class="heatmap-header">
         <span class="heatmap-title">Build activity</span>
-        <span class="heatmap-sub">By hour · last 3 weeks</span>
+        <span class="heatmap-sub" id="heatmap-sub-label">Peak coding hours · last 3 weeks</span>
+        <button type="button" class="heatmap-toggle" id="heatmap-toggle-btn" onclick="toggleHeatmapView()">
+          <svg class="heatmap-toggle-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="17 1 21 5 17 9"></polyline>
+            <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+            <polyline points="7 23 3 19 7 15"></polyline>
+            <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+          </svg>
+          <span id="heatmap-toggle-label">View 3 weeks</span>
+        </button>
       </div>
-      <div class="heatmap-body">
+
+      <div class="ship-skyline-view" id="ship-skyline-view">
+        <svg id="ship-skyline-svg" viewBox="0 0 640 90" preserveAspectRatio="none"></svg>
+        <div class="skyline-hourlabels">
+          <span>12am</span><span>6am</span><span>12pm</span><span>6pm</span><span>12am</span>
+        </div>
+      </div>
+
+      <div class="heatmap-body" id="heatmap-grid-view" style="display:none;">
         <div class="heatmap-hourlabels" id="heatmap-hourlabels"></div>
         <div class="heatmap-row">
           <div class="heatmap-daylabels">
@@ -6637,15 +6701,15 @@
           </div>
           <div class="heatmap-grid" id="heatmap-grid"></div>
         </div>
-      </div>
-      <div class="heatmap-legend">
-        <span>Less</span>
-        <span class="heatmap-cell" data-level="0"></span>
-        <span class="heatmap-cell" data-level="1"></span>
-        <span class="heatmap-cell" data-level="2"></span>
-        <span class="heatmap-cell" data-level="3"></span>
-        <span class="heatmap-cell" data-level="4"></span>
-        <span>More</span>
+        <div class="heatmap-legend">
+          <span>Less</span>
+          <span class="heatmap-cell" data-level="0"></span>
+          <span class="heatmap-cell" data-level="1"></span>
+          <span class="heatmap-cell" data-level="2"></span>
+          <span class="heatmap-cell" data-level="3"></span>
+          <span class="heatmap-cell" data-level="4"></span>
+          <span>More</span>
+        </div>
       </div>
     </div>
   </div>
@@ -7346,15 +7410,20 @@
 
     // Activity heatmap, built from the same events already fetched. With
     // only a 3-week window there aren't enough distinct days to fill a wide
-    // GitHub-style day-column grid, so instead this aggregates every event
-    // into a day-of-week × hour-of-day matrix (24 columns × 7 rows) — a
-    // "punch card" view of when work actually happens, which naturally
-    // fills the full card width regardless of how much history exists.
+    // GitHub-style day-column grid, so this aggregates every event into a
+    // day-of-week × hour-of-day matrix (24 columns × 7 rows) — a "punch
+    // card" view of when work actually happens. That grid is available as
+    // a secondary view, but the default view is a "build skyline" — the
+    // same hour-of-day totals collapsed across all 7 days into a single
+    // smooth area chart, which reads faster at a glance than a grid.
+    let heatmapShowingGrid = false;
+
     function renderHeatmap(events) {
       const heatmapEl = document.getElementById('ship-heatmap');
       const gridEl = document.getElementById('heatmap-grid');
       const hourLabelsEl = document.getElementById('heatmap-hourlabels');
-      if (!heatmapEl || !gridEl || !hourLabelsEl) return;
+      const skylineSvg = document.getElementById('ship-skyline-svg');
+      if (!heatmapEl || !gridEl || !hourLabelsEl || !skylineSvg) return;
 
       const weeksBack = 3;
       const cutoff = Date.now() - weeksBack * 7 * 24 * 60 * 60 * 1000;
@@ -7394,8 +7463,95 @@
         hourLabelsEl.appendChild(label);
       }
 
+      // Collapse the day×hour matrix into hour-of-day totals for the skyline.
+      const hourTotals = new Array(24).fill(0);
+      for (let day = 0; day < 7; day++) {
+        for (let hour = 0; hour < 24; hour++) {
+          hourTotals[hour] += counts[day][hour];
+        }
+      }
+      renderSkyline(skylineSvg, hourTotals);
+
       heatmapEl.style.display = 'block';
     }
+
+    function renderSkyline(svg, hourTotals) {
+      const ns = 'http://www.w3.org/2000/svg';
+      svg.innerHTML = '';
+      const w = 640, h = 90, n = hourTotals.length;
+      const maxV = Math.max(1, ...hourTotals);
+      const pts = hourTotals.map((v, i) => {
+        const x = (i / (n - 1)) * w;
+        const y = h - (v / maxV) * (h - 10) - 4;
+        return [x, y];
+      });
+
+      const defs = document.createElementNS(ns, 'defs');
+      const grad = document.createElementNS(ns, 'linearGradient');
+      const gradId = 'shipSkylineGrad';
+      grad.setAttribute('id', gradId);
+      grad.setAttribute('x1', '0'); grad.setAttribute('y1', '0');
+      grad.setAttribute('x2', '0'); grad.setAttribute('y2', '1');
+      const stop1 = document.createElementNS(ns, 'stop');
+      stop1.setAttribute('offset', '0%'); stop1.setAttribute('stop-color', '#38bdf8'); stop1.setAttribute('stop-opacity', '0.75');
+      const stop2 = document.createElementNS(ns, 'stop');
+      stop2.setAttribute('offset', '100%'); stop2.setAttribute('stop-color', '#38bdf8'); stop2.setAttribute('stop-opacity', '0.05');
+      grad.appendChild(stop1); grad.appendChild(stop2);
+      defs.appendChild(grad);
+      svg.appendChild(defs);
+
+      let areaD = `M0,${h} `;
+      pts.forEach(([x, y]) => { areaD += `L${x.toFixed(1)},${y.toFixed(1)} `; });
+      areaD += `L${w},${h} Z`;
+      const areaPath = document.createElementNS(ns, 'path');
+      areaPath.setAttribute('d', areaD);
+      areaPath.setAttribute('fill', `url(#${gradId})`);
+      svg.appendChild(areaPath);
+
+      const lineD = 'M' + pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' L');
+      const linePath = document.createElementNS(ns, 'path');
+      linePath.setAttribute('d', lineD);
+      linePath.setAttribute('fill', 'none');
+      linePath.setAttribute('stroke', '#7dd3fc');
+      linePath.setAttribute('stroke-width', '2');
+      linePath.setAttribute('vector-effect', 'non-scaling-stroke');
+      svg.appendChild(linePath);
+
+      pts.forEach(([x, y], i) => {
+        const title = `${hourTotals[i]} update${hourTotals[i] === 1 ? '' : 's'} around ${i === 0 ? '12am' : i === 12 ? '12pm' : i > 12 ? (i - 12) + 'pm' : i + 'am'}`;
+        const hitArea = document.createElementNS(ns, 'rect');
+        hitArea.setAttribute('x', (x - w / n / 2).toFixed(1));
+        hitArea.setAttribute('y', '0');
+        hitArea.setAttribute('width', (w / n).toFixed(1));
+        hitArea.setAttribute('height', String(h));
+        hitArea.setAttribute('fill', 'transparent');
+        const titleEl = document.createElementNS(ns, 'title');
+        titleEl.textContent = title;
+        hitArea.appendChild(titleEl);
+        svg.appendChild(hitArea);
+      });
+    }
+
+    function toggleHeatmapView() {
+      heatmapShowingGrid = !heatmapShowingGrid;
+      const skylineView = document.getElementById('ship-skyline-view');
+      const gridView = document.getElementById('heatmap-grid-view');
+      const subLabel = document.getElementById('heatmap-sub-label');
+      const toggleLabel = document.getElementById('heatmap-toggle-label');
+      if (!skylineView || !gridView || !subLabel || !toggleLabel) return;
+      if (heatmapShowingGrid) {
+        skylineView.style.display = 'none';
+        gridView.style.display = 'block';
+        subLabel.textContent = 'By hour · last 3 weeks';
+        toggleLabel.textContent = 'View skyline';
+      } else {
+        skylineView.style.display = 'block';
+        gridView.style.display = 'none';
+        subLabel.textContent = 'Peak coding hours · last 3 weeks';
+        toggleLabel.textContent = 'View 3 weeks';
+      }
+    }
+    window.toggleHeatmapView = toggleHeatmapView;
 
     // Most events on the rail end up being PushEvent (that's the bulk of
     // day-to-day activity), which would otherwise give every item the same
