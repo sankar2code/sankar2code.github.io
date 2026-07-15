@@ -1816,6 +1816,11 @@
       .heatmap-hourlabels { margin-left: 26px; font-size: 0.5rem; }
       .heatmap-daylabels { width: 20px; font-size: 0.5rem; }
       .heatmap-grid { grid-template-rows: repeat(7, 10px); gap: 2px; }
+      /* Not enough room for title + sub-label + tabs on one line — drop the
+         sub-label so the Skyline/3 weeks toggle stays put next to the title
+         instead of wrapping to its own row. */
+      .heatmap-header { flex-wrap: nowrap; }
+      .heatmap-sub { display: none; }
     }
 
     html.light .shipped-card::after { opacity: 0.35; }
@@ -3972,6 +3977,23 @@
       margin-bottom: 1rem;
     }
 
+    .wave-glow {
+      display: inline-block;
+      animation: waveGlow 2.2s ease-in-out infinite;
+      transform-origin: 70% 70%;
+    }
+
+    @keyframes waveGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 4px rgba(56,189,248,0.5)) drop-shadow(0 0 2px rgba(99,102,241,0.4));
+        transform: rotate(0deg);
+      }
+      50% {
+        filter: drop-shadow(0 0 14px rgba(56,189,248,0.9)) drop-shadow(0 0 8px rgba(99,102,241,0.7));
+        transform: rotate(14deg);
+      }
+    }
+
     .contact-card p {
       color: var(--muted);
       margin-bottom: 2.5rem;
@@ -4701,6 +4723,21 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .nav-right { grid-column: 3; }
+
+      .nav-links.mobile-open {
+        flex-direction: column;
+        position: fixed;
+        top: 62px;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg-scroll);
+        backdrop-filter: blur(20px);
+        padding: 1.5rem 2rem;
+        gap: 1.2rem;
+        border-bottom: 1px solid var(--border);
+        z-index: 99;
+        align-items: flex-start;
+      }
 
       section { padding: 4rem 1.5rem; }
 
@@ -6874,7 +6911,7 @@
 <section id="contact">
   <div class="contact-card reveal">
     <span class="section-label" style="-webkit-text-fill-color:transparent;">Say Hello</span>
-    <h2>Let's Build AI Products<br/><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Together 👋</span></h2>
+    <h2>Let's Build AI Products<br/><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Together</span> <span class="wave-glow">👋</span></h2>
 
     <div class="contact-desc">
       <p>I love turning bold ideas into AI and data products that people genuinely enjoy using. I thrive on building great teams, tearing down silos, and shipping things that make a real difference for both the business and the people who use them.</p>
@@ -8434,11 +8471,8 @@
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
     if (!links) return;
-    if (links.style.display === 'flex') {
-      links.style.display = 'none';
-    } else {
-      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:rgba(8,8,15,0.97);padding:1.5rem 2rem;gap:1.2rem;border-bottom:1px solid rgba(255,255,255,0.08);z-index:99;align-items:flex-start;';
-    }
+    links.classList.toggle('mobile-open');
+    links.style.display = links.classList.contains('mobile-open') ? 'flex' : 'none';
   }
 
   // ── Navigation active state ──
