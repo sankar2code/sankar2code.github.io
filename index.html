@@ -6079,7 +6079,17 @@
   </div>
 
   <div class="recommendations-grid reveal">
-    <!-- Row 1: Vivek Thomas -->
+    <!-- Row 1: Carolyn Hudson -->
+    <div class="rec-row" onclick="openRecModal('carolyn-hudson')">
+      <img class="rec-row-avatar" src="images/carolyn-hudson.jpeg" alt="Carolyn Hudson">
+      <div class="rec-row-info">
+        <p class="rec-card-name">Carolyn Hudson, MBA</p>
+        <p class="rec-card-role">Program Director, Healthfirst</p>
+      </div>
+      <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
+    </div>
+
+    <!-- Row 2: Vivek Thomas -->
     <div class="rec-row" onclick="openRecModal('vivek-thomas')">
       <img class="rec-row-avatar" src="images/vivek-thomas.jpeg" alt="Vivek Thomas">
       <div class="rec-row-info">
@@ -6211,6 +6221,20 @@
   </div>
 
   <!-- MODALS FOR RECOMMENDATIONS -->
+  <!-- Modal: Carolyn Hudson -->
+  <div class="rec-modal" id="carolyn-hudson-modal" onclick="closeRecModal(event, 'carolyn-hudson')">
+    <div class="rec-modal-content" onclick="event.stopPropagation()">
+      <button class="rec-modal-close" onclick="closeRecModal(null, 'carolyn-hudson')">✕</button>
+      <div class="rec-modal-header">
+        <h3>Carolyn Hudson, MBA</h3>
+        <p class="rec-modal-title">Program Director, Healthfirst</p>
+      </div>
+      <p class="rec-quote-full">"I highly recommend Sankar to any organization seeking an expert to deliver meaningful change. Sankar worked directly for me for 3+ years at Healthfirst as a Product Owner on one of the largest strategic Provider Data Management initiatives. His ability to listen attentively to complex healthcare needs and assist with problem solving helped the cross functional team of Product Owners, Analyst, Developers achieve exceptional result during the first 4 months post implementation. What set Sankar apart is his ability to blend high level strategy with practical execution. Sankar helped support my vision and transition of new knowledge to the full time employees (350+) by leading the Visio Mapping workflows for all the different cross functional business teams. This was critical as we onboarding new full time employees to the platform. As a result of his partnership and incredible dedication to this key strategic initiative, the Provider Inventory Tracking System enhancement delivered the highest ROI in less than four months post execution. I highly recommend Sankar to any organization looking to scale efficiencies, or develop future technology."</p>
+      <p class="rec-stars">⭐⭐⭐⭐⭐</p>
+      <a href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/details/recommendations/" target="_blank" class="rec-modal-link">View on LinkedIn →</a>
+    </div>
+  </div>
+
   <!-- Modal: Vivek Thomas -->
   <div class="rec-modal" id="vivek-thomas-modal" onclick="closeRecModal(event, 'vivek-thomas')">
     <div class="rec-modal-content" onclick="event.stopPropagation()">
@@ -7447,6 +7471,7 @@
 
   // ── Recommendation spotlight carousel ──
   const recSpotData = [
+    { id: 'carolyn-hudson', name: 'Carolyn Hudson, MBA', role: 'Program Director, Healthfirst', quote: 'His ability to blend high level strategy with practical execution helped the team deliver the highest ROI in less than four months post implementation.', img: 'images/carolyn-hudson.jpeg' },
     { id: 'vivek-thomas', name: 'Vivek Thomas', role: 'Senior Manager, Data Informatics', quote: 'He excels at translating complex business needs into practical solutions and consistently takes ownership to deliver efficient, high-quality work.', img: 'images/vivek-thomas.jpeg' },
     { id: 'muthamizhselvan-kalidoss', name: 'Muthamizhselvan Kalidoss', role: 'Senior Manager, Cloud & Infrastructure Services', quote: 'His ability to quickly understand complex AI concepts and translate them into practical, value-driven product solutions truly stood out.', img: 'images/muthamizhselvan-kalidoss.jpeg' },
     { id: 'imthias-shaffiullah', name: 'Imthias Shaffiullah', role: 'Software Engineer, Spotline, Inc.', quote: 'He consistently impressed me with his product management and business analysis skills, and always delivered on time without sacrificing quality.', img: 'images/imthias-shaffiullah.jpeg' },
