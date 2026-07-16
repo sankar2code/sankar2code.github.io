@@ -1713,7 +1713,6 @@
     .li-flip-face {
       position: absolute;
       inset: 0;
-      overflow: hidden;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       border-radius: var(--radius);
@@ -1727,7 +1726,19 @@
 
     .li-flip-face > * { position: relative; z-index: 1; }
 
-    .li-flip-face::before {
+    /* Decorative sheen + glow live on a separate, non-3D-transformed layer.
+       Putting overflow:hidden directly on .li-flip-face breaks backface-visibility
+       on Safari/iOS (both faces render, one mirrored) — so clipping happens here instead. */
+    .li-face-fx {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .li-face-fx::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -1735,7 +1746,6 @@
       background: linear-gradient(90deg, transparent, transparent, #38bdf8, #818cf8, #38bdf8, transparent, transparent);
       background-size: 260% 100%;
       animation: liSheen 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      z-index: 2;
     }
 
     @keyframes liSheen {
@@ -1743,14 +1753,12 @@
       100% { background-position: -200% 0; }
     }
 
-    .li-flip-face::after {
+    .li-face-fx::after {
       content: '';
       position: absolute;
       inset: -30%;
       background: radial-gradient(circle at 82% 12%, rgba(56,189,248,0.22), transparent 60%);
       filter: blur(30px);
-      pointer-events: none;
-      z-index: 0;
     }
 
     .li-card-blue .li-flip-face   { border-color: rgba(56,189,248,0.22); }
@@ -1763,13 +1771,13 @@
     .li-card-purple:hover .li-flip-face { border-color: rgba(129,140,248,0.5); box-shadow: 0 12px 32px rgba(99,102,241,0.22), 0 0 22px rgba(129,140,248,0.16); }
     .li-card-amber:hover .li-flip-face  { border-color: rgba(251,191,36,0.5); box-shadow: 0 12px 32px rgba(245,158,11,0.22), 0 0 22px rgba(251,191,36,0.16); }
 
-    .li-card-green .li-flip-face::before  { background: linear-gradient(90deg, transparent, transparent, #4ade80, #16a34a, #4ade80, transparent, transparent); background-size: 260% 100%; }
-    .li-card-purple .li-flip-face::before { background: linear-gradient(90deg, transparent, transparent, #818cf8, #6366f1, #818cf8, transparent, transparent); background-size: 260% 100%; }
-    .li-card-amber .li-flip-face::before  { background: linear-gradient(90deg, transparent, transparent, #fbbf24, #f59e0b, #fbbf24, transparent, transparent); background-size: 260% 100%; }
+    .li-card-green .li-face-fx::before  { background: linear-gradient(90deg, transparent, transparent, #4ade80, #16a34a, #4ade80, transparent, transparent); background-size: 260% 100%; }
+    .li-card-purple .li-face-fx::before { background: linear-gradient(90deg, transparent, transparent, #818cf8, #6366f1, #818cf8, transparent, transparent); background-size: 260% 100%; }
+    .li-card-amber .li-face-fx::before  { background: linear-gradient(90deg, transparent, transparent, #fbbf24, #f59e0b, #fbbf24, transparent, transparent); background-size: 260% 100%; }
 
-    .li-card-green .li-flip-face::after  { background: radial-gradient(circle at 82% 12%, rgba(74,222,128,0.22), transparent 60%); }
-    .li-card-purple .li-flip-face::after { background: radial-gradient(circle at 82% 12%, rgba(129,140,248,0.22), transparent 60%); }
-    .li-card-amber .li-flip-face::after  { background: radial-gradient(circle at 82% 12%, rgba(251,191,36,0.22), transparent 60%); }
+    .li-card-green .li-face-fx::after  { background: radial-gradient(circle at 82% 12%, rgba(74,222,128,0.22), transparent 60%); }
+    .li-card-purple .li-face-fx::after { background: radial-gradient(circle at 82% 12%, rgba(129,140,248,0.22), transparent 60%); }
+    .li-card-amber .li-face-fx::after  { background: radial-gradient(circle at 82% 12%, rgba(251,191,36,0.22), transparent 60%); }
 
     .li-flip-back { transform: rotateY(180deg); }
 
@@ -2245,7 +2253,7 @@
 
     html.light .shipped-card::after { opacity: 0.35; }
     html.light .shipped-card { background: #ffffff; }
-    html.light .li-flip-face::after { opacity: 0.4; }
+    html.light .li-face-fx::after { opacity: 0.4; }
     html.light .li-cat-icon { background: #f1f5f9; }
     html.light .ship-icon { background: #f1f5f9; }
     html.light .ship-text { color: #111118; }
@@ -2310,6 +2318,12 @@
       align-items: center;
       position: relative;
       z-index: 2;
+    }
+
+    .about-head-row {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
     }
 
     .about-pic-container {
@@ -5237,6 +5251,23 @@
 
       .about-grid       { grid-template-columns: 1fr; }
       .about-stats      { grid-template-columns: 1fr 1fr; }
+
+      .about-head-row {
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 1.2rem;
+        text-align: center;
+      }
+      .about-head-row .section-title { text-align: center; }
+      .about-pic-container {
+        width: 130px;
+        height: 130px;
+        min-width: 130px;
+        margin-top: 0;
+      }
+      .about-pic-bg { width: 144px; height: 144px; }
+      .about-profile-image { width: 130px; height: 130px; }
+      .about-pic-container::after { display: none; }
       .projects-grid    { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
       .domains-grid     { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
       .cert-grid        { grid-template-columns: repeat(2, 1fr); }
@@ -5531,7 +5562,7 @@
   <div class="about-grid reveal">
     <div class="about-text">
       <span class="section-label">About Me</span>
-      <div style="display: flex; gap: 2rem; align-items: flex-start;">
+      <div class="about-head-row">
         <div>
           <h2 class="section-title">Turning Vision<br/>Into Products</h2>
         </div>
@@ -7573,6 +7604,7 @@
       <div class="li-flip-card li-card-blue" tabindex="0" role="button" aria-pressed="false" aria-label="Reach and engagement metrics, tap to flip for more">
         <div class="li-flip-inner">
           <div class="li-flip-face li-flip-front">
+            <div class="li-face-fx"></div>
             <span class="li-cat-icon">📡</span>
             <p class="li-cat-title">Reach &amp; Engagement</p>
             <div class="li-hero-row">
@@ -7593,6 +7625,7 @@
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
           </div>
           <div class="li-flip-face li-flip-back">
+            <div class="li-face-fx"></div>
             <p class="li-cat-title"><span class="li-back-dot"></span>Reach &amp; Engagement</p>
             <div class="li-chart li-chart-blue">
               <div class="li-chart-bars">
@@ -7623,6 +7656,7 @@
       <div class="li-flip-card li-card-green" tabindex="0" role="button" aria-pressed="false" aria-label="Follower growth metrics, tap to flip for more">
         <div class="li-flip-inner">
           <div class="li-flip-face li-flip-front">
+            <div class="li-face-fx"></div>
             <span class="li-cat-icon">📈</span>
             <p class="li-cat-title">Follower Growth</p>
             <p class="li-hero-num li-hero-num-success">▲ +2,250</p>
@@ -7635,6 +7669,7 @@
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
           </div>
           <div class="li-flip-face li-flip-back">
+            <div class="li-face-fx"></div>
             <p class="li-cat-title"><span class="li-back-dot"></span>Follower Growth</p>
             <div class="li-chart li-chart-green">
               <div class="li-chart-bars">
@@ -7665,6 +7700,7 @@
       <div class="li-flip-card li-card-purple" tabindex="0" role="button" aria-pressed="false" aria-label="Post performance metrics, tap to flip for more">
         <div class="li-flip-inner">
           <div class="li-flip-face li-flip-front">
+            <div class="li-face-fx"></div>
             <span class="li-cat-icon">🏆</span>
             <p class="li-cat-title">Post Performance</p>
             <div class="li-hero-row">
@@ -7685,6 +7721,7 @@
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
           </div>
           <div class="li-flip-face li-flip-back">
+            <div class="li-face-fx"></div>
             <p class="li-cat-title"><span class="li-back-dot"></span>Post Performance</p>
             <div class="li-chart li-chart-purple">
               <div class="li-chart-bars">
@@ -7711,6 +7748,7 @@
       <div class="li-flip-card li-card-amber" tabindex="0" role="button" aria-pressed="false" aria-label="Audience metrics, tap to flip for more">
         <div class="li-flip-inner">
           <div class="li-flip-face li-flip-front">
+            <div class="li-face-fx"></div>
             <span class="li-cat-icon">🌐</span>
             <p class="li-cat-title">Audience</p>
             <div class="li-bar-row">
@@ -7732,6 +7770,7 @@
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
           </div>
           <div class="li-flip-face li-flip-back">
+            <div class="li-face-fx"></div>
             <p class="li-cat-title"><span class="li-back-dot"></span>Audience</p>
             <div class="li-bar-row">
               <div class="li-bar-label-row"><span>10,001+ employee cos.</span><span>34%</span></div>
