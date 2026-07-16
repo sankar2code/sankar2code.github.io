@@ -1991,7 +1991,6 @@
 
     @media (max-width: 700px) {
       .li-metrics-grid { grid-template-columns: 1fr; gap: 0.85rem; }
-      .li-flip-card { height: 240px; }
       .li-metrics-header { margin-bottom: 0.8rem; }
       .li-hero-num { font-size: 1.4rem; }
       .li-gauge-wrap { width: 48px; height: 48px; }
@@ -2001,10 +2000,42 @@
       .li-bar-label-row { font-size: 0.68rem; }
       .li-stat-lbl { font-size: 0.7rem; }
       .li-chart-caption { font-size: 0.6rem; }
+
+      /* Mobile gets a plain tap-to-swap card instead of the 3D flip.
+         iOS Safari's handling of preserve-3d + backface-visibility is
+         unreliable across devices/versions (garbled/overlapping faces even
+         with vendor prefixes and a dedicated compositing layer), so below
+         this breakpoint we sidestep 3D transforms entirely: the "back" face
+         is just hidden with display:none and swapped in on tap. Desktop
+         keeps the 3D flip animation (mouse-driven, no Safari mobile bug). */
+      .li-flip-card {
+        height: auto;
+        -webkit-perspective: none;
+        perspective: none;
+        -webkit-transform: none;
+        transform: none;
+      }
+      .li-flip-inner {
+        height: auto;
+        -webkit-transform-style: flat;
+        transform-style: flat;
+        -webkit-transform: none !important;
+        transform: none !important;
+        transition: none;
+      }
+      .li-flip-face {
+        position: static;
+        width: 100%;
+        height: auto;
+        -webkit-backface-visibility: visible;
+        backface-visibility: visible;
+      }
+      .li-flip-face.li-flip-back { display: none; }
+      .li-flip-card.flipped .li-flip-face.li-flip-front { display: none; }
+      .li-flip-card.flipped .li-flip-face.li-flip-back { display: flex; }
     }
 
     @media (max-width: 380px) {
-      .li-flip-card { height: 255px; }
       .li-hero-sub, .li-hero-sub2 { font-size: 0.68rem; }
     }
 
