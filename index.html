@@ -1210,6 +1210,68 @@
       transform: translateY(-2px);
     }
 
+    /* ─── JOURNEY MAP FLOATING REVEAL (Option C — top) ─── */
+    .journey-reveal {
+      display: inline-flex;
+      position: relative;
+    }
+    .journey-trigger { flex-shrink: 0; }
+    .journey-actions {
+      position: absolute;
+      bottom: calc(100% + 9px);
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      display: flex;
+      gap: 0.4rem;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), visibility 0.3s;
+      z-index: 20;
+    }
+    /* invisible bridge so the mouse can travel from the trigger to the
+       floating buttons without crossing an empty gap and losing hover */
+    .journey-actions::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -12px;
+      height: 14px;
+    }
+    .journey-reveal:hover .journey-actions,
+    .journey-reveal.open .journey-actions {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+    .journey-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.42rem 0.85rem;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      color: #fff;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s, filter 0.25s;
+    }
+    .journey-chip svg { width: 13px; height: 13px; }
+    .journey-view {
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      box-shadow: 0 5px 14px rgba(37,99,235,0.4);
+    }
+    .journey-download {
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      box-shadow: 0 5px 14px rgba(99,102,241,0.4);
+    }
+    .journey-chip:hover { transform: translateY(-2px) scale(1.06); filter: brightness(1.12); }
+    .journey-view:hover  { box-shadow: 0 9px 20px rgba(37,99,235,0.55); }
+    .journey-download:hover { box-shadow: 0 9px 20px rgba(168,85,247,0.55); }
+
     /* Scroll hint */
     .scroll-hint {
       position: absolute;
@@ -5638,7 +5700,23 @@
       <p>
         My focus is on responsible, production-grade AI: pragmatic roadmaps, clear guardrails for safety and compliance, and measurable impact on engagement, efficiency, and revenue.
       </p>
-      <div style="margin-top:1.5rem;">
+      <div style="margin-top:1.5rem; display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center;">
+        <div class="journey-reveal">
+          <button type="button" class="btn-secondary journey-trigger" style="display:inline-flex; align-items:center; gap:0.5rem; cursor:pointer; background:none;" aria-expanded="false" onclick="this.closest('.journey-reveal').classList.toggle('open'); this.setAttribute('aria-expanded', this.closest('.journey-reveal').classList.contains('open'));">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 8 3 16 6 23 3 23 18 16 21 8 18 1 21 1 6"/><line x1="8" y1="3" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="21"/></svg>
+            My Journey Map
+          </button>
+          <div class="journey-actions">
+            <a href="SankarKumarPalaniappan-Journey-Map.pdf" target="_blank" rel="noopener" class="journey-chip journey-view">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              View
+            </a>
+            <a href="SankarKumarPalaniappan-Journey-Map.pdf" download class="journey-chip journey-download">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </div>
+        </div>
         <a href="#contact" class="btn-primary" style="display:inline-block;">Let's Talk →</a>
       </div>
     </div>
@@ -7718,7 +7796,7 @@
             <p class="li-cat-title">Follower Growth</p>
             <p class="li-hero-num li-hero-num-success">▲ +2,250</p>
             <p class="li-hero-sub">new followers · last 90 days</p>
-            <p class="li-hero-sub2">6.6K total followers</p>
+            <p class="li-hero-sub2">6.7K total followers</p>
             <div class="li-bar-row">
               <div class="li-bar-label-row"><span>Base grew by</span><span>33.8%</span></div>
               <div class="li-bar-track"><div class="li-bar-fill" style="width:33.8%"></div></div>
@@ -9918,6 +9996,27 @@
   })();
 </script>
 
+<script>
+  // Journey Map reveal — close when clicking outside
+  document.addEventListener('click', function(e) {
+    document.querySelectorAll('.journey-reveal.open').forEach(function(el) {
+      if (!el.contains(e.target)) {
+        el.classList.remove('open');
+        var t = el.querySelector('.journey-trigger');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.journey-reveal.open').forEach(function(el) {
+        el.classList.remove('open');
+        var t = el.querySelector('.journey-trigger');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
