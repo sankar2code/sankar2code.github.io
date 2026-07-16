@@ -7809,7 +7809,7 @@
             <p class="li-hero-sub">new followers · last 90 days</p>
             <p class="li-hero-sub2">6.7K total followers</p>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Base grew by</span><span>33.8%</span></div>
+              <div class="li-bar-label-row"><span>Base grew by</span><span class="li-bar-pct">33.8%</span></div>
               <div class="li-bar-track"><div class="li-bar-fill" style="width:33.8%"></div></div>
             </div>
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
@@ -7896,19 +7896,19 @@
             <span class="li-cat-icon">🌐</span>
             <p class="li-cat-title">Audience</p>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Senior professionals</span><span>43%</span></div>
+              <div class="li-bar-label-row"><span>Senior professionals</span><span class="li-bar-pct">43%</span></div>
               <div class="li-bar-track"><div class="li-bar-fill" style="width:43%"></div></div>
             </div>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>IT services &amp; consulting</span><span>28%</span></div>
+              <div class="li-bar-label-row"><span>IT services &amp; consulting</span><span class="li-bar-pct">28%</span></div>
               <div class="li-bar-track"><div class="li-bar-fill" style="width:28%"></div></div>
             </div>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>NYC metro area</span><span>25%</span></div>
+              <div class="li-bar-label-row"><span>NYC metro area</span><span class="li-bar-pct">25%</span></div>
               <div class="li-bar-track"><div class="li-bar-fill" style="width:25%"></div></div>
             </div>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Entry-level</span><span>17%</span></div>
+              <div class="li-bar-label-row"><span>Entry-level</span><span class="li-bar-pct">17%</span></div>
               <div class="li-bar-track"><div class="li-bar-fill" style="width:17%"></div></div>
             </div>
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
@@ -7916,15 +7916,15 @@
           <div class="li-flip-face li-flip-back">
             <p class="li-cat-title"><span class="li-back-dot"></span>Audience</p>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>10,001+ employee cos.</span><span>34%</span></div>
+              <div class="li-bar-label-row"><span>10,001+ employee cos.</span><span class="li-bar-pct">34%</span></div>
               <div class="li-bar-track"><div class="li-bar-fill" style="width:34%"></div></div>
             </div>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Software development</span><span>8%</span></div>
+              <div class="li-bar-label-row"><span>Software development</span><span class="li-bar-pct">8%</span></div>
               <div class="li-bar-track"><div class="li-bar-fill" style="width:8%"></div></div>
             </div>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Product Managers</span><span>5%</span></div>
+              <div class="li-bar-label-row"><span>Product Managers</span><span class="li-bar-pct">5%</span></div>
               <div class="li-bar-track"><div class="li-bar-fill" style="width:5%"></div></div>
             </div>
             <span class="li-top-company">🏢 Top company: Prophecy Technologies</span>
@@ -9086,6 +9086,68 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('.stat-num[data-count]').forEach(el => statObserver.observe(el));
 
+  // ── LinkedIn Snapshot number roll (odometer-style count-up) ──
+  // Parses whatever numeric runs already exist in the element's text (e.g.
+  // "10.6K", "▲ +2,250", "2.0%", "87/90") and animates each one up from 0 to
+  // its real value, preserving commas, decimals, and any surrounding text
+  // (emoji, %, K/M suffixes, slashes) exactly as authored.
+  function rollNumberEl(el, duration) {
+    if (!el || el.dataset.rollBusy === '1') return;
+    const original = el.textContent;
+    const matches = [...original.matchAll(/\d[\d,]*(\.\d+)?/g)];
+    if (!matches.length) return;
+    el.dataset.rollBusy = '1';
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      let out = '';
+      let last = 0;
+      matches.forEach((m) => {
+        const raw = m[0];
+        const decPart = m[1] ? m[1].slice(1) : null;
+        const hasComma = raw.indexOf(',') !== -1;
+        const numVal = parseFloat(raw.replace(/,/g, ''));
+        const cur = numVal * eased;
+        let formatted = decPart ? cur.toFixed(decPart.length) : String(Math.round(cur));
+        if (hasComma) {
+          const parts = formatted.split('.');
+          parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+          formatted = parts.join('.');
+        }
+        out += original.slice(last, m.index) + formatted;
+        last = m.index + raw.length;
+      });
+      out += original.slice(last);
+      el.textContent = out;
+      if (p < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = original;
+        el.dataset.rollBusy = '0';
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function rollNumbersIn(scopeEl, duration) {
+    if (!scopeEl) return;
+    scopeEl.querySelectorAll('.li-hero-num, .li-gauge-val, .li-stat-num, .li-bar-pct').forEach((el) => rollNumberEl(el, duration));
+  }
+
+  const liMetricsEl = document.querySelector('.li-metrics');
+  if (liMetricsEl && 'IntersectionObserver' in window) {
+    const liMetricsObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        liMetricsObserver.unobserve(e.target);
+        // Only the front face is visible on first reveal — roll those.
+        e.target.querySelectorAll('.li-flip-front').forEach((face) => rollNumbersIn(face, 1200));
+      });
+    }, { threshold: 0.35 });
+    liMetricsObserver.observe(liMetricsEl);
+  }
+
   // ── Recommendation spotlight carousel ──
   const recSpotData = [
     { id: 'prag-ravichandran', name: 'Prag Ravichandran', role: 'Founder | Salesforce MVP | Certified Architect | 10x Dreamforce Speaker', quote: 'He brings a rare combination of strategic thinking, technical depth, and a genuine willingness to support those around him, making him a trusted partner on every initiative.', img: 'images/prag-ravichandran.jpeg' },
@@ -9997,6 +10059,8 @@
       function toggleFlip() {
         const flipped = card.classList.toggle('flipped');
         card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+        const visibleFace = card.querySelector(flipped ? '.li-flip-back' : '.li-flip-front');
+        rollNumbersIn(visibleFace, 750);
       }
       card.addEventListener('click', toggleFlip);
       card.addEventListener('keydown', (e) => {
