@@ -5415,6 +5415,10 @@
       .btn-secondary    { width: 100%; padding: 0.9rem 1.5rem; text-align: center; font-size: 0.9rem; }
 
       .about-grid       { gap: 2rem; }
+      .about-cta-row    { flex-direction: column; align-items: stretch; width: 100%; }
+      .about-cta-row .journey-reveal { width: 100%; }
+      .about-cta-row .btn-secondary.journey-trigger { width: 100%; justify-content: center; }
+      .about-cta-row .btn-primary { width: 100%; text-align: center; }
       .about-stats      { grid-template-columns: 1fr 1fr; gap: 1rem; align-items: stretch; }
       .about-text p     { font-size: 0.9rem; line-height: 1.7; }
       .stat-card        { display: flex; flex-direction: column; justify-content: center; }
@@ -5701,7 +5705,7 @@
       <p>
         My focus is on responsible, production-grade AI: pragmatic roadmaps, clear guardrails for safety and compliance, and measurable impact on engagement, efficiency, and revenue.
       </p>
-      <div style="margin-top:1.5rem; display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center;">
+      <div class="about-cta-row" style="margin-top:1.5rem; display:flex; gap:0.8rem; flex-wrap:wrap; align-items:center;">
         <div class="journey-reveal">
           <button type="button" class="btn-secondary journey-trigger" style="display:inline-flex; align-items:center; gap:0.5rem; cursor:pointer; background:none;" aria-expanded="false" onclick="this.closest('.journey-reveal').classList.toggle('open'); this.setAttribute('aria-expanded', this.closest('.journey-reveal').classList.contains('open'));">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 8 3 16 6 23 3 23 18 16 21 8 18 1 21 1 6"/><line x1="8" y1="3" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="21"/></svg>
