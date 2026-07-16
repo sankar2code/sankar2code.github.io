@@ -2989,7 +2989,8 @@
       font-size: 0.72rem;
       color: var(--muted);
       font-style: italic;
-      margin-top: 0.5rem;
+      margin-top: -2.25rem;
+      margin-bottom: 2rem;
       opacity: 0.85;
     }
 
@@ -5081,6 +5082,73 @@
       line-height: 1.6;
     }
 
+    .modal-quicksum {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: rgba(37,99,235,0.08);
+      border-left: 3px solid #2563eb;
+      border-radius: 0 8px 8px 0;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .modal-quicksum p {
+      margin: 0;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: var(--text-body);
+    }
+
+    .qs-label {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 0.64rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-right: 0.5rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      vertical-align: middle;
+    }
+
+    .qs-problem  { color: #f87171; background: rgba(248,113,113,0.14); }
+    .qs-approach { color: #38bdf8; background: rgba(56,189,248,0.14); }
+    .qs-result   { color: #4ade80; background: rgba(74,222,128,0.14); }
+
+    html.light .qs-problem  { color: #b91c1c; }
+    html.light .qs-approach { color: #0369a1; }
+    html.light .qs-result   { color: #15803d; }
+
+    .modal-details {
+      border-top: 1px solid var(--border);
+      padding-top: 1.3rem;
+    }
+
+    .modal-details summary {
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #38bdf8;
+      list-style: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      user-select: none;
+    }
+
+    .modal-details summary::-webkit-details-marker { display: none; }
+
+    .modal-details summary::after {
+      content: '▾';
+      font-size: 0.65rem;
+      transition: transform 0.2s;
+    }
+
+    .modal-details[open] summary::after { transform: rotate(180deg); }
+
+    .modal-details .modal-section { margin-top: 1.4rem; }
+
     .modal-video {
       width: 100%;
       border-radius: 12px;
@@ -5469,7 +5537,7 @@
         </div>
         <div class="about-pic-container">
           <div class="about-pic-bg"></div>
-          <img class="about-profile-image" src="images/profile-photo.jpeg" alt="Sankar Kumar Palaniappan">
+          <img loading="lazy" class="about-profile-image" src="images/profile-photo.jpeg" alt="Sankar Kumar Palaniappan">
         </div>
       </div>
       <p>
@@ -5886,15 +5954,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Most "AI data copilot" demos ask an LLM to do everything — including things LLMs are bad at, like guaranteeing a SQL query is safe or reliably counting nulls. Enterprises don't just need a plausible-sounding answer about their data; they need to trust it, and in regulated industries, prove that trust to an auditor.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Enterprises can't trust LLM-only answers about their data — especially in regulated industries that need to prove it to an auditor.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built a four-agent architecture where deterministic engines (profiling, SQL safety, PII detection) own the ground truth and the LLM only narrates.</p>
+        <p><span class="qs-label qs-result">Result</span>An auditable, HIPAA/GDPR/21 CFR Part 11-mapped data copilot — architecture and roadmap complete, targeting Q3 2026.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>An agentic platform built around one rule: deterministic engines own the ground truth, the LLM only explains, classifies, and narrates. Four agents each pair a real profiling, validation, or detection engine with an LLM interpretation layer on top — a Data Quality Agent (ydata-profiling / Great Expectations) for nulls, duplicates, and schema drift; a Catalog Agent (pgvector + metadata graph) for lineage and semantic search; an Analytics Agent (sqlglot) that only ever executes safe, read-only, LIMIT-bound SQL generated from natural language; and a Governance Agent (Microsoft Presidio) that scans for PII/PHI and maps findings to HIPAA, GDPR, and 21 CFR Part 11. Langflow handles the reasoning for each agent, n8n orchestrates scheduling, routing, and the audit trail, and MCP is the bridge connecting them — no brittle glue-code HTTP calls. The whole pipeline runs against a synthetic pharma/clinical-trial dataset deliberately seeded with real data-quality issues and PII/PHI fields, so it's inspectable end to end rather than a polished demo.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Most "AI data copilot" demos ask an LLM to do everything — including things LLMs are bad at, like guaranteeing a SQL query is safe or reliably counting nulls. Enterprises don't just need a plausible-sounding answer about their data; they need to trust it, and in regulated industries, prove that trust to an auditor.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>An agentic platform built around one rule: deterministic engines own the ground truth, the LLM only explains, classifies, and narrates. Four agents each pair a real profiling, validation, or detection engine with an LLM interpretation layer on top — a Data Quality Agent (ydata-profiling / Great Expectations) for nulls, duplicates, and schema drift; a Catalog Agent (pgvector + metadata graph) for lineage and semantic search; an Analytics Agent (sqlglot) that only ever executes safe, read-only, LIMIT-bound SQL generated from natural language; and a Governance Agent (Microsoft Presidio) that scans for PII/PHI and maps findings to HIPAA, GDPR, and 21 CFR Part 11. Langflow handles the reasoning for each agent, n8n orchestrates scheduling, routing, and the audit trail, and MCP is the bridge connecting them — no brittle glue-code HTTP calls. The whole pipeline runs against a synthetic pharma/clinical-trial dataset deliberately seeded with real data-quality issues and PII/PHI fields, so it's inspectable end to end rather than a polished demo.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -5942,15 +6019,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Contract review is slow, expensive, and locked behind legal expertise most individuals and small teams don't have in-house. People routinely sign agreements without fully understanding the obligations, risk, or unusual clauses buried in the fine print, simply because getting a proper read costs more time or money than they have.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Contract review is slow and expensive, so people sign agreements without understanding the risk or obligations buried inside.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Building a live AI tool — upload a contract, ask plain-language questions, get grounded answers — developed end-to-end with Claude Code.</p>
+        <p><span class="qs-label qs-result">Result</span>A real test of agentic coding in a high-stakes domain, not just a prototype — targeting a live build in August 2026.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>ContractIQ is a live, AI-powered legal tool — upload a contract, ask plain-language questions about what it actually commits you to, and get grounded answers back instead of wading through pages of legalese. What makes this project distinct isn't just the idea; it's the build process: it's being developed end-to-end using Claude Code as the primary development partner, as a direct test of how far an agentic coding workflow can take a real, shippable product in a high-stakes domain rather than staying a prototype.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Contract review is slow, expensive, and locked behind legal expertise most individuals and small teams don't have in-house. People routinely sign agreements without fully understanding the obligations, risk, or unusual clauses buried in the fine print, simply because getting a proper read costs more time or money than they have.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>ContractIQ is a live, AI-powered legal tool — upload a contract, ask plain-language questions about what it actually commits you to, and get grounded answers back instead of wading through pages of legalese. What makes this project distinct isn't just the idea; it's the build process: it's being developed end-to-end using Claude Code as the primary development partner, as a direct test of how far an agentic coding workflow can take a real, shippable product in a high-stakes domain rather than staying a prototype.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -5994,15 +6080,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Commercial property managers and multi-site occupiers currently have two bad options: spreadsheets, which are fast to start but error-prone and blind to upcoming deadlines until it's too late, or enterprise/mid-market lease platforms (Yardi, MRI, Visual Lease, LeaseQuery), which are accounting-first, built for ASC 842/IFRS 16 journal entries, expensive ($25K–$500K+/yr), and slow to implement (weeks to 18 months). Nobody has built a lightweight, compliance-and-deadline-first tool for the "moveable middle" — mid-market property managers and franchise/multi-unit occupiers with 20–500 leases who care more about renewal windows, permits, insurance certificates, and jurisdictional obligations than right-of-use asset calculations.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Mid-market property managers are stuck choosing between error-prone spreadsheets and $25K–$500K+/yr enterprise lease platforms.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Shipped the core value first as a Claude Skill — a lease compliance assistant usable instantly, with no deployment project needed.</p>
+        <p><span class="qs-label qs-result">Result</span>Zero marginal cost and minutes to start, targeting the underserved "moveable middle" — backed by real market research before any code.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>Rather than building a standalone SaaS product from scratch, this ships the core value first as a Claude Skill — a SKILL.md that turns Claude into a lease compliance assistant, runnable immediately inside claude.ai, Claude Code, Claude Cowork, or the API, with no deployment or implementation project. Given lease documents and a portfolio spreadsheet, the skill abstracts key lease terms into a structured format, tracks critical dates and obligations (renewals, notice-to-vacate windows, insurance certificate expirations, permit renewals), surfaces jurisdiction-specific regulatory risk that pure accounting tools miss (zoning, ESG/emissions disclosure laws like NYC Local Law 97, ADA/fire-code items), generates compliance-ready reports, and answers natural-language portfolio questions — while explicitly flagging low-confidence, non-standard clauses for human review rather than silently guessing.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Commercial property managers and multi-site occupiers currently have two bad options: spreadsheets, which are fast to start but error-prone and blind to upcoming deadlines until it's too late, or enterprise/mid-market lease platforms (Yardi, MRI, Visual Lease, LeaseQuery), which are accounting-first, built for ASC 842/IFRS 16 journal entries, expensive ($25K–$500K+/yr), and slow to implement (weeks to 18 months). Nobody has built a lightweight, compliance-and-deadline-first tool for the "moveable middle" — mid-market property managers and franchise/multi-unit occupiers with 20–500 leases who care more about renewal windows, permits, insurance certificates, and jurisdictional obligations than right-of-use asset calculations.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Rather than building a standalone SaaS product from scratch, this ships the core value first as a Claude Skill — a SKILL.md that turns Claude into a lease compliance assistant, runnable immediately inside claude.ai, Claude Code, Claude Cowork, or the API, with no deployment or implementation project. Given lease documents and a portfolio spreadsheet, the skill abstracts key lease terms into a structured format, tracks critical dates and obligations (renewals, notice-to-vacate windows, insurance certificate expirations, permit renewals), surfaces jurisdiction-specific regulatory risk that pure accounting tools miss (zoning, ESG/emissions disclosure laws like NYC Local Law 97, ADA/fire-code items), generates compliance-ready reports, and answers natural-language portfolio questions — while explicitly flagging low-confidence, non-standard clauses for human review rather than silently guessing.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -6046,15 +6141,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Product teams spend weeks running analyses that should take days. A business question gets asked Monday. The analyst spends Tuesday-Wednesday exploring data, Thursday writing SQL and building charts, Friday documenting findings, and Monday morning delivering a presentation. By then, the business context has shifted, the question has evolved, and the insight arrives too late to act on.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Product teams spend a full week turning a business question into an answer — by delivery, the context has already moved on.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built an 18-agent pipeline that frames hypotheses, runs automated analysis, validates findings across four layers, and builds the deck.</p>
+        <p><span class="qs-label qs-result">Result</span>Analyses that took weeks now take minutes — one analyst effectively becomes three, with 80% less time on execution work.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>AI Analyst v2 is an AI-powered research partner that handles the execution layer while you keep the judgment layer. You ask a business question. The system runs an 18-agent pipeline that frames your question into testable hypotheses, analyzes your data with automated exploration, segmentation, cohort analysis, and root-cause investigation, validates findings across four layers (structural, logical, business rules, paradox detection), tells the story with a narrative arc and Storytelling with Data charts, and builds the deck — a branded, presentation-ready slide deck with speaker notes and export-ready assets.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Product teams spend weeks running analyses that should take days. A business question gets asked Monday. The analyst spends Tuesday-Wednesday exploring data, Thursday writing SQL and building charts, Friday documenting findings, and Monday morning delivering a presentation. By then, the business context has shifted, the question has evolved, and the insight arrives too late to act on.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>AI Analyst v2 is an AI-powered research partner that handles the execution layer while you keep the judgment layer. You ask a business question. The system runs an 18-agent pipeline that frames your question into testable hypotheses, analyzes your data with automated exploration, segmentation, cohort analysis, and root-cause investigation, validates findings across four layers (structural, logical, business rules, paradox detection), tells the story with a narrative arc and Storytelling with Data charts, and builds the deck — a branded, presentation-ready slide deck with speaker notes and export-ready assets.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -6102,15 +6206,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Marketing teams waste significant time creating, testing, and optimizing ad campaigns across multiple platforms (Google, Meta, LinkedIn, TikTok). Current workflows are fragmented—requiring manual ad copy creation, targeting configuration, budget allocation, and performance monitoring across disparate tools. This inefficiency leads to missed optimization opportunities, delayed market response, and reduced ROI focus. Teams need a unified, intelligent system to accelerate campaign creation and optimization.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Marketing teams waste time running fragmented, manual ad campaigns across Google, Meta, LinkedIn, and TikTok.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built an AI-powered automation platform that generates ad copy, configures targeting/budget, and optimizes campaigns in real time.</p>
+        <p><span class="qs-label qs-result">Result</span>70% faster campaign setup and 35–45% better ad spend ROI, with $200K–$500K in projected annual savings per enterprise.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>Ad Genie is an AI-powered advertising automation platform that streamlines the entire campaign lifecycle. Using Claude AI and machine learning, it auto-generates compelling ad copy variants, intelligently configures targeting and budgets, monitors performance in real-time, and continuously optimizes campaigns for maximum ROI. The platform integrates seamlessly with Google Ads, Meta, LinkedIn, and TikTok, creating a unified advertising control center that reduces manual work and accelerates campaign velocity.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Marketing teams waste significant time creating, testing, and optimizing ad campaigns across multiple platforms (Google, Meta, LinkedIn, TikTok). Current workflows are fragmented—requiring manual ad copy creation, targeting configuration, budget allocation, and performance monitoring across disparate tools. This inefficiency leads to missed optimization opportunities, delayed market response, and reduced ROI focus. Teams need a unified, intelligent system to accelerate campaign creation and optimization.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Ad Genie is an AI-powered advertising automation platform that streamlines the entire campaign lifecycle. Using Claude AI and machine learning, it auto-generates compelling ad copy variants, intelligently configures targeting and budgets, monitors performance in real-time, and continuously optimizes campaigns for maximum ROI. The platform integrates seamlessly with Google Ads, Meta, LinkedIn, and TikTok, creating a unified advertising control center that reduces manual work and accelerates campaign velocity.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -6162,15 +6275,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Modern teams struggle with scattered project management tools that lack intelligent collaboration features. Teams lose alignment across multiple platforms, lack AI-powered insights into priorities and dependencies, spend time context-switching between tools, and can't quickly query their backlog or create issues from natural language. Project tracking becomes an overhead burden instead of a tool that accelerates shipping.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Teams lose alignment across scattered PM tools with no AI-powered visibility into priorities or dependencies.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built an AI-powered Kanban platform with a backlog-aware assistant, real-time sync, and secure multi-tenant workspaces.</p>
+        <p><span class="qs-label qs-result">Result</span>A live, shipped SaaS product — teams get instant natural-language answers about their own backlog instead of digging through boards.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>ProjectPilot AI is an AI-powered project management platform combining visual Kanban boards, real-time collaboration, and an intelligent AI assistant. Features include drag-and-drop Kanban boards with unlimited columns, AI assistant that understands your entire backlog and creates issues from natural language, real-time sync powered by Supabase Realtime, secure multi-tenant team workspaces with granular role management (owner, admin, member), and simple flat-rate pricing per workspace (not per seat). The AI knows every issue, priority, and assignee — enabling instant answers to "What are the urgent issues?" and "Who has the most work assigned?"</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Modern teams struggle with scattered project management tools that lack intelligent collaboration features. Teams lose alignment across multiple platforms, lack AI-powered insights into priorities and dependencies, spend time context-switching between tools, and can't quickly query their backlog or create issues from natural language. Project tracking becomes an overhead burden instead of a tool that accelerates shipping.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>ProjectPilot AI is an AI-powered project management platform combining visual Kanban boards, real-time collaboration, and an intelligent AI assistant. Features include drag-and-drop Kanban boards with unlimited columns, AI assistant that understands your entire backlog and creates issues from natural language, real-time sync powered by Supabase Realtime, secure multi-tenant team workspaces with granular role management (owner, admin, member), and simple flat-rate pricing per workspace (not per seat). The AI knows every issue, priority, and assignee — enabling instant answers to "What are the urgent issues?" and "Who has the most work assigned?"</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -6439,27 +6561,27 @@
         <a class="cert-card cert-card--top" href="https://www.credly.com/badges/971eef77-1ab4-471a-b269-806d08aa39f8/" target="_blank">
           <span class="cert-top-badge">Top</span>
           <div class="cert-badge">☁️</div>
-          <div class="cert-info"><h4>AWS Certified Generative AI Developer – Professional</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=aws.amazon.com" alt="">Amazon Web Services · Q3 2026</p></div>
+          <div class="cert-info"><h4>AWS Certified Generative AI Developer – Professional</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=aws.amazon.com" alt="">Amazon Web Services · Q3 2026</p></div>
         </a>
         <a class="cert-card cert-card--top" href="https://www.credential.net/0f82e886-789d-41e7-b498-a4a99a523819#acc.pvxI7ioN" target="_blank">
           <span class="cert-top-badge">Top</span>
           <div class="cert-badge">🎓</div>
-          <div class="cert-info"><h4>No Code AI and Machine Learning: Building Data Science Solutions</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=mit.edu" alt="">MIT Professional Education · Q1 2024</p></div>
+          <div class="cert-info"><h4>No Code AI and Machine Learning: Building Data Science Solutions</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=mit.edu" alt="">MIT Professional Education · Q1 2024</p></div>
         </a>
         <a class="cert-card cert-card--top" href="https://certificates.emeritus.org/473bae31-5264-4f2f-bdf9-a093444cd295#acc.UQHTIOhw" target="_blank">
           <span class="cert-top-badge">Top</span>
           <div class="cert-badge">🎓</div>
-          <div class="cert-info"><h4>Mastering Design Thinking</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=mit.edu" alt="">MIT Management Executive Education · Q1 2024</p></div>
+          <div class="cert-info"><h4>Mastering Design Thinking</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=mit.edu" alt="">MIT Management Executive Education · Q1 2024</p></div>
         </a>
         <a class="cert-card cert-card--top" href="https://bcert.me/semerywfx" target="_blank">
           <span class="cert-top-badge">Top</span>
           <div class="cert-badge">🏆</div>
-          <div class="cert-info"><h4>Certified Scrum Professional® – Product Owner (CSP-PO)</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
+          <div class="cert-info"><h4>Certified Scrum Professional® – Product Owner (CSP-PO)</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
         </a>
         <a class="cert-card cert-card--top" href="https://www.credly.com/badges/f08f3e1d-8319-4688-be74-ea7b7c6b65fa/" target="_blank">
           <span class="cert-top-badge">Top</span>
           <div class="cert-badge">🔖</div>
-          <div class="cert-info"><h4>Certified SAFe® 6 Product Owner / Product Manager</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q1 2024</p></div>
+          <div class="cert-info"><h4>Certified SAFe® 6 Product Owner / Product Manager</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q1 2024</p></div>
         </a>
       </div>
     </div>
@@ -6470,43 +6592,43 @@
       <div class="cert-grid">
         <a class="cert-card" href="https://verify.skilljar.com/c/c733hmgoutof" target="_blank">
           <div class="cert-badge">🧠</div>
-          <div class="cert-info"><h4>AI Fluency: Framework &amp; Foundations</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=anthropic.com" alt="">Anthropic Education · Q3 2026</p></div>
+          <div class="cert-info"><h4>AI Fluency: Framework &amp; Foundations</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=anthropic.com" alt="">Anthropic Education · Q3 2026</p></div>
         </a>
         <a class="cert-card" href="https://maven.com/wrap-up/c7d5e751" target="_blank">
           <div class="cert-badge">🚀</div>
-          <div class="cert-info"><h4>Become an Agent-Native Operator in 1 Day</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=maven.com" alt="">Maven · Q3 2026</p></div>
+          <div class="cert-info"><h4>Become an Agent-Native Operator in 1 Day</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=maven.com" alt="">Maven · Q3 2026</p></div>
         </a>
         <a class="cert-card" href="https://maven.com/wrap-up/5b86a524" target="_blank">
           <div class="cert-badge">🚀</div>
-          <div class="cert-info"><h4>Building Agentic AI Applications with a Problem-First Approach</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=maven.com" alt="">Maven · Q3 2026</p></div>
+          <div class="cert-info"><h4>Building Agentic AI Applications with a Problem-First Approach</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=maven.com" alt="">Maven · Q3 2026</p></div>
         </a>
         <a class="cert-card" href="https://maven.com/wrap-up/a0cf921a" target="_blank">
           <div class="cert-badge">📊</div>
-          <div class="cert-info"><h4>Intro to Claude Code Analytics</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=maven.com" alt="">Maven · Q3 2026</p></div>
+          <div class="cert-info"><h4>Intro to Claude Code Analytics</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=maven.com" alt="">Maven · Q3 2026</p></div>
         </a>
         <a class="cert-card" href="https://maven.com/wrap-up/713e6fba" target="_blank">
           <div class="cert-badge">🤖</div>
-          <div class="cert-info"><h4>Agentic AI Product Management Certification using Claude Code</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=maven.com" alt="">Maven · Q3 2026</p></div>
+          <div class="cert-info"><h4>Agentic AI Product Management Certification using Claude Code</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=maven.com" alt="">Maven · Q3 2026</p></div>
         </a>
         <a class="cert-card" href="https://certification.scrumalliance.org/accounts/1658473-sankar-kumar/certifications/2131174-microcredential" target="_blank">
           <div class="cert-badge">✍️</div>
-          <div class="cert-info"><h4>Get Started with AI Prompt Engineering</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · 2026</p></div>
+          <div class="cert-info"><h4>Get Started with AI Prompt Engineering</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · 2026</p></div>
         </a>
         <a class="cert-card" href="https://www.credly.com/badges/638376e8-f162-4efb-9d1a-239ee4655a6f/" target="_blank">
           <div class="cert-badge">☁️</div>
-          <div class="cert-info"><h4>AWS Certified AI Practitioner</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=aws.amazon.com" alt="">Amazon Web Services · Q1 2024</p></div>
+          <div class="cert-info"><h4>AWS Certified AI Practitioner</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=aws.amazon.com" alt="">Amazon Web Services · Q1 2024</p></div>
         </a>
         <a class="cert-card" href="https://www.credly.com/badges/40707c2f-aa9c-4060-a64e-9d013fe4e640/" target="_blank">
           <div class="cert-badge">🤖</div>
-          <div class="cert-info"><h4>AI for Product Management</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · Q1 2024</p></div>
+          <div class="cert-info"><h4>AI for Product Management</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · Q1 2024</p></div>
         </a>
         <a class="cert-card" href="https://bcert.me/suktbtoln" target="_blank">
           <div class="cert-badge">🤖</div>
-          <div class="cert-info"><h4>AI for Scrum Masters</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
+          <div class="cert-info"><h4>AI for Scrum Masters</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
         </a>
         <a class="cert-card" href="https://bcert.me/srecmplmm" target="_blank">
           <div class="cert-badge">🤖</div>
-          <div class="cert-info"><h4>AI for Product Owners</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
+          <div class="cert-info"><h4>AI for Product Owners</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
         </a>
       </div>
     </div>
@@ -6517,23 +6639,23 @@
       <div class="cert-grid">
         <a class="cert-card" href="https://www.credly.com/badges/99bed824-4056-408e-99f3-0bcf9470a3cf/" target="_blank">
           <div class="cert-badge">🔍</div>
-          <div class="cert-info"><h4>Product Discovery Certification</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · 2025</p></div>
+          <div class="cert-info"><h4>Product Discovery Certification</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · 2025</p></div>
         </a>
         <a class="cert-card" href="https://www.credly.com/badges/6d57afe4-7c57-4498-8677-0d4c6d23ec66/" target="_blank">
           <div class="cert-badge">🎯</div>
-          <div class="cert-info"><h4>Product Management Basics Certification</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · Q1 2024</p></div>
+          <div class="cert-info"><h4>Product Management Basics Certification</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · Q1 2024</p></div>
         </a>
         <a class="cert-card" href="https://www.credly.com/badges/8d29c61a-8d1d-4c81-896f-2f27c5442157/" target="_blank">
           <div class="cert-badge">🎯</div>
-          <div class="cert-info"><h4>Product-led Certification</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · Q1 2024</p></div>
+          <div class="cert-info"><h4>Product-led Certification</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · Q1 2024</p></div>
         </a>
         <a class="cert-card" href="https://www.credly.com/badges/5ab90fc0-a5fd-4b90-a51e-1e9b60614bb7/" target="_blank">
           <div class="cert-badge">📊</div>
-          <div class="cert-info"><h4>Product Analytics Certification</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · Q1 2024</p></div>
+          <div class="cert-info"><h4>Product Analytics Certification</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=pendo.io" alt="">Pendo · Q1 2024</p></div>
         </a>
         <a class="cert-card" href="https://www.credly.com/badges/8c142c9a-fb79-46ac-8671-a0c09b306fb0/" target="_blank">
           <div class="cert-badge">🗺️</div>
-          <div class="cert-info"><h4>Developing Product Vision and Strategy</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q1 2024</p></div>
+          <div class="cert-info"><h4>Developing Product Vision and Strategy</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q1 2024</p></div>
         </a>
       </div>
     </div>
@@ -6544,11 +6666,11 @@
       <div class="cert-grid">
         <a class="cert-card" href="https://bcert.me/shqnbqmlm" target="_blank">
           <div class="cert-badge">🏅</div>
-          <div class="cert-info"><h4>Certified Scrum Product Owner® (CSPO)</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
+          <div class="cert-info"><h4>Certified Scrum Product Owner® (CSPO)</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
         </a>
         <a class="cert-card" href="https://bcert.me/sehrosauq" target="_blank">
           <div class="cert-badge">🥇</div>
-          <div class="cert-info"><h4>Advanced Certified Scrum Product Owner® (A-CSPO)</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
+          <div class="cert-info"><h4>Advanced Certified Scrum Product Owner® (A-CSPO)</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scrumalliance.org" alt="">Scrum Alliance · Q1 2024</p></div>
         </a>
       </div>
     </div>
@@ -6559,15 +6681,15 @@
       <div class="cert-grid">
         <a class="cert-card" href="https://www.credly.com/badges/7b4043b5-4418-4584-8f59-d79474181cb2/" target="_blank">
           <div class="cert-badge">🎨</div>
-          <div class="cert-info"><h4>Design Thinking Fundamentals</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q2 2025</p></div>
+          <div class="cert-info"><h4>Design Thinking Fundamentals</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q2 2025</p></div>
         </a>
         <a class="cert-card" href="https://www.credly.com/badges/003ed1fa-dca9-4a58-95b8-7c5b711f434a/" target="_blank">
           <div class="cert-badge">🔄</div>
-          <div class="cert-info"><h4>Understanding and Improving Flow</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q2 2025</p></div>
+          <div class="cert-info"><h4>Understanding and Improving Flow</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q2 2025</p></div>
         </a>
         <a class="cert-card" href="https://www.credly.com/badges/68fd1857-094b-49c3-8ac2-0ba6aace1306/" target="_blank">
           <div class="cert-badge">📋</div>
-          <div class="cert-info"><h4>Introduction to Lean Portfolio Management</h4><p><img class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q2 2025</p></div>
+          <div class="cert-info"><h4>Introduction to Lean Portfolio Management</h4><p><img loading="lazy" class="issuer-icon" src="https://www.google.com/s2/favicons?sz=32&domain=scaledagile.com" alt="">SAFe by Scaled Agile · Q2 2025</p></div>
         </a>
       </div>
     </div>
@@ -6591,41 +6713,41 @@
     <div class="tools-category">
       <h4>🛠️ Technology Tools</h4>
       <div class="tools-chips">
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>AI SDK</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=aws.amazon.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Amazon QuickSight</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>AI SDK</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=aws.amazon.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Amazon QuickSight</span>
         <span class="chip">🔌 API</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=arize.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Arize AI</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Code</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Skill</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Sub-Agents</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=cursor.sh" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Cursor</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=atlassian.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Confluence</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=dataiku.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Dataiku</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=docker.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Docker</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=figma.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Figma</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=git-scm.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Git</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=github.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>GitHub</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=jira.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Jira</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=langchain.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langchain</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=langflow.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langflow</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=azure.microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Microsoft Azure AI Foundry</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=nestjs.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Nest.js</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=n8n.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>n8n</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=nodejs.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>NodeJs</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=openclaw.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>OpenClaw</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=postman.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Postman</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=powerbi.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>PowerBI</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=python.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Python</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=rapidminer.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>RapidMiner</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=resend.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Resend</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=magicui.design" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Magic UI</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=shadcn-ui.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>shadcn/ui</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=arize.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Arize AI</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Code</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Skill</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Sub-Agents</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=cursor.sh" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Cursor</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=atlassian.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Confluence</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=dataiku.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Dataiku</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=docker.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Docker</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=figma.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Figma</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=git-scm.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Git</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=github.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>GitHub</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=jira.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Jira</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=langchain.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langchain</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=langflow.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langflow</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=azure.microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Microsoft Azure AI Foundry</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nestjs.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Nest.js</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=n8n.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>n8n</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nodejs.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>NodeJs</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=openclaw.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>OpenClaw</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=postman.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Postman</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=powerbi.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>PowerBI</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=python.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Python</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=rapidminer.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>RapidMiner</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=resend.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Resend</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=magicui.design" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Magic UI</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=shadcn-ui.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>shadcn/ui</span>
         <span class="chip">🗄️ SQL</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=stripe.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Stripe</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=supabase.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Supabase</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=tableau.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Tableau</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=vercel.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Vercel</span>
-        <span class="chip"><img src="https://www.google.com/s2/favicons?sz=16&domain=microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Visio</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=stripe.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Stripe</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=supabase.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Supabase</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=tableau.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Tableau</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=vercel.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Vercel</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Visio</span>
       </div>
     </div>
 
@@ -6854,7 +6976,7 @@
   <div class="recommendations-grid reveal">
     <!-- Row 1: Prag Ravichandran -->
     <div class="rec-row" onclick="openRecModal('prag-ravichandran')">
-      <img class="rec-row-avatar" src="images/prag-ravichandran.jpeg" alt="Prag Ravichandran">
+      <img loading="lazy" class="rec-row-avatar" src="images/prag-ravichandran.jpeg" alt="Prag Ravichandran">
       <div class="rec-row-info">
         <p class="rec-card-name">Prag Ravichandran</p>
         <p class="rec-card-role">Founder | Salesforce MVP | Certified Architect | 10x Dreamforce Speaker</p>
@@ -6864,7 +6986,7 @@
 
     <!-- Row 2: Sri Kumaran Thirupathy -->
     <div class="rec-row" onclick="openRecModal('sri-kumaran-thirupathy')">
-      <img class="rec-row-avatar" src="images/sri-kumaran-thirupathy.jpeg" alt="Sri Kumaran Thirupathy">
+      <img loading="lazy" class="rec-row-avatar" src="images/sri-kumaran-thirupathy.jpeg" alt="Sri Kumaran Thirupathy">
       <div class="rec-row-info">
         <p class="rec-card-name">Sri Kumaran Thirupathy</p>
         <p class="rec-card-role">Platform & Product Leader | Data Thinker | Curious Mind in Tech & Beyond</p>
@@ -6874,7 +6996,7 @@
 
     <!-- Row 2: Carolyn Hudson -->
     <div class="rec-row" onclick="openRecModal('carolyn-hudson')">
-      <img class="rec-row-avatar" src="images/carolyn-hudson.jpeg" alt="Carolyn Hudson">
+      <img loading="lazy" class="rec-row-avatar" src="images/carolyn-hudson.jpeg" alt="Carolyn Hudson">
       <div class="rec-row-info">
         <p class="rec-card-name">Carolyn Hudson, MBA</p>
         <p class="rec-card-role">Program Director, Healthfirst</p>
@@ -6884,7 +7006,7 @@
 
     <!-- Row 2: Vivek Thomas -->
     <div class="rec-row" onclick="openRecModal('vivek-thomas')">
-      <img class="rec-row-avatar" src="images/vivek-thomas.jpeg" alt="Vivek Thomas">
+      <img loading="lazy" class="rec-row-avatar" src="images/vivek-thomas.jpeg" alt="Vivek Thomas">
       <div class="rec-row-info">
         <p class="rec-card-name">Vivek Thomas</p>
         <p class="rec-card-role">Senior Manager, Data Informatics</p>
@@ -6894,7 +7016,7 @@
 
     <!-- Row 2: Muthamizhselvan Kalidoss -->
     <div class="rec-row" onclick="openRecModal('muthamizhselvan-kalidoss')">
-      <img class="rec-row-avatar" src="images/muthamizhselvan-kalidoss.jpeg" alt="Muthamizhselvan Kalidoss">
+      <img loading="lazy" class="rec-row-avatar" src="images/muthamizhselvan-kalidoss.jpeg" alt="Muthamizhselvan Kalidoss">
       <div class="rec-row-info">
         <p class="rec-card-name">Muthamizhselvan Kalidoss</p>
         <p class="rec-card-role">Senior Manager, Cloud & Infrastructure Services</p>
@@ -6904,7 +7026,7 @@
 
     <!-- Row 2: Imthias Shaffiullah -->
     <div class="rec-row" onclick="openRecModal('imthias-shaffiullah')">
-      <img class="rec-row-avatar" src="images/imthias-shaffiullah.jpeg" alt="Imthias Shaffiullah">
+      <img loading="lazy" class="rec-row-avatar" src="images/imthias-shaffiullah.jpeg" alt="Imthias Shaffiullah">
       <div class="rec-row-info">
         <p class="rec-card-name">Imthias Shaffiullah</p>
         <p class="rec-card-role">Software Engineer, Spotline, Inc.</p>
@@ -6914,7 +7036,7 @@
 
     <!-- Row 2: Rajesh Sundarraj -->
     <div class="rec-row" onclick="openRecModal('rajesh-sundarraj')">
-      <img class="rec-row-avatar" src="images/rajesh-sundarraj.jpeg" alt="Rajesh Sundarraj">
+      <img loading="lazy" class="rec-row-avatar" src="images/rajesh-sundarraj.jpeg" alt="Rajesh Sundarraj">
       <div class="rec-row-info">
         <p class="rec-card-name">Rajesh Sundarraj</p>
         <p class="rec-card-role">Group Technical Specialist, HCL Technology</p>
@@ -6924,7 +7046,7 @@
 
     <!-- Row 3: Vigneshwaran Sivaprakasam -->
     <div class="rec-row" onclick="openRecModal('vigneshwaran-sivaprakasam')">
-      <img class="rec-row-avatar" src="images/vigneshwaran-sivaprakasam.jpeg" alt="Vigneshwaran Sivaprakasam">
+      <img loading="lazy" class="rec-row-avatar" src="images/vigneshwaran-sivaprakasam.jpeg" alt="Vigneshwaran Sivaprakasam">
       <div class="rec-row-info">
         <p class="rec-card-name">Vigneshwaran Sivaprakasam</p>
         <p class="rec-card-role">Group Project Manager, HCL America Inc.</p>
@@ -6934,7 +7056,7 @@
 
     <!-- Row: Sneha Gayathri C -->
     <div class="rec-row" onclick="openRecModal('sneha-gayathri')">
-      <img class="rec-row-avatar" src="images/sneha-gayathri.jpeg" alt="Sneha Gayathri C">
+      <img loading="lazy" class="rec-row-avatar" src="images/sneha-gayathri.jpeg" alt="Sneha Gayathri C">
       <div class="rec-row-info">
         <p class="rec-card-name">Sneha Gayathri C</p>
         <p class="rec-card-role">QA Engineer, Life Sciences Domain</p>
@@ -6944,7 +7066,7 @@
 
     <!-- Row 4: Ravi Vishwas -->
     <div class="rec-row" onclick="openRecModal('ravi-vishwas')">
-      <img class="rec-row-avatar" src="images/ravi-vishwas.jpeg" alt="Ravi Vishwas">
+      <img loading="lazy" class="rec-row-avatar" src="images/ravi-vishwas.jpeg" alt="Ravi Vishwas">
       <div class="rec-row-info">
         <p class="rec-card-name">Ravi Vishwas</p>
         <p class="rec-card-role">Enterprise Technology & ERP Senior Consultant</p>
@@ -6954,7 +7076,7 @@
 
     <!-- Row 5: Giridhar Golkonda -->
     <div class="rec-row" onclick="openRecModal('giridhar-golkonda')">
-      <img class="rec-row-avatar" src="images/giridhar-golkonda.jpeg" alt="Giridhar Golkonda">
+      <img loading="lazy" class="rec-row-avatar" src="images/giridhar-golkonda.jpeg" alt="Giridhar Golkonda">
       <div class="rec-row-info">
         <p class="rec-card-name">Giridhar Golkonda</p>
         <p class="rec-card-role">IT Leader & Enterprise Architect</p>
@@ -6964,7 +7086,7 @@
 
     <!-- Row 6: Peter Dudek -->
     <div class="rec-row" onclick="openRecModal('peter-dudek')">
-      <img class="rec-row-avatar" src="images/peter-dudek.jpeg" alt="Peter Dudek">
+      <img loading="lazy" class="rec-row-avatar" src="images/peter-dudek.jpeg" alt="Peter Dudek">
       <div class="rec-row-info">
         <p class="rec-card-name">Peter Dudek</p>
         <p class="rec-card-role">Pega Certified Senior System Architect</p>
@@ -6974,7 +7096,7 @@
 
     <!-- Row 7: Paul Atherton -->
     <div class="rec-row" onclick="openRecModal('paul-atherton')">
-      <img class="rec-row-avatar" src="images/paul-atherton.jpeg" alt="Paul Atherton">
+      <img loading="lazy" class="rec-row-avatar" src="images/paul-atherton.jpeg" alt="Paul Atherton">
       <div class="rec-row-info">
         <p class="rec-card-name">Paul Atherton</p>
         <p class="rec-card-role">Manager Provider Data Management, Healthfirst</p>
@@ -6984,7 +7106,7 @@
 
     <!-- Row 8: Denise Hurley-Forgach -->
     <div class="rec-row" onclick="openRecModal('denise-hurley')">
-      <img class="rec-row-avatar" src="images/denise-hurley.jpeg" alt="Denise Hurley-Forgach">
+      <img loading="lazy" class="rec-row-avatar" src="images/denise-hurley.jpeg" alt="Denise Hurley-Forgach">
       <div class="rec-row-info">
         <p class="rec-card-name">Denise Hurley-Forgach</p>
         <p class="rec-card-role">Senior Manager, Utilities Industries</p>
@@ -6994,7 +7116,7 @@
 
     <!-- Row 9: Narayanan Ramaswamy -->
     <div class="rec-row" onclick="openRecModal('narayanan-ramaswamy')">
-      <img class="rec-row-avatar" src="images/narayanan-ramaswamy.jpeg" alt="Narayanan Ramaswamy">
+      <img loading="lazy" class="rec-row-avatar" src="images/narayanan-ramaswamy.jpeg" alt="Narayanan Ramaswamy">
       <div class="rec-row-info">
         <p class="rec-card-name">Narayanan Ramaswamy</p>
         <p class="rec-card-role">Sr. Client Partner @ Saama | Health Sciences</p>
@@ -7004,7 +7126,7 @@
 
     <!-- Row 10: Thukkaram Periasamy -->
     <div class="rec-row" onclick="openRecModal('thukkaram-periasamy')">
-      <img class="rec-row-avatar" src="images/thukkaram-periasamy.jpeg" alt="Thukkaram Periasamy">
+      <img loading="lazy" class="rec-row-avatar" src="images/thukkaram-periasamy.jpeg" alt="Thukkaram Periasamy">
       <div class="rec-row-info">
         <p class="rec-card-name">Thukkaram Periasamy</p>
         <p class="rec-card-role">Associate Manager, Accenture</p>
@@ -7736,15 +7858,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Researchers face overwhelming information overload, with critical knowledge scattered across papers, clinical trials, conferences, and competitor data that is slow and hard to synthesize. The challenge was to let researchers quickly query all these sources in one place and get sourced, real-time answers in accessible formats.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Researchers face information overload, with critical knowledge scattered across papers, trials, conferences, and competitor data.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built a RAG platform (Langflow + Chroma + GPT-5-mini) that lets researchers chat with the literature and hear it back via TTS.</p>
+        <p><span class="qs-label qs-result">Result</span>Research time cut by 70%, with sourced answers unified across 4+ literature types.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>Built ScienceAI, a Gen AI platform that lets researchers chat with scientific literature — papers, clinical trials, conferences, and competitor data — in one place. A Langflow RAG pipeline with a Chroma vector database and GPT-5-mini streaming (on Next.js 16) delivers sourced, real-time answers, while ElevenLabs TTS converts insights into on-demand audio summaries and dual-voice podcasts for faster, more accessible research consumption.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Researchers face overwhelming information overload, with critical knowledge scattered across papers, clinical trials, conferences, and competitor data that is slow and hard to synthesize. The challenge was to let researchers quickly query all these sources in one place and get sourced, real-time answers in accessible formats.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Built ScienceAI, a Gen AI platform that lets researchers chat with scientific literature — papers, clinical trials, conferences, and competitor data — in one place. A Langflow RAG pipeline with a Chroma vector database and GPT-5-mini streaming (on Next.js 16) delivers sourced, real-time answers, while ElevenLabs TTS converts insights into on-demand audio summaries and dual-voice podcasts for faster, more accessible research consumption.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -7797,15 +7928,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Businesses receive high volumes of customer reviews that are slow and costly to read, prioritize, and respond to manually. The challenge was to automate review classification, prioritization, and response so teams could manage feedback at scale while improving customer satisfaction.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>High volumes of customer reviews were too slow and costly to read, prioritize, and respond to manually.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built an LLM-powered classifier that predicts category and priority, and drafts sentiment-based responses automatically.</p>
+        <p><span class="qs-label qs-result">Result</span>Review handling automated end-to-end, cutting response time and lifting customer satisfaction.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>Built an LLM-powered solution that automates the classification and processing of customer reviews — predicting categories, assigning priority, suggesting actions, and generating sentiment-based responses. The solution streamlines review management, enhancing customer satisfaction and operational efficiency in handling feedback and inquiries.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Businesses receive high volumes of customer reviews that are slow and costly to read, prioritize, and respond to manually. The challenge was to automate review classification, prioritization, and response so teams could manage feedback at scale while improving customer satisfaction.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Built an LLM-powered solution that automates the classification and processing of customer reviews — predicting categories, assigning priority, suggesting actions, and generating sentiment-based responses. The solution streamlines review management, enhancing customer satisfaction and operational efficiency in handling feedback and inquiries.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -7857,15 +7997,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Businesses face growing security and productivity risks from spam SMS messages that can carry phishing and cyber-attack attempts. The challenge was to automatically classify incoming SMS texts as 'spam' or 'ham' to protect users and prevent attacks at scale.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Spam SMS messages posed a growing phishing and productivity risk with no automated way to filter them.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built a text-classification model trained on labeled spam/ham messages to flag risky texts automatically.</p>
+        <p><span class="qs-label qs-result">Result</span>High-accuracy spam detection, reducing phishing exposure and improving user trust.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>Built a text-classification model that analyzes SMS messages labeled 'spam' and 'ham' to extract meaningful signals and predict whether a new message is spam. The solution automates spam detection, helping prevent phishing and cyber attacks before messages reach users.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Businesses face growing security and productivity risks from spam SMS messages that can carry phishing and cyber-attack attempts. The challenge was to automatically classify incoming SMS texts as 'spam' or 'ham' to protect users and prevent attacks at scale.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Built a text-classification model that analyzes SMS messages labeled 'spam' and 'ham' to extract meaningful signals and predict whether a new message is spam. The solution automates spam detection, helping prevent phishing and cyber attacks before messages reach users.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -7917,15 +8066,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>Hotels and booking platforms lose significant revenue to last-minute cancellations with little ability to anticipate them in advance. The challenge was to identify the key drivers of cancellations and predict at-risk bookings early enough to shape profitable cancellation and refund policies.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Hotels lose significant revenue to last-minute cancellations with little ability to see them coming.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built a predictive model identifying the key drivers behind cancellations and flagging at-risk bookings early.</p>
+        <p><span class="qs-label qs-result">Result</span>At-risk bookings predicted in advance, enabling more profitable refund and policy decisions.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>Built a predictive model that identifies the factors most influencing booking cancellations and flags which bookings are likely to be cancelled in advance. The solution enables data-driven cancellation and refund policies, helping reduce revenue loss and improve operational planning.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Hotels and booking platforms lose significant revenue to last-minute cancellations with little ability to anticipate them in advance. The challenge was to identify the key drivers of cancellations and predict at-risk bookings early enough to shape profitable cancellation and refund policies.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Built a predictive model that identifies the factors most influencing booking cancellations and flags which bookings are likely to be cancelled in advance. The solution enables data-driven cancellation and refund policies, helping reduce revenue loss and improve operational planning.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -7977,15 +8135,24 @@
     </div>
     <div class="modal-body">
 
-      <div class="modal-section">
-        <h4>Problem Statement</h4>
-        <p>In a competitive landscape, companies struggle to continuously gather, analyze, and act on customer feedback fast enough to drive innovation and growth. The challenge was to streamline feedback analysis so teams could surface actionable insights quickly and at scale.</p>
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Companies struggle to gather and act on customer feedback fast enough to drive product decisions.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built an AI platform that ingests, categorizes, and analyzes feedback to surface themes, sentiment, and priority issues automatically.</p>
+        <p><span class="qs-label qs-result">Result</span>Feedback analysis time cut by 80%, with actionable insights surfaced in real time.</p>
       </div>
 
-      <div class="modal-section">
-        <h4>Solution</h4>
-        <p>Built an AI-powered customer feedback analysis solution that automatically ingests, categorizes, and analyzes feedback to surface themes, sentiment, and priority issues. The platform turns unstructured feedback into clear, actionable insights, enabling teams to continuously gather, analyze, and act on customer signals.</p>
-      </div>
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>In a competitive landscape, companies struggle to continuously gather, analyze, and act on customer feedback fast enough to drive innovation and growth. The challenge was to streamline feedback analysis so teams could surface actionable insights quickly and at scale.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Built an AI-powered customer feedback analysis solution that automatically ingests, categorizes, and analyzes feedback to surface themes, sentiment, and priority issues. The platform turns unstructured feedback into clear, actionable insights, enabling teams to continuously gather, analyze, and act on customer signals.</p>
+        </div>
+      </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
@@ -8768,7 +8935,7 @@
     const recInitials = (n) => n.split(/[\s-]+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
     function renderRecAvatar(r) {
       if (r.img) {
-        recAvatarEl.innerHTML = '<img src="' + r.img + '" alt="' + r.name + '">';
+        recAvatarEl.innerHTML = '<img loading="lazy" src="' + r.img + '" alt="' + r.name + '">';
       } else {
         recAvatarEl.textContent = recInitials(r.name);
       }
