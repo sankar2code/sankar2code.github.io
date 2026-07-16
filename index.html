@@ -1726,19 +1726,23 @@
 
     .li-flip-face > * { position: relative; z-index: 1; }
 
-    /* Decorative sheen + glow live on a separate, non-3D-transformed layer.
-       Putting overflow:hidden directly on .li-flip-face breaks backface-visibility
-       on Safari/iOS (both faces render, one mirrored) — so clipping happens here instead. */
-    .li-face-fx {
+    /* Decorative sheen + glow live on the CARD itself, not inside the rotating
+       faces. Any overflow:hidden or filter (blur) on a descendant of a
+       backface-hidden 3D-transformed element breaks face-culling on Safari/iOS
+       (both faces render at once, one mirrored) — so this layer sits as a
+       sibling of .li-flip-inner, outside the 3D transform entirely. */
+    .li-flip-card { position: relative; }
+
+    .li-card-fx {
       position: absolute;
       inset: 0;
-      border-radius: inherit;
+      border-radius: var(--radius);
       overflow: hidden;
       pointer-events: none;
       z-index: 0;
     }
 
-    .li-face-fx::before {
+    .li-card-fx::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -1753,13 +1757,15 @@
       100% { background-position: -200% 0; }
     }
 
-    .li-face-fx::after {
+    .li-card-fx::after {
       content: '';
       position: absolute;
       inset: -30%;
       background: radial-gradient(circle at 82% 12%, rgba(56,189,248,0.22), transparent 60%);
       filter: blur(30px);
     }
+
+    .li-flip-inner { position: relative; z-index: 1; }
 
     .li-card-blue .li-flip-face   { border-color: rgba(56,189,248,0.22); }
     .li-card-green .li-flip-face  { border-color: rgba(74,222,128,0.22); }
@@ -1771,13 +1777,13 @@
     .li-card-purple:hover .li-flip-face { border-color: rgba(129,140,248,0.5); box-shadow: 0 12px 32px rgba(99,102,241,0.22), 0 0 22px rgba(129,140,248,0.16); }
     .li-card-amber:hover .li-flip-face  { border-color: rgba(251,191,36,0.5); box-shadow: 0 12px 32px rgba(245,158,11,0.22), 0 0 22px rgba(251,191,36,0.16); }
 
-    .li-card-green .li-face-fx::before  { background: linear-gradient(90deg, transparent, transparent, #4ade80, #16a34a, #4ade80, transparent, transparent); background-size: 260% 100%; }
-    .li-card-purple .li-face-fx::before { background: linear-gradient(90deg, transparent, transparent, #818cf8, #6366f1, #818cf8, transparent, transparent); background-size: 260% 100%; }
-    .li-card-amber .li-face-fx::before  { background: linear-gradient(90deg, transparent, transparent, #fbbf24, #f59e0b, #fbbf24, transparent, transparent); background-size: 260% 100%; }
+    .li-card-green .li-card-fx::before  { background: linear-gradient(90deg, transparent, transparent, #4ade80, #16a34a, #4ade80, transparent, transparent); background-size: 260% 100%; }
+    .li-card-purple .li-card-fx::before { background: linear-gradient(90deg, transparent, transparent, #818cf8, #6366f1, #818cf8, transparent, transparent); background-size: 260% 100%; }
+    .li-card-amber .li-card-fx::before  { background: linear-gradient(90deg, transparent, transparent, #fbbf24, #f59e0b, #fbbf24, transparent, transparent); background-size: 260% 100%; }
 
-    .li-card-green .li-face-fx::after  { background: radial-gradient(circle at 82% 12%, rgba(74,222,128,0.22), transparent 60%); }
-    .li-card-purple .li-face-fx::after { background: radial-gradient(circle at 82% 12%, rgba(129,140,248,0.22), transparent 60%); }
-    .li-card-amber .li-face-fx::after  { background: radial-gradient(circle at 82% 12%, rgba(251,191,36,0.22), transparent 60%); }
+    .li-card-green .li-card-fx::after  { background: radial-gradient(circle at 82% 12%, rgba(74,222,128,0.22), transparent 60%); }
+    .li-card-purple .li-card-fx::after { background: radial-gradient(circle at 82% 12%, rgba(129,140,248,0.22), transparent 60%); }
+    .li-card-amber .li-card-fx::after  { background: radial-gradient(circle at 82% 12%, rgba(251,191,36,0.22), transparent 60%); }
 
     .li-flip-back { transform: rotateY(180deg); }
 
@@ -2253,7 +2259,7 @@
 
     html.light .shipped-card::after { opacity: 0.35; }
     html.light .shipped-card { background: #ffffff; }
-    html.light .li-face-fx::after { opacity: 0.4; }
+    html.light .li-card-fx::after { opacity: 0.4; }
     html.light .li-cat-icon { background: #f1f5f9; }
     html.light .ship-icon { background: #f1f5f9; }
     html.light .ship-text { color: #111118; }
@@ -7602,9 +7608,9 @@
     <div class="li-metrics-grid">
 
       <div class="li-flip-card li-card-blue" tabindex="0" role="button" aria-pressed="false" aria-label="Reach and engagement metrics, tap to flip for more">
+        <div class="li-card-fx"></div>
         <div class="li-flip-inner">
           <div class="li-flip-face li-flip-front">
-            <div class="li-face-fx"></div>
             <span class="li-cat-icon">📡</span>
             <p class="li-cat-title">Reach &amp; Engagement</p>
             <div class="li-hero-row">
@@ -7625,7 +7631,6 @@
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
           </div>
           <div class="li-flip-face li-flip-back">
-            <div class="li-face-fx"></div>
             <p class="li-cat-title"><span class="li-back-dot"></span>Reach &amp; Engagement</p>
             <div class="li-chart li-chart-blue">
               <div class="li-chart-bars">
@@ -7654,9 +7659,9 @@
       </div>
 
       <div class="li-flip-card li-card-green" tabindex="0" role="button" aria-pressed="false" aria-label="Follower growth metrics, tap to flip for more">
+        <div class="li-card-fx"></div>
         <div class="li-flip-inner">
           <div class="li-flip-face li-flip-front">
-            <div class="li-face-fx"></div>
             <span class="li-cat-icon">📈</span>
             <p class="li-cat-title">Follower Growth</p>
             <p class="li-hero-num li-hero-num-success">▲ +2,250</p>
@@ -7669,7 +7674,6 @@
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
           </div>
           <div class="li-flip-face li-flip-back">
-            <div class="li-face-fx"></div>
             <p class="li-cat-title"><span class="li-back-dot"></span>Follower Growth</p>
             <div class="li-chart li-chart-green">
               <div class="li-chart-bars">
@@ -7698,9 +7702,9 @@
       </div>
 
       <div class="li-flip-card li-card-purple" tabindex="0" role="button" aria-pressed="false" aria-label="Post performance metrics, tap to flip for more">
+        <div class="li-card-fx"></div>
         <div class="li-flip-inner">
           <div class="li-flip-face li-flip-front">
-            <div class="li-face-fx"></div>
             <span class="li-cat-icon">🏆</span>
             <p class="li-cat-title">Post Performance</p>
             <div class="li-hero-row">
@@ -7721,7 +7725,6 @@
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
           </div>
           <div class="li-flip-face li-flip-back">
-            <div class="li-face-fx"></div>
             <p class="li-cat-title"><span class="li-back-dot"></span>Post Performance</p>
             <div class="li-chart li-chart-purple">
               <div class="li-chart-bars">
@@ -7746,9 +7749,9 @@
       </div>
 
       <div class="li-flip-card li-card-amber" tabindex="0" role="button" aria-pressed="false" aria-label="Audience metrics, tap to flip for more">
+        <div class="li-card-fx"></div>
         <div class="li-flip-inner">
           <div class="li-flip-face li-flip-front">
-            <div class="li-face-fx"></div>
             <span class="li-cat-icon">🌐</span>
             <p class="li-cat-title">Audience</p>
             <div class="li-bar-row">
@@ -7770,7 +7773,6 @@
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
           </div>
           <div class="li-flip-face li-flip-back">
-            <div class="li-face-fx"></div>
             <p class="li-cat-title"><span class="li-back-dot"></span>Audience</p>
             <div class="li-bar-row">
               <div class="li-bar-label-row"><span>10,001+ employee cos.</span><span>34%</span></div>
