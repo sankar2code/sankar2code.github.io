@@ -2030,7 +2030,15 @@
         -webkit-backface-visibility: visible;
         backface-visibility: visible;
       }
-      .li-flip-face.li-flip-back { display: none; }
+      /* .li-flip-back carries its own rotateY(180deg) for the desktop 3D
+         flip; without the perspective/preserve-3d context it collapses to a
+         flat horizontal mirror, which is what caused the reversed text.
+         Cancel it explicitly on mobile. */
+      .li-flip-face.li-flip-back {
+        display: none;
+        -webkit-transform: none;
+        transform: none;
+      }
       .li-flip-card.flipped .li-flip-face.li-flip-front { display: none; }
       .li-flip-card.flipped .li-flip-face.li-flip-back { display: flex; }
     }
