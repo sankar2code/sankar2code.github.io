@@ -4322,6 +4322,75 @@
     /* ═══════════════════════════════════════════════
        CERTIFICATIONS
     ═══════════════════════════════════════════════ */
+    /* ── Stat-first summary card ── */
+    .cert-summary-card {
+      display: flex;
+      align-items: center;
+      gap: 1.3rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.3rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .cert-stat { text-align: center; flex-shrink: 0; }
+    .cert-stat-num { font-size: 1.4rem; font-weight: 800; color: var(--gold); line-height: 1; }
+    .cert-stat-lbl { font-size: 0.68rem; color: var(--muted); margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .cert-divider-v { width: 1px; height: 30px; background: var(--border); flex-shrink: 0; }
+    .cert-issuers { flex: 1; min-width: 180px; font-size: 0.85rem; color: var(--muted); }
+    .cert-explore-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1rem;
+      border-radius: 20px;
+      background: rgba(37,99,235,0.16);
+      color: #7dd3fc;
+      border: 1px solid rgba(56,189,248,0.35);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cert-explore-btn:hover { background: rgba(37,99,235,0.28); transform: translateY(-1px); }
+    .cert-explore-btn svg { transition: transform 0.3s; }
+    .cert-explore-btn.expanded svg { transform: rotate(180deg); }
+    html.light .cert-explore-btn { color: #1d4ed8; }
+
+    /* ── Category tabs ── */
+    .cert-tabs-wrap {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.45s ease, opacity 0.3s ease;
+    }
+    .cert-tabs-wrap.open { max-height: 4000px; opacity: 1; }
+    .cert-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.4rem;
+    }
+    .cert-tab {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .cert-tab.active {
+      background: rgba(37,99,235,0.22);
+      color: #7dd3fc;
+      border-color: rgba(56,189,248,0.5);
+    }
+    html.light .cert-tab.active { color: #1d4ed8; }
+    .cert-panel { display: none; }
+    .cert-panel.active { display: block; }
+
     /* ── Cert group ── */
     .cert-group { margin-bottom: 2.8rem; }
 
@@ -4454,6 +4523,12 @@
       flex-direction: column;
       gap: 2.5rem;
     }
+
+    /* ── Reuse cert stat-card + tabs pattern for Tools ── */
+    .tools-summary-card { margin-bottom: 1rem; }
+    .tools-tabs-wrap.open { max-height: 6000px; }
+    .tools-panel { display: none; }
+    .tools-panel.active { display: block; }
 
     .tools-category h4 {
       font-size: 0.72rem;
@@ -6724,10 +6799,29 @@
     <h2 class="section-title">Certifications</h2>
     <p class="section-sub">Continuous learning across product, technology, and strategy.</p>
   </div>
-  <div class="reveal">
+
+  <div class="cert-summary-card reveal" id="cert-summary-card">
+    <div class="cert-stat"><div class="cert-stat-num">24</div><div class="cert-stat-lbl">Credentials</div></div>
+    <div class="cert-divider-v"></div>
+    <div class="cert-stat"><div class="cert-stat-num">7</div><div class="cert-stat-lbl">Institutions</div></div>
+    <div class="cert-issuers">MIT · AWS · Anthropic · Scrum Alliance · SAFe · Maven · Pendo</div>
+    <button type="button" class="cert-explore-btn" id="cert-explore-btn" onclick="toggleCertExplore()">
+      <span id="cert-explore-label">Explore all</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+
+  <div class="cert-tabs-wrap" id="cert-tabs-wrap">
+    <div class="cert-tabs" id="cert-tabs">
+      <button type="button" class="cert-tab active" onclick="selectCertTab(0, this)">⭐ Featured</button>
+      <button type="button" class="cert-tab" onclick="selectCertTab(1, this)">🤖 AI &amp; ML</button>
+      <button type="button" class="cert-tab" onclick="selectCertTab(2, this)">🎯 Product</button>
+      <button type="button" class="cert-tab" onclick="selectCertTab(3, this)">⚡ Agile</button>
+      <button type="button" class="cert-tab" onclick="selectCertTab(4, this)">🎨 Design</button>
+    </div>
 
     <!-- Featured Credentials -->
-    <div class="cert-group">
+    <div class="cert-group cert-panel active" data-panel="0">
       <div class="cert-group-title">⭐ Featured Credentials</div>
       <div class="cert-grid">
         <a class="cert-card cert-card--top" href="https://www.credly.com/badges/971eef77-1ab4-471a-b269-806d08aa39f8/" target="_blank">
@@ -6759,7 +6853,7 @@
     </div>
 
     <!-- AI & Machine Learning -->
-    <div class="cert-group">
+    <div class="cert-group cert-panel" data-panel="1">
       <div class="cert-group-title">🤖 AI &amp; Machine Learning</div>
       <div class="cert-grid">
         <a class="cert-card" href="https://verify.skilljar.com/c/c733hmgoutof" target="_blank">
@@ -6806,7 +6900,7 @@
     </div>
 
     <!-- Product Management -->
-    <div class="cert-group">
+    <div class="cert-group cert-panel" data-panel="2">
       <div class="cert-group-title">🎯 Product Management</div>
       <div class="cert-grid">
         <a class="cert-card" href="https://www.credly.com/badges/99bed824-4056-408e-99f3-0bcf9470a3cf/" target="_blank">
@@ -6833,7 +6927,7 @@
     </div>
 
     <!-- Agile & Scrum -->
-    <div class="cert-group">
+    <div class="cert-group cert-panel" data-panel="3">
       <div class="cert-group-title">⚡ Agile &amp; Scrum</div>
       <div class="cert-grid">
         <a class="cert-card" href="https://bcert.me/shqnbqmlm" target="_blank">
@@ -6848,7 +6942,7 @@
     </div>
 
     <!-- Design & Strategy -->
-    <div class="cert-group">
+    <div class="cert-group cert-panel" data-panel="4">
       <div class="cert-group-title">🎨 Design &amp; Strategy</div>
       <div class="cert-grid">
         <a class="cert-card" href="https://www.credly.com/badges/7b4043b5-4418-4584-8f59-d79474181cb2/" target="_blank">
@@ -6869,6 +6963,24 @@
   </div>
 </section>
 
+<script>
+  function toggleCertExplore() {
+    const wrap = document.getElementById('cert-tabs-wrap');
+    const label = document.getElementById('cert-explore-label');
+    const btn = document.getElementById('cert-explore-btn');
+    const isOpen = wrap.classList.toggle('open');
+    btn.classList.toggle('expanded', isOpen);
+    label.textContent = isOpen ? 'Collapse' : 'Explore all';
+  }
+  function selectCertTab(index, btn) {
+    document.querySelectorAll('#cert-tabs .cert-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.cert-panel').forEach(p => {
+      p.classList.toggle('active', p.getAttribute('data-panel') == index);
+    });
+  }
+</script>
+
 <div class="divider"></div>
 
 <!-- ───────────────────────────────────────────
@@ -6880,9 +6992,29 @@
     <h2 class="section-title">Tools &amp; Technologies</h2>
     <p class="section-sub">The tools I use to research, design, build, and ship products.</p>
   </div>
-  <div class="tools-section-grid reveal">
 
-    <div class="tools-category">
+  <div class="cert-summary-card tools-summary-card reveal" id="tools-summary-card">
+    <div class="cert-stat"><div class="cert-stat-num">70+</div><div class="cert-stat-lbl">Tools &amp; Skills</div></div>
+    <div class="cert-divider-v"></div>
+    <div class="cert-stat"><div class="cert-stat-num">4</div><div class="cert-stat-lbl">Categories</div></div>
+    <div class="cert-issuers">Engineering · AI Product · Domain Expertise · Technical PM</div>
+    <button type="button" class="cert-explore-btn" id="tools-explore-btn" onclick="toggleToolsExplore()">
+      <span id="tools-explore-label">Explore all</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+
+  <div class="cert-tabs-wrap tools-tabs-wrap" id="tools-tabs-wrap">
+    <div class="cert-tabs" id="tools-tabs">
+      <button type="button" class="cert-tab active" onclick="selectToolsTab(0, this)">🛠️ Technology</button>
+      <button type="button" class="cert-tab" onclick="selectToolsTab(1, this)">🤖 AI Product</button>
+      <button type="button" class="cert-tab" onclick="selectToolsTab(2, this)">🏥 Domain</button>
+      <button type="button" class="cert-tab" onclick="selectToolsTab(3, this)">🎯 Technical PM</button>
+    </div>
+
+  <div class="tools-section-grid">
+
+    <div class="tools-category tools-panel active" data-panel="0">
       <h4>🛠️ Technology Tools</h4>
       <div class="tools-chips">
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>AI SDK</span>
@@ -6923,7 +7055,7 @@
       </div>
     </div>
 
-    <div class="tools-category">
+    <div class="tools-category tools-panel" data-panel="1">
       <h4>🤖 AI Product &amp; Automation</h4>
       <div class="tools-chips">
         <span class="chip">Agent-Native Operations</span>
@@ -6944,7 +7076,7 @@
       </div>
     </div>
 
-    <div class="tools-category">
+    <div class="tools-category tools-panel" data-panel="2">
       <h4>🏥 Functional Domain Experience</h4>
       <div class="tools-chips">
         <span class="chip">Audit Management</span>
@@ -6960,7 +7092,7 @@
       </div>
     </div>
 
-    <div class="tools-category">
+    <div class="tools-category tools-panel" data-panel="3">
       <h4>🎯 Technical Product Management</h4>
       <div class="tools-chips">
         <span class="chip">Agile Product Ownership (CSPO)</span>
@@ -6982,7 +7114,26 @@
     </div>
 
   </div>
+  </div>
 </section>
+
+<script>
+  function toggleToolsExplore() {
+    const wrap = document.getElementById('tools-tabs-wrap');
+    const label = document.getElementById('tools-explore-label');
+    const btn = document.getElementById('tools-explore-btn');
+    const isOpen = wrap.classList.toggle('open');
+    btn.classList.toggle('expanded', isOpen);
+    label.textContent = isOpen ? 'Collapse' : 'Explore all';
+  }
+  function selectToolsTab(index, btn) {
+    document.querySelectorAll('#tools-tabs .cert-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tools-panel').forEach(p => {
+      p.classList.toggle('active', p.getAttribute('data-panel') == index);
+    });
+  }
+</script>
 
 <div class="divider"></div>
 
@@ -9139,6 +9290,17 @@
   function rollNumbersIn(scopeEl, duration) {
     if (!scopeEl) return;
     scopeEl.querySelectorAll('.li-hero-num, .li-gauge-val, .li-stat-num, .li-bar-pct').forEach((el) => rollNumberEl(el, duration));
+  }
+
+  // ── Roll cert/tools summary-card numbers every time they scroll into view ──
+  if ('IntersectionObserver' in window) {
+    const summaryNumObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        rollNumberEl(e.target, 1200);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.cert-stat-num').forEach(el => summaryNumObserver.observe(el));
   }
 
   const liMetricsEl = document.querySelector('.li-metrics');
