@@ -9931,6 +9931,18 @@
       document.querySelectorAll('.nav-item-group.open').forEach(g => g.classList.remove('open'));
     }
   });
+  // A click leaves a menu "open" (sticky) so it also works on tap/mobile, but
+  // that sticky state doesn't clear on its own when the mouse just glides to
+  // a different menu — only :hover changes, not the .open class. So a stale
+  // menu can stay visible behind the one you're now hovering. Close any other
+  // open menu the moment the pointer enters a sibling group.
+  document.querySelectorAll('.nav-item-group').forEach((group) => {
+    group.addEventListener('mouseenter', function() {
+      document.querySelectorAll('.nav-item-group.open').forEach((g) => {
+        if (g !== group) g.classList.remove('open');
+      });
+    });
+  });
   // Close dropdown + mobile menu after a section link is clicked
   document.querySelectorAll('.nav-dropdown a').forEach(link => {
     link.addEventListener('click', function() {
