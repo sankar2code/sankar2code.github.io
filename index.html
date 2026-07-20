@@ -2730,7 +2730,15 @@
 
     .stat-item { flex: 1; min-width: 90px; }
 
-    .stat-num--compact { font-size: 1.5rem; }
+    .stat-num--compact {
+      font-size: 1.5rem;
+      letter-spacing: 0.01em;
+      filter: drop-shadow(0 0 6px rgba(56,189,248,0.3));
+    }
+
+    .stat-num--compact.stat-num--purple {
+      filter: drop-shadow(0 0 6px rgba(168,85,247,0.3));
+    }
 
     .stat-card {
       position: relative;
@@ -6870,7 +6878,7 @@
           <div class="timeline-date">2022 – 2025</div>
           <div class="timeline-role">Data Engineer / Product Owner</div>
           <div class="timeline-company">Prophecy Consulting · Client: HealthFirst</div>
-          <div class="timeline-metrics"><span class="metric-badge">AI Provider Platform</span><span class="metric-badge">SAFe ART Product Owner</span></div>
+          <div class="timeline-metrics"><span class="metric-badge">AI Provider Platform</span><span class="metric-badge">SAFe ART Product Owner</span><span class="metric-badge">Solutioning &amp; Vendor RFPs</span></div>
         </div>
         <div class="timeline-chevron">▾</div>
       </div>
@@ -6878,6 +6886,7 @@
         <li>Delivered an AI-driven Provider Lifecycle Management platform, optimizing provider onboarding, credentialing, claims processing, inventory tracking, and regulatory compliance.</li>
         <li>Integrated structured healthcare data across enrollment, credentialing, and compliance workflows — validating RESTful APIs (Postman, Java) to ensure reliable exchange between provider, claims, analytics, and AI components.</li>
         <li>Drove SAFe Agile delivery as Product Owner on an Agile Release Train, defining PI objectives, governing EPICs/Features, and managing cross-team dependencies with Product Management, Solution Architects, and Data Engineering.</li>
+        <li>Authored solution proposals and led vendor/RFP evaluations for platform expansion, building the business case that informed continued investment in the AI-driven provider platform.</li>
       </ul>
     </div>
 
@@ -6894,9 +6903,9 @@
         <div class="timeline-chevron">▾</div>
       </div>
       <ul class="timeline-desc">
-        <li>Scaled the multi-year Otsuka platform program (begun in my Grapnel role) from $0.5M to $4M investment with revenue impact of up to $16M, owning CRM and commercial platform strategy across Salesforce, Veeva, and Microsoft Dynamics to improve engagement, conversion, and retention.</li>
+        <li>Authored the business case and solution proposal that scaled the multi-year Otsuka platform program (begun in my Grapnel role) from $0.5M to $4M investment, owning CRM and commercial platform strategy across Salesforce, Veeva, and Microsoft Dynamics.</li>
         <li>Delivered audit-ready global pharma programs and drug launches as Product Owner in a SAFe Agile Release Train, aligning epics and roadmaps to business value and regulatory requirements (GxP, 21 CFR Part 11, GCP, EMA, ICH, GDPR, HIPAA) with full IQ/OQ/PQ and UAT validation.</li>
-        <li>Reduced project schedule variance to 4% while delivering enterprise analytics, dashboards, and KPI frameworks — integrating CRM, ERP, CTMS, IQVIA, and market access data with strengthened governance and MDM.</li>
+        <li>Reduced project schedule variance to 4% while delivering enterprise analytics, dashboards, and KPI frameworks that improved engagement, conversion, and retention — generating up to $16M in revenue impact.</li>
       </ul>
     </div>
 
@@ -6915,7 +6924,7 @@
       <ul class="timeline-desc">
         <li>Launched the first phase of a multi-year Otsuka platform program (continued through my HCL role), building the CRM and commercial platform foundation across Salesforce, Veeva, and Microsoft Dynamics and delivering up to $2M in lifecycle cost savings.</li>
         <li>Enabled audit-ready global drug launches as Product Owner in a SAFe Agile Release Train, aligning roadmaps to business value and regulatory requirements (GxP, 21 CFR Part 11) across Commercial, Regulatory, Medical Affairs, and IT.</li>
-        <li>Drove an 80% productivity increase and $5M in annual cost savings through end-to-end Tableau/big data analytics and AI-enabled reporting, impacting 5K+ global users after evaluating 200+ vendor products (Cloudera, Tableau, IBM, Inova).</li>
+        <li>Led solutioning and RFP-style vendor evaluations across 200+ products (Cloudera, Tableau, IBM, Inova), informing $2M+ in strategic technology investment decisions that drove an 80% productivity increase and $5M in annual cost savings for 5K+ global users.</li>
       </ul>
     </div>
 
@@ -6934,7 +6943,7 @@
       <ul class="timeline-desc">
         <li>Defined a market-led mobile product strategy that optimized a $50K operating budget and laid the foundation for scalable product development.</li>
         <li>Reduced operating costs by 25%, increased repeat customers by 40%, and drove a 75% profitability uplift by co-building a high-growth food services venture with the COO.</li>
-        <li>Achieved a $20M business valuation and attracted strong VC interest through enterprise-grade market research and a 24-month growth pipeline.</li>
+        <li>Built the business case and 24-month growth pipeline behind a $20M valuation, influencing investor and VC deal interest through enterprise-grade market research.</li>
       </ul>
     </div>
 
@@ -6965,14 +6974,14 @@
           <div class="timeline-date">2010 – 2014</div>
           <div class="timeline-role">Project Engineer</div>
           <div class="timeline-company">WIPRO Technologies · Client: McGraw-Hill Education</div>
-          <div class="timeline-metrics"><span class="metric-badge">$5M+ new business</span><span class="metric-badge">25% CSAT increase</span></div>
+          <div class="timeline-metrics"><span class="metric-badge">$5M+ new business</span><span class="metric-badge">25% CSAT increase</span><span class="metric-badge">RFP &amp; Solutioning</span></div>
         </div>
         <div class="timeline-chevron">▾</div>
       </div>
       <ul class="timeline-desc">
         <li>Delivered complex global technology and process transformations for enterprise clients (Diversey, McGraw-Hill), keeping programs strategically aligned and on-target.</li>
         <li>Built and scaled high-performing global delivery teams (including offshore) and translated business strategy into scalable functional and technical designs.</li>
-        <li>Increased client satisfaction by 25% and originated over $5M in new business through continuous improvement and trusted executive relationships.</li>
+        <li>Authored solution proposals and RFP responses that originated over $5M in new business, increasing client satisfaction by 25% through trusted executive relationships.</li>
       </ul>
     </div>
   </div>
@@ -9456,12 +9465,13 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // ── Stat count-up animation ──
+  // ── Stat count-up animation (rolls every time it scrolls into view) ──
   const statObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
       const el = e.target;
-      statObserver.unobserve(el);
+      if (el.dataset.rollBusy === '1') return;
+      el.dataset.rollBusy = '1';
       const target = parseInt(el.dataset.count, 10);
       const prefix = el.dataset.prefix || '';
       const suffix = el.dataset.suffix || '';
@@ -9471,7 +9481,11 @@
         const p = Math.min((now - start) / dur, 1);
         const eased = 1 - Math.pow(1 - p, 3);
         el.textContent = prefix + Math.round(target * eased) + suffix;
-        if (p < 1) requestAnimationFrame(step);
+        if (p < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.dataset.rollBusy = '0';
+        }
       }
       requestAnimationFrame(step);
     });
