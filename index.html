@@ -2673,12 +2673,71 @@
     }
 
     .about-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
     }
 
+    .stat-group {
+      flex: 1;
+      min-width: 240px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.3rem 1.4rem;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    .stat-group--career {
+      background: linear-gradient(160deg, rgba(37,99,235,0.1), var(--card));
+      border-color: rgba(56,189,248,0.2);
+    }
+
+    .stat-group--career:hover {
+      border-color: rgba(56,189,248,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(37,99,235,0.15);
+    }
+
+    .stat-group--impact {
+      background: linear-gradient(160deg, rgba(168,85,247,0.1), var(--card));
+      border-color: rgba(168,85,247,0.25);
+    }
+
+    .stat-group--impact:hover {
+      border-color: rgba(168,85,247,0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(168,85,247,0.18);
+    }
+
+    .stat-group-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7dd3fc;
+      margin-bottom: 1rem;
+    }
+
+    .stat-group--impact .stat-group-label { color: #c084fc; }
+
+    .stat-group-items {
+      display: flex;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-item { flex: 1; min-width: 90px; }
+
+    .stat-num--compact { font-size: 1.5rem; }
+
     .stat-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 130px;
       background: linear-gradient(160deg, rgba(37,99,235,0.14), rgba(56,189,248,0.06) 60%, var(--card));
       border: 1px solid rgba(56,189,248,0.18);
       border-radius: var(--radius);
@@ -2693,6 +2752,27 @@
       box-shadow: 0 10px 30px rgba(37,99,235,0.18);
     }
 
+    .stat-card--purple {
+      background: linear-gradient(160deg, rgba(168,85,247,0.16), rgba(99,102,241,0.06) 60%, var(--card));
+      border-color: rgba(168,85,247,0.3);
+    }
+
+    .stat-card--purple:hover {
+      border-color: rgba(168,85,247,0.55);
+      box-shadow: 0 10px 30px rgba(168,85,247,0.22);
+    }
+
+    .stat-new-badge {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.8rem;
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: #c084fc;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
     .stat-num {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 2.2rem;
@@ -2702,6 +2782,13 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
       filter: drop-shadow(0 0 14px rgba(56,189,248,0.35));
+    }
+
+    .stat-num--purple {
+      background: linear-gradient(135deg, #a855f7, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 0 14px rgba(168,85,247,0.35));
     }
 
     .stat-label {
@@ -5548,7 +5635,7 @@
       section { padding: 4rem 1.5rem; }
 
       .about-grid       { grid-template-columns: 1fr; }
-      .about-stats      { grid-template-columns: 1fr 1fr; }
+      .about-stats      { flex-direction: column; }
 
       .about-head-row {
         flex-direction: column-reverse;
@@ -5597,10 +5684,9 @@
       .about-cta-row .journey-reveal { width: 100%; }
       .about-cta-row .btn-secondary.journey-trigger { width: 100%; justify-content: center; }
       .about-cta-row .btn-primary { width: 100%; text-align: center; }
-      .about-stats      { grid-template-columns: 1fr 1fr; gap: 1rem; align-items: stretch; }
+      .about-stats      { flex-direction: column; gap: 1rem; }
       .about-text p     { font-size: 0.9rem; line-height: 1.7; }
-      .stat-card        { display: flex; flex-direction: column; justify-content: center; }
-      .stat-num         { font-size: 1.8rem; }
+      .stat-num--compact { font-size: 1.3rem; }
       .stat-label       { font-size: 0.72rem; line-height: 1.35; }
 
       .projects-grid    { grid-template-columns: 1fr; gap: 1rem; }
@@ -5667,7 +5753,7 @@
     @media (max-width: 400px) {
       section { padding: 2.5rem 1rem; }
 
-      .about-stats   { grid-template-columns: 1fr; }
+      .stat-group-items { flex-direction: column; gap: 0.8rem; }
       .hero-name     { font-size: 2rem; }
       .nav-badge-name { font-size: 0.85rem; }
       .nav-badge     { padding: 0.35rem 1rem; }
@@ -5932,21 +6018,39 @@
       </div>
     </div>
     <div class="about-stats">
-      <div class="stat-card">
-        <div class="stat-num" data-count="15" data-suffix="+">15+</div>
-        <div class="stat-label">Years of Experience</div>
+      <div class="stat-group stat-group--career">
+        <div class="stat-group-label">Career</div>
+        <div class="stat-group-items">
+          <div class="stat-item">
+            <div class="stat-num stat-num--compact" data-count="15" data-suffix="+">15+</div>
+            <div class="stat-label">Years of Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num stat-num--compact" data-count="17" data-suffix="+">17+</div>
+            <div class="stat-label">Products Shipped</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num stat-num--compact" data-count="5">5</div>
+            <div class="stat-label">Industries Covered</div>
+          </div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-num" data-count="12" data-suffix="+">12+</div>
-        <div class="stat-label">Products Shipped</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" data-count="5">5</div>
-        <div class="stat-label">Industries Covered</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" data-count="16" data-prefix="$" data-suffix="M">$16M</div>
-        <div class="stat-label">Peak Program Revenue Impact</div>
+      <div class="stat-group stat-group--impact">
+        <div class="stat-group-label">Business Impact</div>
+        <div class="stat-group-items">
+          <div class="stat-item">
+            <div class="stat-num stat-num--compact stat-num--purple" data-count="16" data-prefix="$" data-suffix="M+">$16M+</div>
+            <div class="stat-label">Program Revenue Delivered</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num stat-num--compact stat-num--purple" data-count="10" data-prefix="$" data-suffix="M+">$10M+</div>
+            <div class="stat-label">Solutions Architected / RFPs Led</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num stat-num--compact stat-num--purple" data-count="15" data-prefix="$" data-suffix="M+">$15M+</div>
+            <div class="stat-label">Sales Pipeline / Deals Influenced</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
