@@ -6390,21 +6390,6 @@
   </div>
   <div class="nb-grid reveal">
 
-    <!-- Enterprise AI Data Copilot Suite (Q3 2026) -->
-    <div class="project-card project-card--interactive" onclick="document.getElementById('datacopilot-modal').classList.add('open')" title="Click to explore">
-      <div class="project-header ph-1">🗂️</div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="tag tag-coral">GenAI · Data Governance</span>
-          <span class="tag tag-purple">Agentic AI</span>
-          <span class="tag tag-coming-soon">Coming Soon · Q3 2026</span>
-        </div>
-        <h3>Enterprise AI Data Copilot Suite</h3>
-        <p>Agentic AI platform that lets organizations understand, govern, and analyze enterprise data through natural language — pairing deterministic engines for data quality, SQL safety, and PII detection with an LLM layer that only explains, classifies, and narrates. Built on a GxP-style clinical dataset via Langflow, n8n, and MCP to demonstrate production-grade data trust, not demo-ware.</p>
-        <div class="project-impact">⚡ Deterministic engines own the ground truth, LLM only narrates · Four-agent architecture (Quality, Catalog, Analytics, Governance) via Langflow + n8n + MCP · Built for HIPAA, GDPR &amp; 21 CFR Part 11 compliance</div>
-      </div>
-    </div>
-
     <!-- ContractIQ (Aug 2026) -->
     <div class="project-card project-card--interactive" onclick="document.getElementById('contractiq-modal').classList.add('open')" title="Click to explore">
       <div class="project-header ph-4">⚖️</div>
@@ -6417,6 +6402,36 @@
         <h3>ContractIQ</h3>
         <p>A live AI-powered legal tool that helps people review, summarize, and ask plain-language questions about contracts — built end-to-end using Claude Code as the primary development partner, as a real test of what an agentic coding workflow can ship in a high-stakes domain.</p>
         <div class="project-impact">⚡ Makes contract review accessible without a legal background · Built end-to-end with Claude Code, not just prototyped · A live, usable tool — not a slide deck</div>
+      </div>
+    </div>
+
+    <!-- Second Brain (Q4 2026) -->
+    <div class="project-card project-card--interactive" onclick="document.getElementById('secondbrain-modal').classList.add('open')" title="Click to explore">
+      <div class="project-header ph-3">🧠</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-coral">GenAI · Knowledge Management</span>
+          <span class="tag tag-purple">Agentic AI</span>
+          <span class="tag tag-coming-soon">Coming Soon · Q4 2026</span>
+        </div>
+        <h3>Second Brain</h3>
+        <p>An LLM-maintained personal wiki that turns every source fed into it into a compounding, interlinked knowledge base instead of a one-off RAG answer. The agent ingests, cross-references, and keeps a markdown wiki current so nothing gets rediscovered from scratch on the next question.</p>
+        <div class="project-impact">⚡ Persistent markdown wiki beats one-shot RAG — knowledge compiles once and stays current · Ingest / Query / Lint loop keeps the base free of contradictions and stale claims · Obsidian as the IDE, LLM as the programmer, wiki as the codebase</div>
+      </div>
+    </div>
+
+    <!-- Enterprise AI Data Copilot Suite (Q3 2026) -->
+    <div class="project-card project-card--interactive" onclick="document.getElementById('datacopilot-modal').classList.add('open')" title="Click to explore">
+      <div class="project-header ph-1">🗂️</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-coral">GenAI · Data Governance</span>
+          <span class="tag tag-purple">Agentic AI</span>
+          <span class="tag tag-coming-soon">Coming Soon · Q3 2026</span>
+        </div>
+        <h3>Enterprise AI Data Copilot Suite</h3>
+        <p>Agentic AI platform that lets organizations understand, govern, and analyze enterprise data through natural language — pairing deterministic engines for data quality, SQL safety, and PII detection with an LLM layer that only explains, classifies, and narrates. Built on a GxP-style clinical dataset via Langflow, n8n, and MCP to demonstrate production-grade data trust, not demo-ware.</p>
+        <div class="project-impact">⚡ Deterministic engines own the ground truth, LLM only narrates · Four-agent architecture (Quality, Catalog, Analytics, Governance) via Langflow + n8n + MCP · Built for HIPAA, GDPR &amp; 21 CFR Part 11 compliance</div>
       </div>
     </div>
 
@@ -6480,7 +6495,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             GitHub Repo
           </a>
-          <a href="mailto:hello@sankar.work?subject=Let%27s%20collaborate%20on%20Enterprise%20AI%20Data%20Copilot%20Suite" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
+          <a href="#contact" onclick="openCollabForm('datacopilot-modal')" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             Collaboration
           </a>
@@ -6541,7 +6556,68 @@
       <div class="modal-section">
         <h4>Documents</h4>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="mailto:hello@sankar.work?subject=Let%27s%20collaborate%20on%20ContractIQ" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
+          <a href="#contact" onclick="openCollabForm('contractiq-modal')" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Collaboration
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────────────────────
+  SECOND BRAIN MODAL
+──────────────────────────────────────────── -->
+<div class="modal-backdrop" id="secondbrain-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🧠 Second Brain</div>
+        <div class="modal-tags">
+          <span class="tag tag-coral">GenAI · Knowledge Management</span>
+          <span class="tag tag-purple">Agentic AI</span>
+          <span class="modal-year tag-coming-soon">Coming Soon · Q4 2026</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('secondbrain-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Standard RAG tools — NotebookLM, ChatGPT uploads, most "chat with your docs" pipelines — retrieve chunks and generate an answer, but the model rediscovers knowledge from scratch on every question. Nothing accumulates.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Build an agent that incrementally writes and maintains a persistent, interlinked markdown wiki between me and my raw sources.</p>
+        <p><span class="qs-label qs-result">Result</span>A personal knowledge base that compounds instead of resets, with the LLM absorbing the maintenance burden that kills most human-run wikis — architecture defined, build targeting Q4 2026.</p>
+      </div>
+
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Most "chat with your documents" tools share the same flaw: you upload a collection of files, the LLM retrieves relevant chunks at query time, and generates an answer — but it's rediscovering knowledge from scratch on every question. Read fifty articles on a topic and the fifty-first question still starts from zero. Vannevar Bush described the fix back in 1945 with the Memex — a personal, curated knowledge store with associative trails between documents — but the part he couldn't solve was who does the maintenance. Humans abandon wikis because the upkeep grows faster than the value they return.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Second Brain flips the RAG model around. Instead of chunk-and-retrieve, the LLM incrementally builds and maintains a structured wiki that sits between the user and the raw sources — summarizing new material, updating entity and concept pages, flagging contradictions with earlier claims, and strengthening the synthesis over time. The architecture runs on three layers: immutable raw sources the LLM reads but never edits, an LLM-owned wiki of markdown pages, and a schema doc that defines structure and conventions and co-evolves with the wiki. Three operations drive it — Ingest (a single source can touch 10–15 wiki pages: summary, index, entity updates, log entry), Query (search the index, read the relevant pages, synthesize a cited answer, and file good answers back as new pages so explorations compound too), and Lint (a periodic health check for contradictions, stale claims, and orphaned pages). At moderate scale — roughly a hundred sources, a few hundred pages — a plain index.md file replaces the need for embedding-based retrieval entirely. The workflow: Obsidian as the IDE, the LLM as the programmer, the wiki as the codebase, with the whole thing living in a git repo for free version history and branching.</p>
+        </div>
+      </details>
+
+      <div class="modal-section">
+        <h4>Business Value</h4>
+        <div class="modal-impact">⚡ Persistent, compounding wiki replaces one-shot RAG — nothing gets rediscovered from scratch on the next query ✦ Ingest / Query / Lint loop keeps the knowledge base current without a human maintenance tax ✦ Realizes Vannevar Bush's 1945 Memex vision — an LLM finally solves the "who maintains it" problem</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Status</h4>
+        <p>Coming soon, targeting Q4 2026 — concept and architecture defined, with the wiki schema and Ingest/Query/Lint workflow being tailored for personal knowledge management.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Documents</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="#contact" onclick="openCollabForm('secondbrain-modal')" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             Collaboration
           </a>
@@ -9911,6 +9987,20 @@
   }
 
   // ── Contact wizard (say-hello form) ──
+  function openCollabForm(modalId) {
+    if (modalId) {
+      const m = document.getElementById(modalId);
+      if (m) m.classList.remove('open');
+    }
+    const panel = document.getElementById('contact-wizard');
+    if (panel && (panel.style.display === 'none' || !panel.style.display)) {
+      toggleContactWizard();
+    } else if (panel) {
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+  window.openCollabForm = openCollabForm;
+
   function toggleContactWizard() {
     const panel = document.getElementById('contact-wizard');
     const label = document.getElementById('contact-form-toggle-label');
