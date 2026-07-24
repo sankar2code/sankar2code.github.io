@@ -4493,23 +4493,114 @@
     /* ═══════════════════════════════════════════════
        CERTIFICATIONS
     ═══════════════════════════════════════════════ */
+    /* ── Skills Snapshot radar (merges cert + tools highlights) ── */
+    .skills-snapshot-card {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+      background: linear-gradient(160deg, rgba(37,99,235,0.1), var(--card));
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 14px;
+      padding: 1.3rem 1.6rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .skills-radar-svg { flex-shrink: 0; overflow: visible; }
+    .skills-snapshot-right { flex: 1; min-width: 220px; }
+    .skills-snapshot-title { font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 0.7rem; }
+    .skills-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .skills-chip {
+      font-size: 0.72rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 16px;
+      background: rgba(56,189,248,0.12);
+      color: #7dd3fc;
+      border: 1px solid rgba(56,189,248,0.3);
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .skills-chip:hover { background: rgba(56,189,248,0.25); transform: translateY(-1px); }
+    .skills-chip-hint { font-size: 0.68rem; color: var(--muted); margin-top: 0.6rem; }
+    html.light .skills-chip { color: #1d4ed8; }
+
     /* ── Stat-first summary card ── */
     .cert-summary-card {
       display: flex;
-      align-items: center;
-      gap: 1.3rem;
+      flex-direction: column;
+      gap: 0.8rem;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 1rem 1.3rem;
       margin-bottom: 1rem;
-      flex-wrap: wrap;
     }
+    .cert-summary-row { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; }
     .cert-stat { text-align: center; flex-shrink: 0; }
     .cert-stat-num { font-size: 1.4rem; font-weight: 800; color: var(--gold); line-height: 1; }
     .cert-stat-lbl { font-size: 0.68rem; color: var(--muted); margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.04em; }
     .cert-divider-v { width: 1px; height: 30px; background: var(--border); flex-shrink: 0; }
     .cert-issuers { flex: 1; min-width: 180px; font-size: 0.85rem; color: var(--muted); }
+    .cert-tagline { font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
+    .cert-top-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+    .cert-top-badge-chip {
+      font-size: 0.7rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 16px;
+      background: rgba(56,189,248,0.12);
+      color: #7dd3fc;
+      border: 1px solid rgba(56,189,248,0.3);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .cert-latest-tag { font-size: 0.68rem; color: var(--muted); }
+    html.light .cert-tagline { color: #111118; }
+    html.light .cert-top-badge-chip { color: #1d4ed8; }
+
+    /* ── Tools: category coverage tiles ── */
+    .tools-coverage-card {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      background: linear-gradient(160deg, rgba(37,99,235,0.1), var(--card));
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 14px;
+      padding: 1.1rem 1.3rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .tools-coverage-tile {
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+      background: var(--card);
+      border-radius: 10px;
+      padding: 0.9rem 0.6rem 0.7rem;
+    }
+    .tools-coverage-tile svg { display: block; margin: 0 auto; }
+    .tools-coverage-num { font-size: 0.85rem; font-weight: 800; fill: var(--white); }
+    .tools-coverage-icon { font-size: 1.6rem; color: #38bdf8; }
+    .tools-coverage-count { font-size: 1.3rem; font-weight: 800; color: var(--white); margin: 0.4rem 0 0.15rem; }
+    .tools-coverage-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.1rem; }
+    .tools-coverage-bar-track { border-radius: 99px; height: 4px; margin-top: 0.55rem; overflow: hidden; }
+    .tools-coverage-bar-fill { height: 4px; border-radius: 99px; background: #38bdf8; width: 100%; }
+
+    /* ── Tools: proficiency tags on core chips ── */
+    .chip-tag {
+      display: inline-block;
+      font-size: 0.6rem;
+      padding: 0.12rem 0.42rem;
+      border-radius: 10px;
+      margin-left: 0.4rem;
+      font-weight: 700;
+      vertical-align: middle;
+    }
+    .chip-tag.expert { background: rgba(34,197,94,0.18); color: #4ade80; }
+    .chip-tag.proficient { background: rgba(56,189,248,0.18); color: #7dd3fc; }
+    .chip-tag.familiar { background: rgba(148,163,184,0.18); color: #cbd5e1; }
+    html.light .chip-tag.expert { color: #15803d; }
+    html.light .chip-tag.proficient { color: #1d4ed8; }
+    html.light .chip-tag.familiar { color: #475569; }
     .cert-explore-btn {
       display: inline-flex; align-items: center; gap: 0.4rem;
       padding: 0.55rem 1rem;
@@ -7120,15 +7211,51 @@
     <p class="section-sub">Continuous learning across product, technology, and strategy.</p>
   </div>
 
+  <div class="skills-snapshot-card reveal">
+    <svg class="skills-radar-svg" width="200" height="145" viewBox="-70 -20 340 245" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="100,20 180,100 100,180 20,100" fill="none" stroke="var(--border)" stroke-width="1"/>
+      <polygon points="100,60 140,100 100,140 60,100" fill="none" stroke="var(--border)" stroke-width="1" opacity="0.6"/>
+      <line x1="100" y1="100" x2="100" y2="20" stroke="var(--border)" stroke-width="1"/>
+      <line x1="100" y1="100" x2="180" y2="100" stroke="var(--border)" stroke-width="1"/>
+      <line x1="100" y1="100" x2="100" y2="180" stroke="var(--border)" stroke-width="1"/>
+      <line x1="100" y1="100" x2="20" y2="100" stroke="var(--border)" stroke-width="1"/>
+      <polygon points="100,26.4 164,100 100,168 42.4,100" fill="rgba(56,189,248,0.28)" stroke="#38bdf8" stroke-width="2"/>
+      <text x="100" y="4" text-anchor="middle" font-size="16" fill="var(--muted)">AI/ML</text>
+      <text x="196" y="105" text-anchor="start" font-size="16" fill="var(--muted)">Product</text>
+      <text x="100" y="210" text-anchor="middle" font-size="16" fill="var(--muted)">Agile</text>
+      <text x="4" y="105" text-anchor="end" font-size="16" fill="var(--muted)">Design</text>
+    </svg>
+    <div class="skills-snapshot-right">
+      <div class="skills-snapshot-title">Certification Snapshot — AI/ML depth, product craft, and agile grounding</div>
+      <div class="skills-chips">
+        <span class="skills-chip" onclick="jumpToCertTab(1)">🤖 AI/ML · 9 certs</span>
+        <span class="skills-chip" onclick="jumpToCertTab(2)">🎯 Product · 6 certs</span>
+        <span class="skills-chip" onclick="jumpToCertTab(3)">⚡ Agile · 5 certs</span>
+        <span class="skills-chip" onclick="jumpToCertTab(4)">🎨 Design · 4 certs</span>
+      </div>
+      <div class="skills-chip-hint">Click a tag to jump straight to that category below</div>
+    </div>
+  </div>
+
   <div class="cert-summary-card reveal" id="cert-summary-card">
-    <div class="cert-stat"><div class="cert-stat-num">24</div><div class="cert-stat-lbl">Credentials</div></div>
-    <div class="cert-divider-v"></div>
-    <div class="cert-stat"><div class="cert-stat-num">7</div><div class="cert-stat-lbl">Institutions</div></div>
-    <div class="cert-issuers">MIT · AWS · Anthropic · Scrum Alliance · SAFe · Maven · Pendo</div>
-    <button type="button" class="cert-explore-btn" id="cert-explore-btn" onclick="toggleCertExplore()">
-      <span id="cert-explore-label">Explore all</span>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
+    <div class="cert-tagline">⭐ AWS &amp; Anthropic certified · MIT &amp; SAFe trained</div>
+    <div class="cert-top-badges">
+      <span class="cert-top-badge-chip">⭐ AWS Gen AI Developer — Pro</span>
+      <span class="cert-top-badge-chip">⭐ MIT No-Code AI &amp; ML</span>
+      <span class="cert-top-badge-chip">⭐ CSP-PO</span>
+      <span class="cert-top-badge-chip">⭐ MIT Mastering Design Thinking</span>
+      <span class="cert-latest-tag">Latest: Q3 2026</span>
+    </div>
+    <div class="cert-summary-row">
+      <div class="cert-stat"><div class="cert-stat-num">24</div><div class="cert-stat-lbl">Credentials</div></div>
+      <div class="cert-divider-v"></div>
+      <div class="cert-stat"><div class="cert-stat-num">7</div><div class="cert-stat-lbl">Institutions</div></div>
+      <div class="cert-issuers">MIT · AWS · Anthropic · Scrum Alliance · SAFe · Maven · Pendo</div>
+      <button type="button" class="cert-explore-btn" id="cert-explore-btn" onclick="toggleCertExplore()">
+        <span id="cert-explore-label">Explore all</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
   </div>
 
   <div class="cert-tabs-wrap" id="cert-tabs-wrap">
@@ -7299,6 +7426,19 @@
       p.classList.toggle('active', p.getAttribute('data-panel') == index);
     });
   }
+  function jumpToCertTab(index) {
+    const wrap = document.getElementById('cert-tabs-wrap');
+    const label = document.getElementById('cert-explore-label');
+    const btn = document.getElementById('cert-explore-btn');
+    if (!wrap.classList.contains('open')) {
+      wrap.classList.add('open');
+      btn.classList.add('expanded');
+      label.textContent = 'Collapse';
+    }
+    const tabBtn = document.querySelectorAll('#cert-tabs .cert-tab')[index];
+    if (tabBtn) selectCertTab(index, tabBtn);
+    setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
+  }
 </script>
 
 <div class="divider"></div>
@@ -7313,15 +7453,44 @@
     <p class="section-sub">The tools I use to research, design, build, and ship products.</p>
   </div>
 
+  <div class="tools-coverage-card reveal">
+    <div class="tools-coverage-tile">
+      <div class="tools-coverage-icon">💻</div>
+      <div class="tools-coverage-count">35</div>
+      <div class="tools-coverage-label">Technology</div>
+      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+    </div>
+    <div class="tools-coverage-tile">
+      <div class="tools-coverage-icon">🤖</div>
+      <div class="tools-coverage-count">15</div>
+      <div class="tools-coverage-label">AI Product</div>
+      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+    </div>
+    <div class="tools-coverage-tile">
+      <div class="tools-coverage-icon">🧬</div>
+      <div class="tools-coverage-count">24</div>
+      <div class="tools-coverage-label">Domain</div>
+      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+    </div>
+    <div class="tools-coverage-tile">
+      <div class="tools-coverage-icon">🎯</div>
+      <div class="tools-coverage-count">15</div>
+      <div class="tools-coverage-label">Technical PM</div>
+      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+    </div>
+  </div>
+
   <div class="cert-summary-card tools-summary-card reveal" id="tools-summary-card">
-    <div class="cert-stat"><div class="cert-stat-num">70+</div><div class="cert-stat-lbl">Tools &amp; Skills</div></div>
-    <div class="cert-divider-v"></div>
-    <div class="cert-stat"><div class="cert-stat-num">4</div><div class="cert-stat-lbl">Categories</div></div>
-    <div class="cert-issuers">Engineering · AI Product · Domain Expertise · Technical PM</div>
-    <button type="button" class="cert-explore-btn" id="tools-explore-btn" onclick="toggleToolsExplore()">
-      <span id="tools-explore-label">Explore all</span>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
+    <div class="cert-summary-row">
+      <div class="cert-stat"><div class="cert-stat-num">90+</div><div class="cert-stat-lbl">Tools &amp; Skills</div></div>
+      <div class="cert-divider-v"></div>
+      <div class="cert-stat"><div class="cert-stat-num">4</div><div class="cert-stat-lbl">Categories</div></div>
+      <div class="cert-issuers">Engineering · AI Product · Domain Expertise · Technical PM</div>
+      <button type="button" class="cert-explore-btn" id="tools-explore-btn" onclick="toggleToolsExplore()">
+        <span id="tools-explore-label">Explore all</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
   </div>
 
   <div class="cert-tabs-wrap tools-tabs-wrap" id="tools-tabs-wrap">
@@ -7337,99 +7506,113 @@
     <div class="tools-category tools-panel active" data-panel="0">
       <h4>🛠️ Technology Tools</h4>
       <div class="tools-chips">
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>AI SDK</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=aws.amazon.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Amazon QuickSight</span>
-        <span class="chip">🔌 API</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=arize.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Arize AI</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Code</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Skill</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Sub-Agents</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=cursor.sh" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Cursor</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=atlassian.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Confluence</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=dataiku.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Dataiku</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=docker.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Docker</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=figma.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Figma</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=git-scm.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Git</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=github.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>GitHub</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=jira.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Jira</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=langchain.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langchain</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=langflow.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langflow</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=azure.microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Microsoft Azure AI Foundry</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nestjs.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Nest.js</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=n8n.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>n8n</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nodejs.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>NodeJs</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=openclaw.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>OpenClaw</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=postman.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Postman</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=powerbi.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>PowerBI</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=python.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Python</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=rapidminer.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>RapidMiner</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=resend.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Resend</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=magicui.design" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Magic UI</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=shadcn-ui.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>shadcn/ui</span>
-        <span class="chip">🗄️ SQL</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=stripe.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Stripe</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=supabase.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Supabase</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=tableau.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Tableau</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=vercel.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Vercel</span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Visio</span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>AI SDK<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=aws.amazon.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Amazon QuickSight<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">🔌 API<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=arize.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Arize AI<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Code<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Skill<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Sub-Agents<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=cursor.sh" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Cursor<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=atlassian.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Confluence<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=dataiku.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Dataiku<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=docker.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Docker<span class="chip-tag familiar">Familiar</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=figma.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Figma<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=git-scm.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Git<span class="chip-tag familiar">Familiar</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=github.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>GitHub<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=jira.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Jira<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=langchain.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langchain<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=langflow.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langflow<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=azure.microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Microsoft Azure AI Foundry<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nestjs.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Nest.js<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=n8n.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>n8n<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nodejs.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>NodeJs<span class="chip-tag familiar">Familiar</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=openclaw.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>OpenClaw<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=postman.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Postman<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=powerbi.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>PowerBI<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=python.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Python<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=rapidminer.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>RapidMiner<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=resend.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Resend<span class="chip-tag familiar">Familiar</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=magicui.design" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Magic UI<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=shadcn-ui.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>shadcn/ui<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">🗄️ SQL<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=stripe.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Stripe<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=supabase.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Supabase<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=tableau.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Tableau<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=vercel.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Vercel<span class="chip-tag familiar">Familiar</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Visio<span class="chip-tag expert">Expert</span></span>
       </div>
     </div>
 
     <div class="tools-category tools-panel" data-panel="1">
       <h4>🤖 AI Product &amp; Automation</h4>
       <div class="tools-chips">
-        <span class="chip">Agent-Native Operations</span>
-        <span class="chip">Agentic AI Applications</span>
-        <span class="chip">AI Chatbots &amp; Assistants</span>
-        <span class="chip">AI Evaluation &amp; Metrics</span>
-        <span class="chip">AI for Product Management</span>
-        <span class="chip">AI Prompt Engineering</span>
-        <span class="chip">AI Workflow Automation</span>
-        <span class="chip">AWS AI Services (Bedrock, SageMaker)</span>
-        <span class="chip">Generative AI Development</span>
-        <span class="chip">Human-in-the-Loop Review</span>
-        <span class="chip">LLM Applications &amp; Integration</span>
-        <span class="chip">No-Code AI &amp; Machine Learning</span>
-        <span class="chip">Prompt Behavior Design</span>
-        <span class="chip">RAG &amp; Vector Search</span>
-        <span class="chip">Responsible AI Guardrails</span>
+        <span class="chip">Agent-Native Operations<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Agentic AI Applications<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">AI Chatbots &amp; Assistants<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">AI Evaluation &amp; Metrics<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">AI for Product Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">AI Prompt Engineering<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">AI Workflow Automation<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">AWS AI Services (Bedrock, SageMaker)<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Generative AI Development<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Human-in-the-Loop Review<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">LLM Applications &amp; Integration<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">No-Code AI &amp; Machine Learning<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Prompt Behavior Design<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">RAG &amp; Vector Search<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Responsible AI Guardrails<span class="chip-tag expert">Expert</span></span>
       </div>
     </div>
 
     <div class="tools-category tools-panel" data-panel="2">
       <h4>🏥 Functional Domain Experience</h4>
       <div class="tools-chips">
-        <span class="chip">Audit Management</span>
-        <span class="chip">CAPA</span>
-        <span class="chip">Clinical Data Management</span>
-        <span class="chip">Clinical Trial Systems</span>
-        <span class="chip">GxP</span>
-        <span class="chip">IT Management</span>
-        <span class="chip">Medical Affairs Systems</span>
-        <span class="chip">Provider Lifecycle Management</span>
-        <span class="chip">Regulatory Systems</span>
-        <span class="chip">Vendor Product Analysis</span>
+        <span class="chip">Audit Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">CAPA<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Clinical Data Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Clinical Trial Systems<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">GxP<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">IT Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Medical Affairs Systems<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Provider Lifecycle Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Regulatory Systems<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Vendor Product Analysis<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">HIPAA Compliance<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Claims Processing<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Population Health Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Provider Network Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">HL7/FHIR Interoperability<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">FDA Submission Processes<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Clinical Trial Management Systems (CTMS)<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Electronic Data Capture (EDC)<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">eTMF (Electronic Trial Master File)<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Site Selection &amp; Feasibility<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Patient Recruitment &amp; Retention<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Adverse Event Reporting<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Risk-Based Monitoring<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Trial Hub Patient Engagement<span class="chip-tag expert">Expert</span></span>
       </div>
     </div>
 
     <div class="tools-category tools-panel" data-panel="3">
       <h4>🎯 Technical Product Management</h4>
       <div class="tools-chips">
-        <span class="chip">Agile Product Ownership (CSPO)</span>
-        <span class="chip">API &amp; Integration Strategy</span>
-        <span class="chip">Data-Driven Decision Making</span>
-        <span class="chip">Design Thinking</span>
-        <span class="chip">Flow &amp; Value Stream Optimization</span>
-        <span class="chip">Lean Portfolio Management</span>
-        <span class="chip">Product Analytics</span>
-        <span class="chip">Product Discovery</span>
-        <span class="chip">Product-Led Growth</span>
-        <span class="chip">Product Vision &amp; Strategy</span>
-        <span class="chip">Roadmapping &amp; Prioritization</span>
-        <span class="chip">SAFe Product Owner / Product Manager</span>
-        <span class="chip">Scaled Agile Delivery (ART / PI Planning)</span>
-        <span class="chip">Stakeholder Management</span>
-        <span class="chip">User Stories &amp; Requirements</span>
+        <span class="chip">Agile Product Ownership (CSPO)<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">API &amp; Integration Strategy<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Data-Driven Decision Making<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Design Thinking<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Flow &amp; Value Stream Optimization<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Lean Portfolio Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Product Analytics<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Product Discovery<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Product-Led Growth<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Product Vision &amp; Strategy<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Roadmapping &amp; Prioritization<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">SAFe Product Owner / Product Manager<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Scaled Agile Delivery (ART / PI Planning)<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Stakeholder Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">User Stories &amp; Requirements<span class="chip-tag expert">Expert</span></span>
       </div>
     </div>
 
@@ -7452,6 +7635,19 @@
     document.querySelectorAll('.tools-panel').forEach(p => {
       p.classList.toggle('active', p.getAttribute('data-panel') == index);
     });
+  }
+  function jumpToToolsTab(index) {
+    const wrap = document.getElementById('tools-tabs-wrap');
+    const label = document.getElementById('tools-explore-label');
+    const btn = document.getElementById('tools-explore-btn');
+    if (!wrap.classList.contains('open')) {
+      wrap.classList.add('open');
+      btn.classList.add('expanded');
+      label.textContent = 'Collapse';
+    }
+    const tabBtn = document.querySelectorAll('#tools-tabs .cert-tab')[index];
+    if (tabBtn) selectToolsTab(index, tabBtn);
+    setTimeout(() => wrap.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
   }
 </script>
 
@@ -8147,6 +8343,12 @@
     <div class="lp-scroll-wrap">
     <div class="shipped-list shipped-list-scroll" id="live-post-list">
       <div class="ship-rail"></div>
+      <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_leadership-productmanagement-organizationalculture-share-7484660715803525120-i3q0/" target="_blank" rel="noopener">
+        <span class="ship-icon">👀</span>
+        <div class="ship-body">
+          <p class="ship-text">Named the "two-organizations problem" — the gap between the reported org (dashboards, board decks) and the lived org (what teams actually experience) — and why it widens fastest around AI rollouts<span class="ship-tag ship-tag-article">Article</span></p>
+        </div>
+      </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_productstrategy-saas-gtm-share-7484660473880092673-uQXC/" target="_blank" rel="noopener">
         <span class="ship-icon">💸</span>
         <div class="ship-body">
