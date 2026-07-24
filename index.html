@@ -9291,7 +9291,7 @@
     // ready, so neither can be silently skipped by the other firing first.
     let sectionVisible = false;
     let listReady = false;
-    let pendingStreak = null; // { streak, commitsThisWeek }
+    let pendingStreak = null; // { streak, commitsThisMonth }
 
     function playItemAnim() {
       if (!sectionVisible || !listReady) return;
@@ -9302,16 +9302,16 @@
       if (!sectionVisible || !pendingStreak) return;
       const streakEl = document.getElementById('shipped-streak');
       if (!streakEl) return;
-      const { streak, commitsThisWeek } = pendingStreak;
-      const weekPart = commitsThisWeek > 0 ? `commit${commitsThisWeek > 1 ? 's' : ''} this week` : '';
+      const { streak, commitsThisMonth } = pendingStreak;
+      const monthPart = commitsThisMonth > 0 ? `commit${commitsThisMonth > 1 ? 's' : ''} this month` : '';
 
       if (streak > 0) {
-        animateMultiCountUp(streakEl, [streak, commitsThisWeek], ([s, c]) => (
-          `🔥 ${s}-day streak${weekPart ? ` · ${c} ${weekPart}` : ''}`
+        animateMultiCountUp(streakEl, [streak, commitsThisMonth], ([s, c]) => (
+          `🔥 ${s}-day streak${monthPart ? ` · ${c} ${monthPart}` : ''}`
         ));
-      } else if (commitsThisWeek > 0) {
-        animateMultiCountUp(streakEl, [commitsThisWeek], ([c]) => (
-          `🔥 streak paused · ${c} ${weekPart}`
+      } else if (commitsThisMonth > 0) {
+        animateMultiCountUp(streakEl, [commitsThisMonth], ([c]) => (
+          `🔥 streak paused · ${c} ${monthPart}`
         ));
       } else {
         streakEl.textContent = '🔥 streak paused';
@@ -9419,23 +9419,23 @@
         cursor.setDate(cursor.getDate() - 1);
       }
 
-      const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-      let commitsThisWeek = 0;
+      const monthAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
+      let commitsThisMonth = 0;
       events.forEach((ev) => {
         if (ev.type !== 'PushEvent') return;
-        if (new Date(ev.created_at).getTime() < weekAgo) return;
-        commitsThisWeek += (ev.payload.commits && ev.payload.commits.length)
+        if (new Date(ev.created_at).getTime() < monthAgo) return;
+        commitsThisMonth += (ev.payload.commits && ev.payload.commits.length)
           ? ev.payload.commits.length
           : (ev.payload.size || 1);
       });
 
-      if (streak === 0 && commitsThisWeek === 0) return; // nothing to show, keep it hidden
+      if (streak === 0 && commitsThisMonth === 0) return; // nothing to show, keep it hidden
 
       streakEl.style.display = 'inline-flex';
 
       // Hand off to playStreakCountUp() so the count-up plays when the
       // section scrolls into view rather than immediately at page load.
-      pendingStreak = { streak, commitsThisWeek };
+      pendingStreak = { streak, commitsThisMonth };
       playStreakCountUp();
     }
 
