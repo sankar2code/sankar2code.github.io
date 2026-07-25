@@ -3105,18 +3105,19 @@
       flex: 1;
       padding: 0.75rem 1rem;
       border-radius: 50px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(56,189,248,0.55);
       background: var(--bg3);
       color: var(--white);
       font-size: 0.98rem;
       font-family: 'Inter', sans-serif;
       outline: none;
-      transition: border-color 0.2s;
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.1), 0 0 18px rgba(37,99,235,0.25);
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     #twin-input:focus {
-      border-color: rgba(56,189,248,0.6);
-      box-shadow: 0 0 0 3px rgba(56,189,248,0.12), 0 0 16px rgba(37,99,235,0.2);
+      border-color: rgba(56,189,248,0.85);
+      box-shadow: 0 0 0 3px rgba(56,189,248,0.18), 0 0 24px rgba(37,99,235,0.4);
     }
     #twin-input:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -3141,6 +3142,80 @@
     }
 
     .twin-disclaimer a { color: #38bdf8; text-decoration: underline; }
+
+    /* ── Career Knowledge Graph ── */
+    .graph-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.4rem 1.4rem 1.1rem;
+      margin-top: 1.5rem;
+    }
+    .graph-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 0.9rem;
+    }
+    .graph-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .graph-title span { color: var(--muted); font-weight: 500; font-size: 0.78rem; }
+    .graph-reset-btn {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #7dd3fc;
+      background: rgba(56,189,248,0.12);
+      border: 1px solid rgba(56,189,248,0.3);
+      padding: 0.35rem 0.8rem;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .graph-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+    .graph-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+    .graph-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .graph-svg-wrap {
+      width: 100%;
+      height: 560px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 50% 40%, rgba(56,189,248,0.06), transparent 65%);
+      overflow: hidden;
+      touch-action: none;
+    }
+    .graph-svg-wrap svg { width: 100%; height: 100%; display: block; cursor: grab; }
+    .graph-node circle { cursor: pointer; transition: opacity 0.35s, filter 0.35s; }
+    .graph-node text {
+      font-family: 'Space Grotesk', sans-serif;
+      fill: var(--muted);
+      pointer-events: none;
+      transition: opacity 0.35s, fill 0.35s;
+    }
+    .graph-link { stroke: rgba(148,163,184,0.25); stroke-width: 1; transition: opacity 0.35s, stroke 0.35s; }
+    .graph-dim { opacity: 0.1; }
+    .graph-hint {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.6rem;
+      text-align: center;
+    }
+    html.light .graph-card { background: #fff; }
+    html.light .graph-svg-wrap { background: radial-gradient(circle at 50% 40%, rgba(37,99,235,0.06), transparent 65%); }
+    html.light .graph-link { stroke: rgba(51,65,85,0.2); }
 
     @media (max-width: 600px) {
       .twin-card { padding: 1.25rem; }
@@ -6250,6 +6325,23 @@
     </form>
 
     <p class="twin-disclaimer">Grounded on my real career, not a guarantee of accuracy. For anything specific, <a href="mailto:hello@sankar.work">email me directly</a>.</p>
+  </div>
+
+  <div class="graph-card reveal">
+    <div class="graph-head">
+      <div class="graph-title">Career Knowledge Graph <span>— click any node to trace how it connects</span></div>
+      <button type="button" class="graph-reset-btn" id="graph-reset-btn">Reset view</button>
+    </div>
+    <div class="graph-legend">
+      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#38bdf8"></span>Companies</span>
+      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#34d399"></span>Certifications</span>
+      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#f472b6"></span>Skills</span>
+      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#fbbf24"></span>Built Projects</span>
+      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#22d3ee"></span>Tools</span>
+      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#a78bfa"></span>Impact</span>
+    </div>
+    <div class="graph-svg-wrap" id="graph-svg-wrap"></div>
+    <p class="graph-hint">Drag to reposition · click a node to highlight its connections · click empty space or Reset to clear</p>
   </div>
 </section>
 
@@ -10966,6 +11058,316 @@
       });
     }
   });
+</script>
+
+<!-- ───────────────────────────────────────────
+  CAREER KNOWLEDGE GRAPH (D3 force layout)
+──────────────────────────────────────────── -->
+<script>
+(function () {
+  const wrap = document.getElementById('graph-svg-wrap');
+  if (!wrap || typeof d3 === 'undefined') return;
+
+  const colors = {
+    hub: '#a855f7',
+    Companies: '#38bdf8',
+    Certifications: '#34d399',
+    Skills: '#f472b6',
+    Projects: '#fbbf24',
+    Tools: '#22d3ee',
+    Impact: '#a78bfa'
+  };
+
+  const nodes = [
+    { id: 'Sankar', group: 'hub', r: 24 },
+
+    { id: 'Companies', group: 'cat', catGroup: 'Companies', r: 15 },
+    { id: 'WIPRO', group: 'Companies', r: 7 },
+    { id: 'Cloudculina', group: 'Companies', r: 7 },
+    { id: 'Grapnel', group: 'Companies', r: 7 },
+    { id: 'HCL', group: 'Companies', r: 7 },
+    { id: 'HealthFirst', group: 'Companies', r: 7 },
+    { id: 'Otsuka (Prophecy)', group: 'Companies', r: 7 },
+
+    { id: 'Certifications', group: 'cat', catGroup: 'Certifications', r: 15 },
+    { id: 'AWS Gen AI Developer', group: 'Certifications', r: 7 },
+    { id: 'MIT AI & ML', group: 'Certifications', r: 7 },
+    { id: 'CSP-PO', group: 'Certifications', r: 7 },
+    { id: 'MIT Design Thinking', group: 'Certifications', r: 7 },
+
+    { id: 'Skills', group: 'cat', catGroup: 'Skills', r: 15 },
+    { id: 'AI/ML', group: 'Skills', r: 7 },
+    { id: 'Product', group: 'Skills', r: 7 },
+    { id: 'Agile', group: 'Skills', r: 7 },
+    { id: 'Design', group: 'Skills', r: 7 },
+
+    { id: 'Projects', group: 'cat', catGroup: 'Projects', r: 15 },
+    { id: 'ContractIQ', group: 'Projects', r: 7 },
+    { id: 'ProjectPilot AI', group: 'Projects', r: 7 },
+    { id: 'ScienceAI', group: 'Projects', r: 7 },
+    { id: 'Ad Genie', group: 'Projects', r: 7 },
+    { id: 'AI Analyst Builder', group: 'Projects', r: 7 },
+    { id: 'Compliance Lease Tool', group: 'Projects', r: 7 },
+
+    { id: 'Tools', group: 'cat', catGroup: 'Tools', r: 15 },
+    { id: 'Claude Code', group: 'Tools', r: 7 },
+    { id: 'Python', group: 'Tools', r: 7 },
+    { id: 'Figma', group: 'Tools', r: 7 },
+    { id: 'Jira', group: 'Tools', r: 7 },
+    { id: 'Langflow', group: 'Tools', r: 7 },
+    { id: 'PowerBI', group: 'Tools', r: 7 },
+    { id: 'SQL', group: 'Tools', r: 7 },
+    { id: 'Tableau', group: 'Tools', r: 7 },
+    { id: 'Cursor', group: 'Tools', r: 7 },
+    { id: 'n8n', group: 'Tools', r: 7 },
+    { id: 'GitHub', group: 'Tools', r: 7 },
+    { id: 'Confluence', group: 'Tools', r: 7 },
+    { id: 'AWS', group: 'Tools', r: 7 },
+    { id: 'Docker', group: 'Tools', r: 7 },
+    { id: 'Prompt Engineering', group: 'Tools', r: 7 },
+    { id: 'RAG & Vector Search', group: 'Tools', r: 7 },
+    { id: 'Agentic AI', group: 'Tools', r: 7 },
+    { id: 'Postman', group: 'Tools', r: 7 },
+    { id: 'Supabase', group: 'Tools', r: 7 },
+    { id: 'Vercel', group: 'Tools', r: 7 },
+    { id: 'Roadmapping', group: 'Tools', r: 7 },
+    { id: 'Stakeholder Mgmt', group: 'Tools', r: 7 },
+    { id: 'Product Analytics', group: 'Tools', r: 7 },
+
+    { id: 'Impact', group: 'cat', catGroup: 'Impact', r: 15 },
+    { id: '$16M+ Revenue', group: 'Impact', r: 7 },
+    { id: '$10M+ RFPs Led', group: 'Impact', r: 7 },
+    { id: '$15M+ Pipeline', group: 'Impact', r: 7 },
+    { id: '15+ Years', group: 'Impact', r: 7 }
+  ];
+
+  const links = [
+    { source: 'Sankar', target: 'Companies' },
+    { source: 'Sankar', target: 'Certifications' },
+    { source: 'Sankar', target: 'Skills' },
+    { source: 'Sankar', target: 'Projects' },
+    { source: 'Sankar', target: 'Tools' },
+    { source: 'Sankar', target: 'Impact' },
+
+    { source: 'Companies', target: 'WIPRO' },
+    { source: 'Companies', target: 'Cloudculina' },
+    { source: 'Companies', target: 'Grapnel' },
+    { source: 'Companies', target: 'HCL' },
+    { source: 'Companies', target: 'HealthFirst' },
+    { source: 'Companies', target: 'Otsuka (Prophecy)' },
+
+    { source: 'Certifications', target: 'AWS Gen AI Developer' },
+    { source: 'Certifications', target: 'MIT AI & ML' },
+    { source: 'Certifications', target: 'CSP-PO' },
+    { source: 'Certifications', target: 'MIT Design Thinking' },
+
+    { source: 'Skills', target: 'AI/ML' },
+    { source: 'Skills', target: 'Product' },
+    { source: 'Skills', target: 'Agile' },
+    { source: 'Skills', target: 'Design' },
+
+    { source: 'Projects', target: 'ContractIQ' },
+    { source: 'Projects', target: 'ProjectPilot AI' },
+    { source: 'Projects', target: 'ScienceAI' },
+    { source: 'Projects', target: 'Ad Genie' },
+    { source: 'Projects', target: 'AI Analyst Builder' },
+    { source: 'Projects', target: 'Compliance Lease Tool' },
+
+    { source: 'Tools', target: 'Claude Code' },
+    { source: 'Tools', target: 'Python' },
+    { source: 'Tools', target: 'Figma' },
+    { source: 'Tools', target: 'Jira' },
+    { source: 'Tools', target: 'Langflow' },
+    { source: 'Tools', target: 'PowerBI' },
+    { source: 'Tools', target: 'SQL' },
+    { source: 'Tools', target: 'Tableau' },
+    { source: 'Tools', target: 'Cursor' },
+    { source: 'Tools', target: 'n8n' },
+    { source: 'Tools', target: 'GitHub' },
+    { source: 'Tools', target: 'Confluence' },
+    { source: 'Tools', target: 'AWS' },
+    { source: 'Tools', target: 'Docker' },
+    { source: 'Tools', target: 'Prompt Engineering' },
+    { source: 'Tools', target: 'RAG & Vector Search' },
+    { source: 'Tools', target: 'Agentic AI' },
+    { source: 'Tools', target: 'Postman' },
+    { source: 'Tools', target: 'Supabase' },
+    { source: 'Tools', target: 'Vercel' },
+    { source: 'Tools', target: 'Roadmapping' },
+    { source: 'Tools', target: 'Stakeholder Mgmt' },
+    { source: 'Tools', target: 'Product Analytics' },
+
+    { source: 'Impact', target: '$16M+ Revenue' },
+    { source: 'Impact', target: '$10M+ RFPs Led' },
+    { source: 'Impact', target: '$15M+ Pipeline' },
+    { source: 'Impact', target: '15+ Years' },
+
+    // Cross-links: tie evidence back to the companies/projects that produced it
+    { source: 'Otsuka (Prophecy)', target: '$16M+ Revenue' },
+    { source: 'HealthFirst', target: '$10M+ RFPs Led' },
+    { source: 'Cloudculina', target: '$15M+ Pipeline' },
+    { source: 'AI/ML', target: 'ContractIQ' },
+    { source: 'AI/ML', target: 'ScienceAI' },
+    { source: 'AI/ML', target: 'Claude Code' },
+    { source: 'Product', target: 'ProjectPilot AI' },
+    { source: 'Agile', target: 'CSP-PO' },
+    { source: 'AI/ML', target: 'AWS Gen AI Developer' },
+    { source: 'AI/ML', target: 'MIT AI & ML' },
+    { source: 'Design', target: 'MIT Design Thinking' }
+  ];
+
+  function nodeColor(d) {
+    if (d.group === 'hub') return colors.hub;
+    if (d.group === 'cat') return colors[d.catGroup];
+    return colors[d.group];
+  }
+
+  const icons = {
+    hub: '🙂',
+    Companies: '🏢',
+    Certifications: '🎓',
+    Skills: '🧠',
+    Projects: '🚀',
+    Tools: '🛠️',
+    Impact: '📈'
+  };
+
+  function nodeIcon(d) {
+    if (d.group === 'hub') return icons.hub;
+    if (d.group === 'cat') return icons[d.catGroup];
+    return '';
+  }
+
+  let width = wrap.clientWidth || 600;
+  let height = wrap.clientHeight || 560;
+
+  const svg = d3.select(wrap).append('svg')
+    .attr('viewBox', [0, 0, width, height]);
+
+  const g = svg.append('g');
+
+  const zoomBehavior = d3.zoom().scaleExtent([0.5, 2.5]).on('zoom', (event) => {
+    g.attr('transform', event.transform);
+  });
+  svg.call(zoomBehavior);
+
+  const linkSel = g.append('g').attr('class', 'graph-links')
+    .selectAll('line')
+    .data(links)
+    .join('line')
+    .attr('class', 'graph-link');
+
+  const nodeSel = g.append('g').attr('class', 'graph-nodes')
+    .selectAll('g')
+    .data(nodes)
+    .join('g')
+    .attr('class', 'graph-node');
+
+  nodeSel.append('circle')
+    .attr('r', d => d.r)
+    .attr('fill', nodeColor)
+    .attr('fill-opacity', d => d.group === 'hub' || d.group === 'cat' ? 0.9 : 0.55)
+    .attr('stroke', nodeColor)
+    .attr('stroke-width', d => d.group === 'hub' ? 2 : 1);
+
+  nodeSel.filter(d => d.group === 'hub' || d.group === 'cat')
+    .append('text')
+    .text(nodeIcon)
+    .attr('class', 'graph-node-icon')
+    .attr('font-size', d => d.group === 'hub' ? 20 : 15)
+    .attr('text-anchor', 'middle')
+    .attr('dominant-baseline', 'central')
+    .attr('dy', '0.05em')
+    .style('pointer-events', 'none');
+
+  nodeSel.append('text')
+    .text(d => d.id)
+    .attr('font-size', d => d.group === 'hub' ? 12 : d.group === 'cat' ? 10.5 : 9)
+    .attr('font-weight', d => d.group === 'hub' || d.group === 'cat' ? 700 : 500)
+    .attr('text-anchor', 'middle')
+    .attr('dy', d => -(d.r + 6));
+
+  const simulation = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.source && d.source.group === 'hub' ? 110 : 55).strength(0.7))
+    .force('charge', d3.forceManyBody().strength(-160))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('collide', d3.forceCollide().radius(d => d.r + 18));
+
+  simulation.on('tick', () => {
+    const pad = 28;
+    nodes.forEach(d => {
+      const r = d.r + 22;
+      d.x = Math.max(r + pad, Math.min(width - r - pad, d.x));
+      d.y = Math.max(r + pad, Math.min(height - r - pad, d.y));
+    });
+    linkSel
+      .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+  });
+
+  nodeSel.call(
+    d3.drag()
+      .on('start', (event, d) => {
+        if (!event.active) simulation.alphaTarget(0.25).restart();
+        d.fx = d.x; d.fy = d.y;
+      })
+      .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
+      .on('end', (event, d) => {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null; d.fy = null;
+      })
+  );
+
+  const adjacency = {};
+  links.forEach(l => {
+    const s = typeof l.source === 'object' ? l.source.id : l.source;
+    const t = typeof l.target === 'object' ? l.target.id : l.target;
+    (adjacency[s] = adjacency[s] || new Set()).add(t);
+    (adjacency[t] = adjacency[t] || new Set()).add(s);
+  });
+
+  function clearHighlight() {
+    nodeSel.classed('graph-dim', false);
+    linkSel.classed('graph-dim', false);
+  }
+
+  function highlight(d) {
+    const related = adjacency[d.id] || new Set();
+    nodeSel.classed('graph-dim', n => n.id !== d.id && !related.has(n.id));
+    linkSel.classed('graph-dim', l => {
+      const s = typeof l.source === 'object' ? l.source.id : l.source;
+      const t = typeof l.target === 'object' ? l.target.id : l.target;
+      return s !== d.id && t !== d.id;
+    });
+  }
+
+  nodeSel.on('click', (event, d) => {
+    event.stopPropagation();
+    highlight(d);
+  });
+
+  svg.on('click', clearHighlight);
+
+  const resetBtn = document.getElementById('graph-reset-btn');
+  if (resetBtn) resetBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    clearHighlight();
+    svg.transition().duration(400).call(zoomBehavior.transform, d3.zoomIdentity);
+    nodes.forEach(n => { n.fx = null; n.fy = null; });
+    simulation.alpha(0.3).restart();
+  });
+
+  window.addEventListener('resize', () => {
+    const newW = wrap.clientWidth || width;
+    const newH = wrap.clientHeight || height;
+    if (Math.abs(newW - width) < 20) return;
+    width = newW; height = newH;
+    svg.attr('viewBox', [0, 0, width, height]);
+    simulation.force('center', d3.forceCenter(width / 2, height / 2));
+    simulation.alpha(0.3).restart();
+  });
+})();
 </script>
 
 </body>
