@@ -3209,6 +3209,8 @@
       transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
       display: flex;
       flex-direction: column;
+      height: 100%;
+      min-height: 200px;
     }
 
     .project-card:hover {
@@ -3218,11 +3220,11 @@
     }
 
     .project-header {
-      height: 80px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.8rem;
+      font-size: 2rem;
       position: relative;
       overflow: hidden;
     }
@@ -3240,7 +3242,7 @@
     .ph-4::before { background: linear-gradient(135deg, #06b6d4, #6366f1); }
 
     .project-body {
-      padding: 1.5rem;
+      padding: 1.1rem 1.25rem;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -3249,8 +3251,8 @@
     .project-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
     }
 
     .tag {
@@ -3340,33 +3342,35 @@
 
     /* ─── PROJECT FILTERS ───────────────────────── */
     .project-filters {
-      display: flex;
+      display: inline-flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
+      gap: 0.5rem;
       margin-bottom: 1.75rem;
+      background: linear-gradient(135deg, #1e1b4b, #0f172a);
+      border-radius: 16px;
+      padding: 0.6rem;
     }
     .filter-chip {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.03em;
-      padding: 0.45rem 1.15rem;
+      padding: 0.45rem 1.1rem;
       border-radius: 50px;
-      background: var(--bg3);
-      color: var(--muted);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: #cbd5e1;
+      border: none;
       cursor: pointer;
       transition: all 0.25s;
     }
-    .filter-chip:hover { color: var(--white); border-color: rgba(56,189,248,0.45); }
+    .filter-chip:hover { color: #fff; background: rgba(255,255,255,0.1); }
     .filter-chip.active {
-      background: var(--grad2);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(6px);
       color: #fff;
-      border-color: transparent;
-      box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+      box-shadow: 0 0 16px rgba(139,92,246,0.4);
     }
-    html.light .filter-chip { background: #ededf5; color: #55557a; }
-    html.light .filter-chip.active { color: #fff; }
+    html.light .project-filters { background: linear-gradient(135deg, #1e1b4b, #0f172a); }
     .project-card.filtered-out { display: none; }
 
     /* ─── FEATURED PROJECT CARD ─────────────────── */
@@ -3772,6 +3776,46 @@
 
     html.light .project-impact .sep {
       color: #1e40af;
+    }
+
+    .project-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .project-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      font-size: 0.72rem;
+      font-weight: 600;
+      line-height: 1;
+      padding: 0.4rem 0.75rem;
+      border-radius: 99px;
+      border: 1px solid transparent;
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  linear-gradient(135deg, #635bff, #38bdf8) border-box;
+      color: #a5b4fc;
+      box-shadow: 0 0 10px rgba(99,91,255,0.15);
+    }
+
+    html.light .project-pill {
+      background: linear-gradient(#fff, #fff) padding-box,
+                  linear-gradient(135deg, #635bff, #38bdf8) border-box;
+      color: #4338ca;
+    }
+
+    .project-cta {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-top: auto;
+    }
+
+    html.light .project-cta {
+      color: #1d4ed8;
     }
 
     .project-link {
@@ -5403,20 +5447,17 @@
     }
 
     .project-card--interactive::after {
-      content: '✦ Click to Explore';
+      content: '● Explore';
       position: absolute;
-      top: 0.6rem;
-      right: 0.7rem;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
+      top: 0.75rem;
+      right: 0.8rem;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
       color: #06b6d4;
-      background: rgba(6,182,212,0.12);
-      border: 1px solid rgba(6,182,212,0.3);
-      padding: 0.2rem 0.55rem;
-      border-radius: 50px;
-      opacity: 0.7;
+      opacity: 0.75;
       transition: opacity 0.3s;
+      z-index: 2;
     }
 
     .project-card--interactive:hover {
@@ -5427,6 +5468,7 @@
 
     .project-card--interactive:hover::after {
       opacity: 1;
+      transform: translate(2px, -2px);
     }
 
     /* ─── PROJECT MODAL ──────────────────────────── */
@@ -6337,8 +6379,27 @@
   </div>
   <div class="projects-grid reveal">
 
+    <!-- ContractIQ (Q3 2026) -->
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('contractiq-modal').classList.add('open')">
+      <div class="project-header ph-4">⚖️</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-live">● Live App</span>
+          <span class="tag tag-coral">GenAI · Legal Tech</span>
+          <span class="tag tag-purple">Built with Claude Code</span>
+          <span class="tag tag-gold">Q3 2026</span>
+        </div>
+        <h3>ContractIQ</h3>
+        <div class="project-pills">
+          <span class="project-pill">Sub-15-min review</span>
+          <span class="project-pill">Confidence-scored citations</span>
+          <span class="project-pill">Built with Claude Code</span>
+        </div>
+      </div>
+    </div>
+
     <!-- 1: ProjectPilot AI (Q3 2026) -->
-    <div class="project-card project-card--interactive project-card--featured" data-cat="genai" onclick="document.getElementById('projectpilot-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive project-card--featured" data-cat="genai" onclick="document.getElementById('projectpilot-modal').classList.add('open')">
       <div class="project-header ph-4">🚀</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6347,13 +6408,18 @@
           <span class="tag tag-gold">Q3 2026</span>
         </div>
         <h3>ProjectPilot AI – AI-Powered Project Management</h3>
-        <p>AI-powered project management platform with Kanban boards, real-time collaboration, AI assistant, and team workspaces. Move fast, stay aligned, and ship together with intelligent project tracking and AI-powered insights.</p>
-        <div class="project-impact">⚡ Move fast with visual Kanban boards · Stay aligned with real-time collaboration · Ship together with AI insights</div>
+        <div class="project-pills">
+          <span class="project-pill">Fast Kanban</span>
+          <span class="project-pill">Real-time sync</span>
+          <span class="project-pill">AI insights</span>
+          <span class="project-pill">Less overhead</span>
+          <span class="project-pill">One tool</span>
+        </div>
       </div>
     </div>
 
     <!-- 2: ScienceAI (Q2 2026) -->
-    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('scienceai-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('scienceai-modal').classList.add('open')">
       <div class="project-header ph-1">🔬</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6362,13 +6428,16 @@
           <span class="tag tag-gold">Q2 2026</span>
         </div>
         <h3>ScienceAI – Intelligent Research Platform</h3>
-        <p>Gen AI platform that lets researchers chat with scientific literature — papers, clinical trials, conferences, and competitor data — via a Langflow RAG pipeline, Chroma vector DB, and GPT streaming. ElevenLabs TTS delivers insights as on-demand audio and dual-voice podcasts.</p>
-        <div class="project-impact">⚡ Research time cut by 70% · 4+ literature types unified · Insights delivered as audio & podcasts</div>
+        <div class="project-pills">
+          <span class="project-pill">70% faster research</span>
+          <span class="project-pill">4+ literature types</span>
+          <span class="project-pill">Audio & podcasts</span>
+        </div>
       </div>
     </div>
 
     <!-- 3: Compliance Lease Tool (Q3 2026) -->
-    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('complianceleasetool-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('complianceleasetool-modal').classList.add('open')">
       <div class="project-header ph-2">🏢</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6377,13 +6446,16 @@
           <span class="tag tag-gold">Q3 2026</span>
         </div>
         <h3>Compliance Lease Tool</h3>
-        <p>A Claude Skill that turns Claude into a commercial lease compliance assistant — abstracting lease terms, tracking renewal deadlines and regulatory obligations, and flagging risk across a portfolio of leases, without the cost or setup time of enterprise lease-accounting platforms.</p>
-        <div class="project-impact">⚡ Runs inside Claude — no deployment, no implementation project · Targets the compliance-and-deadline gap enterprise platforms (Yardi, MRI) and accounting-first tools (Visual Lease) don't cover · Built on real market research validating a $0-marginal-cost alternative to $25K–$500K/yr platforms</div>
+        <div class="project-pills">
+          <span class="project-pill">No deployment needed</span>
+          <span class="project-pill">Fills compliance gap</span>
+          <span class="project-pill">$0 vs $25K–500K/yr</span>
+        </div>
       </div>
     </div>
 
     <!-- 4: Ad Genie (Q2 2026) -->
-    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('adgenie-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('adgenie-modal').classList.add('open')">
       <div class="project-header ph-3">🎯</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6392,13 +6464,16 @@
           <span class="tag tag-gold">Q2 2026</span>
         </div>
         <h3>Ad Genie – AI-Powered Advertising Automation Platform</h3>
-        <p>AI-powered advertising automation platform that auto-generates high-performing ad copy variants, intelligently optimizes targeting and budget allocation, and continuously monitors performance across Google Ads, Meta, LinkedIn, and TikTok — transforming manual, fragmented workflows into a unified, intelligent advertising control center.</p>
-        <div class="project-impact">⚡ Campaign setup time reduced by 70% · 35-45% improvement in ROI · 60% faster market response</div>
+        <div class="project-pills">
+          <span class="project-pill">70% faster setup</span>
+          <span class="project-pill">35-45% ROI lift</span>
+          <span class="project-pill">60% faster response</span>
+        </div>
       </div>
     </div>
 
     <!-- 4: AI Analyst Builder (Q2 2026) -->
-    <div class="project-card project-card--interactive project-card--featured" data-cat="genai" onclick="document.getElementById('analyst-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive project-card--featured" data-cat="genai" onclick="document.getElementById('analyst-modal').classList.add('open')">
       <div class="project-header ph-2">📊</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6407,13 +6482,16 @@
           <span class="tag tag-gold">Q2 2026</span>
         </div>
         <h3>AI Analyst Builder: Redefining How Teams Do Product Analysis</h3>
-        <p>AI-powered research partner that handles the execution layer while you keep the judgment layer. 18-agent pipeline frames questions, analyzes data, validates findings across four layers, and builds presentation-ready decks with speaker notes.</p>
-        <div class="project-impact">⚡ Analyses that take weeks now take minutes · One analyst becomes three · Systematic, 4-layer validated methodology replaces intuition</div>
+        <div class="project-pills">
+          <span class="project-pill">Weeks to minutes</span>
+          <span class="project-pill">1 analyst becomes 3</span>
+          <span class="project-pill">4-layer validation</span>
+        </div>
       </div>
     </div>
 
     <!-- 5: SurveAI (Q3 2024) -->
-    <div class="project-card project-card--interactive" data-cat="genai ml" onclick="document.getElementById('feedback-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive" data-cat="genai ml" onclick="document.getElementById('feedback-modal').classList.add('open')">
       <div class="project-header ph-2">💬</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6422,13 +6500,16 @@
           <span class="tag tag-gold">Q3 2024</span>
         </div>
         <h3>SurveAI – AI-Powered Customer Feedback Analysis</h3>
-        <p>AI solution that automatically ingests, categorizes, and analyzes customer feedback to surface themes, sentiment, and priority issues — turning unstructured feedback into clear, actionable insights at scale.</p>
-        <div class="project-impact">⚡ Feedback analysis time cut by 80% · Actionable insights surfaced in real time · Faster product & CX decisions</div>
+        <div class="project-pills">
+          <span class="project-pill">80% faster analysis</span>
+          <span class="project-pill">Real-time insights</span>
+          <span class="project-pill">Faster CX decisions</span>
+        </div>
       </div>
     </div>
 
     <!-- 6: Hotel Booking Cancellation Predictor (Q3 2024) -->
-    <div class="project-card project-card--interactive" data-cat="ml" onclick="document.getElementById('hotel-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive" data-cat="ml" onclick="document.getElementById('hotel-modal').classList.add('open')">
       <div class="project-header ph-3">🏨</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6437,13 +6518,16 @@
           <span class="tag tag-gold">Q3 2024</span>
         </div>
         <h3>Hotel Booking Cancellation Predictor</h3>
-        <p>Predictive model that identifies key drivers of booking cancellations and flags at-risk bookings in advance, enabling data-driven cancellation and refund policies to reduce revenue loss.</p>
-        <div class="project-impact">⚡ At-risk bookings predicted in advance · Key cancellation drivers identified · More profitable refund & policy decisions</div>
+        <div class="project-pills">
+          <span class="project-pill">Predicts at-risk bookings</span>
+          <span class="project-pill">Key drivers identified</span>
+          <span class="project-pill">Smarter refund policy</span>
+        </div>
       </div>
     </div>
 
     <!-- 7: SMS Spam Classifier (Q2 2024) -->
-    <div class="project-card project-card--interactive" data-cat="ml" onclick="document.getElementById('sms-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive" data-cat="ml" onclick="document.getElementById('sms-modal').classList.add('open')">
       <div class="project-header ph-4">📱</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6452,13 +6536,16 @@
           <span class="tag tag-gold">Q2 2024</span>
         </div>
         <h3>SMS Spam Classifier</h3>
-        <p>Text-classification model that analyzes SMS messages to automatically detect spam vs. legitimate messages, preventing phishing and cyber-attack attempts before they reach users.</p>
-        <div class="project-impact">⚡ High-accuracy spam detection automated · Phishing exposure reduced · User trust & safety improved</div>
+        <div class="project-pills">
+          <span class="project-pill">High-accuracy detection</span>
+          <span class="project-pill">Less phishing exposure</span>
+          <span class="project-pill">Safer for users</span>
+        </div>
       </div>
     </div>
 
     <!-- 8: Gen AI Powered Review Categorization (Q2 2024) - OLDEST -->
-    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('review-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('review-modal').classList.add('open')">
       <div class="project-header ph-1">⭐</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6467,8 +6554,11 @@
           <span class="tag tag-gold">Q2 2024</span>
         </div>
         <h3>Gen AI Powered Review Categorization</h3>
-        <p>LLM-powered solution that automates the classification of customer reviews — predicting categories, assigning priority, suggesting actions, and generating sentiment-based responses at scale.</p>
-        <div class="project-impact">⚡ Review handling automated end-to-end · Response time reduced significantly · Higher customer satisfaction & efficiency</div>
+        <div class="project-pills">
+          <span class="project-pill">End-to-end automation</span>
+          <span class="project-pill">Faster response time</span>
+          <span class="project-pill">Higher CSAT</span>
+        </div>
       </div>
     </div>
 
@@ -6481,23 +6571,8 @@
   </div>
   <div class="nb-grid reveal">
 
-    <!-- ContractIQ (Aug 2026) -->
-    <div class="project-card project-card--interactive" onclick="document.getElementById('contractiq-modal').classList.add('open')" title="Click to explore">
-      <div class="project-header ph-4">⚖️</div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="tag tag-coral">GenAI · Legal Tech</span>
-          <span class="tag tag-purple">Built with Claude Code</span>
-          <span class="tag tag-coming-soon">Coming Soon · Aug 2026</span>
-        </div>
-        <h3>ContractIQ</h3>
-        <p>A live AI-powered legal tool that helps people review, summarize, and ask plain-language questions about contracts — built end-to-end using Claude Code as the primary development partner, as a real test of what an agentic coding workflow can ship in a high-stakes domain.</p>
-        <div class="project-impact">⚡ Makes contract review accessible without a legal background · Built end-to-end with Claude Code, not just prototyped · A live, usable tool — not a slide deck</div>
-      </div>
-    </div>
-
     <!-- Second Brain (Q4 2026) -->
-    <div class="project-card project-card--interactive" onclick="document.getElementById('secondbrain-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive" onclick="document.getElementById('secondbrain-modal').classList.add('open')">
       <div class="project-header ph-3">🧠</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6506,13 +6581,16 @@
           <span class="tag tag-coming-soon">Coming Soon · Q4 2026</span>
         </div>
         <h3>Second Brain</h3>
-        <p>An LLM-maintained personal wiki that turns every source fed into it into a compounding, interlinked knowledge base instead of a one-off RAG answer. The agent ingests, cross-references, and keeps a markdown wiki current so nothing gets rediscovered from scratch on the next question.</p>
-        <div class="project-impact">⚡ Persistent markdown wiki beats one-shot RAG — knowledge compiles once and stays current · Ingest / Query / Lint loop keeps the base free of contradictions and stale claims · Obsidian as the IDE, LLM as the programmer, wiki as the codebase</div>
+        <div class="project-pills">
+          <span class="project-pill">Persistent knowledge base</span>
+          <span class="project-pill">Ingest / Query / Lint loop</span>
+          <span class="project-pill">Obsidian + LLM stack</span>
+        </div>
       </div>
     </div>
 
     <!-- Enterprise AI Data Copilot Suite (Q3 2026) -->
-    <div class="project-card project-card--interactive" onclick="document.getElementById('datacopilot-modal').classList.add('open')" title="Click to explore">
+    <div class="project-card project-card--interactive" onclick="document.getElementById('datacopilot-modal').classList.add('open')">
       <div class="project-header ph-1">🗂️</div>
       <div class="project-body">
         <div class="project-tags">
@@ -6521,8 +6599,11 @@
           <span class="tag tag-coming-soon">Coming Soon · Q3 2026</span>
         </div>
         <h3>Enterprise AI Data Copilot Suite</h3>
-        <p>Agentic AI platform that lets organizations understand, govern, and analyze enterprise data through natural language — pairing deterministic engines for data quality, SQL safety, and PII detection with an LLM layer that only explains, classifies, and narrates. Built on a GxP-style clinical dataset via Langflow, n8n, and MCP to demonstrate production-grade data trust, not demo-ware.</p>
-        <div class="project-impact">⚡ Deterministic engines own the ground truth, LLM only narrates · Four-agent architecture (Quality, Catalog, Analytics, Governance) via Langflow + n8n + MCP · Built for HIPAA, GDPR &amp; 21 CFR Part 11 compliance</div>
+        <div class="project-pills">
+          <span class="project-pill">Deterministic + LLM narration</span>
+          <span class="project-pill">4-agent architecture</span>
+          <span class="project-pill">HIPAA/GDPR/21 CFR ready</span>
+        </div>
       </div>
     </div>
 
@@ -6606,9 +6687,10 @@
       <div>
         <div class="modal-title">⚖️ ContractIQ</div>
         <div class="modal-tags">
+          <span class="tag tag-live">● Live App</span>
           <span class="tag tag-coral">GenAI · Legal Tech</span>
           <span class="tag tag-purple">Built with Claude Code</span>
-          <span class="modal-year tag-coming-soon">Coming Soon · Aug 2026</span>
+          <span class="modal-year tag-gold">Q3 2026</span>
         </div>
       </div>
       <button class="modal-close" onclick="document.getElementById('contractiq-modal').classList.remove('open')">✕</button>
@@ -6616,40 +6698,39 @@
     <div class="modal-body">
 
       <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>Contract review is slow and expensive, so people sign agreements without understanding the risk or obligations buried inside.</p>
-        <p><span class="qs-label qs-approach">Approach</span>Building a live AI tool — upload a contract, ask plain-language questions, get grounded answers — developed end-to-end with Claude Code.</p>
-        <p><span class="qs-label qs-result">Result</span>A real test of agentic coding in a high-stakes domain, not just a prototype — targeting a live build in August 2026.</p>
+        <p><span class="qs-label qs-problem">Problem</span>SMBs and freelancers sign NDAs and MSAs without in-house counsel — a single review costs $1,500–$3,000 and 90–120 minutes at standard legal rates, and generic AI summarizers don't cite where a term came from or how confident they are.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built a GPT-4o extraction pipeline that pulls the terms that matter per contract type, attaches a confidence score and verbatim source sentence to each one, and grounds a follow-up chat entirely in the uploaded document — no chunking, no guessing.</p>
+        <p><span class="qs-label qs-result">Result</span>A live, shipped tool targeting sub-15-minute review time and ≥88% extraction F1 on NDAs, built end-to-end with Claude Code against a full PRD with its own eval suite and HHH readiness criteria.</p>
       </div>
 
       <details class="modal-details">
         <summary>Read the full write-up</summary>
         <div class="modal-section">
           <h4>Problem Statement</h4>
-          <p>Contract review is slow, expensive, and locked behind legal expertise most individuals and small teams don't have in-house. People routinely sign agreements without fully understanding the obligations, risk, or unusual clauses buried in the fine print, simply because getting a proper read costs more time or money than they have.</p>
+          <p>Business professionals — founders, ops managers, procurement leads — routinely sign NDAs and MSAs without fully understanding what they're agreeing to. Without in-house legal teams, reviewing a single contract takes 90–120 minutes and typically costs $1,500–$3,000 at standard $250–$500/hr legal billing rates, and 43% of SMBs report a commercial dispute that traced back to a misunderstood contract term. Existing options are a poor fit at both ends: enterprise contract-lifecycle tools like DocuSign CLM or Ironclad are built for $50k–$500k contracts, and general tools like ChatGPT produce a plausible-sounding summary with no structured extraction, no page attribution, and no way to tell which parts to trust. Rule-based parsers don't hold up either — a standard confidentiality clause alone shows up in 50+ structurally different phrasings across real contracts, which pushes regex-based extraction past a 30% miss rate.</p>
         </div>
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>ContractIQ is a live, AI-powered legal tool — upload a contract, ask plain-language questions about what it actually commits you to, and get grounded answers back instead of wading through pages of legalese. What makes this project distinct isn't just the idea; it's the build process: it's being developed end-to-end using Claude Code as the primary development partner, as a direct test of how far an agentic coding workflow can take a real, shippable product in a high-stakes domain rather than staying a prototype.</p>
+          <p>ContractIQ extracts the 10 terms that matter most in an NDA and the 12 that matter most in an MSA — parties, confidentiality obligations, liability caps, termination clauses, and so on — using GPT-4o in JSON mode at temperature 0.1, with a few-shot prompt built from hand-labeled NDA and MSA examples. Every term comes back with three things a plain summary won't give you: a page number, a 0–100% confidence score that's color-coded and never hidden even below 50% — just flagged with a non-dismissible warning — and the verbatim source sentence it was pulled from, with an expandable "Why?" that answers the trust question directly instead of asking for blind faith. A grounded chat layer answers plain-English follow-up questions using the full contract text as context on every turn, with a system prompt that treats "I cannot find this in the document" as a correct answer rather than a failure, and a mandatory page citation on every response. Hallucination is treated as the top trust risk end to end: deterministic decoding settings, a JSON-parse retry loop, an automated regression test confirming the model still says "not found" on off-document questions, and a monthly calibration check against a legal-SME-labeled set plus the CUAD dataset (13,000+ annotations across 510 contracts) — with a UI warning if miscalibration crosses 15%. The whole build is scoped against explicit production-readiness bars before calling anything launched: ≥88% F1 on NDA extraction, ≥85% on MSA, sub-30-second P95 latency, and a correction rate under 12% in any rolling 7-day window. It was developed end-to-end using Claude Code as the primary development partner — a direct test of how far an agentic coding workflow can carry a real product, from a 28-page PRD with its own HHH (Helpful/Honest/Harmless) readiness framework all the way to a live, shipped app.</p>
         </div>
       </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Makes contract review accessible without a legal background or legal budget ✦ Built as a live, usable product with Claude Code driving the development, not just a proof of concept ✦ A concrete test case for how far AI-assisted, agentic development can go in a regulated, high-stakes domain like legal tech</div>
-      </div>
-
-      <div class="modal-section">
-        <h4>Status</h4>
-        <p>Coming soon — early planning underway, targeting a live build in August 2026.</p>
+        <div class="modal-impact">⚡ Targets sub-15-minute contract review against a 90–120 minute baseline, at roughly $0.10 in model cost per analysis ✦ Confidence scoring, page citations, and verbatim source sentences replace a black-box summary with something a user can actually verify ✦ Built end-to-end with Claude Code against a full PRD — eval suite, hallucination guardrails, and HHH launch criteria included, not just a UI mockup</div>
       </div>
 
       <div class="modal-section">
         <h4>Documents</h4>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="#contact" onclick="openCollabForm('contractiq-modal')" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            Collaboration
+          <a href="https://contractiq.sankar.work" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Live App
+          </a>
+          <a href="ContractIQ-PRD.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            PRD
           </a>
         </div>
       </div>
@@ -6990,20 +7071,20 @@
       <path class="ascent-pulse" d="M20,112 H110 V96 H200 V80 H290 V64 H380 V48 H470 V32 H560 V16 H680" pathLength="100">
         <animate attributeName="stroke-dashoffset" from="100" to="0" dur="3.4s" repeatCount="indefinite"/>
       </path>
-      <text x="65" y="130">2010</text>
-      <text class="ascent-loc" x="65" y="142">🇮🇳 India</text>
-      <text x="155" y="114">2015</text>
-      <text class="ascent-loc" x="155" y="126">🇺🇸 NY, USA</text>
-      <text x="245" y="98">2016</text>
-      <text class="ascent-loc" x="245" y="110">🇺🇸 NJ, USA</text>
-      <text x="335" y="82">2017</text>
-      <text class="ascent-loc" x="335" y="94">🇺🇸 NJ, USA</text>
-      <text x="425" y="66">2020</text>
-      <text class="ascent-loc" x="425" y="78">🇺🇸 NJ, USA</text>
-      <text x="515" y="50">2022</text>
-      <text class="ascent-loc" x="515" y="62">🇺🇸 NY, USA</text>
-      <text class="now" x="620" y="36">NOW</text>
-      <text class="ascent-loc" x="620" y="48">🇺🇸 NJ, USA</text>
+      <text x="65" y="132">2010</text>
+      <text class="ascent-loc" x="65" y="147">🇮🇳 India</text>
+      <text x="155" y="116">2015</text>
+      <text class="ascent-loc" x="155" y="131">🇺🇸 NY, USA</text>
+      <text x="245" y="100">2016</text>
+      <text class="ascent-loc" x="245" y="115">🇺🇸 NJ, USA</text>
+      <text x="335" y="84">2017</text>
+      <text class="ascent-loc" x="335" y="99">🇺🇸 NJ, USA</text>
+      <text x="425" y="68">2020</text>
+      <text class="ascent-loc" x="425" y="83">🇺🇸 NJ, USA</text>
+      <text x="515" y="52">2022</text>
+      <text class="ascent-loc" x="515" y="67">🇺🇸 NY, USA</text>
+      <text class="now" x="620" y="38">NOW</text>
+      <text class="ascent-loc" x="620" y="53">🇺🇸 NJ, USA</text>
     </svg>
     <button type="button" class="ascent-step" data-tl="6" data-role="Project Engineer · WIPRO · 🇮🇳 India" style="left:9.29%; top:72.7%;" aria-label="2010, Project Engineer at WIPRO, India"></button>
     <button type="button" class="ascent-step" data-tl="5" data-role="Business Analyst · Upchannel · 🇺🇸 NY" style="left:22.14%; top:62.3%;" aria-label="2015, Business Analyst at Upchannel, New York"></button>
