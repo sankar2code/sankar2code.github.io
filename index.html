@@ -6471,6 +6471,25 @@
   </div>
   <div class="projects-grid reveal">
 
+    <!-- Company Comparison (Q3 2026) -->
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('companycomparison-modal').classList.add('open')">
+      <div class="project-header ph-2">📈</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-live">● Live App</span>
+          <span class="tag tag-coral">GenAI · Equity Research</span>
+          <span class="tag tag-purple">BYOK</span>
+          <span class="tag tag-gold">Q3 2026</span>
+        </div>
+        <h3>Company Comparison — AI Equity Research</h3>
+        <div class="project-pills">
+          <span class="project-pill">Analyst-grade output</span>
+          <span class="project-pill">Live web search + citations</span>
+          <span class="project-pill">BYOK, zero backend cost</span>
+        </div>
+      </div>
+    </div>
+
     <!-- ContractIQ (Q3 2026) -->
     <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('contractiq-modal').classList.add('open')">
       <div class="project-header ph-4">⚖️</div>
@@ -6773,6 +6792,60 @@
 <!-- ───────────────────────────────────────────
   CONTRACTIQ MODAL
 ──────────────────────────────────────────── -->
+<div class="modal-backdrop" id="companycomparison-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">📈 Company Comparison</div>
+        <div class="modal-tags">
+          <span class="tag tag-live">● Live App</span>
+          <span class="tag tag-coral">GenAI · Equity Research</span>
+          <span class="tag tag-purple">BYOK</span>
+          <span class="modal-year tag-gold">Q3 2026</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('companycomparison-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Comparing two companies at an investor-grade level — financials, valuation, moats, risk, outlook — normally means paying for equity research or spending hours across filings and news, and a general chatbot answer skips citations and live data.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built a bring-your-own-key tool that runs a live, web-searched deep research pass on any two companies and returns a structured, analyst-style report with sourced citations.</p>
+        <p><span class="qs-label qs-result">Result</span>A live, no-signup tool — enter two company names and an OpenAI key, get financials, valuation, moats, SWOT, risks, and outlook back in under a minute.</p>
+      </div>
+
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Comparing two companies at an investor-grade level — financials, valuation multiples, competitive moats, risk factors, forward outlook — normally means either paying for equity research or spending hours cross-referencing filings, news, and analyst notes yourself. Ask a general chatbot instead and you get a plausible-sounding paragraph with no live data, no citations, and no way to check if any of it is current.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Company Comparison takes two company names and runs a live, GPT-4o-mini-powered deep research pass with real-time web search, then returns a structured comparison across financials, valuation, moats, SWOT, risks, and outlook, with citations attached to the claims that need them. It's a bring-your-own-key tool by design: the OpenAI key is entered client-side, used only to call OpenAI directly from the browser, and never stored or sent anywhere else — so there's no signup, no backend holding credentials, and no cost to run beyond what the user's own key spends. A single report can take up to a minute since it's doing live research rather than replaying cached training data.</p>
+        </div>
+      </details>
+
+      <div class="modal-section">
+        <h4>Business Value</h4>
+        <div class="modal-impact">⚡ Turns a multi-hour research task into a single form submission ✦ Live web search plus citations means the output can actually be checked, not just trusted ✦ BYOK architecture means zero standing infrastructure cost and no credential handling on the backend</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Documents</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="https://sankar.work/company-comparison/" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Live App
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <div class="modal-backdrop" id="contractiq-modal" onclick="closeModal(event)">
   <div class="modal">
     <div class="modal-header">
