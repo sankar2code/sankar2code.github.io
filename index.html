@@ -3446,7 +3446,14 @@
       color: #fff;
       box-shadow: 0 0 16px rgba(139,92,246,0.4);
     }
-    html.light .project-filters { background: linear-gradient(135deg, #1e1b4b, #0f172a); }
+    html.light .project-filters { background: var(--card); border: 1px solid var(--border); }
+    html.light .filter-chip { color: var(--muted); }
+    html.light .filter-chip:hover { color: #111118; background: rgba(0,0,0,0.06); }
+    html.light .filter-chip.active {
+      background: linear-gradient(135deg,#2563eb,#6366f1);
+      color: #fff;
+      box-shadow: 0 0 16px rgba(99,102,241,0.35);
+    }
     .project-card.filtered-out { display: none; }
 
     /* ─── FEATURED PROJECT CARD ─────────────────── */
@@ -6472,6 +6479,26 @@
   </div>
   <div class="projects-grid reveal">
 
+    <!-- ClinicalAI-TrialAnalysis (Q3 2026) -->
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('clinicaltrialanalysis-modal').classList.add('open')">
+      <div class="project-header ph-4">🧬</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-live">● Live App</span>
+          <span class="tag tag-coral">GenAI · Clinical Trials</span>
+          <span class="tag tag-purple">Evidence-Grounded</span>
+          <span class="tag tag-purple">Frictionless UX</span>
+          <span class="tag tag-gold">Q3 2026</span>
+        </div>
+        <h3>ClinicalAI-TrialAnalysis</h3>
+        <div class="project-pills">
+          <span class="project-pill">Frictionless, login-free UX</span>
+          <span class="project-pill">Fact / Inference / Hypothesis schema</span>
+          <span class="project-pill">ClinicalTrials.gov + PubMed only</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Company Comparison (Q3 2026) -->
     <div class="project-card project-card--interactive" data-cat="genai" onclick="document.getElementById('companycomparison-modal').classList.add('open')">
       <div class="project-header ph-2">📈</div>
@@ -6683,24 +6710,6 @@
   </div>
   <div class="nb-grid reveal">
 
-    <!-- ClinicalAI-TrialAnalysis (Aug 2026) -->
-    <div class="project-card project-card--interactive" onclick="document.getElementById('clinicaltrialanalysis-modal').classList.add('open')">
-      <div class="project-header ph-4">🧬</div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="tag tag-coral">GenAI · Clinical Trials</span>
-          <span class="tag tag-purple">Evidence-Grounded</span>
-          <span class="tag tag-coming-soon">Coming Soon · Aug 2026</span>
-        </div>
-        <h3>ClinicalAI-TrialAnalysis</h3>
-        <div class="project-pills">
-          <span class="project-pill">NCT ID → ranked hypotheses</span>
-          <span class="project-pill">Facts vs. inferences vs. hypotheses</span>
-          <span class="project-pill">ClinicalTrials.gov + PubMed only</span>
-        </div>
-      </div>
-    </div>
-
     <!-- Second Brain (Q4 2026) -->
     <div class="project-card project-card--interactive" onclick="document.getElementById('secondbrain-modal').classList.add('open')">
       <div class="project-header ph-3">🧠</div>
@@ -6811,6 +6820,68 @@
 <!-- ───────────────────────────────────────────
   CONTRACTIQ MODAL
 ──────────────────────────────────────────── -->
+<!-- ───────────────────────────────────────────
+  CLINICALAI-TRIALANALYSIS MODAL
+──────────────────────────────────────────── -->
+<div class="modal-backdrop" id="clinicaltrialanalysis-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🧬 ClinicalAI-TrialAnalysis</div>
+        <div class="modal-tags">
+          <span class="tag tag-live">● Live App</span>
+          <span class="tag tag-coral">GenAI · Clinical Trials</span>
+          <span class="tag tag-purple">Evidence-Grounded</span>
+          <span class="tag tag-purple">Frictionless UX</span>
+          <span class="modal-year tag-gold">Q3 2026</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('clinicaltrialanalysis-modal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>34,023 trials are registered TERMINATED on ClinicalTrials.gov, and 11.5% of a sampled 200 give zero substantive stop reason — the rest give only a one-line label that takes manual cross-referencing to actually explain.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built a stateless, single-input web app — paste an NCT ID, get back ranked failure hypotheses pulled only from ClinicalTrials.gov and PubMed, with every claim schema-enforced as Fact, Inference, or Hypothesis.</p>
+        <p><span class="qs-label qs-result">Result</span>A live, frictionless tool — no login, no accounts, client-side validation before any network call — targeting sub-20-second results and ≥70% top-hypothesis accuracy against a documented benchmark set.</p>
+      </div>
+
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Clinical trials fail for reasons that are rarely stated plainly. Live ClinicalTrials.gov data puts 34,023 trials at TERMINATED status (5.7% of all 595,847 registered studies) — and combined with WITHDRAWN and SUSPENDED, 52,362 trials (8.8%) never reached completion as planned. A random sample of 200 TERMINATED trials shows 8.0% with no stop reason recorded at all and another 3.5% citing only a generic "business decision" with no underlying cause — 11.5% giving literally zero signal. The remaining 88.5% do name a cause, but most are single-line labels like "low enrollment" or "Covid-19" that don't explain the deeper why without cross-referencing enrollment data, results, and publication history by hand. No existing tool does causal reasoning over this public data: ClinicalTrials.gov and the AACT database expose raw fields with no reasoning, PubMed requires manual cross-referencing, and enterprise tools like Citeline/Trialtrove are comprehensive but priced for institutions and still largely descriptive rather than causal.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>ClinicalAI-TrialAnalysis is a single text input: paste an NCT ID and the backend fetches the ClinicalTrials.gov v2 record, resolves linked PubMed publications via NCBI E-utilities, and runs a structured reasoning pass against an explicit 7-category failure taxonomy — recruitment, efficacy, safety/toxicity, funding/business, operational/protocol, strategic/competitive, futility — with few-shot examples and a hidden chain-of-thought scratchpad reasoning through the evidence before committing to a final ranked answer. Every claim across the four output blocks (Bottom Line, Ranked Hypotheses, Evidence, Guardrail) is tagged Fact, Inference, or Hypothesis, enforced by schema validation rather than prompt instruction alone, so an unlabeled claim can never render. The UX is deliberately frictionless: no accounts, no login, no saved history — the product is fully stateless. A malformed NCT ID is rejected client-side before any network call is even made, a well-formed but nonexistent ID gets an explicit "trial not found" state, and if a trial is COMPLETED or still RECRUITING, the tool states plainly that there's no failure to explain instead of fabricating one. If PubMed enrichment fails, it still returns a trial-data-only analysis with a note rather than failing the whole request.</p>
+        </div>
+      </details>
+
+      <div class="modal-section">
+        <h4>Business Value</h4>
+        <div class="modal-impact">⚡ Replaces a 30–60 minute manual cross-reference task with a sub-20-second automated read ✦ Fact/Inference/Hypothesis labeling is schema-enforced, not just prompted — 0% of rendered claims are allowed to go unlabeled ✦ Public-registry-only scope (ClinicalTrials.gov + PubMed) keeps every hypothesis traceable and the product legally simple and stateless</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Documents</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="https://clinicaltrialanalysis.sankar.work" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Live App
+          </a>
+          <a href="ClinicalAI-TrialAnalysis-PRD.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            PRD
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <div class="modal-backdrop" id="companycomparison-modal" onclick="closeModal(event)">
   <div class="modal">
     <div class="modal-header">
@@ -6919,67 +6990,6 @@
           <a href="ContractIQ-PRD.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
             PRD
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ───────────────────────────────────────────
-  TRIAL AUTOPSY MODAL
-──────────────────────────────────────────── -->
-<div class="modal-backdrop" id="clinicaltrialanalysis-modal" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <div>
-        <div class="modal-title">🧬 ClinicalAI-TrialAnalysis</div>
-        <div class="modal-tags">
-          <span class="tag tag-coral">GenAI · Clinical Trials</span>
-          <span class="tag tag-purple">Evidence-Grounded</span>
-          <span class="modal-year tag-coming-soon">Coming Soon · Aug 2026</span>
-        </div>
-      </div>
-      <button class="modal-close" onclick="document.getElementById('clinicaltrialanalysis-modal').classList.remove('open')">✕</button>
-    </div>
-    <div class="modal-body">
-
-      <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>Clinical trial failure reasons on ClinicalTrials.gov are often one-line and shallow, so understanding why a trial actually failed means manually cross-referencing amendments and literature — or asking a chatbot that will happily invent a mechanism it has no evidence for.</p>
-        <p><span class="qs-label qs-approach">Approach</span>Built an agent that takes a single NCT ID, pulls the public trial record and linked PubMed literature, and returns ranked hypotheses for the failure with every claim explicitly labeled as a fact, an inference, or a hypothesis.</p>
-        <p><span class="qs-label qs-result">Result</span>A source-backed investigator scoped to public data only, targeting a build in August 2026, that never asserts more causal certainty than its sources support.</p>
-      </div>
-
-      <details class="modal-details">
-        <summary>Read the full write-up</summary>
-        <div class="modal-section">
-          <h4>Problem Statement</h4>
-          <p>Clinical trials fail for reasons that are rarely stated plainly. ClinicalTrials.gov often records termination with a one-line reason like "low enrollment" or "business decision," while the real explanation — a safety signal, a competitor's readout, an underpowered design — sits scattered across amendments, related publications, and conference abstracts that take hours to piece together by hand. Ask a general LLM to explain why a trial failed and it will often invent a plausible-sounding mechanism it has no evidence for, blending real trial data with hallucinated causality in the same sentence — a real risk in a domain where a wrong causal claim about a drug can spread fast.</p>
-        </div>
-
-        <div class="modal-section">
-          <h4>Solution</h4>
-          <p>ClinicalAI-TrialAnalysis takes a single NCT ID and pulls everything public and structured about that trial — the ClinicalTrials.gov record (status, phase, enrollment, amendments, stated termination reason) and any linked or matched PubMed literature — then generates a ranked list of hypotheses for why the trial actually failed. Every hypothesis carries an explicit evidence label: fact (directly stated in a primary source), inference (a reasonable read of stated data — enrollment dropped sharply right after a protocol amendment, for example), or hypothesis (a plausible but unconfirmed explanation, flagged as such rather than presented as settled). Nothing is asserted with more certainty than its source supports, and every claim links back to the specific record or publication it came from. It only reads from ClinicalTrials.gov and PubMed — no scraping press coverage, forums, or social chatter — so the entire evidence chain stays public and auditable.</p>
-        </div>
-      </details>
-
-      <div class="modal-section">
-        <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Turns a multi-hour cross-referencing task — amendments, publications, termination codes — into a single NCT ID lookup ✦ Facts, inferences, and hypotheses stay explicitly separated, so the tool can't overstate causality the way a general chatbot would ✦ Restricted to public, citable sources only — every hypothesis is traceable back to its evidence</div>
-      </div>
-
-      <div class="modal-section">
-        <h4>Status</h4>
-        <p>Coming soon, targeting Aug 2026 — architecture defined, with the evidence-labeling framework being built before extraction begins.</p>
-      </div>
-
-      <div class="modal-section">
-        <h4>Documents</h4>
-        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="#contact" onclick="openCollabForm('clinicaltrialanalysis-modal')" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            Collaboration
           </a>
         </div>
       </div>
