@@ -2255,6 +2255,75 @@
       margin: 2px 0 0;
     }
 
+    /* ── Today's post highlight ── */
+    a.ship-item.ship-item-today {
+      background: rgba(74,222,128,0.06);
+      border: 1px solid rgba(74,222,128,0.4);
+      box-shadow: 0 0 20px rgba(74,222,128,0.13);
+      padding: 0.6rem 0.75rem 0.6rem 0.7rem;
+    }
+
+    a.ship-item.ship-item-today:hover {
+      background: rgba(74,222,128,0.11);
+      box-shadow: 0 0 24px rgba(74,222,128,0.28);
+    }
+
+    .ship-item-today .ship-icon {
+      border-color: rgba(74,222,128,0.5);
+      box-shadow: 0 0 10px rgba(74,222,128,0.35);
+    }
+
+    .ship-today-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .ship-today-badge {
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #4ade80;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ship-today-badge .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      margin-right: 0.35rem;
+      vertical-align: middle;
+      animation: todayPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes todayPulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+      50%      { opacity: 0.6; box-shadow: 0 0 0 5px rgba(74,222,128,0); }
+    }
+
+    .ship-today-ago {
+      font-size: 0.62rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    html.light a.ship-item.ship-item-today {
+      background: rgba(21,128,61,0.05);
+      border-color: rgba(21,128,61,0.35);
+      box-shadow: 0 0 16px rgba(21,128,61,0.1);
+    }
+    html.light .ship-today-badge { color: #15803d; }
+    html.light .ship-today-badge .dot { background: #15803d; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ship-today-badge .dot { animation: none; }
+    }
+
     .ship-tag {
       display: inline-block;
       margin-left: 0.5rem;
@@ -2471,6 +2540,177 @@
       .shipped-sub { display: none; }
       .shipped-streak { font-size: 0.65rem; padding: 0.24rem 0.55rem; }
       .shipped-card::after { filter: blur(28px); }
+    }
+
+    /* ═══════════════════════════════════════════════
+       THE LOOP — how I build with AI
+    ═══════════════════════════════════════════════ */
+    .loop-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .loop-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .loop-steps {
+      display: flex;
+      gap: 0.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.7rem;
+    }
+
+    .loop-step-chip {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.66rem;
+      border-radius: 50px;
+      padding: 0.2rem 0.55rem;
+      cursor: pointer;
+      white-space: nowrap;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: transparent;
+      transition: all 0.3s;
+    }
+    .loop-step-chip { text-transform: capitalize; }
+    .loop-step-chip.done   { color: #7dd3fc; border-color: rgba(56,189,248,0.35); }
+    .loop-step-chip.active { background: #7dd3fc; color: #0b1220; border-color: #7dd3fc; font-weight: 700; }
+
+    .loop-detail {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 1.1rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.7rem;
+    }
+    .loop-detail-main { min-width: 0; }
+    .loop-detail-side {
+      min-width: 0;
+      border-left: 1px solid var(--border);
+      padding-left: 1rem;
+    }
+    .loop-side-label {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.3rem;
+      opacity: 0.75;
+    }
+    .loop-artifact {
+      font-size: 0.75rem;
+      color: var(--text-body);
+      margin: 0 0 0.6rem;
+      line-height: 1.4;
+    }
+    .loop-step-title { text-transform: capitalize; }
+    .loop-artifact   { text-transform: capitalize; }
+    .loop-chip       { text-transform: capitalize; }
+    .loop-step-desc::first-letter { text-transform: uppercase; }
+    .loop-phase { color: #a78bfa; letter-spacing: 0.08em; }
+    html.light .loop-phase { color: #7c3aed; }
+
+    .loop-eyebrow {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+      color: #7dd3fc;
+      text-transform: uppercase;
+    }
+
+    .loop-toggle {
+      background: rgba(56,189,248,0.12);
+      border: 1px solid rgba(56,189,248,0.3);
+      color: #7dd3fc;
+      border-radius: 6px;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.72rem;
+      cursor: pointer;
+      line-height: 1.4;
+    }
+    .loop-toggle:hover { background: rgba(56,189,248,0.22); }
+
+    .loop-track {
+      position: relative;
+      height: 32px;
+    }
+
+    .loop-bot {
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      transition: left 0.6s cubic-bezier(0.34, 1.3, 0.64, 1);
+    }
+
+    .loop-bot .wheel {
+      animation: loopRoll 1s linear infinite;
+      transform-origin: 17px 32px;
+    }
+    @keyframes loopRoll { to { transform: rotate(360deg); } }
+
+    .loop-bot .leanBody {
+      animation: loopLean 2.4s ease-in-out infinite;
+      transform-origin: 17px 27px;
+    }
+    @keyframes loopLean {
+      0%, 100% { transform: rotate(-5deg); }
+      50%      { transform: rotate(3deg); }
+    }
+
+    .loop-count {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin: 0 0 0.15rem;
+    }
+    .loop-count b { color: #38bdf8; font-weight: 700; }
+    .loop-step-title {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--white);
+      margin: 0 0 0.25rem;
+    }
+    .loop-step-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin: 0 0 0.55rem;
+      min-height: 2.3em;
+    }
+
+    .loop-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .loop-chip {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 0.66rem;
+      color: #7dd3fc;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.28);
+      border-radius: 50px;
+      padding: 0.2rem 0.65rem;
+    }
+
+    html.light .loop-eyebrow,
+    html.light .loop-chip,
+    html.light .loop-toggle { color: #1d4ed8; }
+    html.light .loop-count b { color: #1d4ed8; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .loop-bot, .loop-bot .wheel, .loop-bot .leanBody { animation: none; transition: none; }
+    }
+
+    @media (max-width: 780px) {
+      .loop-card { padding: 1rem 1.1rem; }
+      .loop-detail { grid-template-columns: 1fr; gap: 0.8rem; }
+      .loop-detail-side { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 0.8rem; }
     }
 
     /* ═══════════════════════════════════════════════
@@ -6479,6 +6719,53 @@
     <h2 class="section-title">Built Projects</h2>
     <p class="section-sub">Personal AI and data products I've built from scratch — exploring what's possible at the frontier of technology.</p>
   </div>
+
+  <!-- THE LOOP — how I build with AI -->
+  <div class="loop-card reveal">
+    <div class="loop-head">
+      <span class="loop-eyebrow">The Loop · How I build with AI</span>
+      <button type="button" class="loop-toggle" id="loop-toggle" aria-label="Pause the loop">&#10073;&#10073;</button>
+    </div>
+
+    <div class="loop-track">
+      <div class="loop-bot" id="loop-bot" aria-hidden="true">
+        <svg width="24" height="30" viewBox="0 0 34 40">
+          <g class="leanBody">
+            <line x1="17" y1="5" x2="17" y2="11" stroke="#7dd3fc" stroke-width="1.5"/>
+            <circle cx="17" cy="3.5" r="2.5" fill="#38bdf8">
+              <animate attributeName="opacity" values="1;0.3;1" dur="1.4s" repeatCount="indefinite"/>
+            </circle>
+            <rect x="7" y="11" width="20" height="16" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+            <circle cx="12.5" cy="18" r="2.3" fill="#7dd3fc"/>
+            <circle cx="21.5" cy="18" r="2.3" fill="#7dd3fc"/>
+            <rect x="12" y="22.5" width="10" height="1.6" rx="0.8" fill="#38bdf8" opacity="0.7"/>
+          </g>
+          <g class="wheel">
+            <circle cx="17" cy="32" r="6" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+            <line x1="17" y1="26" x2="17" y2="38" stroke="#7dd3fc" stroke-width="1.2"/>
+            <line x1="11" y1="32" x2="23" y2="32" stroke="#7dd3fc" stroke-width="1.2"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="loop-steps" id="loop-steps"></div>
+
+    <div class="loop-detail">
+      <div class="loop-detail-main">
+        <p class="loop-count"><b id="loop-num">01</b><span> / 12 · </span><span class="loop-phase" id="loop-phase"></span></p>
+        <p class="loop-step-title" id="loop-title"></p>
+        <p class="loop-step-desc" id="loop-desc"></p>
+      </div>
+      <div class="loop-detail-side">
+        <p class="loop-side-label">I produce</p>
+        <p class="loop-artifact" id="loop-art"></p>
+        <p class="loop-side-label">I measure</p>
+        <div class="loop-chips" id="loop-chips"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="project-filters reveal" id="project-filters">
     <button type="button" class="filter-chip active" data-filter="all">All</button>
     <button type="button" class="filter-chip" data-filter="genai">GenAI</button>
@@ -6762,6 +7049,7 @@
     </div>
 
   </div>
+
 </section>
 
 <div class="divider"></div>
@@ -8704,7 +8992,7 @@
     <div class="lp-scroll-wrap">
     <div class="shipped-list shipped-list-scroll" id="live-post-list">
       <div class="ship-rail"></div>
-      <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_mentoring-leadership-talentdevelopment-share-7489708966973833216--fKV/" target="_blank" rel="noopener">
+      <a class="ship-item ship-item-linked" data-cat="article" data-posted="2026-08-06T07:30:00" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_mentoring-leadership-talentdevelopment-share-7489708966973833216--fKV/" target="_blank" rel="noopener">
         <span class="ship-icon">🎓</span>
         <div class="ship-body">
           <p class="ship-text">Argued that AI is quietly deleting the repetitive-work training ground juniors used to build judgment on — and why the fix is redesigned mentoring, not more e-learning<span class="ship-tag ship-tag-article">Article</span></p>
@@ -11318,6 +11606,169 @@
       });
     }
   });
+</script>
+
+<!-- ───────────────────────────────────────────
+  THE LOOP — how I build with AI
+──────────────────────────────────────────── -->
+<script>
+(function () {
+  const card = document.querySelector('.loop-card');
+  if (!card) return;
+
+  const steps = [
+    { k: 'frame',      p: 'Discover', t: 'frame the problem',      d: "I define whose problem it is and why it's worth solving, before anyone argues about features.", a: 'Problem statement + opportunity brief', m: ['Problem Fit', 'Opportunity Size'] },
+    { k: 'users',      p: 'Discover', t: 'talk to users',          d: 'I run discovery until the pain is specific enough to design against, not just sympathise with.',  a: 'Interview synthesis + jobs-to-be-done', m: ['Interviews', 'Pain Frequency'] },
+    { k: 'size',       p: 'Define',   t: 'size the opportunity',   d: 'I pressure-test demand, value and cost-to-serve before this takes a roadmap slot.',              a: 'Sizing model + business case',         m: ['TAM / SAM', 'Cost per Task'] },
+    { k: 'PRD',        p: 'Define',   t: 'write the PRD',          d: 'I set success metrics and non-goals up front, so scope creep has something to lose against.',    a: 'PRD + acceptance criteria',            m: ['Success Metrics', 'Non-Goals'] },
+    { k: 'HHH bar',    p: 'Define',   t: 'set the HHH bar',        d: 'I define what helpful, honest and harmless mean for this product before a model is chosen.',     a: 'HHH launch criteria',                  m: ['Refusal Policy', 'Tone Spec'] },
+    { k: 'prototype',  p: 'Build',    t: 'prototype it myself',    d: 'I build a working version in Claude Code first, so the spec argues with reality early.',         a: 'Working prototype',                    m: ['Time to Prototype', 'Concept Validation'] },
+    { k: 'guardrails', p: 'Build',    t: 'design the guardrails',  d: 'I decide what the model may answer, where it must cite, and where it must defer to a human.',    a: 'Guardrail + escalation spec',          m: ['Refusal Accuracy', 'Escalation Rate'] },
+    { k: 'eval set',   p: 'Validate', t: 'build the eval set',     d: 'I hand-label a golden set with the hard cases in it, not the ones that demo nicely.',            a: 'Labelled golden set',                  m: ['Coverage', 'Label Quality'] },
+    { k: 'evals',      p: 'Validate', t: 'run the evals',          d: 'I score against that set every build, so regressions show up before users find them.',           a: 'Eval report + baseline',               m: ['Accuracy / F1', 'Pass Rate'] },
+    { k: 'red team',   p: 'Validate', t: 'red-team it',            d: 'I try to break it on purpose — jailbreaks, edge cases, and the ways it fails quietly.',          a: 'Red-team findings log',                m: ['Hallucination Rate', 'Jailbreak Resistance'] },
+    { k: 'ship',       p: 'Ship',     t: 'ship in stages',         d: 'I roll out behind a flag to a small cohort first, with a documented rollback trigger.',          a: 'Staged rollout plan',                  m: ['Error Budget', 'Rollback Trigger'] },
+    { k: 'learn',      p: 'Learn',    t: 'close the loop',         d: 'I watch real usage, log where it disappoints, and feed that into the next increment.',           a: 'Usage insights + next backlog',        m: ['Adoption', 'Task Completion', 'CSAT'] }
+  ];
+
+  const DUR = 8600;
+  const wrap    = document.getElementById('loop-steps');
+  const numEl   = document.getElementById('loop-num');
+  const phaseEl = document.getElementById('loop-phase');
+  const titleEl = document.getElementById('loop-title');
+  const descEl  = document.getElementById('loop-desc');
+  const artEl   = document.getElementById('loop-art');
+  const chipsEl = document.getElementById('loop-chips');
+  const botEl   = document.getElementById('loop-bot');
+  const btn     = document.getElementById('loop-toggle');
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let i = 0, timer = null, typer = null, playing = false, seen = false, userPaused = false;
+
+  steps.forEach((s, n) => {
+    const e = document.createElement('span');
+    e.className = 'loop-step-chip';
+    e.textContent = s.k;
+    e.addEventListener('click', () => { userPaused = true; pause(); i = n; render(); });
+    wrap.appendChild(e);
+  });
+
+  function type(el, txt) {
+    clearInterval(typer);
+    if (reduced) { el.textContent = txt; return; }
+    el.textContent = '';
+    let k = 0;
+    typer = setInterval(() => {
+      el.textContent = txt.slice(0, ++k);
+      if (k >= txt.length) clearInterval(typer);
+    }, 14);
+  }
+
+  function render() {
+    const s = steps[i];
+    numEl.textContent = String(i + 1).padStart(2, '0');
+    phaseEl.textContent = s.p;
+    titleEl.textContent = s.t;
+    artEl.textContent = s.a;
+    type(descEl, s.d);
+
+    Array.prototype.forEach.call(wrap.children, (e, n) => {
+      e.classList.toggle('active', n === i);
+      e.classList.toggle('done', n < i);
+    });
+
+    const el = wrap.children[i];
+    if (el) botEl.style.left = Math.max(0, el.offsetLeft + el.offsetWidth / 2 - 12) + 'px';
+
+    chipsEl.innerHTML = '';
+    s.m.forEach((m) => {
+      const e = document.createElement('span');
+      e.className = 'loop-chip';
+      e.textContent = m;
+      chipsEl.appendChild(e);
+    });
+  }
+
+  function play() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(() => { i = (i + 1) % steps.length; render(); }, DUR);
+    playing = true;
+    btn.innerHTML = '&#10073;&#10073;';
+    btn.setAttribute('aria-label', 'Pause the loop');
+  }
+
+  function pause() {
+    clearInterval(timer);
+    timer = null;
+    playing = false;
+    btn.innerHTML = '&#9654;';
+    btn.setAttribute('aria-label', 'Play the loop');
+  }
+
+  btn.addEventListener('click', () => {
+    if (playing) { userPaused = true; pause(); }
+    else { userPaused = false; play(); }
+  });
+
+  render();
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        render();
+        if (!userPaused && !playing) { seen = true; play(); }
+      } else if (playing) {
+        clearInterval(timer); timer = null; playing = false;
+      }
+    });
+  }, { threshold: 0.25 });
+  io.observe(card);
+
+  window.addEventListener('resize', render, { passive: true });
+})();
+</script>
+
+<!-- ───────────────────────────────────────────
+  TODAY'S POST HIGHLIGHT (Live Post section)
+  Add data-posted="YYYY-MM-DDTHH:MM:SS" to a post
+  and it auto-highlights for the rest of that day.
+──────────────────────────────────────────── -->
+<script>
+(function () {
+  const items = document.querySelectorAll('#live-post-list .ship-item[data-posted]');
+  if (!items.length) return;
+
+  const now = new Date();
+  const isSameDay = (a, b) =>
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate();
+
+  function agoLabel(then) {
+    const mins = Math.floor((now - then) / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    const hrs = Math.floor(mins / 60);
+    return hrs + 'h ago';
+  }
+
+  items.forEach((el) => {
+    const posted = new Date(el.getAttribute('data-posted'));
+    if (isNaN(posted) || !isSameDay(posted, now) || posted > now) return;
+
+    el.classList.add('ship-item-today');
+
+    const body = el.querySelector('.ship-body');
+    if (!body || body.querySelector('.ship-today-head')) return;
+
+    const head = document.createElement('div');
+    head.className = 'ship-today-head';
+    head.innerHTML =
+      '<span class="ship-today-badge"><span class="dot"></span>New today</span>' +
+      '<span class="ship-today-ago">' + agoLabel(posted) + '</span>';
+    body.insertBefore(head, body.firstChild);
+  });
+})();
 </script>
 
 <!-- ───────────────────────────────────────────
