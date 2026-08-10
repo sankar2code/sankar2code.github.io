@@ -9057,7 +9057,7 @@
     <div class="lp-scroll-wrap">
     <div class="shipped-list shipped-list-scroll" id="live-post-list">
       <div class="ship-rail"></div>
-      <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_leadership-organizationaltransformation-changemanagement-share-7489710355355516928-gG_9/" target="_blank" rel="noopener">
+      <a class="ship-item ship-item-linked" data-cat="article" data-posted="2026-08-10T11:00:00" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_leadership-organizationaltransformation-changemanagement-share-7489710355355516928-gG_9/" target="_blank" rel="noopener">
         <span class="ship-icon">📊</span>
         <div class="ship-body">
           <p class="ship-text">Cited McKinsey and Prosci data on why leaders who visibly model change are 5.3x more likely to succeed — DBS's Piyush Gupta lived it, Credit Suisse's António Horta-Osório is the cautionary tale<span class="ship-tag ship-tag-article">Article</span></p>
@@ -12106,25 +12106,43 @@
     if (mins < 1) return 'just now';
     if (mins < 60) return mins + 'm ago';
     const hrs = Math.floor(mins / 60);
-    return hrs + 'h ago';
+    if (hrs < 24) return hrs + 'h ago';
+    const days = Math.floor(hrs / 24);
+    return days + 'd ago';
   }
 
+  // Previously this only lit up a post whose data-posted matched today's
+  // exact calendar date — so the badge silently went dark the day after and
+  // stayed empty forever unless someone remembered to hand-edit a new date.
+  // Instead: always highlight whichever dated post is most recent (as long
+  // as it's within the last 14 days, so this doesn't stay stuck lit on an
+  // old post if the list goes quiet) — no manual upkeep required.
+  const FRESH_WINDOW_MS = 14 * 24 * 60 * 60 * 1000;
+  let latestEl = null;
+  let latestPosted = null;
   items.forEach((el) => {
     const posted = new Date(el.getAttribute('data-posted'));
-    if (isNaN(posted) || !isSameDay(posted, now) || posted > now) return;
-
-    el.classList.add('ship-item-today');
-
-    const body = el.querySelector('.ship-body');
-    if (!body || body.querySelector('.ship-today-head')) return;
-
-    const head = document.createElement('div');
-    head.className = 'ship-today-head';
-    head.innerHTML =
-      '<span class="ship-today-badge"><span class="dot"></span>New today</span>' +
-      '<span class="ship-today-ago">' + agoLabel(posted) + '</span>';
-    body.insertBefore(head, body.firstChild);
+    if (isNaN(posted) || posted > now) return;
+    if (!latestPosted || posted > latestPosted) {
+      latestPosted = posted;
+      latestEl = el;
+    }
   });
+
+  if (!latestEl || (now - latestPosted) > FRESH_WINDOW_MS) return;
+
+  latestEl.classList.add('ship-item-today');
+
+  const body = latestEl.querySelector('.ship-body');
+  if (!body || body.querySelector('.ship-today-head')) return;
+
+  const label = isSameDay(latestPosted, now) ? 'New today' : 'Latest';
+  const head = document.createElement('div');
+  head.className = 'ship-today-head';
+  head.innerHTML =
+    '<span class="ship-today-badge"><span class="dot"></span>' + label + '</span>' +
+    '<span class="ship-today-ago">' + agoLabel(latestPosted) + '</span>';
+  body.insertBefore(head, body.firstChild);
 })();
 </script>
 
