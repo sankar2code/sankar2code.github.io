@@ -7077,24 +7077,6 @@
   </div>
   <div class="nb-grid reveal">
 
-    <!-- Second Brain (Q3 2026) -->
-    <div class="project-card project-card--interactive" onclick="document.getElementById('secondbrain-modal').classList.add('open')">
-      <div class="project-header ph-3">🧠</div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="tag tag-coral">GenAI · Knowledge Management</span>
-          <span class="tag tag-purple">Agentic AI</span>
-          <span class="tag tag-coming-soon">Coming Soon · Q3 2026</span>
-        </div>
-        <h3>Second Brain</h3>
-        <div class="project-pills">
-          <span class="project-pill">Persistent knowledge base</span>
-          <span class="project-pill">Ingest / Query / Lint loop</span>
-          <span class="project-pill">Obsidian + LLM stack</span>
-        </div>
-      </div>
-    </div>
-
     <!-- Enterprise AI Data Copilot Suite (Q4 2026) -->
     <div class="project-card project-card--interactive" onclick="document.getElementById('datacopilot-modal').classList.add('open')">
       <div class="project-header ph-1">🗂️</div>
@@ -7366,66 +7348,6 @@
   </div>
 </div>
 
-<!-- ───────────────────────────────────────────
-  SECOND BRAIN MODAL
-──────────────────────────────────────────── -->
-<div class="modal-backdrop" id="secondbrain-modal" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <div>
-        <div class="modal-title">🧠 Second Brain</div>
-        <div class="modal-tags">
-          <span class="tag tag-coral">GenAI · Knowledge Management</span>
-          <span class="tag tag-purple">Agentic AI</span>
-          <span class="modal-year tag-coming-soon">Coming Soon · Q3 2026</span>
-        </div>
-      </div>
-      <button class="modal-close" onclick="document.getElementById('secondbrain-modal').classList.remove('open')">✕</button>
-    </div>
-    <div class="modal-body">
-
-      <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>Standard RAG tools — NotebookLM, ChatGPT uploads, most "chat with your docs" pipelines — retrieve chunks and generate an answer, but the model rediscovers knowledge from scratch on every question. Nothing accumulates.</p>
-        <p><span class="qs-label qs-approach">Approach</span>Build an agent that incrementally writes and maintains a persistent, interlinked markdown wiki between me and my raw sources.</p>
-        <p><span class="qs-label qs-result">Result</span>A personal knowledge base that compounds instead of resets, with the LLM absorbing the maintenance burden that kills most human-run wikis — architecture defined, build targeting Q4 2026.</p>
-      </div>
-
-      <details class="modal-details">
-        <summary>Read the full write-up</summary>
-        <div class="modal-section">
-          <h4>Problem Statement</h4>
-          <p>Most "chat with your documents" tools share the same flaw: you upload a collection of files, the LLM retrieves relevant chunks at query time, and generates an answer — but it's rediscovering knowledge from scratch on every question. Read fifty articles on a topic and the fifty-first question still starts from zero. Vannevar Bush described the fix back in 1945 with the Memex — a personal, curated knowledge store with associative trails between documents — but the part he couldn't solve was who does the maintenance. Humans abandon wikis because the upkeep grows faster than the value they return.</p>
-        </div>
-
-        <div class="modal-section">
-          <h4>Solution</h4>
-          <p>Second Brain flips the RAG model around. Instead of chunk-and-retrieve, the LLM incrementally builds and maintains a structured wiki that sits between the user and the raw sources — summarizing new material, updating entity and concept pages, flagging contradictions with earlier claims, and strengthening the synthesis over time. The architecture runs on three layers: immutable raw sources the LLM reads but never edits, an LLM-owned wiki of markdown pages, and a schema doc that defines structure and conventions and co-evolves with the wiki. Three operations drive it — Ingest (a single source can touch 10–15 wiki pages: summary, index, entity updates, log entry), Query (search the index, read the relevant pages, synthesize a cited answer, and file good answers back as new pages so explorations compound too), and Lint (a periodic health check for contradictions, stale claims, and orphaned pages). At moderate scale — roughly a hundred sources, a few hundred pages — a plain index.md file replaces the need for embedding-based retrieval entirely. The workflow: Obsidian as the IDE, the LLM as the programmer, the wiki as the codebase, with the whole thing living in a git repo for free version history and branching.</p>
-        </div>
-      </details>
-
-      <div class="modal-section">
-        <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Persistent, compounding wiki replaces one-shot RAG — nothing gets rediscovered from scratch on the next query ✦ Ingest / Query / Lint loop keeps the knowledge base current without a human maintenance tax ✦ Realizes Vannevar Bush's 1945 Memex vision — an LLM finally solves the "who maintains it" problem</div>
-      </div>
-
-      <div class="modal-section">
-        <h4>Status</h4>
-        <p>Coming soon, targeting Q4 2026 — concept and architecture defined, with the wiki schema and Ingest/Query/Lint workflow being tailored for personal knowledge management.</p>
-      </div>
-
-      <div class="modal-section">
-        <h4>Documents</h4>
-        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="#contact" onclick="openCollabForm('secondbrain-modal')" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            Collaboration
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 <!-- ───────────────────────────────────────────
   COMPLIANCE LEASE TOOL MODAL
