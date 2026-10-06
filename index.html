@@ -2675,6 +2675,279 @@
     }
 
     /* ═══════════════════════════════════════════════
+       ASK MY TWIN ABOUT THIS — inside project pop-ups
+    ═══════════════════════════════════════════════ */
+    .atw-box { border: 1px solid rgba(56,189,248,0.3); background: rgba(37,99,235,0.07); border-radius: 12px; padding: 0.9rem 1rem; }
+    .atw-btn {
+      font: inherit; font-size: 0.85rem; font-weight: 700; color: #0b1220; background: #7dd3fc; border: 0; border-radius: 10px;
+      padding: 0.55rem 1rem; cursor: pointer; box-shadow: 0 0 0 0 rgba(125,211,252,0.55); animation: atwPulse 2.4s infinite;
+    }
+    .atw-btn:active { transform: scale(0.97); }
+    @keyframes atwPulse { 70% { box-shadow: 0 0 0 10px rgba(125,211,252,0); } 100% { box-shadow: 0 0 0 0 rgba(125,211,252,0); } }
+    .atw-qs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
+    .atw-q {
+      font: inherit; font-size: 0.78rem; text-align: left; color: var(--text-body); background: transparent;
+      border: 1px solid var(--border); border-radius: 999px; padding: 0.3rem 0.75rem; cursor: pointer; transition: border-color 0.2s, color 0.2s;
+    }
+    .atw-q:hover { border-color: #38bdf8; color: var(--white); }
+    .atw-note { font-size: 0.72rem; color: var(--muted); margin-top: 0.55rem; }
+    html.light .atw-btn { background: #1d4ed8; color: #fff; }
+    html.light .atw-box { border-color: rgba(29,78,216,0.3); background: rgba(29,78,216,0.05); }
+
+    /* ═══════════════════════════════════════════════
+       ARCHITECTURE X-RAY — on built project cards
+    ═══════════════════════════════════════════════ */
+    .xr-host { position: relative; }
+    .xr-btn {
+      position: absolute; top: 10px; left: 10px; z-index: 4; font: inherit; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
+      color: #0b1220; background: #7dd3fc; border: 0; border-radius: 999px; padding: 4px 10px; cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3); transition: transform 0.15s;
+    }
+    .xr-btn:hover { transform: translateY(-1px); }
+    .xr-btn:active { transform: scale(0.95); }
+    .xr-panel {
+      position: absolute; inset: 0; z-index: 3; padding: 2.6rem 1rem 1rem; overflow-y: auto; cursor: default;
+      background: rgba(10,10,22,0.97); backdrop-filter: blur(6px); border-radius: inherit;
+      opacity: 0; visibility: hidden; transform: scale(0.98); transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+      background-image: linear-gradient(rgba(56,189,248,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .xr-host.xr-on .xr-panel { opacity: 1; visibility: visible; transform: none; }
+    .xr-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #7dd3fc; margin-bottom: 0.55rem; }
+    .xr-layers { display: flex; flex-direction: column; gap: 0.4rem; position: relative; }
+    .xr-layer {
+      display: grid; grid-template-columns: 84px 1fr; gap: 0.5rem; align-items: center; border-radius: 9px; padding: 0.45rem 0.6rem;
+      font-size: 0.74rem; line-height: 1.4; color: var(--text-body);
+    }
+    .xr-layer b { font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .xr-io  { background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
+    .xr-io b { color: var(--muted); }
+    .xr-det { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.4); }
+    .xr-det b { color: #7dd3fc; }
+    .xr-llm { background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.45); }
+    .xr-llm b { color: #c4b5fd; }
+    .xr-hum { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.4); }
+    .xr-hum b { color: #4ade80; }
+    .xr-legend { display: flex; flex-wrap: wrap; gap: 0.7rem; font-size: 0.66rem; color: var(--muted); margin-top: 0.6rem; }
+    .xr-legend span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; vertical-align: 0; }
+    .xr-legend .l1::before { background: #38bdf8; } .xr-legend .l2::before { background: #a78bfa; } .xr-legend .l3::before { background: #22c55e; }
+    .xr-open { font: inherit; font-size: 0.74rem; font-weight: 600; color: #7dd3fc; background: transparent; border: 1px solid rgba(56,189,248,0.35); border-radius: 8px; padding: 0.3rem 0.7rem; cursor: pointer; margin-top: 0.6rem; }
+    html.light .xr-panel { background-color: rgba(255,255,255,0.97); }
+    html.light .xr-title, html.light .xr-det b, html.light .xr-open { color: #1d4ed8; }
+    html.light .xr-llm b { color: #6d28d9; }
+    html.light .xr-hum b { color: #15803d; }
+    html.light .xr-btn { background: #1d4ed8; color: #fff; }
+
+    /* xr-scroll-theme — themed scrollbars for X-ray panel + PRD output */
+    .xr-panel, .prdd-doc { scrollbar-width: thin; scrollbar-color: rgba(56,189,248,0.45) transparent; }
+    .xr-panel::-webkit-scrollbar, .prdd-doc::-webkit-scrollbar { width: 6px; height: 6px; }
+    .xr-panel::-webkit-scrollbar-track, .prdd-doc::-webkit-scrollbar-track { background: transparent; }
+    .xr-panel::-webkit-scrollbar-thumb, .prdd-doc::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.4); border-radius: 6px; }
+    .xr-panel::-webkit-scrollbar-thumb:hover, .prdd-doc::-webkit-scrollbar-thumb:hover { background: rgba(56,189,248,0.7); }
+    .xr-panel::-webkit-scrollbar-corner, .prdd-doc::-webkit-scrollbar-corner { background: transparent; }
+    html.light .xr-panel, html.light .prdd-doc { scrollbar-color: rgba(29,78,216,0.35) transparent; }
+    html.light .xr-panel::-webkit-scrollbar-thumb, html.light .prdd-doc::-webkit-scrollbar-thumb { background: rgba(29,78,216,0.3); }
+    html.light .xr-panel::-webkit-scrollbar-thumb:hover, html.light .prdd-doc::-webkit-scrollbar-thumb:hover { background: rgba(29,78,216,0.55); }
+
+    /* ═══════════════════════════════════════════════
+       BEFORE / AFTER IMPACT SLIDER — functional domains
+    ═══════════════════════════════════════════════ */
+    .ba-card { position: relative; margin-top: 1.8rem; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.3rem 1.4rem 1.4rem; overflow: hidden; }
+    .ba-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--grad); }
+    .ba-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #7dd3fc; }
+    .ba-head { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
+    .ba-head h3 { font-size: 1.05rem; color: var(--white); margin-top: 0.2rem; }
+    .ba-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+    .ba-tabs button { font: inherit; font-size: 0.78rem; font-weight: 600; border: 1px solid var(--border); background: transparent; color: var(--muted); border-radius: 999px; padding: 0.4rem 0.85rem; cursor: pointer; transition: all 0.2s; }
+    .ba-tabs button.on { background: var(--grad2); color: #fff; border-color: transparent; }
+    .ba-ends { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .ba-ends b { color: var(--white); font-weight: 600; }
+    .ba-ends span:last-child { text-align: right; }
+    .ba-range { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 8px; outline: none; cursor: pointer; background: linear-gradient(90deg, #475569, #2563eb, #38bdf8); }
+    .ba-range::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 3px solid #38bdf8; box-shadow: 0 0 12px rgba(56,189,248,0.6); cursor: grab; }
+    .ba-range::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid #38bdf8; cursor: grab; }
+    .ba-range:focus-visible { box-shadow: 0 0 0 3px rgba(56,189,248,0.35); }
+    .ba-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; margin: 1rem 0; }
+    .ba-m { background: rgba(37,99,235,0.06); border: 1px solid var(--border); border-radius: 12px; padding: 0.8rem 0.9rem; }
+    .ba-m .k { font-size: 0.66rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .ba-m .v { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--white); font-variant-numeric: tabular-nums; }
+    .ba-m .s { font-size: 0.74rem; color: #7dd3fc; }
+    .ba-steps-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .ba-steps { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.45rem; }
+    .ba-steps span { font-size: 0.74rem; padding: 0.3rem 0.6rem; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-body); transition: all 0.3s; }
+    .ba-steps span.auto { background: rgba(56,189,248,0.13); border-color: rgba(56,189,248,0.4); color: #7dd3fc; }
+    .ba-foot { font-size: 0.7rem; color: var(--muted); margin-top: 0.8rem; }
+    html.light .ba-eyebrow, html.light .ba-m .s, html.light .ba-steps span.auto { color: #1d4ed8; }
+    html.light .ba-steps span.auto { background: rgba(29,78,216,0.08); border-color: rgba(29,78,216,0.35); }
+    html.light .ba-steps span { background: rgba(0,0,0,0.03); }
+    @media (max-width: 720px) {
+      .ba-metrics { grid-template-columns: 1fr; }
+      .ba-card { padding: 1.1rem 1rem 1.2rem; }
+      .ba-ends { flex-direction: column; gap: 0.2rem; }
+      .ba-ends span:last-child { text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .atw-btn { animation: none; }
+      .xr-panel, .ba-steps span { transition: none; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       PROMPT-TO-PRD — live demo of the prd-v2 skill
+    ═══════════════════════════════════════════════ */
+    .prdd-card {
+      position: relative; margin-top: 2rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.4rem 1.5rem 1.5rem; overflow: hidden;
+    }
+    .prdd-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--grad); }
+    .prdd-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #7dd3fc; display: flex; align-items: center; gap: 0.5rem; }
+    .prdd-live { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 0 rgba(34,197,94,0.6); animation: prddPing 1.8s infinite; }
+    @keyframes prddPing { 70% { box-shadow: 0 0 0 7px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+    .prdd-title { font-size: 1.15rem; margin: 0.4rem 0 0.2rem; color: var(--white); }
+    .prdd-sub { font-size: 0.86rem; color: var(--text-body); margin-bottom: 1rem; }
+    .prdd-sub a { color: #7dd3fc; text-decoration: none; border-bottom: 1px dashed rgba(125,211,252,0.5); }
+    .prdd-form { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .prdd-input {
+      flex: 1; min-width: 220px; font: inherit; font-size: 0.92rem; color: var(--white);
+      background: rgba(37,99,235,0.06); border: 1px solid rgba(56,189,248,0.3); border-radius: 10px; padding: 0.7rem 0.9rem; outline: none;
+    }
+    .prdd-input:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,0.15); }
+    .prdd-btn {
+      font: inherit; font-size: 0.86rem; font-weight: 600; color: #fff; border: 0; border-radius: 10px; padding: 0.7rem 1.2rem;
+      background: var(--grad2); cursor: pointer; white-space: nowrap;
+    }
+    .prdd-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .prdd-btn:active:not(:disabled) { transform: scale(0.97); }
+    .prdd-btn.ghost { background: transparent; border: 1px solid rgba(56,189,248,0.35); color: #7dd3fc; padding: 0.5rem 0.9rem; font-size: 0.8rem; }
+    .prdd-row { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-top: 0.75rem; }
+    .prdd-row-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-right: 0.2rem; }
+    .prdd-chip {
+      font: inherit; font-size: 0.76rem; color: var(--text-body); background: rgba(37,99,235,0.07); border: 1px solid var(--border);
+      border-radius: 999px; padding: 0.3rem 0.75rem; cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .prdd-chip:hover { border-color: #38bdf8; }
+    .prdd-chip.on { background: var(--grad2); color: #fff; border-color: transparent; }
+    .prdd-meta { font-size: 0.74rem; color: var(--muted); margin-top: 0.7rem; }
+    .prdd-out { display: none; margin-top: 1.1rem; border: 1px solid var(--border); border-radius: 12px; background: rgba(8,8,15,0.45); }
+    .prdd-out.on { display: block; animation: prddFade 0.35s ease; }
+    @keyframes prddFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .prdd-out-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; flex-wrap: wrap; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--border); }
+    .prdd-out-bar span { font-size: 0.74rem; color: var(--muted); }
+    .prdd-actions { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .prdd-loading { padding: 1.4rem 1rem; display: flex; align-items: center; gap: 0.8rem; color: var(--text-body); font-size: 0.88rem; }
+    .prdd-spin { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(56,189,248,0.25); border-top-color: #38bdf8; animation: prddSpin 0.8s linear infinite; flex: none; }
+    @keyframes prddSpin { to { transform: rotate(360deg); } }
+    .prdd-doc { padding: 1rem 1.2rem 1.3rem; max-height: 560px; overflow-y: auto; font-size: 0.88rem; color: var(--text-body); line-height: 1.7; }
+    .prdd-doc h1 { font-size: 1.25rem; margin: 0.2rem 0 0.6rem; color: var(--white); }
+    .prdd-doc h2 { font-size: 1.02rem; margin: 1.2rem 0 0.4rem; color: var(--white); padding-top: 0.6rem; border-top: 1px solid var(--border); }
+    .prdd-doc h3, .prdd-doc h4 { font-size: 0.9rem; margin: 0.9rem 0 0.3rem; color: #7dd3fc; }
+    .prdd-doc p { margin: 0.35rem 0; }
+    .prdd-doc ul, .prdd-doc ol { margin: 0.3rem 0 0.5rem 1.3rem; }
+    .prdd-doc li { margin: 0.15rem 0; }
+    .prdd-doc li.task { list-style: none; margin-left: -1.1rem; }
+    .prdd-doc strong { color: var(--white); }
+    .prdd-doc code { font-size: 0.8rem; background: rgba(56,189,248,0.1); border-radius: 4px; padding: 0 4px; }
+    .prdd-doc pre { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 0.7rem; overflow-x: auto; font-size: 0.8rem; }
+    .prdd-doc blockquote { border-left: 3px solid #6366f1; padding: 0.3rem 0.8rem; margin: 0.5rem 0; background: rgba(99,102,241,0.08); border-radius: 0 8px 8px 0; }
+    .prdd-doc hr { border: 0; border-top: 1px solid var(--border); margin: 0.8rem 0; }
+    .prdd-tbl { overflow-x: auto; margin: 0.5rem 0; }
+    .prdd-doc table { border-collapse: collapse; width: 100%; font-size: 0.8rem; }
+    .prdd-doc th, .prdd-doc td { border: 1px solid var(--border); padding: 0.4rem 0.55rem; text-align: left; vertical-align: top; }
+    .prdd-doc th { background: rgba(37,99,235,0.12); color: var(--white); font-weight: 600; }
+    .prdd-err { padding: 1rem 1.2rem; color: #fca5a5; font-size: 0.86rem; }
+    .prdd-foot { font-size: 0.72rem; color: var(--muted); padding: 0.6rem 1rem; border-top: 1px solid var(--border); }
+    html.light .prdd-eyebrow, html.light .prdd-sub a, html.light .prdd-btn.ghost, html.light .prdd-doc h3, html.light .prdd-doc h4 { color: #1d4ed8; }
+    html.light .prdd-btn.ghost { border-color: rgba(29,78,216,0.35); }
+    html.light .prdd-out { background: rgba(255,255,255,0.6); }
+    html.light .prdd-input { border-color: rgba(29,78,216,0.3); }
+    html.light .prdd-err { color: #b91c1c; }
+    html.light .prdd-doc pre { background: rgba(0,0,0,0.05); }
+    @media (max-width: 720px) {
+      .prdd-card { padding: 1.1rem 1rem 1.2rem; }
+      .prdd-btn { width: 100%; }
+      .prdd-btn.ghost { width: auto; }
+      .prdd-doc { padding: 0.9rem 0.9rem 1rem; max-height: 480px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .prdd-live, .prdd-spin, .prdd-out.on { animation: none; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       YOU BE THE PM — decision simulator
+    ═══════════════════════════════════════════════ */
+    .ypm-card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.2rem 1.4rem 1.3rem;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .ypm-card::before {
+      content: ""; position: absolute; inset: 0 0 auto 0; height: 2px;
+      background: var(--grad);
+    }
+    .ypm-head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+    .ypm-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #7dd3fc; }
+    .ypm-score { font-size: 0.75rem; color: var(--muted); }
+    .ypm-score b { color: #38bdf8; }
+    .ypm-progress { display: flex; gap: 0.35rem; margin-bottom: 0.9rem; }
+    .ypm-progress i { flex: 1; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.08); transition: background 0.3s; }
+    .ypm-progress i.done { background: var(--grad2); }
+    .ypm-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #a78bfa; }
+    .ypm-q { font-size: 1rem; color: var(--white); font-weight: 500; line-height: 1.6; margin: 0.3rem 0 1rem; }
+    .ypm-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+    .ypm-choice {
+      text-align: left; cursor: pointer; font: inherit; font-size: 0.86rem; color: var(--text-body);
+      background: rgba(37,99,235,0.06); border: 1px solid var(--border); border-radius: 12px;
+      padding: 0.8rem 0.9rem; transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+    .ypm-choice b { display: block; color: var(--white); font-weight: 600; margin-bottom: 0.15rem; }
+    .ypm-choice small { color: var(--muted); font-size: 0.76rem; }
+    .ypm-choice:hover:not([disabled]) { border-color: #38bdf8; transform: translateY(-1px); }
+    .ypm-choice:active:not([disabled]) { transform: scale(0.98); }
+    .ypm-choice[disabled] { cursor: default; opacity: 0.55; }
+    .ypm-choice.picked { opacity: 1; border-color: #38bdf8; background: rgba(56,189,248,0.1); }
+    .ypm-choice.mine { opacity: 1; border-color: #22c55e; background: rgba(34,197,94,0.08); }
+    .ypm-reveal {
+      display: none; margin-top: 0.9rem; padding: 0.9rem 1rem; border-left: 3px solid #22c55e;
+      background: rgba(34,197,94,0.07); border-radius: 0 12px 12px 0;
+    }
+    .ypm-reveal.on { display: block; animation: ypmFade 0.4s ease; }
+    .ypm-verdict { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--white); font-size: 0.95rem; margin-bottom: 0.3rem; }
+    .ypm-why { font-size: 0.88rem; color: var(--text-body); line-height: 1.7; }
+    .ypm-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
+    .ypm-btn {
+      font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; border-radius: 10px; padding: 0.55rem 1rem;
+      color: #fff; border: 0; background: var(--grad2); text-decoration: none; display: inline-block;
+    }
+    .ypm-btn.ghost { background: transparent; border: 1px solid rgba(56,189,248,0.35); color: #7dd3fc; }
+    .ypm-btn:active { transform: scale(0.97); }
+    .ypm-final { text-align: center; padding: 0.6rem 0 0.2rem; }
+    .ypm-final .ypm-big { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .ypm-final p { color: var(--text-body); font-size: 0.9rem; max-width: 520px; margin: 0.3rem auto 0; }
+    .ypm-final .ypm-actions { justify-content: center; }
+    @keyframes ypmFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    html.light .ypm-eyebrow, html.light .ypm-btn.ghost { color: #1d4ed8; }
+    html.light .ypm-btn.ghost { border-color: rgba(29,78,216,0.35); }
+    html.light .ypm-score b { color: #1d4ed8; }
+    html.light .ypm-tag { color: #7c3aed; }
+    html.light .ypm-progress i { background: rgba(0,0,0,0.08); }
+    html.light .ypm-progress i.done { background: var(--grad2); }
+    html.light .ypm-choice { background: rgba(37,99,235,0.04); }
+    html.light .ypm-choice.picked { border-color: #1d4ed8; background: rgba(37,99,235,0.08); }
+    html.light .ypm-choice.mine { border-color: #15803d; background: rgba(21,128,61,0.08); }
+    html.light .ypm-reveal { border-left-color: #15803d; background: rgba(21,128,61,0.07); }
+    @media (max-width: 720px) {
+      .ypm-choices { grid-template-columns: 1fr; }
+      .ypm-card { padding: 1rem 1.1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ypm-reveal.on { animation: none; }
+      .ypm-choice, .ypm-progress i { transition: none; }
+    }
+
+    /* ═══════════════════════════════════════════════
        THE LOOP — how I build with AI
     ═══════════════════════════════════════════════ */
     .loop-card {
@@ -6848,6 +7121,28 @@
     </div>
 
   </div>
+  <!-- BEFORE / AFTER IMPACT SLIDER -->
+  <div class="ba-card reveal" id="ba-card">
+    <div class="ba-head">
+      <div><div class="ba-eyebrow">⚡ Before / After · Drag to see the impact</div><h3>From manual process to shipped product</h3></div>
+      <div class="ba-tabs" role="tablist" aria-label="Choose a project">
+        <button type="button" class="on" data-i="0" role="tab" aria-selected="true">🧪 TrialHub</button>
+        <button type="button" data-i="1" role="tab" aria-selected="false">🏥 ProviderIQ</button>
+        <button type="button" data-i="2" role="tab" aria-selected="false">🤖 InsightMD</button>
+      </div>
+    </div>
+    <div class="ba-ends"><span>Before · <b id="ba-before"></b></span><span>After · <b id="ba-after"></b></span></div>
+    <input type="range" class="ba-range" id="ba-range" min="0" max="100" value="0" aria-label="Before to after">
+    <div class="ba-metrics">
+      <div class="ba-m"><div class="k" id="ba-k0"></div><div class="v" id="ba-v0"></div><div class="s" id="ba-s0"></div></div>
+      <div class="ba-m"><div class="k" id="ba-k1"></div><div class="v" id="ba-v1"></div><div class="s" id="ba-s1"></div></div>
+      <div class="ba-m"><div class="k" id="ba-k2"></div><div class="v" id="ba-v2"></div><div class="s" id="ba-s2"></div></div>
+    </div>
+    <div class="ba-steps-label">Workflow</div>
+    <div class="ba-steps" id="ba-steps"></div>
+    <p class="ba-foot">Outcomes from internal program reporting · project names anonymized for client confidentiality.</p>
+  </div>
+
 </section>
 
 <div class="divider"></div>
@@ -7191,6 +7486,114 @@
     </div>
 
   </div>
+
+  <div style="height:1.5rem"></div>
+  <!-- YOU BE THE PM — decision simulator -->
+  <div class="ypm-card reveal" id="ypm">
+    <div class="ypm-head">
+      <span class="ypm-eyebrow">🎮 You Be the PM · Make the call</span>
+      <span class="ypm-score" id="ypm-score">Scenario <b>1</b> / 3</span>
+    </div>
+    <div class="ypm-progress" id="ypm-progress"><i></i><i></i><i></i></div>
+    <div id="ypm-body"></div>
+  </div>
+  <script>
+  (function () {
+    var S = [
+      {
+        tag: 'Launch readiness',
+        q: 'Your clinical-trial AI summarizer scores 92% on the eval set, but 3 of the 8 failures invent a stop reason that isn\u2019t in the source. Launch is Friday. What do you do?',
+        c: [
+          ['🚀 Ship it', '92% clears the bar; patch in v1.1'],
+          ['🧱 Hold & add a hard gate', 'Block any unlabeled claim, then ship'],
+          ['🧑\u200d⚕️ Ship with a disclaimer', 'Tell users to double-check']
+        ],
+        a: 1,
+        v: 'Hold and add a hard gate',
+        w: 'An average score hides the failure that matters. Fabricated reasons are the one error clinicians won\u2019t forgive, so I added a schema gate that rejects any response with an unlabeled claim \u2014 the rule that shipped in ClinicalAI-TrialAnalysis. Accuracy is a launch bar; trust is the product.'
+      },
+      {
+        tag: 'Agent or workflow',
+        q: 'A stakeholder wants the trial-matching assistant to decide patient eligibility on its own and email the research coordinator automatically. How do you scope it?',
+        c: [
+          ['🤖 Full autonomy', 'Let the agent decide and send'],
+          ['🧭 Engine decides, agent assists', 'Deterministic eligibility; agent gathers evidence; clinician approves'],
+          ['📏 Rules only, no AI', 'Skip the LLM entirely']
+        ],
+        a: 1,
+        v: 'Engine decides, agent assists',
+        w: 'Eligibility is the system of record, so it stays deterministic, criterion-scored, and auditable. The agent earns its place where the path genuinely varies \u2014 chasing missing labs, re-screening when a trial opens, drafting the handoff \u2014 and nothing is sent without clinician approval.'
+      },
+      {
+        tag: 'Regulated rollout',
+        q: 'Leadership wants a gen-AI drafting feature inside a GxP Medical Affairs system next sprint. Validation (IQ/OQ/PQ) will take weeks. What\u2019s your move?',
+        c: [
+          ['⚡ Quiet pilot', 'Ship it outside the validated system'],
+          ['🪜 Stage it', 'Start draft-only and human-reviewed while validation runs'],
+          ['⏸️ Wait a quarter', 'Hold everything until fully validated']
+        ],
+        a: 1,
+        v: 'Stage it',
+        w: 'Speed and compliance aren\u2019t a trade-off if you sequence them. A draft-only, human-reviewed scope delivers value and real usage data now, while the validation package runs in parallel. The GxP decision path only opens once IQ/OQ/PQ is signed off \u2014 no shortcuts that create audit findings later.'
+      }
+    ];
+    var i = 0, score = 0;
+    var body = document.getElementById('ypm-body');
+    var scoreEl = document.getElementById('ypm-score');
+    var bars = document.querySelectorAll('#ypm-progress i');
+    if (!body) return;
+
+    function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+    function render() {
+      var s = S[i];
+      scoreEl.innerHTML = 'Scenario <b>' + (i + 1) + '</b> / ' + S.length;
+      var h = '<span class="ypm-tag">' + esc(s.tag) + '</span>' +
+              '<p class="ypm-q">' + esc(s.q) + '</p><div class="ypm-choices">';
+      s.c.forEach(function (c, k) {
+        h += '<button type="button" class="ypm-choice" data-k="' + k + '"><b>' + esc(c[0]) + '</b><small>' + esc(c[1]) + '</small></button>';
+      });
+      h += '</div><div class="ypm-reveal" id="ypm-reveal" aria-live="polite"></div>';
+      body.innerHTML = h;
+      body.querySelectorAll('.ypm-choice').forEach(function (b) { b.addEventListener('click', pick); });
+    }
+
+    function pick(e) {
+      var k = +e.currentTarget.dataset.k, s = S[i], hit = k === s.a;
+      if (hit) score++;
+      body.querySelectorAll('.ypm-choice').forEach(function (b, n) {
+        b.disabled = true;
+        if (n === k) b.classList.add('picked');
+        if (n === s.a) b.classList.add('mine');
+      });
+      bars[i].classList.add('done');
+      var r = document.getElementById('ypm-reveal');
+      r.innerHTML = '<p class="ypm-verdict">' + (hit ? '✅ You matched my call: ' : 'My call: ') + esc(s.v) + '</p>' +
+        '<p class="ypm-why">' + esc(s.w) + '</p><div class="ypm-actions">' +
+        '<button type="button" class="ypm-btn" id="ypm-next">' + (i < S.length - 1 ? 'Next scenario →' : 'See my result →') + '</button></div>';
+      r.classList.add('on');
+      document.getElementById('ypm-next').addEventListener('click', next);
+    }
+
+    function next() {
+      i++;
+      if (i < S.length) { render(); return; }
+      scoreEl.innerHTML = 'Done';
+      var msg = score === S.length ? 'We think alike. Let\u2019s talk about building something together.'
+              : score >= 1 ? 'Close calls make the best conversations \u2014 ask my twin why I chose differently.'
+              : 'Different instincts, great debate. Ask my twin to defend my choices.';
+      body.innerHTML = '<div class="ypm-final"><div class="ypm-big">' + score + ' / ' + S.length + '</div>' +
+        '<p>calls matched mine. ' + msg + '</p><div class="ypm-actions">' +
+        '<a class="ypm-btn" href="#ai-twin">Ask my twin →</a>' +
+        '<button type="button" class="ypm-btn ghost" id="ypm-restart">Play again</button></div></div>';
+      document.getElementById('ypm-restart').addEventListener('click', function () {
+        i = 0; score = 0; bars.forEach(function (b) { b.classList.remove('done'); }); render();
+      });
+    }
+
+    render();
+  })();
+  </script>
 
 </section>
 
@@ -8614,6 +9017,198 @@
 
     </div>
   </div>
+
+  <!-- PROMPT-TO-PRD — live demo of the prd-v2 skill -->
+  <div class="prdd-card reveal" id="prd-demo">
+    <div class="prdd-eyebrow"><span class="prdd-live"></span>Try my PRD Writer skill · live</div>
+    <h3 class="prdd-title">Give me a feature idea. Get a PRD in seconds.</h3>
+    <p class="prdd-sub">Runs live on Claude using my PRD skill (prd-v2) — the same templates I use for my own builds. <a href="https://github.com/sankar2code/Claude-Skill-Builder-Collections" target="_blank" rel="noopener">See the skill on GitHub</a></p>
+    <form class="prdd-form" id="prdd-form" autocomplete="off">
+      <input class="prdd-input" id="prdd-idea" type="text" maxlength="300" placeholder="e.g. AI triage for inbound support tickets" aria-label="Your product or feature idea">
+      <button class="prdd-btn" id="prdd-go" type="submit">Generate PRD →</button>
+    </form>
+    <div class="prdd-row" id="prdd-formats" role="group" aria-label="PRD format">
+      <span class="prdd-row-label">Format</span>
+      <button type="button" class="prdd-chip on" data-f="auto">✨ Just write it</button>
+      <button type="button" class="prdd-chip" data-f="onepage">One-Page</button>
+      <button type="button" class="prdd-chip" data-f="brief">Feature Brief</button>
+      <button type="button" class="prdd-chip" data-f="ai">AI Product PRD</button>
+      <button type="button" class="prdd-chip" data-f="epic">Agile Epic</button>
+      <button type="button" class="prdd-chip" data-f="full">Full PRD</button>
+    </div>
+    <div class="prdd-row" id="prdd-ideas">
+      <span class="prdd-row-label">Try</span>
+      <button type="button" class="prdd-chip">AI triage for inbound support tickets</button>
+      <button type="button" class="prdd-chip">Adverse-event detection from call-center notes</button>
+      <button type="button" class="prdd-chip">Smart meeting summaries for sales reps</button>
+    </div>
+    <p class="prdd-meta" id="prdd-meta">3 PRDs per hour per visitor · AI-generated, so review before you use it.</p>
+    <div class="prdd-out" id="prdd-out" aria-live="polite"></div>
+  </div>
+  <script>
+  (function () {
+    var ENDPOINT = 'https://sankar-ai-twin.sankarkumar.workers.dev';
+    var MAX = 3, WINDOW = 60 * 60 * 1000, KEY = 'prdDemoSession';
+    var form = document.getElementById('prdd-form');
+    if (!form) return;
+    var input = document.getElementById('prdd-idea');
+    var go = document.getElementById('prdd-go');
+    var out = document.getElementById('prdd-out');
+    var meta = document.getElementById('prdd-meta');
+    var format = 'auto', lastMd = '', busy = false;
+    var FMT_NAME = { auto: 'Auto-picked format', onepage: 'One-Page PRD', brief: 'Feature Brief', ai: 'AI Product PRD', epic: 'Agile Epic', full: 'Full PRD' };
+
+    function session() {
+      var s = null, now = Date.now();
+      try { s = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { s = null; }
+      if (!s || typeof s.resetAt !== 'number' || now >= s.resetAt) s = { count: 0, resetAt: now + WINDOW };
+      return s;
+    }
+    function save(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
+    function updateMeta() {
+      var s = session(), left = Math.max(0, MAX - s.count);
+      if (left > 0) {
+        meta.textContent = left + ' of ' + MAX + ' PRDs left this hour · AI-generated, so review before you use it.';
+      } else {
+        var mins = Math.max(1, Math.ceil((s.resetAt - Date.now()) / 60000));
+        meta.textContent = 'You’ve used all ' + MAX + ' PRDs this hour — more in ' + mins + ' min. Or email me at hello@sankar.work.';
+      }
+      go.disabled = busy || left === 0;
+    }
+
+    function esc(t) { return t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    function inline(t) {
+      return esc(t)
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/(^|[^*])\*([^*\s][^*]*)\*/g, '$1<em>$2</em>');
+    }
+    function cells(line) {
+      return line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(function (c) { return c.trim(); });
+    }
+    function md(src) {
+      var lines = src.replace(/\r/g, '').split('\n'), h = '', i = 0, list = null;
+      function closeList() { if (list) { h += '</' + list + '>'; list = null; } }
+      while (i < lines.length) {
+        var l = lines[i], m;
+        if (/^```/.test(l)) {
+          closeList(); var code = []; i++;
+          while (i < lines.length && !/^```/.test(lines[i])) { code.push(lines[i]); i++; }
+          h += '<pre><code>' + esc(code.join('\n')) + '</code></pre>'; i++; continue;
+        }
+        if (/^\s*\|.*\|\s*$/.test(l) && i + 1 < lines.length && /^\s*\|?\s*:?-{2,}/.test(lines[i + 1])) {
+          closeList(); var head = cells(l); i += 2;
+          var t = '<div class="prdd-tbl"><table><thead><tr>' + head.map(function (c) { return '<th>' + inline(c) + '</th>'; }).join('') + '</tr></thead><tbody>';
+          while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) {
+            t += '<tr>' + cells(lines[i]).map(function (c) { return '<td>' + inline(c) + '</td>'; }).join('') + '</tr>'; i++;
+          }
+          h += t + '</tbody></table></div>'; continue;
+        }
+        if ((m = l.match(/^(#{1,4})\s+(.*)$/))) { closeList(); var n = m[1].length; h += '<h' + n + '>' + inline(m[2]) + '</h' + n + '>'; i++; continue; }
+        if (/^\s*(-{3,}|\*{3,})\s*$/.test(l)) { closeList(); h += '<hr>'; i++; continue; }
+        if ((m = l.match(/^>\s?(.*)$/))) {
+          closeList(); var q = [m[1]]; i++;
+          while (i < lines.length && (m = lines[i].match(/^>\s?(.*)$/))) { q.push(m[1]); i++; }
+          h += '<blockquote>' + q.map(inline).join('<br>') + '</blockquote>'; continue;
+        }
+        if ((m = l.match(/^\s*[-*]\s+\[( |x|X)\]\s+(.*)$/))) {
+          if (list !== 'ul') { closeList(); h += '<ul>'; list = 'ul'; }
+          h += '<li class="task">' + (m[1] === ' ' ? '☐ ' : '☑ ') + inline(m[2]) + '</li>'; i++; continue;
+        }
+        if ((m = l.match(/^\s*[-*]\s+(.*)$/))) {
+          if (list !== 'ul') { closeList(); h += '<ul>'; list = 'ul'; }
+          h += '<li>' + inline(m[1]) + '</li>'; i++; continue;
+        }
+        if ((m = l.match(/^\s*\d+[.)]\s+(.*)$/))) {
+          if (list !== 'ol') { closeList(); h += '<ol>'; list = 'ol'; }
+          h += '<li>' + inline(m[1]) + '</li>'; i++; continue;
+        }
+        if (!l.trim()) { closeList(); i++; continue; }
+        closeList(); h += '<p>' + inline(l) + '</p>'; i++;
+      }
+      closeList();
+      return h;
+    }
+
+    var STEPS = ['Framing the problem…', 'Defining users and the core metric…', 'Scoping the MVP…', 'Writing requirements…', 'Adding risks and assumptions…'];
+    function loading() {
+      out.className = 'prdd-out on';
+      out.innerHTML = '<div class="prdd-loading"><span class="prdd-spin"></span><span id="prdd-step">' + STEPS[0] + '</span></div>';
+      var k = 0, el = document.getElementById('prdd-step');
+      return setInterval(function () { k = (k + 1) % STEPS.length; if (el) el.textContent = STEPS[k]; }, 2600);
+    }
+
+    function render(prd, fmt, truncated) {
+      lastMd = prd;
+      out.innerHTML =
+        '<div class="prdd-out-bar"><span>' + FMT_NAME[fmt || 'auto'] + ' · generated with prd-v2</span>' +
+        '<div class="prdd-actions"><button type="button" class="prdd-btn ghost" id="prdd-copy">Copy Markdown</button>' +
+        '<button type="button" class="prdd-btn ghost" id="prdd-dl">Download .md</button></div></div>' +
+        '<div class="prdd-doc">' + md(prd) + '</div>' +
+        '<div class="prdd-foot">' + (truncated ? 'Trimmed to keep the demo fast — the full skill writes longer docs. ' : '') +
+        'AI-generated draft for illustration. Want the full version for your team? <a href="#contact" style="color:#7dd3fc">Let’s talk</a>.</div>';
+      document.getElementById('prdd-copy').addEventListener('click', function (e) {
+        var b = e.currentTarget;
+        (navigator.clipboard ? navigator.clipboard.writeText(lastMd) : Promise.reject()).then(function () { b.textContent = 'Copied ✓'; }, function () { b.textContent = 'Copy failed'; });
+        setTimeout(function () { b.textContent = 'Copy Markdown'; }, 1800);
+      });
+      document.getElementById('prdd-dl').addEventListener('click', function () {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([lastMd], { type: 'text/markdown' }));
+        a.download = 'PRD.md'; document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+      });
+    }
+
+    function fail(msg) {
+      out.className = 'prdd-out on';
+      out.innerHTML = '<div class="prdd-err">' + esc(msg) + '</div>';
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var idea = input.value.trim();
+      if (busy) return;
+      if (idea.length < 5) { input.focus(); fail('Describe a product or feature idea in a few words — or tap one of the examples.'); return; }
+      var s = session();
+      if (s.count >= MAX) { updateMeta(); return; }
+      s.count++; save(s);
+      busy = true; updateMeta();
+      var timer = loading();
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ mode: 'prd', idea: idea, format: format })
+      }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          clearInterval(timer);
+          if (res.ok && res.d && res.d.prd) { render(res.d.prd, res.d.format, res.d.truncated); }
+          else {
+            s.count = Math.max(0, s.count - 1); save(s);
+            fail((res.d && res.d.error && res.d.error.indexOf('idea') !== -1) ? res.d.error : 'Couldn’t generate a PRD right now — try again in a moment, or email me at hello@sankar.work.');
+          }
+        })
+        .catch(function () {
+          clearInterval(timer);
+          s.count = Math.max(0, s.count - 1); save(s);
+          fail('Couldn’t reach the PRD writer right now — try again in a moment.');
+        })
+        .then(function () { busy = false; updateMeta(); });
+    });
+
+    document.querySelectorAll('#prdd-formats .prdd-chip').forEach(function (b) {
+      b.addEventListener('click', function () {
+        format = b.dataset.f;
+        document.querySelectorAll('#prdd-formats .prdd-chip').forEach(function (x) { x.classList.toggle('on', x === b); });
+      });
+    });
+    document.querySelectorAll('#prdd-ideas .prdd-chip').forEach(function (b) {
+      b.addEventListener('click', function () { input.value = b.textContent; input.focus(); });
+    });
+    updateMeta();
+    setInterval(updateMeta, 30000);
+  })();
+  </script>
 </section>
 
 <div class="divider"></div>
@@ -12785,5 +13380,174 @@
 })();
 </script>
 
+<script>
+/* ── Ask my twin about this · Architecture X-ray · Before/After slider ── */
+(function () {
+  function onReady(fn) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
+
+  /* 1. Ask my twin about this — every project pop-up */
+  function askTwin(modalId, question) {
+    if (window.closeProjectModal) window.closeProjectModal(modalId);
+    document.body.style.overflow = '';
+    var twin = document.getElementById('ai-twin');
+    var form = document.getElementById('twin-form');
+    var input = document.getElementById('twin-input');
+    if (!twin || !form || !input) return;
+    setTimeout(function () {
+      twin.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(function () {
+        input.value = question;
+        if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', { cancelable: true }));
+      }, 650);
+    }, 250);
+  }
+  function setupAsk() {
+    document.querySelectorAll('.modal-backdrop[id$="-modal"]').forEach(function (bd) {
+      if (bd.id === 'scienceai-techstack-modal' || bd.querySelector('.atw-box')) return;
+      var titleEl = bd.querySelector('.modal-title'), body = bd.querySelector('.modal-body');
+      if (!titleEl || !body) return;
+      var full = titleEl.textContent.replace(/^[^A-Za-z0-9]+/, '').trim();
+      var name = full.split(/\s[–—:-]\s|:\s/)[0].trim();
+      var qs = ['What trade-offs did you make on ' + name + '?', 'How did you measure success on ' + name + '?', 'What would you build next for ' + name + '?'];
+      var sec = document.createElement('div');
+      sec.className = 'modal-section';
+      sec.innerHTML = '<h4>Ask about this project</h4><div class="atw-box"><button type="button" class="atw-btn"></button><div class="atw-qs"></div>' +
+        '<p class="atw-note">Answered by my Claude-powered AI twin, grounded on my real work · 5 questions per hour.</p></div>';
+      var btn = sec.querySelector('.atw-btn');
+      btn.textContent = '🤖 Ask my twin about ' + name;
+      btn.addEventListener('click', function () { askTwin(bd.id, 'Tell me about ' + name + ' — what problem did it solve and how did you build it?'); });
+      var wrap = sec.querySelector('.atw-qs');
+      qs.forEach(function (q) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'atw-q'; b.textContent = q;
+        b.addEventListener('click', function () { askTwin(bd.id, q); });
+        wrap.appendChild(b);
+      });
+      body.appendChild(sec);
+    });
+  }
+
+  /* 2. Architecture X-ray — built project cards */
+  var XR = {
+    'ClinicalAI-TrialAnalysis': [
+      ['io', 'Input', 'NCT ID — validated client-side, stateless, no login'],
+      ['det', 'Retrieval', 'ClinicalTrials.gov v2 + linked PubMed (NCBI E-utilities) only'],
+      ['llm', 'LLM', 'Claude reasons over a 7-category failure taxonomy and ranks hypotheses'],
+      ['det', 'Gate', 'Schema validation — every claim labeled Fact, Inference, or Hypothesis']],
+    'Company Comparison': [
+      ['io', 'Input', 'Two company names + visitor’s own OpenAI key (stays in the browser)'],
+      ['det', 'Tool', 'Live web search for current data'],
+      ['llm', 'LLM', 'GPT-4o-mini writes the structured comparison: financials, moats, SWOT, risks'],
+      ['hum', 'Verify', 'Citations on claims so the reader can check the output']],
+    'ContractIQ': [
+      ['io', 'Input', 'NDA or MSA upload — full text kept as context, no chunking'],
+      ['llm', 'LLM', 'GPT-4o JSON mode, temp 0.1, few-shot extraction of 10 NDA / 12 MSA terms'],
+      ['det', 'Guardrails', 'JSON-parse retry · "not found" regression test · CUAD calibration checks'],
+      ['hum', 'Human', 'Confidence score + page + verbatim source; under 50% gets a non-dismissible warning']],
+    'ProjectPilot AI': [
+      ['io', 'UI', 'Drag-and-drop Kanban boards'],
+      ['det', 'Data', 'Supabase Realtime sync + multi-tenant workspaces with role management'],
+      ['llm', 'LLM', 'Backlog-aware assistant answers questions and creates issues from natural language'],
+      ['hum', 'Team', 'Owners, admins, and members stay in control of the board']],
+    'ScienceAI': [
+      ['io', 'Sources', 'Papers, clinical trials, conferences, competitor data'],
+      ['det', 'Retrieval', 'Langflow RAG pipeline over a GraphDB'],
+      ['llm', 'LLM', 'GPT-5-mini streams sourced answers (Next.js)'],
+      ['io', 'Output', 'ElevenLabs TTS audio summaries and dual-voice podcasts']],
+    'Enterprise AI Data Copilot Suite': [
+      ['io', 'Orchestration', 'n8n scheduling + MCP bridge · per-step audit trail'],
+      ['det', 'Engines', 'ydata-profiling · pgvector · sqlglot (read-only SQL) · Presidio (PII/PHI)'],
+      ['llm', 'LLM', 'Langflow agents explain, classify, and narrate — never own the ground truth'],
+      ['hum', 'Governance', 'Findings mapped to HIPAA, GDPR, and 21 CFR Part 11 for review']],
+    'Agentic Clinical Trial Matching': [
+      ['io', 'Patient data', 'FHIR resources + NLP over notes and pathology reports'],
+      ['det', 'Engine', 'Criterion-scored eligibility: Met / Not met / Unknown, with source links'],
+      ['llm', 'Agent', 'Resolves unknowns, re-screens on new trials or labs, drafts handoffs'],
+      ['hum', 'Clinician', 'Approves every action — agents never make the eligibility call']]
+  };
+  function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+  function setupXray() {
+    document.querySelectorAll('#work .projects-grid > .project-card, #work .nb-grid > .project-card').forEach(function (card) {
+      var h = card.querySelector('h3'); if (!h || card.querySelector('.xr-btn')) return;
+      var key = Object.keys(XR).filter(function (k) { return h.textContent.indexOf(k) === 0; })[0];
+      if (!key) return;
+      card.classList.add('xr-host');
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'xr-btn'; btn.textContent = 'X-RAY'; btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Show how ' + key + ' is built');
+      var panel = document.createElement('div');
+      panel.className = 'xr-panel';
+      panel.innerHTML = '<div class="xr-title">How it’s built</div><div class="xr-layers">' +
+        XR[key].map(function (l) { return '<div class="xr-layer xr-' + l[0] + '"><b>' + esc(l[1]) + '</b><span>' + esc(l[2]) + '</span></div>'; }).join('') +
+        '</div><div class="xr-legend"><span class="l1">Deterministic</span><span class="l2">LLM / agent</span><span class="l3">Human</span></div>' +
+        '<button type="button" class="xr-open">Open project →</button>';
+      card.appendChild(panel); card.appendChild(btn);
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var on = card.classList.toggle('xr-on');
+        btn.textContent = on ? 'CARD ✕' : 'X-RAY';
+        btn.setAttribute('aria-expanded', on);
+      });
+      panel.addEventListener('click', function (e) { e.stopPropagation(); });
+      panel.querySelector('.xr-open').addEventListener('click', function (e) {
+        e.stopPropagation();
+        card.classList.remove('xr-on'); btn.textContent = 'X-RAY';
+        var m = (card.getAttribute('onclick') || '').match(/'([^']+-modal)'/);
+        if (m && window.openProjectModal) window.openProjectModal(e, m[1]);
+      });
+    });
+  }
+
+  /* 3. Before / After impact slider */
+  var BA = [
+    { b: 'Spreadsheets and email per trial site', a: 'Centralized custom CTMS',
+      m: [['Setup speed', 30, '~', '%', 'faster study setup'], ['Sites centralized', 50, '', '+', 'trial sites in one system'], ['Audit readiness', null, '', '', 'GxP / 21 CFR Part 11']],
+      steps: ['Site selection', 'Enrollment tracking', 'Milestone monitoring', 'Document control', 'EDC · regulatory · safety sync'] },
+    { b: 'Manual provider onboarding and credentialing', a: 'AI-driven provider lifecycle platform',
+      m: [['Onboarding speed', 40, '~', '%', 'faster onboarding'], ['Claims accuracy', 80, '~', '%', 'claims accuracy'], ['Compliance tracking', null, '', '', 'automated']],
+      steps: ['Provider intake', 'Credentialing', 'Claims processing', 'Inventory tracking', 'Compliance tracking'] },
+    { b: 'Manual review of medical, clinical, and field data', a: 'NLP / ML insight mining for MSL teams',
+      m: [['Insight discovery', 60, '~', '%', 'faster insight discovery'], ['Data streams', 3, '', '', 'medical · clinical · field'], ['Compliance', null, '', '', 'maintained']],
+      steps: ['Collect field engagement', 'Merge medical + clinical data', 'Detect trends', 'Surface knowledge gaps', 'Brief Medical Affairs'] }
+  ];
+  function setupBA() {
+    var card = document.getElementById('ba-card'); if (!card) return;
+    var range = document.getElementById('ba-range'), tabs = card.querySelectorAll('.ba-tabs button'), cur = 0;
+    function upd() {
+      var d = BA[cur], p = +range.value / 100;
+      document.getElementById('ba-before').textContent = d.b;
+      document.getElementById('ba-after').textContent = d.a;
+      d.m.forEach(function (m, j) {
+        document.getElementById('ba-k' + j).textContent = m[0];
+        document.getElementById('ba-s' + j).textContent = m[4];
+        document.getElementById('ba-v' + j).textContent = m[1] === null ? (p >= 0.5 ? '✓ Yes' : 'Manual') : (p > 0 ? m[2] : '') + Math.round(m[1] * p) + m[3];
+      });
+      document.getElementById('ba-steps').innerHTML = d.steps.map(function (s, j) {
+        var on = p >= (j + 1) / (d.steps.length + 0.5);
+        return '<span class="' + (on ? 'auto' : '') + '">' + (on ? '⚡ ' : '✋ ') + esc(s) + '</span>';
+      }).join('');
+      range.setAttribute('aria-valuetext', Math.round(p * 100) + '% toward after');
+    }
+    range.addEventListener('input', upd);
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        cur = +t.dataset.i;
+        tabs.forEach(function (x) { var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
+        range.value = 0; upd();
+      });
+    });
+    upd();
+    // one-time gentle demo sweep when it first scrolls into view
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var io = new IntersectionObserver(function (es) {
+        if (!es[0].isIntersecting) return; io.disconnect();
+        var v = 0, t = setInterval(function () { if (+range.value !== v) { clearInterval(t); return; } v += 2; range.value = v; upd(); if (v >= 100) clearInterval(t); }, 18);
+      }, { threshold: 0.5 });
+      io.observe(card);
+    }
+  }
+
+  onReady(function () { setupAsk(); setupXray(); setupBA(); });
+})();
+</script>
 </body>
 </html>
