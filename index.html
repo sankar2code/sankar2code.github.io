@@ -2772,6 +2772,28 @@
     .ba-m .k { font-size: 0.66rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
     .ba-m .v { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--white); font-variant-numeric: tabular-nums; }
     .ba-m .s { font-size: 0.74rem; color: #7dd3fc; }
+    .ba-track { position: relative; padding-top: 2.4rem; }
+    .ba-bubble {
+      position: absolute; top: 0; left: 12px; transform: translateX(-50%); white-space: nowrap; pointer-events: none;
+      font-size: 0.76rem; font-weight: 700; color: #0b1220; background: #7dd3fc; border-radius: 8px; padding: 0.2rem 0.6rem;
+      font-variant-numeric: tabular-nums; box-shadow: 0 4px 14px rgba(56,189,248,0.3);
+    }
+    .ba-bubble::after { content: ""; position: absolute; left: calc(50% + var(--arrow, 0px)); bottom: -5px; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #7dd3fc; border-bottom: 0; }
+    .ba-bubble.manual { background: #cbd5e1; }
+    .ba-bubble.manual::after { border-top-color: #cbd5e1; }
+    html.light .ba-bubble { background: #1d4ed8; color: #fff; }
+    html.light .ba-bubble::after { border-top-color: #1d4ed8; }
+    html.light .ba-bubble.manual { background: #64748b; }
+    html.light .ba-bubble.manual::after { border-top-color: #64748b; }
+    .ba-play { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.9rem; }
+    .ba-pbtn {
+      width: 44px; height: 44px; flex: none; border-radius: 50%; border: 0; background: var(--grad2); color: #fff;
+      font-size: 0.95rem; cursor: pointer; display: grid; place-items: center; box-shadow: 0 0 0 0 rgba(56,189,248,0.5); animation: baPulse 2.2s infinite;
+    }
+    .ba-pbtn:active { transform: scale(0.94); }
+    .ba-pbtn.playing { animation: none; }
+    @keyframes baPulse { 70% { box-shadow: 0 0 0 12px rgba(56,189,248,0); } 100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); } }
+    .ba-ptext { font-size: 0.86rem; color: var(--white); }
     .ba-steps-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
     .ba-steps { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.45rem; }
     .ba-steps span { font-size: 0.74rem; padding: 0.3rem 0.6rem; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-body); transition: all 0.3s; }
@@ -2787,7 +2809,7 @@
       .ba-ends span:last-child { text-align: left; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .atw-btn { animation: none; }
+      .atw-btn, .ba-pbtn { animation: none; }
       .xr-panel, .ba-steps span { transition: none; }
     }
 
@@ -7124,15 +7146,16 @@
   <!-- BEFORE / AFTER IMPACT SLIDER -->
   <div class="ba-card reveal" id="ba-card">
     <div class="ba-head">
-      <div><div class="ba-eyebrow">⚡ Before / After · Drag to see the impact</div><h3>From manual process to shipped product</h3></div>
+      <div><div class="ba-eyebrow">⚡ Before / After · Play or drag to see the impact</div><h3>From manual process to shipped product</h3></div>
       <div class="ba-tabs" role="tablist" aria-label="Choose a project">
         <button type="button" class="on" data-i="0" role="tab" aria-selected="true">🧪 TrialHub</button>
         <button type="button" data-i="1" role="tab" aria-selected="false">🏥 ProviderIQ</button>
         <button type="button" data-i="2" role="tab" aria-selected="false">🤖 InsightMD</button>
       </div>
     </div>
+    <div class="ba-play"><button type="button" class="ba-pbtn" id="ba-play" aria-label="Play the transformation">▶</button><span class="ba-ptext" id="ba-ptext"></span></div>
     <div class="ba-ends"><span>Before · <b id="ba-before"></b></span><span>After · <b id="ba-after"></b></span></div>
-    <input type="range" class="ba-range" id="ba-range" min="0" max="100" value="0" aria-label="Before to after">
+    <div class="ba-track"><div class="ba-bubble manual" id="ba-bubble" aria-hidden="true">Manual</div><input type="range" class="ba-range" id="ba-range" min="0" max="100" value="0" aria-label="Before to after"></div>
     <div class="ba-metrics">
       <div class="ba-m"><div class="k" id="ba-k0"></div><div class="v" id="ba-v0"></div><div class="s" id="ba-s0"></div></div>
       <div class="ba-m"><div class="k" id="ba-k1"></div><div class="v" id="ba-v1"></div><div class="s" id="ba-s1"></div></div>
@@ -13501,13 +13524,13 @@
   var BA = [
     { b: 'Spreadsheets and email per trial site', a: 'Centralized custom CTMS',
       m: [['Setup speed', 30, '~', '%', 'faster study setup'], ['Sites centralized', 50, '', '+', 'trial sites in one system'], ['Audit readiness', null, '', '', 'GxP / 21 CFR Part 11']],
-      steps: ['Site selection', 'Enrollment tracking', 'Milestone monitoring', 'Document control', 'EDC · regulatory · safety sync'] },
+      steps: ['Site selection', 'Enrollment tracking', 'Milestone monitoring', 'Document control', 'EDC · regulatory · safety sync'], bub: 'faster setup' },
     { b: 'Manual provider onboarding and credentialing', a: 'AI-driven provider lifecycle platform',
       m: [['Onboarding speed', 40, '~', '%', 'faster onboarding'], ['Claims accuracy', 80, '~', '%', 'claims accuracy'], ['Compliance tracking', null, '', '', 'automated']],
-      steps: ['Provider intake', 'Credentialing', 'Claims processing', 'Inventory tracking', 'Compliance tracking'] },
+      steps: ['Provider intake', 'Credentialing', 'Claims processing', 'Inventory tracking', 'Compliance tracking'], bub: 'faster onboarding' },
     { b: 'Manual review of medical, clinical, and field data', a: 'NLP / ML insight mining for MSL teams',
       m: [['Insight discovery', 60, '~', '%', 'faster insight discovery'], ['Data streams', 3, '', '', 'medical · clinical · field'], ['Compliance', null, '', '', 'maintained']],
-      steps: ['Collect field engagement', 'Merge medical + clinical data', 'Detect trends', 'Surface knowledge gaps', 'Brief Medical Affairs'] }
+      steps: ['Collect field engagement', 'Merge medical + clinical data', 'Detect trends', 'Surface knowledge gaps', 'Brief Medical Affairs'], bub: 'faster insights' }
   ];
   function setupBA() {
     var card = document.getElementById('ba-card'); if (!card) return;
@@ -13526,24 +13549,41 @@
         return '<span class="' + (on ? 'auto' : '') + '">' + (on ? '⚡ ' : '✋ ') + esc(s) + '</span>';
       }).join('');
       range.setAttribute('aria-valuetext', Math.round(p * 100) + '% toward after');
+      var bub = document.getElementById('ba-bubble');
+      if (bub) {
+        var m0 = d.m[0], val = Math.round(m0[1] * p);
+        bub.textContent = val === 0 ? '✋ Manual' : '~' + val + '% ' + d.bub;
+        bub.classList.toggle('manual', val === 0);
+        var W = range.offsetWidth, x = 12 + p * (W - 24), half = bub.offsetWidth / 2;
+        var left = Math.max(half, Math.min(W - half, x));
+        bub.style.left = left + 'px';
+        bub.style.setProperty('--arrow', (x - left) + 'px');
+      }
     }
-    range.addEventListener('input', upd);
+    var NAMES = ['TrialHub', 'ProviderIQ', 'InsightMD'];
+    var pbtn = document.getElementById('ba-play'), ptext = document.getElementById('ba-ptext'), timer = null;
+    function idleText() { ptext.textContent = 'Watch ' + NAMES[cur] + ' go from manual to AI-powered'; }
+    function stop(label) { clearInterval(timer); timer = null; pbtn.classList.remove('playing'); pbtn.textContent = label || '▶'; pbtn.setAttribute('aria-label', 'Play the transformation'); }
+    pbtn.addEventListener('click', function () {
+      if (timer) { stop('▶'); ptext.textContent = 'Paused — press play or drag the bar'; return; }
+      if (+range.value >= 100) { range.value = 0; upd(); }
+      pbtn.classList.add('playing'); pbtn.textContent = '❚❚'; pbtn.setAttribute('aria-label', 'Pause');
+      ptext.textContent = 'Transforming ' + NAMES[cur] + '…';
+      timer = setInterval(function () {
+        range.value = Math.min(100, +range.value + 1); upd();
+        if (+range.value >= 100) { stop('↺'); pbtn.setAttribute('aria-label', 'Replay'); ptext.textContent = 'Done — drag the bar to explore, or replay'; }
+      }, 30);
+    });
+    range.addEventListener('input', function () { if (timer) stop('▶'); upd(); });
     tabs.forEach(function (t) {
       t.addEventListener('click', function () {
         cur = +t.dataset.i;
         tabs.forEach(function (x) { var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
-        range.value = 0; upd();
+        stop('▶'); range.value = 0; upd(); idleText();
       });
     });
-    upd();
-    // one-time gentle demo sweep when it first scrolls into view
-    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var io = new IntersectionObserver(function (es) {
-        if (!es[0].isIntersecting) return; io.disconnect();
-        var v = 0, t = setInterval(function () { if (+range.value !== v) { clearInterval(t); return; } v += 2; range.value = v; upd(); if (v >= 100) clearInterval(t); }, 18);
-      }, { threshold: 0.5 });
-      io.observe(card);
-    }
+    upd(); idleText();
+    window.addEventListener('resize', upd);
   }
 
   onReady(function () { setupAsk(); setupXray(); setupBA(); });

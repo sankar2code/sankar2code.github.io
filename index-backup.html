@@ -2738,6 +2738,17 @@
     html.light .xr-hum b { color: #15803d; }
     html.light .xr-btn { background: #1d4ed8; color: #fff; }
 
+    /* xr-scroll-theme — themed scrollbars for X-ray panel + PRD output */
+    .xr-panel, .prdd-doc { scrollbar-width: thin; scrollbar-color: rgba(56,189,248,0.45) transparent; }
+    .xr-panel::-webkit-scrollbar, .prdd-doc::-webkit-scrollbar { width: 6px; height: 6px; }
+    .xr-panel::-webkit-scrollbar-track, .prdd-doc::-webkit-scrollbar-track { background: transparent; }
+    .xr-panel::-webkit-scrollbar-thumb, .prdd-doc::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.4); border-radius: 6px; }
+    .xr-panel::-webkit-scrollbar-thumb:hover, .prdd-doc::-webkit-scrollbar-thumb:hover { background: rgba(56,189,248,0.7); }
+    .xr-panel::-webkit-scrollbar-corner, .prdd-doc::-webkit-scrollbar-corner { background: transparent; }
+    html.light .xr-panel, html.light .prdd-doc { scrollbar-color: rgba(29,78,216,0.35) transparent; }
+    html.light .xr-panel::-webkit-scrollbar-thumb, html.light .prdd-doc::-webkit-scrollbar-thumb { background: rgba(29,78,216,0.3); }
+    html.light .xr-panel::-webkit-scrollbar-thumb:hover, html.light .prdd-doc::-webkit-scrollbar-thumb:hover { background: rgba(29,78,216,0.55); }
+
     /* ═══════════════════════════════════════════════
        BEFORE / AFTER IMPACT SLIDER — functional domains
     ═══════════════════════════════════════════════ */
@@ -2761,6 +2772,15 @@
     .ba-m .k { font-size: 0.66rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
     .ba-m .v { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--white); font-variant-numeric: tabular-nums; }
     .ba-m .s { font-size: 0.74rem; color: #7dd3fc; }
+    .ba-play { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.9rem; }
+    .ba-pbtn {
+      width: 44px; height: 44px; flex: none; border-radius: 50%; border: 0; background: var(--grad2); color: #fff;
+      font-size: 0.95rem; cursor: pointer; display: grid; place-items: center; box-shadow: 0 0 0 0 rgba(56,189,248,0.5); animation: baPulse 2.2s infinite;
+    }
+    .ba-pbtn:active { transform: scale(0.94); }
+    .ba-pbtn.playing { animation: none; }
+    @keyframes baPulse { 70% { box-shadow: 0 0 0 12px rgba(56,189,248,0); } 100% { box-shadow: 0 0 0 0 rgba(56,189,248,0); } }
+    .ba-ptext { font-size: 0.86rem; color: var(--white); }
     .ba-steps-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
     .ba-steps { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.45rem; }
     .ba-steps span { font-size: 0.74rem; padding: 0.3rem 0.6rem; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-body); transition: all 0.3s; }
@@ -2776,7 +2796,7 @@
       .ba-ends span:last-child { text-align: left; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .atw-btn { animation: none; }
+      .atw-btn, .ba-pbtn { animation: none; }
       .xr-panel, .ba-steps span { transition: none; }
     }
 
@@ -7113,13 +7133,14 @@
   <!-- BEFORE / AFTER IMPACT SLIDER -->
   <div class="ba-card reveal" id="ba-card">
     <div class="ba-head">
-      <div><div class="ba-eyebrow">⚡ Before / After · Drag to see the impact</div><h3>From manual process to shipped product</h3></div>
+      <div><div class="ba-eyebrow">⚡ Before / After · Play or drag to see the impact</div><h3>From manual process to shipped product</h3></div>
       <div class="ba-tabs" role="tablist" aria-label="Choose a project">
         <button type="button" class="on" data-i="0" role="tab" aria-selected="true">🧪 TrialHub</button>
         <button type="button" data-i="1" role="tab" aria-selected="false">🏥 ProviderIQ</button>
         <button type="button" data-i="2" role="tab" aria-selected="false">🤖 InsightMD</button>
       </div>
     </div>
+    <div class="ba-play"><button type="button" class="ba-pbtn" id="ba-play" aria-label="Play the transformation">▶</button><span class="ba-ptext" id="ba-ptext"></span></div>
     <div class="ba-ends"><span>Before · <b id="ba-before"></b></span><span>After · <b id="ba-after"></b></span></div>
     <input type="range" class="ba-range" id="ba-range" min="0" max="100" value="0" aria-label="Before to after">
     <div class="ba-metrics">
@@ -13516,23 +13537,29 @@
       }).join('');
       range.setAttribute('aria-valuetext', Math.round(p * 100) + '% toward after');
     }
-    range.addEventListener('input', upd);
+    var NAMES = ['TrialHub', 'ProviderIQ', 'InsightMD'];
+    var pbtn = document.getElementById('ba-play'), ptext = document.getElementById('ba-ptext'), timer = null;
+    function idleText() { ptext.textContent = 'Watch ' + NAMES[cur] + ' go from manual to AI-powered'; }
+    function stop(label) { clearInterval(timer); timer = null; pbtn.classList.remove('playing'); pbtn.textContent = label || '▶'; pbtn.setAttribute('aria-label', 'Play the transformation'); }
+    pbtn.addEventListener('click', function () {
+      if (timer) { stop('▶'); ptext.textContent = 'Paused — press play or drag the bar'; return; }
+      if (+range.value >= 100) { range.value = 0; upd(); }
+      pbtn.classList.add('playing'); pbtn.textContent = '❚❚'; pbtn.setAttribute('aria-label', 'Pause');
+      ptext.textContent = 'Transforming ' + NAMES[cur] + '…';
+      timer = setInterval(function () {
+        range.value = Math.min(100, +range.value + 1); upd();
+        if (+range.value >= 100) { stop('↺'); pbtn.setAttribute('aria-label', 'Replay'); ptext.textContent = 'Done — drag the bar to explore, or replay'; }
+      }, 30);
+    });
+    range.addEventListener('input', function () { if (timer) stop('▶'); upd(); });
     tabs.forEach(function (t) {
       t.addEventListener('click', function () {
         cur = +t.dataset.i;
         tabs.forEach(function (x) { var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
-        range.value = 0; upd();
+        stop('▶'); range.value = 0; upd(); idleText();
       });
     });
-    upd();
-    // one-time gentle demo sweep when it first scrolls into view
-    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var io = new IntersectionObserver(function (es) {
-        if (!es[0].isIntersecting) return; io.disconnect();
-        var v = 0, t = setInterval(function () { if (+range.value !== v) { clearInterval(t); return; } v += 2; range.value = v; upd(); if (v >= 100) clearInterval(t); }, 18);
-      }, { threshold: 0.5 });
-      io.observe(card);
-    }
+    upd(); idleText();
   }
 
   onReady(function () { setupAsk(); setupXray(); setupBA(); });
