@@ -1147,6 +1147,15 @@
         display: block;
       }
     }
+    /* ── Hero atom: named electrons with light trails ── */
+    .atom-live .hero-orbit-ring { animation: none; }
+    .atom-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+    .atom-live { cursor: default; }
+    .atom-lbl { position: absolute; z-index: 5; left: 0; top: 0; transform: translate(-50%, -150%); white-space: nowrap; pointer-events: none;
+      font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 700; color: #0b1220; border-radius: 8px; padding: 3px 9px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35); opacity: 0; transition: opacity 0.2s; }
+    .atom-lbl.on { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) { .atom-lbl { transition: none; } }
 
     .hero-badge {
       position: relative;
@@ -1896,6 +1905,57 @@
     @media (max-width: 600px) {
       .lp-dots { display: none; }
     }
+    /* ── Live Post · featured + headline list ── */
+    .lpf { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.1rem; align-items: start; }
+    .lpf-hero { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.3rem 1.3rem 1.2rem; border-radius: 16px; text-decoration: none; color: inherit;
+      background: radial-gradient(120% 120% at 0% 0%, rgba(99,102,241,0.32), rgba(56,189,248,0.07) 60%, transparent), rgba(255,255,255,0.03);
+      border: 1px solid rgba(129,140,248,0.35); transition: border-color 0.2s, transform 0.2s; position: sticky; top: 90px; }
+    a.lpf-hero:hover { border-color: rgba(125,211,252,0.6); transform: translateY(-2px); }
+    .lpf-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    .lpf-latest { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #0b1220; background: #4ade80; border-radius: 999px; padding: 2px 9px; }
+    .lpf-emo { font-size: 2.1rem; line-height: 1; }
+    .lpf-hero h3 { font-size: 1.15rem; line-height: 1.32; color: var(--white); margin: 0; }
+    .lpf-hero p { font-size: 0.86rem; color: var(--text-body); margin: 0; line-height: 1.6; }
+    .lpf-go { margin-top: auto; padding-top: 0.3rem; font-size: 0.78rem; font-weight: 600; color: #7dd3fc; }
+    .lpf-side { min-width: 0; }
+    .lpf-list { display: flex; flex-direction: column; }
+    .lpf-row { display: flex; align-items: flex-start; gap: 0.7rem; padding: 0.62rem 0.5rem; border-bottom: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text-body); transition: background 0.15s, color 0.15s; animation: lpfIn 0.3s ease both; }
+    a.lpf-row:hover, a.lpf-row:focus-visible { background: rgba(255,255,255,0.04); color: var(--white); outline: none; }
+    .lpf-row-emo { flex: none; width: 1.4rem; text-align: center; font-size: 0.95rem; line-height: 1.5; }
+    .lpf-row-body { flex: 1; min-width: 0; }
+    .lpf-row-h { display: block; font-size: 0.86rem; font-weight: 500; line-height: 1.45; color: inherit; }
+    .lpf-row-k { display: block; font-size: 0.76rem; color: var(--muted); line-height: 1.5; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.3s ease, opacity 0.25s ease, margin 0.3s; }
+    a.lpf-row:hover .lpf-row-k, a.lpf-row:focus-visible .lpf-row-k { max-height: 6em; opacity: 1; margin-top: 0.2rem; }
+    .lpf-type { flex: none; font-size: 0.56rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 999px; padding: 2px 7px; margin-top: 0.2rem; white-space: nowrap; }
+    .lpf-type-article     { color: #5eead4; background: rgba(20,184,166,0.13); }
+    .lpf-type-achievement { color: #fbbf24; background: rgba(245,158,11,0.14); }
+    .lpf-type-newstart    { color: #86efac; background: rgba(34,197,94,0.14); }
+    .lpf-type-update      { color: #f0abfc; background: rgba(168,85,247,0.15); }
+    .lpf-list.lpf-scroll { overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; scrollbar-width: thin; scrollbar-color: rgba(56,189,248,0.45) transparent;
+      -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); position: relative; }
+    .lpf-list.lpf-scroll::-webkit-scrollbar { width: 6px; }
+    .lpf-list.lpf-scroll::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.4); border-radius: 6px; }
+    html.light .lpf-list.lpf-scroll { scrollbar-color: rgba(29,78,216,0.35) transparent; }
+    html.light .lpf-list.lpf-scroll::-webkit-scrollbar-thumb { background: rgba(29,78,216,0.3); }
+    .lpf-more { align-self: flex-start; margin-top: 0.7rem; font: inherit; font-size: 0.78rem; font-weight: 600; color: #7dd3fc; background: none; border: 0; padding: 0.2rem 0; cursor: pointer; }
+    .lpf-more:hover { text-decoration: underline; }
+    .lpf-empty { font-size: 0.82rem; color: var(--muted); padding: 0.6rem 0.4rem; }
+    .lp-chip small { font-size: 0.66rem; opacity: 0.7; margin-left: 0.3rem; font-weight: 600; }
+    @keyframes lpfIn { from { opacity: 0; transform: translateY(4px); } }
+    html.light .lpf-hero { background: radial-gradient(120% 120% at 0% 0%, rgba(99,102,241,0.14), rgba(56,189,248,0.05) 60%, transparent), #fff; border-color: rgba(99,102,241,0.3); }
+    html.light .lpf-go, html.light .lpf-more { color: #1d4ed8; }
+    html.light a.lpf-row:hover { background: rgba(15,23,42,0.04); color: #0f172a; }
+    html.light .lpf-latest { background: #16a34a; color: #fff; }
+    html.light .lpf-type-article { color: #0f766e; } html.light .lpf-type-achievement { color: #b45309; }
+    html.light .lpf-type-newstart { color: #15803d; } html.light .lpf-type-update { color: #7e22ce; }
+    @media (hover: none) {
+      .lpf-row-k { max-height: 1.5em; opacity: 1; margin-top: 0.15rem; white-space: nowrap; text-overflow: ellipsis; }
+    }
+    @media (max-width: 760px) {
+      .lpf { grid-template-columns: minmax(0, 1fr); }
+      .lpf-hero { position: static; }
+    }
+    @media (prefers-reduced-motion: reduce) { .lpf-row { animation: none; } .lpf-row-k { transition: none; } }
 
     .li-metrics { margin-top: 1.5rem; }
 
@@ -10488,17 +10548,17 @@
             <p class="li-cat-title">Reach &amp; Engagement</p>
             <div class="li-hero-row">
               <div>
-                <p class="li-hero-num">11.8K</p>
+                <p class="li-hero-num">10.1K</p>
                 <p class="li-hero-sub">impressions · last 90 days</p>
-                <p class="li-hero-sub2">3.5K members reached</p>
-                <p class="li-hero-sub2">3.8 engagements / day avg</p>
+                <p class="li-hero-sub2">3.0K members reached</p>
+                <p class="li-hero-sub2">3.0 engagements / day avg</p>
               </div>
               <div class="li-gauge-wrap">
                 <svg viewBox="0 0 56 56" width="56" height="56">
                   <circle cx="28" cy="28" r="23" fill="none" stroke="var(--border)" stroke-width="5"/>
-                  <circle cx="28" cy="28" r="23" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="62.0" transform="rotate(-90 28 28)"/>
+                  <circle cx="28" cy="28" r="23" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="69.4" transform="rotate(-90 28 28)"/>
                 </svg>
-                <span class="li-gauge-val">2.9%</span>
+                <span class="li-gauge-val">2.6%</span>
               </div>
             </div>
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
@@ -10507,23 +10567,23 @@
             <p class="li-cat-title"><span class="li-back-dot"></span>Reach &amp; Engagement</p>
             <div class="li-chart li-chart-blue">
               <div class="li-chart-bars">
+                <div class="li-chart-bar" style="height:56%"></div>
+                <div class="li-chart-bar" style="height:80%"></div>
                 <div class="li-chart-bar" style="height:100%"></div>
-                <div class="li-chart-bar" style="height:63%"></div>
-                <div class="li-chart-bar" style="height:28%"></div>
+                <div class="li-chart-bar" style="height:70%"></div>
                 <div class="li-chart-bar" style="height:50%"></div>
-                <div class="li-chart-bar" style="height:44%"></div>
+                <div class="li-chart-bar" style="height:56%"></div>
+                <div class="li-chart-bar" style="height:61%"></div>
+                <div class="li-chart-bar" style="height:16%"></div>
+                <div class="li-chart-bar" style="height:95%"></div>
+                <div class="li-chart-bar" style="height:47%"></div>
                 <div class="li-chart-bar" style="height:68%"></div>
-                <div class="li-chart-bar" style="height:42%"></div>
-                <div class="li-chart-bar" style="height:26%"></div>
-                <div class="li-chart-bar" style="height:37%"></div>
-                <div class="li-chart-bar" style="height:30%"></div>
-                <div class="li-chart-bar" style="height:57%"></div>
-                <div class="li-chart-bar" style="height:13%"></div>
-                <div class="li-chart-bar" style="height:31%"></div>
+                <div class="li-chart-bar" style="height:55%"></div>
+                <div class="li-chart-bar" style="height:47%"></div>
               </div>
               <span class="li-chart-caption">Weekly impressions · 13 weeks</span>
             </div>
-            <div class="li-stat-row"><span class="li-stat-num">836</span><span class="li-stat-lbl">Peak day (Sep 2)</span></div>
+            <div class="li-stat-row"><span class="li-stat-num">837</span><span class="li-stat-lbl">Peak day (Sep 2)</span></div>
             <div class="li-stat-row"><span class="li-stat-num">90/90</span><span class="li-stat-lbl">Active days</span></div>
             <span class="li-flip-hint">😊 Okay, flip me back</span>
           </div>
@@ -10536,12 +10596,12 @@
           <div class="li-flip-face li-flip-front">
             <span class="li-cat-icon">📈</span>
             <p class="li-cat-title">Follower Growth</p>
-            <p class="li-hero-num li-hero-num-success">▲ +2,020</p>
+            <p class="li-hero-num li-hero-num-success">▲ +1,946</p>
             <p class="li-hero-sub">new followers · last 90 days</p>
             <p class="li-hero-sub2">8.3K+ total followers</p>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Base grew by</span><span class="li-bar-pct">34.1%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:34.1%"></div></div>
+              <div class="li-bar-label-row"><span>Base grew by</span><span class="li-bar-pct">30.2%</span></div>
+              <div class="li-bar-track"><div class="li-bar-fill" style="width:30.2%"></div></div>
             </div>
             <span class="li-flip-hint">👋 Psst, flip me for more</span>
           </div>
@@ -10549,24 +10609,24 @@
             <p class="li-cat-title"><span class="li-back-dot"></span>Follower Growth</p>
             <div class="li-chart li-chart-green">
               <div class="li-chart-bars">
-                <div class="li-chart-bar" style="height:100%"></div>
-                <div class="li-chart-bar" style="height:92%"></div>
-                <div class="li-chart-bar" style="height:72%"></div>
-                <div class="li-chart-bar" style="height:83%"></div>
-                <div class="li-chart-bar" style="height:78%"></div>
-                <div class="li-chart-bar" style="height:84%"></div>
-                <div class="li-chart-bar" style="height:79%"></div>
-                <div class="li-chart-bar" style="height:64%"></div>
-                <div class="li-chart-bar" style="height:69%"></div>
-                <div class="li-chart-bar" style="height:61%"></div>
-                <div class="li-chart-bar" style="height:77%"></div>
-                <div class="li-chart-bar" style="height:44%"></div>
                 <div class="li-chart-bar" style="height:59%"></div>
+                <div class="li-chart-bar" style="height:80%"></div>
+                <div class="li-chart-bar" style="height:94%"></div>
+                <div class="li-chart-bar" style="height:83%"></div>
+                <div class="li-chart-bar" style="height:46%"></div>
+                <div class="li-chart-bar" style="height:85%"></div>
+                <div class="li-chart-bar" style="height:37%"></div>
+                <div class="li-chart-bar" style="height:80%"></div>
+                <div class="li-chart-bar" style="height:58%"></div>
+                <div class="li-chart-bar" style="height:72%"></div>
+                <div class="li-chart-bar" style="height:61%"></div>
+                <div class="li-chart-bar" style="height:68%"></div>
+                <div class="li-chart-bar" style="height:100%"></div>
               </div>
               <span class="li-chart-caption">Weekly new followers · 13 weeks</span>
             </div>
-            <div class="li-stat-row"><span class="li-stat-num">5,920</span><span class="li-stat-lbl">Followers at period start</span></div>
-            <div class="li-stat-row"><span class="li-stat-num">108</span><span class="li-stat-lbl">Peak day (Jun 29)</span></div>
+            <div class="li-stat-row"><span class="li-stat-num">6,437</span><span class="li-stat-lbl">Followers at period start</span></div>
+            <div class="li-stat-row"><span class="li-stat-num">84</span><span class="li-stat-lbl">Peak day (Aug 3)</span></div>
             <span class="li-flip-hint">😊 Okay, flip me back</span>
           </div>
         </div>
@@ -10580,16 +10640,16 @@
             <p class="li-cat-title">Post Performance</p>
             <div class="li-hero-row">
               <div>
-                <p class="li-hero-num">1,161</p>
+                <p class="li-hero-num">1,188</p>
                 <p class="li-hero-sub">most impressions · single post</p>
-                <p class="li-hero-sub2">1.4% engagement rate on it</p>
+                <p class="li-hero-sub2">1.3% engagement rate on it</p>
               </div>
               <div class="li-gauge-wrap">
                 <svg viewBox="0 0 56 56" width="56" height="56">
                   <circle cx="28" cy="28" r="23" fill="none" stroke="var(--border)" stroke-width="5"/>
-                  <circle cx="28" cy="28" r="23" fill="none" stroke="#6366f1" stroke-width="5" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="1.0" transform="rotate(-90 28 28)"/>
+                  <circle cx="28" cy="28" r="23" fill="none" stroke="#6366f1" stroke-width="5" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="3.8" transform="rotate(-90 28 28)"/>
                 </svg>
-                <span class="li-gauge-val">9.9%</span>
+                <span class="li-gauge-val">9.7%</span>
               </div>
             </div>
             <p class="li-hero-sub2">best rate, different post</p>
@@ -10612,8 +10672,8 @@
               </div>
               <span class="li-chart-caption">Posts / month · since Jul '24</span>
             </div>
-            <div class="li-stat-row"><span class="li-stat-num">30</span><span class="li-stat-lbl">Most engagements on a post</span></div>
-            <div class="li-stat-row"><span class="li-stat-num">3.1%</span><span class="li-stat-lbl">Avg engagement rate</span></div>
+            <div class="li-stat-row"><span class="li-stat-num">21</span><span class="li-stat-lbl">Most engagements on a post</span></div>
+            <div class="li-stat-row"><span class="li-stat-num">2.8%</span><span class="li-stat-lbl">Avg engagement rate</span></div>
             <span class="li-flip-hint">😊 Okay, flip me back</span>
           </div>
         </div>
@@ -10646,8 +10706,8 @@
           <div class="li-flip-face li-flip-back">
             <p class="li-cat-title"><span class="li-back-dot"></span>Audience</p>
             <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>10,001+ employee cos.</span><span class="li-bar-pct">34%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:34%"></div></div>
+              <div class="li-bar-label-row"><span>10,001+ employee cos.</span><span class="li-bar-pct">35%</span></div>
+              <div class="li-bar-track"><div class="li-bar-fill" style="width:35%"></div></div>
             </div>
             <div class="li-bar-row">
               <div class="li-bar-label-row"><span>Software development</span><span class="li-bar-pct">9%</span></div>
@@ -13962,5 +14022,267 @@
   onReady(function () { setupAsk(); setupXray(); setupBA(); });
 })();
 </script>
+<!-- ───────────────────────────────────────────
+  LIVE POST · featured + headline list
+  The <a class="ship-item"> entries in #live-post-list stay the single source
+  of truth (keep adding new posts at the top). This script reads them and
+  renders a hero card for the newest post plus a compact headline list, each
+  post split at its first " — " into a headline and a takeaway.
+──────────────────────────────────────────── -->
+<script>
+(function () {
+  const list = document.getElementById('live-post-list');
+  const filters = document.getElementById('lp-filters');
+  const wrap = list && list.closest('.lp-scroll-wrap');
+  if (!list || !filters || !wrap) return;
+
+  const NAME = { article: 'Article', achievement: 'Achievement', newstart: 'New Start', update: 'Update' };
+  const PAGE = 8;
+
+  function tidy(s) {
+    s = s.trim().replace(/^On\s+(why\s+|how\s+|the\s+)?/i, '');
+    return s.replace(/^([^A-Za-z0-9]*)([a-z])/, (m, q, c) => q + c.toUpperCase());
+  }
+
+  const posts = Array.from(list.querySelectorAll('.ship-item')).map((el) => {
+    const p = el.querySelector('.ship-text');
+    const clone = p ? p.cloneNode(true) : null;
+    if (clone) clone.querySelectorAll('.ship-tag').forEach((t) => t.remove());
+    const text = clone ? clone.textContent.replace(/\s+/g, ' ').trim() : '';
+    const cut = text.indexOf(' — ');
+    const head = cut > 0 ? text.slice(0, cut) : text;
+    const take = cut > 0 ? text.slice(cut + 3) : '';
+    const iconEl = el.querySelector('.ship-icon');
+    return {
+      cat: el.dataset.cat || 'update',
+      href: el.getAttribute('href') || '',
+      icon: iconEl ? iconEl.textContent.trim() : '•',
+      head: tidy(head),
+      take: take ? take.charAt(0).toUpperCase() + take.slice(1) : '',
+    };
+  }).filter((p) => p.head);
+  if (!posts.length) return;
+
+  // Counts on the existing type chips.
+  const counts = { all: posts.length };
+  posts.forEach((p) => { counts[p.cat] = (counts[p.cat] || 0) + 1; });
+  filters.querySelectorAll('.lp-chip').forEach((chip) => {
+    const n = counts[chip.dataset.filter] || 0;
+    if (!chip.querySelector('small')) chip.insertAdjacentHTML('beforeend', '<small>' + n + '</small>');
+    if (!n && chip.dataset.filter !== 'all') chip.style.display = 'none';
+  });
+
+  const root = document.createElement('div');
+  root.className = 'lpf';
+  root.id = 'lpf';
+  wrap.parentNode.insertBefore(root, wrap);
+  wrap.style.display = 'none';
+
+  let filter = 'all', expanded = false, boxH = 0;
+
+  function el(tag, cls, text) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function linkOrDiv(p, cls) {
+    const e = el(p.href ? 'a' : 'div', cls);
+    if (p.href) { e.href = p.href; e.target = '_blank'; e.rel = 'noopener'; }
+    return e;
+  }
+  function typeTag(cat) { return el('span', 'lpf-type lpf-type-' + cat, NAME[cat] || cat); }
+
+  function render() {
+    const m = posts.filter((p) => filter === 'all' || p.cat === filter);
+    root.innerHTML = '';
+    if (!m.length) { root.appendChild(el('p', 'lpf-empty', 'Nothing here yet.')); return; }
+
+    const h = m[0];
+    const hero = linkOrDiv(h, 'lpf-hero');
+    const top = el('div', 'lpf-hero-top');
+    top.appendChild(el('span', 'lpf-latest', filter === 'all' ? '● Latest' : '● Latest ' + NAME[filter]));
+    if (filter === 'all') top.appendChild(typeTag(h.cat));
+    hero.appendChild(top);
+    hero.appendChild(el('span', 'lpf-emo', h.icon));
+    hero.appendChild(el('h3', null, h.head));
+    if (h.take) hero.appendChild(el('p', null, h.take));
+    if (h.href) hero.appendChild(el('span', 'lpf-go', 'Read on LinkedIn →'));
+    root.appendChild(hero);
+
+    const side = el('div', 'lpf-side');
+    const listEl = el('div', 'lpf-list');
+    const rest = m.slice(1);
+    rest.slice(0, expanded ? rest.length : PAGE).forEach((p, i) => {
+      const r = linkOrDiv(p, 'lpf-row');
+      r.style.animationDelay = (expanded ? 0 : Math.min(i, 8) * 30) + 'ms';
+      if (p.take) r.title = p.take;
+      r.appendChild(el('span', 'lpf-row-emo', p.icon));
+      const b = el('span', 'lpf-row-body');
+      b.appendChild(el('span', 'lpf-row-h', p.head));
+      if (p.take) b.appendChild(el('span', 'lpf-row-k', p.take));
+      r.appendChild(b);
+      r.appendChild(typeTag(p.cat));
+      listEl.appendChild(r);
+    });
+    if (!rest.length) listEl.appendChild(el('p', 'lpf-empty', 'That’s the only one so far.'));
+    side.appendChild(listEl);
+
+    if (expanded && boxH) {
+      // Keep the card the same size — the full list scrolls inside it.
+      listEl.classList.add('lpf-scroll');
+      listEl.style.maxHeight = boxH + 'px';
+    }
+    if (rest.length > PAGE) {
+      const left = rest.length - PAGE;
+      const more = el('button', 'lpf-more', expanded ? 'Show less ↑' : 'Show ' + left + ' more · scroll the list ↓');
+      more.type = 'button';
+      more.addEventListener('click', () => {
+        if (!expanded) {
+          const cur = root.querySelector('.lpf-list');
+          boxH = cur ? cur.offsetHeight : 0;
+          expanded = true; render();
+          const l = root.querySelector('.lpf-list'), first = l && l.children[PAGE];
+          if (l && first) l.scrollTo({ top: Math.max(0, first.offsetTop - l.offsetTop - 8), behavior: 'smooth' });
+        } else { expanded = false; render(); }
+      });
+      side.appendChild(more);
+    }
+    root.appendChild(side);
+  }
+
+  filters.querySelectorAll('.lp-chip').forEach((chip) => {
+    chip.addEventListener('click', () => { filter = chip.dataset.filter; expanded = false; render(); });
+  });
+  render();
+})();
+</script>
+
+<script>
+/* Hero atom — three orbits = three worlds (AI · Product · Pharma & Health).
+   Electrons with light trails ride the existing rings; hover (or tap) one to name it. */
+(function () {
+  const ORBITS = [
+    { rot: 0,   label: '🤖 AI & Agentic AI',      col: '#7dd3fc', rgb: '125,211,252', speed: 1.0,  phase: 0 },
+    { rot: 60,  label: '🧭 Product leadership',   col: '#a78bfa', rgb: '167,139,250', speed: 1.25, phase: 2.1 },
+    { rot: 120, label: '🧬 Pharma & Health',      col: '#4ade80', rgb: '74,222,128',  speed: 0.85, phase: 4.2 },
+  ];
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function setup(host) {
+    if (!host || host.dataset.atom) return;
+    host.dataset.atom = '1';
+    host.classList.add('atom-live');
+    const cv = document.createElement('canvas');
+    cv.className = 'atom-canvas';
+    cv.setAttribute('aria-hidden', 'true');
+    host.appendChild(cv);
+    const lbl = document.createElement('span');
+    lbl.className = 'atom-lbl';
+    host.appendChild(lbl);
+    host.setAttribute('title', 'AI · Product · Pharma & Health');
+
+    const ctx = cv.getContext('2d');
+    let W = 0, dpr = 1, t = Math.random() * 10, hover = -1, tapTimer = null, running = false, raf = 0;
+    const pos = ORBITS.map(() => [0, 0]);
+
+    function size() {
+      const r = host.getBoundingClientRect();
+      if (!r.width) return false;
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = r.width;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(W * dpr);
+      return true;
+    }
+    function point(o, a) {
+      const s = W / 130, x = 54 * Math.cos(a), y = 22 * Math.sin(a), r = o.rot * Math.PI / 180;
+      return [(65 + x * Math.cos(r) - y * Math.sin(r)) * s, (65 + x * Math.sin(r) + y * Math.cos(r)) * s];
+    }
+    function draw() {
+      const light = document.documentElement.classList.contains('light');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // fade the previous frame → trails
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = reduced ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0.16)';
+      ctx.fillRect(0, 0, W, W);
+      ctx.globalCompositeOperation = 'source-over';
+      const rad = Math.max(3.2, W / 34);
+      ORBITS.forEach((o, i) => {
+        const p = point(o, t * o.speed + o.phase);
+        pos[i] = p;
+        const big = i === hover ? 1.45 : 1;
+        const R = rad * 2.1 * big;
+        const g = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], R);
+        g.addColorStop(0, light ? o.col : 'rgba(255,255,255,0.95)');
+        g.addColorStop(0.16, 'rgba(' + o.rgb + ',1)');
+        g.addColorStop(0.5, 'rgba(' + o.rgb + ',0.55)');
+        g.addColorStop(1, 'rgba(' + o.rgb + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p[0], p[1], R, 0, Math.PI * 2); ctx.fill();
+      });
+      if (hover >= 0) {
+        lbl.style.left = pos[hover][0] + 'px';
+        lbl.style.top = pos[hover][1] + 'px';
+      }
+    }
+    function loop() {
+      t += hover >= 0 ? 0.004 : 0.016;
+      draw();
+      raf = requestAnimationFrame(loop);
+    }
+    function start() { if (running || reduced) return; running = true; raf = requestAnimationFrame(loop); }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+
+    function nearest(e, reach) {
+      const r = host.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      let best = -1, bd = reach;
+      pos.forEach((p, i) => { const d = Math.hypot(p[0] - x, p[1] - y); if (d < bd) { bd = d; best = i; } });
+      return best;
+    }
+    function show(i) {
+      hover = i;
+      if (i < 0) { lbl.classList.remove('on'); host.style.cursor = ''; return; }
+      lbl.textContent = ORBITS[i].label;
+      lbl.style.background = ORBITS[i].col;
+      lbl.classList.add('on');
+      host.style.cursor = 'pointer';
+      if (reduced) draw();
+    }
+    host.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') show(nearest(e, W / 7)); });
+    host.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') show(-1); });
+    host.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse') return;
+      let i = nearest(e, W / 4.5);
+      if (i < 0) i = (hover + 1) % ORBITS.length; // tap anywhere cycles through the three
+      show(i);
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => show(-1), 2400);
+    });
+
+    function init() {
+      if (!size()) return false;
+      if (reduced) { draw(); } else { start(); }
+      return true;
+    }
+    if (!init()) {
+      // hidden at this breakpoint — try again when it becomes visible
+      const ro = new ResizeObserver(() => { if (size()) { if (reduced) draw(); else if (visible) start(); } });
+      ro.observe(host);
+    }
+    let visible = true;
+    window.addEventListener('resize', () => { if (size() && reduced) draw(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((es) => {
+        visible = es.some((x) => x.isIntersecting);
+        if (visible && W) start(); else stop();
+      }).observe(host);
+    }
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else if (visible && W) start(); });
+  }
+
+  document.querySelectorAll('.avatar-wrap, .mobile-avatar').forEach(setup);
+})();
+</script>
+
 </body>
 </html>

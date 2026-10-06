@@ -1147,6 +1147,15 @@
         display: block;
       }
     }
+    /* ── Hero atom: named electrons with light trails ── */
+    .atom-live .hero-orbit-ring { animation: none; }
+    .atom-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+    .atom-live { cursor: default; }
+    .atom-lbl { position: absolute; z-index: 5; left: 0; top: 0; transform: translate(-50%, -150%); white-space: nowrap; pointer-events: none;
+      font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 700; color: #0b1220; border-radius: 8px; padding: 3px 9px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35); opacity: 0; transition: opacity 0.2s; }
+    .atom-lbl.on { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) { .atom-lbl { transition: none; } }
 
     .hero-badge {
       position: relative;
@@ -1896,6 +1905,57 @@
     @media (max-width: 600px) {
       .lp-dots { display: none; }
     }
+    /* ── Live Post · featured + headline list ── */
+    .lpf { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.1rem; align-items: start; }
+    .lpf-hero { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.3rem 1.3rem 1.2rem; border-radius: 16px; text-decoration: none; color: inherit;
+      background: radial-gradient(120% 120% at 0% 0%, rgba(99,102,241,0.32), rgba(56,189,248,0.07) 60%, transparent), rgba(255,255,255,0.03);
+      border: 1px solid rgba(129,140,248,0.35); transition: border-color 0.2s, transform 0.2s; position: sticky; top: 90px; }
+    a.lpf-hero:hover { border-color: rgba(125,211,252,0.6); transform: translateY(-2px); }
+    .lpf-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+    .lpf-latest { font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #0b1220; background: #4ade80; border-radius: 999px; padding: 2px 9px; }
+    .lpf-emo { font-size: 2.1rem; line-height: 1; }
+    .lpf-hero h3 { font-size: 1.15rem; line-height: 1.32; color: var(--white); margin: 0; }
+    .lpf-hero p { font-size: 0.86rem; color: var(--text-body); margin: 0; line-height: 1.6; }
+    .lpf-go { margin-top: auto; padding-top: 0.3rem; font-size: 0.78rem; font-weight: 600; color: #7dd3fc; }
+    .lpf-side { min-width: 0; }
+    .lpf-list { display: flex; flex-direction: column; }
+    .lpf-row { display: flex; align-items: flex-start; gap: 0.7rem; padding: 0.62rem 0.5rem; border-bottom: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text-body); transition: background 0.15s, color 0.15s; animation: lpfIn 0.3s ease both; }
+    a.lpf-row:hover, a.lpf-row:focus-visible { background: rgba(255,255,255,0.04); color: var(--white); outline: none; }
+    .lpf-row-emo { flex: none; width: 1.4rem; text-align: center; font-size: 0.95rem; line-height: 1.5; }
+    .lpf-row-body { flex: 1; min-width: 0; }
+    .lpf-row-h { display: block; font-size: 0.86rem; font-weight: 500; line-height: 1.45; color: inherit; }
+    .lpf-row-k { display: block; font-size: 0.76rem; color: var(--muted); line-height: 1.5; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.3s ease, opacity 0.25s ease, margin 0.3s; }
+    a.lpf-row:hover .lpf-row-k, a.lpf-row:focus-visible .lpf-row-k { max-height: 6em; opacity: 1; margin-top: 0.2rem; }
+    .lpf-type { flex: none; font-size: 0.56rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 999px; padding: 2px 7px; margin-top: 0.2rem; white-space: nowrap; }
+    .lpf-type-article     { color: #5eead4; background: rgba(20,184,166,0.13); }
+    .lpf-type-achievement { color: #fbbf24; background: rgba(245,158,11,0.14); }
+    .lpf-type-newstart    { color: #86efac; background: rgba(34,197,94,0.14); }
+    .lpf-type-update      { color: #f0abfc; background: rgba(168,85,247,0.15); }
+    .lpf-list.lpf-scroll { overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; scrollbar-width: thin; scrollbar-color: rgba(56,189,248,0.45) transparent;
+      -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent); position: relative; }
+    .lpf-list.lpf-scroll::-webkit-scrollbar { width: 6px; }
+    .lpf-list.lpf-scroll::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.4); border-radius: 6px; }
+    html.light .lpf-list.lpf-scroll { scrollbar-color: rgba(29,78,216,0.35) transparent; }
+    html.light .lpf-list.lpf-scroll::-webkit-scrollbar-thumb { background: rgba(29,78,216,0.3); }
+    .lpf-more { align-self: flex-start; margin-top: 0.7rem; font: inherit; font-size: 0.78rem; font-weight: 600; color: #7dd3fc; background: none; border: 0; padding: 0.2rem 0; cursor: pointer; }
+    .lpf-more:hover { text-decoration: underline; }
+    .lpf-empty { font-size: 0.82rem; color: var(--muted); padding: 0.6rem 0.4rem; }
+    .lp-chip small { font-size: 0.66rem; opacity: 0.7; margin-left: 0.3rem; font-weight: 600; }
+    @keyframes lpfIn { from { opacity: 0; transform: translateY(4px); } }
+    html.light .lpf-hero { background: radial-gradient(120% 120% at 0% 0%, rgba(99,102,241,0.14), rgba(56,189,248,0.05) 60%, transparent), #fff; border-color: rgba(99,102,241,0.3); }
+    html.light .lpf-go, html.light .lpf-more { color: #1d4ed8; }
+    html.light a.lpf-row:hover { background: rgba(15,23,42,0.04); color: #0f172a; }
+    html.light .lpf-latest { background: #16a34a; color: #fff; }
+    html.light .lpf-type-article { color: #0f766e; } html.light .lpf-type-achievement { color: #b45309; }
+    html.light .lpf-type-newstart { color: #15803d; } html.light .lpf-type-update { color: #7e22ce; }
+    @media (hover: none) {
+      .lpf-row-k { max-height: 1.5em; opacity: 1; margin-top: 0.15rem; white-space: nowrap; text-overflow: ellipsis; }
+    }
+    @media (max-width: 760px) {
+      .lpf { grid-template-columns: minmax(0, 1fr); }
+      .lpf-hero { position: static; }
+    }
+    @media (prefers-reduced-motion: reduce) { .lpf-row { animation: none; } .lpf-row-k { transition: none; } }
 
     .li-metrics { margin-top: 1.5rem; }
 
@@ -4012,6 +4072,65 @@
     html.light .graph-card { background: #fff; }
     html.light .graph-svg-wrap { background: radial-gradient(circle at 50% 40%, rgba(37,99,235,0.06), transparent 65%); }
     html.light .graph-link { stroke: rgba(51,65,85,0.2); }
+    /* ── Knowledge graph v2: panel, filters, path, timeline, tour ── */
+    .kg-headbtns { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .kg-seg { display: flex; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 999px; padding: 3px; }
+    .kg-seg button { font: inherit; font-size: 0.68rem; font-weight: 700; color: var(--muted); background: none; border: 0; padding: 0.28rem 0.7rem; border-radius: 999px; cursor: pointer; }
+    .kg-seg button.on { background: linear-gradient(135deg,#2563eb,#6366f1); color: #fff; }
+    .kg-btn { font: inherit; font-size: 0.7rem; font-weight: 700; color: #7dd3fc; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); padding: 0.35rem 0.8rem; border-radius: 20px; cursor: pointer; white-space: nowrap; }
+    .kg-btn-hot { color: #fff; background: linear-gradient(135deg,#f59e0b,#ec4899); border-color: transparent; }
+    .kg-tools { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.6rem; }
+    .kg-search { display: flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 10px; padding: 0.3rem 0.65rem; font-size: 0.8rem; }
+    .kg-search input { font: inherit; font-size: 0.78rem; color: var(--white); background: none; border: 0; outline: none; width: 160px; }
+    .kg-legend { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .kg-lg { font: inherit; display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.67rem; color: var(--text-body); background: none; border: 1px solid var(--border); border-radius: 999px; padding: 0.2rem 0.6rem; cursor: pointer; transition: opacity 0.2s; }
+    .kg-lg i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .kg-lg small { color: var(--muted); font-size: 0.62rem; }
+    .kg-lg.off { opacity: 0.35; text-decoration: line-through; }
+    .kg-path { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .kg-path select { background: var(--bg3, #1a1a2e); color: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 0.25rem 0.4rem; font: inherit; font-size: 0.72rem; max-width: 190px; }
+    .kg-pres { flex-basis: 100%; font-size: 0.74rem; }
+    .kg-pres:empty { display: none; }
+    .kg-pres b { font-weight: 700; }
+    .kg-stagewrap { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 0.75rem; }
+    .kg-stage { position: relative; }
+    .kg-panel { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem; color: var(--text-body); min-height: 200px; }
+    .kg-chip { align-self: flex-start; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 999px; padding: 2px 8px; }
+    .kg-panel h3 { font-size: 1.02rem; line-height: 1.3; color: var(--white); margin: 0; }
+    .kg-panel p { margin: 0; line-height: 1.55; }
+    .kg-meta { font-size: 0.72rem; color: var(--muted); }
+    .kg-conns { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .kg-conns button { font: inherit; font-size: 0.68rem; color: var(--white); background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 999px; padding: 0.15rem 0.55rem; cursor: pointer; }
+    .kg-conns button:hover { border-color: #7dd3fc; }
+    .kg-acts { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: auto; padding-top: 0.4rem; }
+    .kg-empty b { color: var(--white); }
+    .kg-stats { display: flex; flex-wrap: wrap; gap: 0.3rem 0.8rem; font-size: 0.7rem; color: var(--muted); }
+    .kg-stats b { color: var(--white); }
+    .graph-link.kg-x { stroke-dasharray: 3 3; }
+    .graph-link.kg-hl { stroke: #fbbf24 !important; stroke-width: 2.4 !important; opacity: 1 !important; stroke-dasharray: 6 6; animation: kgFlow 1s linear infinite; }
+    @keyframes kgFlow { to { stroke-dashoffset: -12; } }
+    .kg-yr { font: 600 10px 'Inter', sans-serif; fill: rgba(148,163,184,0.6); }
+    .kg-tour { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 3; display: none; gap: 0.6rem; align-items: center; flex-wrap: wrap;
+      background: rgba(15,15,30,0.94); border: 1px solid rgba(251,191,36,0.4); border-radius: 12px; padding: 0.6rem 0.75rem; font-size: 0.8rem; color: var(--white); }
+    .kg-tour.on { display: flex; }
+    .kg-tour b { color: #fbbf24; }
+    .kg-tour-btns { margin-left: auto; display: flex; gap: 0.35rem; }
+    html.light .kg-panel { background: #f8fafc; }
+    html.light .kg-tour { background: rgba(255,255,255,0.96); color: #0f172a; border-color: rgba(217,119,6,0.45); }
+    html.light .kg-tour b { color: #b45309; }
+    html.light .kg-path select, html.light .kg-search { background: #fff; }
+    html.light .kg-btn { color: #1d4ed8; border-color: rgba(29,78,216,0.3); background: rgba(29,78,216,0.08); }
+    html.light .kg-btn-hot { color: #fff; background: linear-gradient(135deg,#f59e0b,#ec4899); border-color: transparent; }
+    @media (max-width: 860px) {
+      .kg-stagewrap { grid-template-columns: minmax(0, 1fr); }
+      .kg-panel { min-height: 0; }
+    }
+    @media (max-width: 600px) {
+      .graph-svg-wrap.kg-stage { height: 440px; }
+      .kg-search input { width: 120px; }
+      .kg-path select { max-width: 140px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .graph-link.kg-hl { animation: none; } }
 
     @media (max-width: 600px) {
       .twin-card { padding: 1.25rem; }
@@ -7166,21 +7285,27 @@
     <p class="twin-disclaimer">Grounded on my real career, not a guarantee of accuracy. For anything specific, <a href="mailto:hello@sankar.work">email me directly</a>.</p>
   </div>
 
-  <div class="graph-card reveal">
+  <div class="graph-card reveal" id="kg-card">
     <div class="graph-head">
-      <div class="graph-title">Career Knowledge Graph <span>— click any node to trace how it connects</span></div>
-      <button type="button" class="graph-reset-btn" id="graph-reset-btn">Reset view</button>
+      <div class="graph-title">Career Knowledge Graph <span>— click any node to see how it connects</span></div>
+      <div class="kg-headbtns">
+        <div class="kg-seg" id="kg-mode" role="group" aria-label="Graph layout"><button type="button" class="on" data-m="graph">🕸️ Graph</button><button type="button" data-m="time">📅 Timeline</button></div>
+        <button type="button" class="kg-btn kg-btn-hot" id="kg-tour-btn">▶ Take the tour</button>
+        <button type="button" class="graph-reset-btn" id="graph-reset-btn">Reset</button>
+      </div>
     </div>
-    <div class="graph-legend">
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#38bdf8"></span>Companies</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#34d399"></span>Certifications</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#f472b6"></span>Skills</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#fbbf24"></span>Built Projects</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#22d3ee"></span>Tools</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#a78bfa"></span>Impact</span>
+    <div class="kg-tools">
+      <label class="kg-search">🔍<input id="kg-q" type="search" placeholder="Search… e.g. Otsuka, RAG" aria-label="Search the graph" autocomplete="off"></label>
+      <div class="kg-legend" id="kg-legend"></div>
     </div>
-    <div class="graph-svg-wrap" id="graph-svg-wrap"></div>
-    <p class="graph-hint">Drag to reposition · click a node to highlight its connections · click empty space or Reset to clear</p>
+    <div class="kg-path">🧭 Trace a path from <select id="kg-pa" aria-label="Start node"></select> to <select id="kg-pb" aria-label="End node"></select> <button type="button" class="kg-btn" id="kg-go">Trace</button><span class="kg-pres" id="kg-pres"></span></div>
+    <div class="kg-stagewrap">
+      <div class="graph-svg-wrap kg-stage" id="graph-svg-wrap">
+        <div class="kg-tour" id="kg-tour"><span id="kg-tour-txt"></span><span class="kg-tour-btns"><button type="button" class="kg-btn" id="kg-tnext">Next →</button><button type="button" class="kg-btn" id="kg-tstop" aria-label="Close tour">✕</button></span></div>
+      </div>
+      <aside class="kg-panel" id="kg-panel" aria-live="polite"></aside>
+    </div>
+    <p class="graph-hint">Drag nodes · scroll or pinch to zoom · click a node for details · dashed lines are cross-links</p>
   </div>
 </section>
 
@@ -13419,305 +13544,325 @@
   const wrap = document.getElementById('graph-svg-wrap');
   if (!wrap || typeof d3 === 'undefined') return;
 
-  const colors = {
-    hub: '#a855f7',
-    Companies: '#38bdf8',
-    Certifications: '#34d399',
-    Skills: '#f472b6',
-    Projects: '#fbbf24',
-    Tools: '#22d3ee',
-    Impact: '#a78bfa'
+  const C = { hub: '#a855f7', Companies: '#38bdf8', Industries: '#fb923c', Skills: '#f472b6', Tools: '#22d3ee', Projects: '#fbbf24', Certifications: '#34d399', Impact: '#a78bfa' };
+  const ICON = { hub: '🙂', Companies: '🏢', Industries: '🏭', Skills: '🧠', Tools: '🛠️', Projects: '🚀', Certifications: '🎓', Impact: '📈' };
+  const MODAL = {
+    'ClinicalAI-TrialAnalysis': 'clinicaltrialanalysis-modal', 'Agentic Clinical Trial Matching': 'ctm-agentic-modal', 'ContractIQ': 'contractiq-modal',
+    'Company Comparison': 'companycomparison-modal', 'ProjectPilot AI': 'projectpilot-modal', 'Compliance Lease Tool': 'complianceleasetool-modal',
+    'Enterprise AI Data Copilot': 'datacopilot-modal', 'ScienceAI': 'scienceai-modal', 'Ad Genie': 'adgenie-modal', 'AI Analyst Builder': 'analyst-modal', 'SurveAI': 'feedback-modal'
   };
 
-  const nodes = [
-    { id: 'Sankar', group: 'hub', r: 24 },
+  // [id, group, year, description]
+  const N = [
+    ['Sankar', 'hub', null, 'AI Product Manager · AI Data Strategist · 15+ years across 5 industries'],
+    ['WIPRO', 'Companies', 2010, 'Project Engineer · clients Diversey & McGraw-Hill Education (2010–2014)'],
+    ['Upchannel', 'Companies', 2015, 'Business Analyst (2015)'],
+    ['Cloudculina', 'Companies', 2015, 'Senior Business Analyst · food-services venture (2015–2017)'],
+    ['Grapnel · Otsuka', 'Companies', 2017, 'BA / Product Owner · client Otsuka (2017–2020)'],
+    ['HCL · Otsuka', 'Companies', 2020, 'Sr BA / Product Owner · client Otsuka (2020–2022)'],
+    ['Prophecy · HealthFirst', 'Companies', 2022, 'Data Engineer / Product Owner · AI-driven provider lifecycle platform (2022–2025)'],
+    ['Prophecy · Otsuka', 'Companies', 2025, 'Sr BA / Product Owner · Medical Affairs systems in a GxP environment (2025–present)'],
+    ['Pharma & Life Sciences', 'Industries', null, 'Commercial, Medical Affairs, Regulatory — GxP, 21 CFR Part 11'],
+    ['Healthcare (payer)', 'Industries', null, 'Provider lifecycle, credentialing, claims'],
+    ['Food service', 'Industries', null, 'Mobile product strategy for a food-services venture'],
+    ['Education', 'Industries', null, 'Global transformations for McGraw-Hill Education'],
+    ['AI/ML Product', 'Skills', null, 'AI/ML product strategy, RAG, agentic systems, evals'],
+    ['Product Ownership', 'Skills', null, 'Discovery → roadmap → delivery → adoption'],
+    ['SAFe / Agile', 'Skills', null, 'Product Owner on Agile Release Trains'],
+    ['Data & Analytics', 'Skills', null, 'Data/platform strategy, BI, KPI frameworks'],
+    ['Compliance (GxP)', 'Skills', null, 'GxP, 21 CFR Part 11, HIPAA, GDPR'],
+    ['Claude Code', 'Tools', null, 'AI coding agent used to ship live apps'],
+    ['Langflow', 'Tools', null, 'Agent / RAG pipeline builder'],
+    ['n8n', 'Tools', null, 'Workflow orchestration and audit trail'],
+    ['Supabase', 'Tools', null, 'Postgres + realtime backend'],
+    ['Next.js', 'Tools', null, 'React framework'],
+    ['RAG & Vector Search', 'Tools', null, 'Retrieval-augmented generation'],
+    ['Salesforce / Veeva', 'Tools', null, 'Pharma CRM platforms'],
+    ['Tableau', 'Tools', null, 'BI & dashboards'],
+    ['Postman', 'Tools', null, 'API validation'],
+    ['Jira / Confluence', 'Tools', null, 'Delivery tooling'],
+    ['ClinicalAI-TrialAnalysis', 'Projects', 2026, 'NCT ID → ranked, source-backed failure hypotheses · live app'],
+    ['Agentic Clinical Trial Matching', 'Projects', 2026, 'Criterion-scored matching + agentic layer, clinician-approved · live app'],
+    ['ContractIQ', 'Projects', 2026, 'Contract review with cited terms · built with Claude Code · live app'],
+    ['Company Comparison', 'Projects', 2026, 'BYOK equity research with live citations · live app'],
+    ['ProjectPilot AI', 'Projects', 2026, 'AI project-management SaaS · live app'],
+    ['Compliance Lease Tool', 'Projects', 2026, 'Lease compliance shipped as a Claude Skill'],
+    ['Enterprise AI Data Copilot', 'Projects', 2026, 'Four agents; deterministic engines own the truth · now building'],
+    ['ScienceAI', 'Projects', 2026, 'RAG research platform with audio summaries'],
+    ['Ad Genie', 'Projects', 2026, 'Ad-creative co-pilot · Agentic AI PM cohort demo'],
+    ['AI Analyst Builder', 'Projects', 2026, '18-agent analysis pipeline · mockup'],
+    ['SurveAI', 'Projects', 2024, 'AI customer-feedback analysis · mockup'],
+    ['AWS Gen AI Developer – Pro', 'Certifications', 2026, 'Amazon Web Services · Q3 2026'],
+    ['Maven Agentic AI PM', 'Certifications', 2026, 'Agentic AI PM certification using Claude Code · Q3 2026'],
+    ['Anthropic AI Fluency', 'Certifications', 2026, 'Anthropic Education · Q3 2026'],
+    ['AWS AI Practitioner', 'Certifications', 2024, 'Amazon Web Services · Q1 2024'],
+    ['CSP-PO', 'Certifications', 2024, 'Scrum Alliance · Q1 2024'],
+    ['SAFe 6 POPM', 'Certifications', 2024, 'Scaled Agile · Q1 2024'],
+    ['A-CSPO', 'Certifications', 2024, 'Scrum Alliance · Q1 2024'],
+    ['MIT No-Code AI & ML', 'Certifications', 2024, 'MIT Professional Education · Q1 2024'],
+    ['MIT Design Thinking', 'Certifications', 2024, 'MIT Management Executive Education · Q1 2024'],
+    ['$16M revenue impact', 'Impact', 2020, 'Enterprise IT products scaled from $0.5M to $4M investment at Otsuka'],
+    ['$5M annual savings', 'Impact', 2017, '80% productivity lift via Tableau / big-data analytics'],
+    ['$20M valuation', 'Impact', 2015, 'Helped a food-services venture reach a $20M valuation'],
+    ['$5M+ new business', 'Impact', 2010, 'Originated at WIPRO'],
+    ['15+ years', 'Impact', null, 'Across pharma, healthcare, food service, education and tech']
+  ].map(([id, g, yr, d]) => ({ id, g, yr, d }));
+  const CATS = Object.keys(C).filter((k) => k !== 'hub');
+  N.push(...CATS.map((c) => ({ id: c, g: 'cat', cat: c, d: 'Category' })));
 
-    { id: 'Companies', group: 'cat', catGroup: 'Companies', r: 15 },
-    { id: 'WIPRO', group: 'Companies', r: 7 },
-    { id: 'Cloudculina', group: 'Companies', r: 7 },
-    { id: 'Grapnel', group: 'Companies', r: 7 },
-    { id: 'HCL', group: 'Companies', r: 7 },
-    { id: 'HealthFirst', group: 'Companies', r: 7 },
-    { id: 'Otsuka (Prophecy)', group: 'Companies', r: 7 },
+  const L = [];
+  const add = (a, b, x) => L.push({ source: a, target: b, x: !!x });
+  CATS.forEach((c) => add('Sankar', c));
+  N.filter((n) => CATS.includes(n.g)).forEach((n) => add(n.g, n.id));
+  [
+    ['WIPRO', 'Education'], ['Cloudculina', 'Food service'], ['Grapnel · Otsuka', 'Pharma & Life Sciences'], ['HCL · Otsuka', 'Pharma & Life Sciences'],
+    ['Prophecy · Otsuka', 'Pharma & Life Sciences'], ['Prophecy · HealthFirst', 'Healthcare (payer)'],
+    ['HCL · Otsuka', '$16M revenue impact'], ['Grapnel · Otsuka', '$5M annual savings'], ['Cloudculina', '$20M valuation'], ['WIPRO', '$5M+ new business'],
+    ['Grapnel · Otsuka', 'Tableau'], ['HCL · Otsuka', 'Salesforce / Veeva'], ['Prophecy · HealthFirst', 'Postman'], ['HCL · Otsuka', 'SAFe / Agile'],
+    ['Prophecy · HealthFirst', 'SAFe / Agile'], ['Prophecy · Otsuka', 'Compliance (GxP)'], ['HCL · Otsuka', 'Compliance (GxP)'], ['Grapnel · Otsuka', 'Data & Analytics'],
+    ['SAFe / Agile', 'SAFe 6 POPM'], ['SAFe / Agile', 'CSP-PO'], ['Product Ownership', 'A-CSPO'], ['Product Ownership', 'CSP-PO'],
+    ['AI/ML Product', 'AWS Gen AI Developer – Pro'], ['AI/ML Product', 'Maven Agentic AI PM'], ['AI/ML Product', 'MIT No-Code AI & ML'],
+    ['AI/ML Product', 'AWS AI Practitioner'], ['AI/ML Product', 'Anthropic AI Fluency'], ['Product Ownership', 'MIT Design Thinking'],
+    ['ContractIQ', 'Claude Code'], ['ProjectPilot AI', 'Supabase'], ['ProjectPilot AI', 'Claude Code'], ['Enterprise AI Data Copilot', 'Langflow'],
+    ['Enterprise AI Data Copilot', 'n8n'], ['ScienceAI', 'Langflow'], ['ScienceAI', 'RAG & Vector Search'], ['ScienceAI', 'Next.js'],
+    ['Agentic Clinical Trial Matching', 'Next.js'], ['ClinicalAI-TrialAnalysis', 'Pharma & Life Sciences'], ['Agentic Clinical Trial Matching', 'Pharma & Life Sciences'],
+    ['Agentic Clinical Trial Matching', 'Compliance (GxP)'], ['Enterprise AI Data Copilot', 'Compliance (GxP)'], ['Enterprise AI Data Copilot', 'Data & Analytics'],
+    ['AI Analyst Builder', 'Data & Analytics'], ['SurveAI', 'AI/ML Product'], ['ClinicalAI-TrialAnalysis', 'AI/ML Product'], ['ContractIQ', 'AI/ML Product'],
+    ['Ad Genie', 'Maven Agentic AI PM'], ['Compliance Lease Tool', 'Claude Code'], ['Company Comparison', 'AI/ML Product'], ['ProjectPilot AI', 'Product Ownership'],
+    ['Jira / Confluence', 'SAFe / Agile']
+  ].forEach(([a, b]) => add(a, b, 1));
 
-    { id: 'Certifications', group: 'cat', catGroup: 'Certifications', r: 15 },
-    { id: 'AWS Gen AI Developer', group: 'Certifications', r: 7 },
-    { id: 'MIT AI & ML', group: 'Certifications', r: 7 },
-    { id: 'CSP-PO', group: 'Certifications', r: 7 },
-    { id: 'MIT Design Thinking', group: 'Certifications', r: 7 },
+  const byId = Object.fromEntries(N.map((n) => [n.id, n]));
+  const adj = {};
+  N.forEach((n) => { adj[n.id] = new Set(); });
+  L.forEach((l) => { adj[l.source].add(l.target); adj[l.target].add(l.source); });
+  N.forEach((n) => { n.r = n.g === 'hub' ? 24 : n.g === 'cat' ? 15 : Math.min(13, 5.5 + adj[n.id].size * 1.3); });
+  const col = (n) => n.g === 'hub' ? C.hub : n.g === 'cat' ? C[n.cat] : C[n.g];
+  const catOf = (n) => n.g === 'cat' ? n.cat : n.g;
+  const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const LANES = ['Companies', 'Impact', 'Certifications', 'Projects'];
 
-    { id: 'Skills', group: 'cat', catGroup: 'Skills', r: 15 },
-    { id: 'AI/ML', group: 'Skills', r: 7 },
-    { id: 'Product', group: 'Skills', r: 7 },
-    { id: 'Agile', group: 'Skills', r: 7 },
-    { id: 'Design', group: 'Skills', r: 7 },
-
-    { id: 'Projects', group: 'cat', catGroup: 'Projects', r: 15 },
-    { id: 'ContractIQ', group: 'Projects', r: 7 },
-    { id: 'ProjectPilot AI', group: 'Projects', r: 7 },
-    { id: 'ScienceAI', group: 'Projects', r: 7 },
-    { id: 'Ad Genie', group: 'Projects', r: 7 },
-    { id: 'AI Analyst Builder', group: 'Projects', r: 7 },
-    { id: 'Compliance Lease Tool', group: 'Projects', r: 7 },
-
-    { id: 'Tools', group: 'cat', catGroup: 'Tools', r: 15 },
-    { id: 'Claude Code', group: 'Tools', r: 7 },
-    { id: 'Python', group: 'Tools', r: 7 },
-    { id: 'Figma', group: 'Tools', r: 7 },
-    { id: 'Jira', group: 'Tools', r: 7 },
-    { id: 'Langflow', group: 'Tools', r: 7 },
-    { id: 'PowerBI', group: 'Tools', r: 7 },
-    { id: 'SQL', group: 'Tools', r: 7 },
-    { id: 'Tableau', group: 'Tools', r: 7 },
-    { id: 'Cursor', group: 'Tools', r: 7 },
-    { id: 'n8n', group: 'Tools', r: 7 },
-    { id: 'GitHub', group: 'Tools', r: 7 },
-    { id: 'Confluence', group: 'Tools', r: 7 },
-    { id: 'AWS', group: 'Tools', r: 7 },
-    { id: 'Docker', group: 'Tools', r: 7 },
-    { id: 'Prompt Engineering', group: 'Tools', r: 7 },
-    { id: 'RAG & Vector Search', group: 'Tools', r: 7 },
-    { id: 'Agentic AI', group: 'Tools', r: 7 },
-    { id: 'Postman', group: 'Tools', r: 7 },
-    { id: 'Supabase', group: 'Tools', r: 7 },
-    { id: 'Vercel', group: 'Tools', r: 7 },
-    { id: 'Roadmapping', group: 'Tools', r: 7 },
-    { id: 'Stakeholder Mgmt', group: 'Tools', r: 7 },
-    { id: 'Product Analytics', group: 'Tools', r: 7 },
-
-    { id: 'Impact', group: 'cat', catGroup: 'Impact', r: 15 },
-    { id: '$16M+ Revenue', group: 'Impact', r: 7 },
-    { id: '$10M+ RFPs Led', group: 'Impact', r: 7 },
-    { id: '$15M+ Pipeline', group: 'Impact', r: 7 },
-    { id: '15+ Years', group: 'Impact', r: 7 }
-  ];
-
-  const links = [
-    { source: 'Sankar', target: 'Companies' },
-    { source: 'Sankar', target: 'Certifications' },
-    { source: 'Sankar', target: 'Skills' },
-    { source: 'Sankar', target: 'Projects' },
-    { source: 'Sankar', target: 'Tools' },
-    { source: 'Sankar', target: 'Impact' },
-
-    { source: 'Companies', target: 'WIPRO' },
-    { source: 'Companies', target: 'Cloudculina' },
-    { source: 'Companies', target: 'Grapnel' },
-    { source: 'Companies', target: 'HCL' },
-    { source: 'Companies', target: 'HealthFirst' },
-    { source: 'Companies', target: 'Otsuka (Prophecy)' },
-
-    { source: 'Certifications', target: 'AWS Gen AI Developer' },
-    { source: 'Certifications', target: 'MIT AI & ML' },
-    { source: 'Certifications', target: 'CSP-PO' },
-    { source: 'Certifications', target: 'MIT Design Thinking' },
-
-    { source: 'Skills', target: 'AI/ML' },
-    { source: 'Skills', target: 'Product' },
-    { source: 'Skills', target: 'Agile' },
-    { source: 'Skills', target: 'Design' },
-
-    { source: 'Projects', target: 'ContractIQ' },
-    { source: 'Projects', target: 'ProjectPilot AI' },
-    { source: 'Projects', target: 'ScienceAI' },
-    { source: 'Projects', target: 'Ad Genie' },
-    { source: 'Projects', target: 'AI Analyst Builder' },
-    { source: 'Projects', target: 'Compliance Lease Tool' },
-
-    { source: 'Tools', target: 'Claude Code' },
-    { source: 'Tools', target: 'Python' },
-    { source: 'Tools', target: 'Figma' },
-    { source: 'Tools', target: 'Jira' },
-    { source: 'Tools', target: 'Langflow' },
-    { source: 'Tools', target: 'PowerBI' },
-    { source: 'Tools', target: 'SQL' },
-    { source: 'Tools', target: 'Tableau' },
-    { source: 'Tools', target: 'Cursor' },
-    { source: 'Tools', target: 'n8n' },
-    { source: 'Tools', target: 'GitHub' },
-    { source: 'Tools', target: 'Confluence' },
-    { source: 'Tools', target: 'AWS' },
-    { source: 'Tools', target: 'Docker' },
-    { source: 'Tools', target: 'Prompt Engineering' },
-    { source: 'Tools', target: 'RAG & Vector Search' },
-    { source: 'Tools', target: 'Agentic AI' },
-    { source: 'Tools', target: 'Postman' },
-    { source: 'Tools', target: 'Supabase' },
-    { source: 'Tools', target: 'Vercel' },
-    { source: 'Tools', target: 'Roadmapping' },
-    { source: 'Tools', target: 'Stakeholder Mgmt' },
-    { source: 'Tools', target: 'Product Analytics' },
-
-    { source: 'Impact', target: '$16M+ Revenue' },
-    { source: 'Impact', target: '$10M+ RFPs Led' },
-    { source: 'Impact', target: '$15M+ Pipeline' },
-    { source: 'Impact', target: '15+ Years' },
-
-    // Cross-links: tie evidence back to the companies/projects that produced it
-    { source: 'Otsuka (Prophecy)', target: '$16M+ Revenue' },
-    { source: 'HealthFirst', target: '$10M+ RFPs Led' },
-    { source: 'Cloudculina', target: '$15M+ Pipeline' },
-    { source: 'AI/ML', target: 'ContractIQ' },
-    { source: 'AI/ML', target: 'ScienceAI' },
-    { source: 'AI/ML', target: 'Claude Code' },
-    { source: 'Product', target: 'ProjectPilot AI' },
-    { source: 'Agile', target: 'CSP-PO' },
-    { source: 'AI/ML', target: 'AWS Gen AI Developer' },
-    { source: 'AI/ML', target: 'MIT AI & ML' },
-    { source: 'Design', target: 'MIT Design Thinking' }
-  ];
-
-  function nodeColor(d) {
-    if (d.group === 'hub') return colors.hub;
-    if (d.group === 'cat') return colors[d.catGroup];
-    return colors[d.group];
-  }
-
-  const icons = {
-    hub: '🙂',
-    Companies: '🏢',
-    Certifications: '🎓',
-    Skills: '🧠',
-    Projects: '🚀',
-    Tools: '🛠️',
-    Impact: '📈'
-  };
-
-  function nodeIcon(d) {
-    if (d.group === 'hub') return icons.hub;
-    if (d.group === 'cat') return icons[d.catGroup];
-    return '';
-  }
-
-  let width = wrap.clientWidth || 600;
-  let height = wrap.clientHeight || 560;
-
-  const svg = d3.select(wrap).append('svg')
-    .attr('viewBox', [0, 0, width, height]);
-
+  const W = wrap.clientWidth || 600, H = wrap.clientHeight || 560;
+  const k = Math.max(0.55, Math.min(1, W / 820)); // gentler forces on narrow screens
+  const svg = d3.select(wrap).insert('svg', ':first-child').attr('viewBox', [0, 0, W, H]);
   const g = svg.append('g');
+  const zoom = d3.zoom().scaleExtent([0.35, 3]).on('zoom', (e) => g.attr('transform', e.transform));
+  svg.call(zoom);
+  const axis = g.append('g');
+  const ls = g.append('g').selectAll('line').data(L).join('line').attr('class', (d) => 'graph-link' + (d.x ? ' kg-x' : ''));
+  const ns = g.append('g').selectAll('g').data(N).join('g').attr('class', 'graph-node');
+  ns.append('circle').attr('r', (d) => d.r).attr('fill', col).attr('fill-opacity', (d) => d.g === 'hub' || d.g === 'cat' ? 0.9 : 0.55)
+    .attr('stroke', col).attr('stroke-width', (d) => d.g === 'hub' ? 2 : 1);
+  ns.filter((d) => d.g === 'hub' || d.g === 'cat').append('text').text((d) => ICON[d.g === 'hub' ? 'hub' : d.cat])
+    .attr('font-size', (d) => d.g === 'hub' ? 20 : 14).attr('text-anchor', 'middle').attr('dominant-baseline', 'central').style('pointer-events', 'none');
+  ns.append('text').text((d) => d.id).attr('font-size', (d) => d.g === 'hub' ? 12 : d.g === 'cat' ? 10.5 : 8.5)
+    .attr('font-weight', (d) => d.g === 'hub' || d.g === 'cat' ? 700 : 500).attr('text-anchor', 'middle').attr('dy', (d) => -(d.r + 5));
 
-  const zoomBehavior = d3.zoom().scaleExtent([0.5, 2.5]).on('zoom', (event) => {
-    g.attr('transform', event.transform);
-  });
-  svg.call(zoomBehavior);
-
-  const linkSel = g.append('g').attr('class', 'graph-links')
-    .selectAll('line')
-    .data(links)
-    .join('line')
-    .attr('class', 'graph-link');
-
-  const nodeSel = g.append('g').attr('class', 'graph-nodes')
-    .selectAll('g')
-    .data(nodes)
-    .join('g')
-    .attr('class', 'graph-node');
-
-  nodeSel.append('circle')
-    .attr('r', d => d.r)
-    .attr('fill', nodeColor)
-    .attr('fill-opacity', d => d.group === 'hub' || d.group === 'cat' ? 0.9 : 0.55)
-    .attr('stroke', nodeColor)
-    .attr('stroke-width', d => d.group === 'hub' ? 2 : 1);
-
-  nodeSel.filter(d => d.group === 'hub' || d.group === 'cat')
-    .append('text')
-    .text(nodeIcon)
-    .attr('class', 'graph-node-icon')
-    .attr('font-size', d => d.group === 'hub' ? 20 : 15)
-    .attr('text-anchor', 'middle')
-    .attr('dominant-baseline', 'central')
-    .attr('dy', '0.05em')
-    .style('pointer-events', 'none');
-
-  nodeSel.append('text')
-    .text(d => d.id)
-    .attr('font-size', d => d.group === 'hub' ? 12 : d.group === 'cat' ? 10.5 : 9)
-    .attr('font-weight', d => d.group === 'hub' || d.group === 'cat' ? 700 : 500)
-    .attr('text-anchor', 'middle')
-    .attr('dy', d => -(d.r + 6));
-
-  const simulation = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.source && d.source.group === 'hub' ? 110 : 55).strength(0.7))
-    .force('charge', d3.forceManyBody().strength(-160))
-    .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collide', d3.forceCollide().radius(d => d.r + 18));
-
-  simulation.on('tick', () => {
-    const pad = 28;
-    nodes.forEach(d => {
-      const r = d.r + 22;
-      d.x = Math.max(r + pad, Math.min(width - r - pad, d.x));
-      d.y = Math.max(r + pad, Math.min(height - r - pad, d.y));
-    });
-    linkSel
-      .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
-      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-    nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+  const linkForce = () => d3.forceLink(L).id((d) => d.id).distance((l) => (l.x ? 95 : (l.source.id === 'Sankar' ? 95 : 55)) * k).strength((l) => l.x ? 0.12 : 0.7);
+  const chargeForce = () => d3.forceManyBody().strength((d) => (d.g === 'hub' ? -500 : d.g === 'cat' ? -260 : -90) * k);
+  const sim = d3.forceSimulation(N).force('link', linkForce()).force('charge', chargeForce())
+    .force('center', d3.forceCenter(W / 2, H / 2)).force('col', d3.forceCollide((d) => d.r + 9 * k));
+  sim.on('tick', () => {
+    ls.attr('x1', (d) => d.source.x).attr('y1', (d) => d.source.y).attr('x2', (d) => d.target.x).attr('y2', (d) => d.target.y);
+    ns.attr('transform', (d) => `translate(${d.x},${d.y})`);
   });
 
-  nodeSel.call(
-    d3.drag()
-      .on('start', (event, d) => {
-        if (!event.active) simulation.alphaTarget(0.25).restart();
-        d.fx = d.x; d.fy = d.y;
-      })
-      .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
-      .on('end', (event, d) => {
-        if (!event.active) simulation.alphaTarget(0);
-        d.fx = null; d.fy = null;
-      })
-  );
+  let hidden = new Set(), sel = null, pathArr = [], pathSet = null, mode = 'graph', fitPending = true;
 
-  const adjacency = {};
-  links.forEach(l => {
-    const s = typeof l.source === 'object' ? l.source.id : l.source;
-    const t = typeof l.target === 'object' ? l.target.id : l.target;
-    (adjacency[s] = adjacency[s] || new Set()).add(t);
-    (adjacency[t] = adjacency[t] || new Set()).add(s);
-  });
+  ns.call(d3.drag()
+    .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+    .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+    .on('end', (e, d) => { if (!e.active) sim.alphaTarget(0); if (mode === 'graph') { d.fx = null; d.fy = null; } }));
 
-  function clearHighlight() {
-    nodeSel.classed('graph-dim', false);
-    linkSel.classed('graph-dim', false);
+  // Fit the graph into view once the layout settles (keeps small screens tidy).
+  function fit() {
+    const vis = N.filter(isVisible);
+    if (!vis.length) return;
+    const x0 = d3.min(vis, (d) => d.x - d.r), x1 = d3.max(vis, (d) => d.x + d.r);
+    const y0 = d3.min(vis, (d) => d.y - d.r - 14), y1 = d3.max(vis, (d) => d.y + d.r);
+    const s = Math.min(1.2, 0.92 / Math.max((x1 - x0) / W, (y1 - y0) / H));
+    svg.transition().duration(600).call(zoom.transform, d3.zoomIdentity.translate(W / 2 - s * (x0 + x1) / 2, H / 2 - s * (y0 + y1) / 2).scale(s));
+  }
+  sim.on('end', () => { if (fitPending && mode === 'graph') { fitPending = false; fit(); } });
+  setTimeout(() => { if (fitPending && mode === 'graph') fit(); }, 2200); // early fit, refined when the layout settles
+
+  function isVisible(n) {
+    if (mode === 'time' && (n.g === 'hub' || n.g === 'cat' || !n.yr || !LANES.includes(n.g))) return false;
+    return n.g === 'hub' || !hidden.has(catOf(n));
+  }
+  function onPath(d) {
+    for (let i = 0; i < pathArr.length - 1; i++) {
+      const a = pathArr[i], b = pathArr[i + 1];
+      if ((d.source.id === a && d.target.id === b) || (d.source.id === b && d.target.id === a)) return true;
+    }
+    return false;
+  }
+  function paint() {
+    const focus = sel ? new Set([sel, ...adj[sel]]) : null;
+    ns.style('display', (d) => isVisible(d) ? null : 'none')
+      .classed('graph-dim', (d) => !!((focus && !focus.has(d.id)) || (pathSet && !pathSet.has(d.id))));
+    ls.style('display', (d) => isVisible(d.source) && isVisible(d.target) ? null : 'none')
+      .classed('graph-dim', (d) => !!((focus && !(d.source.id === sel || d.target.id === sel)) || (pathSet && !onPath(d))))
+      .classed('kg-hl', (d) => !!pathSet && onPath(d));
+    ns.select('circle').attr('stroke-width', (d) => d.id === sel ? 3 : d.g === 'hub' ? 2 : 1);
   }
 
-  function highlight(d) {
-    const related = adjacency[d.id] || new Set();
-    nodeSel.classed('graph-dim', n => n.id !== d.id && !related.has(n.id));
-    linkSel.classed('graph-dim', l => {
-      const s = typeof l.source === 'object' ? l.source.id : l.source;
-      const t = typeof l.target === 'object' ? l.target.id : l.target;
-      return s !== d.id && t !== d.id;
-    });
+  /* detail panel */
+  const panel = document.getElementById('kg-panel');
+  const leafCount = N.filter((n) => n.g !== 'cat' && n.g !== 'hub').length;
+  function showPanel(id) {
+    if (!id) {
+      panel.innerHTML = '<p class="kg-empty"><b>' + leafCount + ' nodes · ' + L.length + ' connections.</b></p>' +
+        '<p>Click any node to see what it is, when it happened, and everything it connects to. Try <b>Prophecy · Otsuka</b> or <b>ContractIQ</b>.</p>' +
+        '<div class="kg-stats">' + CATS.map((c) => '<span><b>' + N.filter((n) => n.g === c).length + '</b> ' + c + '</span>').join('') + '</div>';
+      return;
+    }
+    const n = byId[id], conns = [...adj[id]].filter((x) => x !== 'Sankar' && byId[x].g !== 'cat');
+    const label = n.g === 'cat' ? 'Category' : n.g === 'hub' ? 'Me' : catOf(n);
+    panel.innerHTML =
+      '<span class="kg-chip" style="color:' + col(n) + ';background:' + col(n) + '22">' + esc(label) + '</span>' +
+      '<h3>' + esc(id) + '</h3><p>' + esc(n.d || '') + '</p>' + (n.yr ? '<span class="kg-meta">📅 ' + n.yr + '</span>' : '') +
+      '<span class="kg-meta">' + conns.length + ' connection' + (conns.length === 1 ? '' : 's') + '</span>' +
+      '<div class="kg-conns">' + conns.map((x) => '<button type="button" data-id="' + esc(x) + '" style="border-color:' + col(byId[x]) + '66">' + esc(x) + '</button>').join('') + '</div>' +
+      '<div class="kg-acts">' + (MODAL[id] ? '<button type="button" class="kg-btn" data-act="open">Open project →</button>' : '') +
+      (n.g !== 'cat' ? '<button type="button" class="kg-btn" data-act="ask">💬 Ask my twin about this</button>' : '') + '</div>';
+    panel.querySelectorAll('.kg-conns button').forEach((b) => b.addEventListener('click', () => select(b.dataset.id)));
+    const open = panel.querySelector('[data-act=open]');
+    if (open) open.addEventListener('click', (e) => { if (typeof openProjectModal === 'function') openProjectModal(e, MODAL[id]); });
+    const ask = panel.querySelector('[data-act=ask]');
+    if (ask) ask.addEventListener('click', () => askTwin(n));
   }
+  function askTwin(n) {
+    const input = document.getElementById('twin-input'), form = document.getElementById('twin-form');
+    if (!input || !form) return;
+    const q = n.g === 'hub' ? 'Give me a quick overview of your career.'
+      : n.g === 'Projects' ? 'Tell me about ' + n.id + ' — what problem it solves and the key design choices.'
+      : n.g === 'Companies' ? 'What did you do at ' + n.id + ', and what was the impact?'
+      : 'How does "' + n.id + '" show up in your work?';
+    const card = document.querySelector('.twin-card');
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    input.value = q;
+    setTimeout(() => { if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', { cancelable: true })); }, 450);
+  }
+  function clearPath() { pathArr = []; pathSet = null; document.getElementById('kg-pres').textContent = ''; }
+  function select(id) { sel = id; clearPath(); paint(); showPanel(id); }
+  ns.on('click', (e, d) => { e.stopPropagation(); select(sel === d.id ? null : d.id); });
+  svg.on('click', () => select(null));
 
-  nodeSel.on('click', (event, d) => {
-    event.stopPropagation();
-    highlight(d);
+  /* search + legend filters */
+  const lg = document.getElementById('kg-legend');
+  lg.innerHTML = CATS.map((c) => '<button type="button" class="kg-lg" data-c="' + c + '"><i style="background:' + C[c] + '"></i>' + c + '<small>' + N.filter((n) => n.g === c).length + '</small></button>').join('');
+  function syncLegend() { lg.querySelectorAll('.kg-lg').forEach((b) => b.classList.toggle('off', hidden.has(b.dataset.c) || (mode === 'time' && !LANES.includes(b.dataset.c)))); }
+  lg.querySelectorAll('.kg-lg').forEach((b) => b.addEventListener('click', () => {
+    const c = b.dataset.c;
+    if (hidden.has(c)) hidden.delete(c); else hidden.add(c);
+    syncLegend(); paint();
+  }));
+  document.getElementById('kg-q').addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    if (!q) { select(null); return; }
+    const m = N.find((n) => n.g !== 'cat' && n.id.toLowerCase().includes(q));
+    if (m) select(m.id);
   });
 
-  svg.on('click', clearHighlight);
+  /* trace a path */
+  const leaves = N.filter((n) => n.g !== 'cat' && n.g !== 'hub').map((n) => n.id).sort((a, b) => a.localeCompare(b));
+  const pa = document.getElementById('kg-pa'), pb = document.getElementById('kg-pb');
+  [pa, pb].forEach((s) => { s.innerHTML = leaves.map((x) => '<option>' + esc(x) + '</option>').join(''); });
+  pa.value = 'CSP-PO'; pb.value = 'ContractIQ';
+  function bfs(a, b, avoid) {
+    const prev = { [a]: null }, q = [a];
+    while (q.length) {
+      const u = q.shift();
+      if (u === b) break;
+      for (const v of adj[u]) {
+        if (v in prev) continue;
+        if (avoid && v !== b && (v === 'Sankar' || byId[v].g === 'cat')) continue;
+        prev[v] = u; q.push(v);
+      }
+    }
+    if (!(b in prev)) return null;
+    const p = [];
+    for (let x = b; x != null; x = prev[x]) p.unshift(x);
+    return p;
+  }
+  function trace(a, b) {
+    if (mode !== 'graph') setMode('graph');
+    const p = bfs(a, b, true) || bfs(a, b, false);
+    if (!p) return;
+    sel = null; pathArr = p; pathSet = new Set(p); paint();
+    document.getElementById('kg-pres').innerHTML = p.map((x) => '<b style="color:' + col(byId[x]) + '">' + esc(x) + '</b>').join(' → ');
+    showPanel(b);
+  }
+  document.getElementById('kg-go').addEventListener('click', () => { stopTour(true); trace(pa.value, pb.value); });
 
-  const resetBtn = document.getElementById('graph-reset-btn');
-  if (resetBtn) resetBtn.addEventListener('click', (event) => {
-    event.stopPropagation();
-    clearHighlight();
-    svg.transition().duration(400).call(zoomBehavior.transform, d3.zoomIdentity);
-    nodes.forEach(n => { n.fx = null; n.fy = null; });
-    simulation.alpha(0.3).restart();
+  /* timeline */
+  const yrs = d3.scaleLinear().domain([2009, 2027]).range([W < 600 ? 40 : 90, W - 24]);
+  const laneY = (i) => 60 + i * ((H - 110) / 3);
+  function setMode(m) {
+    mode = m;
+    document.querySelectorAll('#kg-mode button').forEach((b) => b.classList.toggle('on', b.dataset.m === m));
+    axis.selectAll('*').remove();
+    N.forEach((n) => { n.fx = null; n.fy = null; });
+    if (m === 'time') {
+      [2010, 2014, 2018, 2022, 2026].forEach((y) => {
+        axis.append('line').attr('x1', yrs(y)).attr('x2', yrs(y)).attr('y1', 20).attr('y2', H - 24).attr('stroke', 'rgba(148,163,184,0.1)');
+        axis.append('text').attr('class', 'kg-yr').attr('x', yrs(y)).attr('y', H - 8).attr('text-anchor', 'middle').text(y);
+      });
+      LANES.forEach((c, i) => axis.append('text').attr('class', 'kg-yr').attr('x', 6).attr('y', laneY(i) - 18).text(ICON[c] + ' ' + c));
+      const on = (d) => d.yr && LANES.includes(d.g);
+      sim.force('link', d3.forceLink(L).id((d) => d.id).strength(0))
+        .force('x', d3.forceX((d) => on(d) ? yrs(d.yr) : W / 2).strength((d) => on(d) ? 1 : 0.02))
+        .force('y', d3.forceY((d) => on(d) ? laneY(LANES.indexOf(d.g)) : H * 1.5).strength((d) => on(d) ? 0.9 : 0.3))
+        .force('charge', d3.forceManyBody().strength(-30)).force('center', null);
+      svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+    } else {
+      sim.force('link', linkForce()).force('x', null).force('y', null).force('charge', chargeForce()).force('center', d3.forceCenter(W / 2, H / 2));
+      fitPending = true;
+    }
+    syncLegend();
+    sim.alpha(1).restart();
+    paint();
+  }
+  document.querySelectorAll('#kg-mode button').forEach((b) => b.addEventListener('click', () => {
+    if (b.dataset.m === mode) return;
+    stopTour(true); clearPath(); sel = null; setMode(b.dataset.m); showPanel(null);
+  }));
+
+  /* guided tour */
+  const TOUR = [
+    ['Pharma depth', 'Grapnel · Otsuka', '$16M revenue impact', 'Nearly a decade with Otsuka across three firms — from analytics savings to <b>$16M revenue impact</b> and GxP-compliant launches.'],
+    ['From PO to AI builder', 'CSP-PO', 'ContractIQ', 'Agile product-ownership certs → AI/ML product skills → shipping <b>ContractIQ</b> end-to-end with Claude Code.'],
+    ['Healthcare data → agentic AI', 'Prophecy · HealthFirst', 'Agentic Clinical Trial Matching', 'Healthcare data and compliance work → clinical AI apps with human-in-the-loop guardrails.']
+  ];
+  let ti = -1;
+  const tour = document.getElementById('kg-tour');
+  function step() {
+    ti++;
+    if (ti >= TOUR.length) { stopTour(); return; }
+    const t = TOUR[ti];
+    trace(t[1], t[2]);
+    document.getElementById('kg-tour-txt').innerHTML = '<b>' + (ti + 1) + '/' + TOUR.length + ' · ' + t[0] + '</b> — ' + t[3];
+    document.getElementById('kg-tnext').textContent = ti === TOUR.length - 1 ? 'Finish' : 'Next →';
+    tour.classList.add('on');
+  }
+  function stopTour(keep) {
+    ti = -1; tour.classList.remove('on');
+    if (!keep) { clearPath(); paint(); showPanel(null); }
+  }
+  document.getElementById('kg-tour-btn').addEventListener('click', () => { ti = -1; step(); });
+  document.getElementById('kg-tnext').addEventListener('click', step);
+  document.getElementById('kg-tstop').addEventListener('click', () => stopTour());
+
+  document.getElementById('graph-reset-btn').addEventListener('click', () => {
+    hidden.clear(); document.getElementById('kg-q').value = '';
+    stopTour(true); clearPath(); sel = null;
+    if (mode !== 'graph') setMode('graph'); else { syncLegend(); paint(); fit(); }
+    showPanel(null);
   });
 
-  window.addEventListener('resize', () => {
-    const newW = wrap.clientWidth || width;
-    const newH = wrap.clientHeight || height;
-    if (Math.abs(newW - width) < 20) return;
-    width = newW; height = newH;
-    svg.attr('viewBox', [0, 0, width, height]);
-    simulation.force('center', d3.forceCenter(width / 2, height / 2));
-    simulation.alpha(0.3).restart();
-  });
+  showPanel(null);
+  paint();
 })();
 </script>
 
@@ -13962,5 +14107,267 @@
   onReady(function () { setupAsk(); setupXray(); setupBA(); });
 })();
 </script>
+<!-- ───────────────────────────────────────────
+  LIVE POST · featured + headline list
+  The <a class="ship-item"> entries in #live-post-list stay the single source
+  of truth (keep adding new posts at the top). This script reads them and
+  renders a hero card for the newest post plus a compact headline list, each
+  post split at its first " — " into a headline and a takeaway.
+──────────────────────────────────────────── -->
+<script>
+(function () {
+  const list = document.getElementById('live-post-list');
+  const filters = document.getElementById('lp-filters');
+  const wrap = list && list.closest('.lp-scroll-wrap');
+  if (!list || !filters || !wrap) return;
+
+  const NAME = { article: 'Article', achievement: 'Achievement', newstart: 'New Start', update: 'Update' };
+  const PAGE = 8;
+
+  function tidy(s) {
+    s = s.trim().replace(/^On\s+(why\s+|how\s+|the\s+)?/i, '');
+    return s.replace(/^([^A-Za-z0-9]*)([a-z])/, (m, q, c) => q + c.toUpperCase());
+  }
+
+  const posts = Array.from(list.querySelectorAll('.ship-item')).map((el) => {
+    const p = el.querySelector('.ship-text');
+    const clone = p ? p.cloneNode(true) : null;
+    if (clone) clone.querySelectorAll('.ship-tag').forEach((t) => t.remove());
+    const text = clone ? clone.textContent.replace(/\s+/g, ' ').trim() : '';
+    const cut = text.indexOf(' — ');
+    const head = cut > 0 ? text.slice(0, cut) : text;
+    const take = cut > 0 ? text.slice(cut + 3) : '';
+    const iconEl = el.querySelector('.ship-icon');
+    return {
+      cat: el.dataset.cat || 'update',
+      href: el.getAttribute('href') || '',
+      icon: iconEl ? iconEl.textContent.trim() : '•',
+      head: tidy(head),
+      take: take ? take.charAt(0).toUpperCase() + take.slice(1) : '',
+    };
+  }).filter((p) => p.head);
+  if (!posts.length) return;
+
+  // Counts on the existing type chips.
+  const counts = { all: posts.length };
+  posts.forEach((p) => { counts[p.cat] = (counts[p.cat] || 0) + 1; });
+  filters.querySelectorAll('.lp-chip').forEach((chip) => {
+    const n = counts[chip.dataset.filter] || 0;
+    if (!chip.querySelector('small')) chip.insertAdjacentHTML('beforeend', '<small>' + n + '</small>');
+    if (!n && chip.dataset.filter !== 'all') chip.style.display = 'none';
+  });
+
+  const root = document.createElement('div');
+  root.className = 'lpf';
+  root.id = 'lpf';
+  wrap.parentNode.insertBefore(root, wrap);
+  wrap.style.display = 'none';
+
+  let filter = 'all', expanded = false, boxH = 0;
+
+  function el(tag, cls, text) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function linkOrDiv(p, cls) {
+    const e = el(p.href ? 'a' : 'div', cls);
+    if (p.href) { e.href = p.href; e.target = '_blank'; e.rel = 'noopener'; }
+    return e;
+  }
+  function typeTag(cat) { return el('span', 'lpf-type lpf-type-' + cat, NAME[cat] || cat); }
+
+  function render() {
+    const m = posts.filter((p) => filter === 'all' || p.cat === filter);
+    root.innerHTML = '';
+    if (!m.length) { root.appendChild(el('p', 'lpf-empty', 'Nothing here yet.')); return; }
+
+    const h = m[0];
+    const hero = linkOrDiv(h, 'lpf-hero');
+    const top = el('div', 'lpf-hero-top');
+    top.appendChild(el('span', 'lpf-latest', filter === 'all' ? '● Latest' : '● Latest ' + NAME[filter]));
+    if (filter === 'all') top.appendChild(typeTag(h.cat));
+    hero.appendChild(top);
+    hero.appendChild(el('span', 'lpf-emo', h.icon));
+    hero.appendChild(el('h3', null, h.head));
+    if (h.take) hero.appendChild(el('p', null, h.take));
+    if (h.href) hero.appendChild(el('span', 'lpf-go', 'Read on LinkedIn →'));
+    root.appendChild(hero);
+
+    const side = el('div', 'lpf-side');
+    const listEl = el('div', 'lpf-list');
+    const rest = m.slice(1);
+    rest.slice(0, expanded ? rest.length : PAGE).forEach((p, i) => {
+      const r = linkOrDiv(p, 'lpf-row');
+      r.style.animationDelay = (expanded ? 0 : Math.min(i, 8) * 30) + 'ms';
+      if (p.take) r.title = p.take;
+      r.appendChild(el('span', 'lpf-row-emo', p.icon));
+      const b = el('span', 'lpf-row-body');
+      b.appendChild(el('span', 'lpf-row-h', p.head));
+      if (p.take) b.appendChild(el('span', 'lpf-row-k', p.take));
+      r.appendChild(b);
+      r.appendChild(typeTag(p.cat));
+      listEl.appendChild(r);
+    });
+    if (!rest.length) listEl.appendChild(el('p', 'lpf-empty', 'That’s the only one so far.'));
+    side.appendChild(listEl);
+
+    if (expanded && boxH) {
+      // Keep the card the same size — the full list scrolls inside it.
+      listEl.classList.add('lpf-scroll');
+      listEl.style.maxHeight = boxH + 'px';
+    }
+    if (rest.length > PAGE) {
+      const left = rest.length - PAGE;
+      const more = el('button', 'lpf-more', expanded ? 'Show less ↑' : 'Show ' + left + ' more · scroll the list ↓');
+      more.type = 'button';
+      more.addEventListener('click', () => {
+        if (!expanded) {
+          const cur = root.querySelector('.lpf-list');
+          boxH = cur ? cur.offsetHeight : 0;
+          expanded = true; render();
+          const l = root.querySelector('.lpf-list'), first = l && l.children[PAGE];
+          if (l && first) l.scrollTo({ top: Math.max(0, first.offsetTop - l.offsetTop - 8), behavior: 'smooth' });
+        } else { expanded = false; render(); }
+      });
+      side.appendChild(more);
+    }
+    root.appendChild(side);
+  }
+
+  filters.querySelectorAll('.lp-chip').forEach((chip) => {
+    chip.addEventListener('click', () => { filter = chip.dataset.filter; expanded = false; render(); });
+  });
+  render();
+})();
+</script>
+
+<script>
+/* Hero atom — three orbits = three worlds (AI · Product · Pharma & Health).
+   Electrons with light trails ride the existing rings; hover (or tap) one to name it. */
+(function () {
+  const ORBITS = [
+    { rot: 0,   label: '🤖 AI & Agentic AI',      col: '#7dd3fc', rgb: '125,211,252', speed: 1.0,  phase: 0 },
+    { rot: 60,  label: '🧭 Product leadership',   col: '#a78bfa', rgb: '167,139,250', speed: 1.25, phase: 2.1 },
+    { rot: 120, label: '🧬 Pharma & Health',      col: '#4ade80', rgb: '74,222,128',  speed: 0.85, phase: 4.2 },
+  ];
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function setup(host) {
+    if (!host || host.dataset.atom) return;
+    host.dataset.atom = '1';
+    host.classList.add('atom-live');
+    const cv = document.createElement('canvas');
+    cv.className = 'atom-canvas';
+    cv.setAttribute('aria-hidden', 'true');
+    host.appendChild(cv);
+    const lbl = document.createElement('span');
+    lbl.className = 'atom-lbl';
+    host.appendChild(lbl);
+    host.setAttribute('title', 'AI · Product · Pharma & Health');
+
+    const ctx = cv.getContext('2d');
+    let W = 0, dpr = 1, t = Math.random() * 10, hover = -1, tapTimer = null, running = false, raf = 0;
+    const pos = ORBITS.map(() => [0, 0]);
+
+    function size() {
+      const r = host.getBoundingClientRect();
+      if (!r.width) return false;
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = r.width;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(W * dpr);
+      return true;
+    }
+    function point(o, a) {
+      const s = W / 130, x = 54 * Math.cos(a), y = 22 * Math.sin(a), r = o.rot * Math.PI / 180;
+      return [(65 + x * Math.cos(r) - y * Math.sin(r)) * s, (65 + x * Math.sin(r) + y * Math.cos(r)) * s];
+    }
+    function draw() {
+      const light = document.documentElement.classList.contains('light');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // fade the previous frame → trails
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = reduced ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0.16)';
+      ctx.fillRect(0, 0, W, W);
+      ctx.globalCompositeOperation = 'source-over';
+      const rad = Math.max(3.2, W / 34);
+      ORBITS.forEach((o, i) => {
+        const p = point(o, t * o.speed + o.phase);
+        pos[i] = p;
+        const big = i === hover ? 1.45 : 1;
+        const R = rad * 2.1 * big;
+        const g = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], R);
+        g.addColorStop(0, light ? o.col : 'rgba(255,255,255,0.95)');
+        g.addColorStop(0.16, 'rgba(' + o.rgb + ',1)');
+        g.addColorStop(0.5, 'rgba(' + o.rgb + ',0.55)');
+        g.addColorStop(1, 'rgba(' + o.rgb + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p[0], p[1], R, 0, Math.PI * 2); ctx.fill();
+      });
+      if (hover >= 0) {
+        lbl.style.left = pos[hover][0] + 'px';
+        lbl.style.top = pos[hover][1] + 'px';
+      }
+    }
+    function loop() {
+      t += hover >= 0 ? 0.004 : 0.016;
+      draw();
+      raf = requestAnimationFrame(loop);
+    }
+    function start() { if (running || reduced) return; running = true; raf = requestAnimationFrame(loop); }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+
+    function nearest(e, reach) {
+      const r = host.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      let best = -1, bd = reach;
+      pos.forEach((p, i) => { const d = Math.hypot(p[0] - x, p[1] - y); if (d < bd) { bd = d; best = i; } });
+      return best;
+    }
+    function show(i) {
+      hover = i;
+      if (i < 0) { lbl.classList.remove('on'); host.style.cursor = ''; return; }
+      lbl.textContent = ORBITS[i].label;
+      lbl.style.background = ORBITS[i].col;
+      lbl.classList.add('on');
+      host.style.cursor = 'pointer';
+      if (reduced) draw();
+    }
+    host.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') show(nearest(e, W / 7)); });
+    host.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') show(-1); });
+    host.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse') return;
+      let i = nearest(e, W / 4.5);
+      if (i < 0) i = (hover + 1) % ORBITS.length; // tap anywhere cycles through the three
+      show(i);
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => show(-1), 2400);
+    });
+
+    function init() {
+      if (!size()) return false;
+      if (reduced) { draw(); } else { start(); }
+      return true;
+    }
+    if (!init()) {
+      // hidden at this breakpoint — try again when it becomes visible
+      const ro = new ResizeObserver(() => { if (size()) { if (reduced) draw(); else if (visible) start(); } });
+      ro.observe(host);
+    }
+    let visible = true;
+    window.addEventListener('resize', () => { if (size() && reduced) draw(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((es) => {
+        visible = es.some((x) => x.isIntersecting);
+        if (visible && W) start(); else stop();
+      }).observe(host);
+    }
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else if (visible && W) start(); });
+  }
+
+  document.querySelectorAll('.avatar-wrap, .mobile-avatar').forEach(setup);
+})();
+</script>
+
 </body>
 </html>
