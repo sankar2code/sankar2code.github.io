@@ -2890,6 +2890,76 @@
     html.light .prdd-input { border-color: rgba(29,78,216,0.3); }
     html.light .prdd-err { color: #b91c1c; }
     html.light .prdd-doc pre { background: rgba(0,0,0,0.05); }
+    /* PRD demo · skill trace + scorecard */
+    .prdd-think { display: grid; grid-template-columns: 270px 1fr; gap: 1.1rem; padding: 1.1rem 1rem; }
+    .prdd-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+    .prdd-steps li { display: flex; gap: 0.65rem; align-items: flex-start; font-size: 0.8rem; opacity: 0.38; transition: opacity 0.3s; }
+    .prdd-steps li.run, .prdd-steps li.done { opacity: 1; }
+    .prdd-steps b { display: block; color: var(--white); font-weight: 600; }
+    .prdd-steps small { color: var(--muted); font-size: 0.74rem; word-break: break-word; }
+    .prdd-dot { flex: none; width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(148,163,184,0.35); display: grid; place-items: center; font-size: 0.66rem; font-weight: 800; color: #0b1220; margin-top: 1px; }
+    .prdd-steps li.run .prdd-dot { border-color: #38bdf8; border-top-color: transparent; animation: prddSpin 0.8s linear infinite; }
+    .prdd-steps li.done .prdd-dot { background: #4ade80; border-color: #4ade80; animation: none; }
+    .prdd-steps li.done .prdd-dot::after { content: "✓"; }
+    .prdd-skel { position: relative; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; background: rgba(8,8,15,0.35); }
+    .prdd-skel i { display: block; height: 9px; width: 100%; border-radius: 6px; background: linear-gradient(90deg, rgba(56,189,248,0.08), rgba(56,189,248,0.22), rgba(56,189,248,0.08)); background-size: 200% 100%; animation: prddShim 1.4s linear infinite; }
+    .prdd-skel span { font-size: 0.74rem; color: var(--muted); margin-top: 0.2rem; }
+    @keyframes prddShim { to { background-position: -200% 0; } }
+    .prdd-caret { display: inline-block; width: 7px; height: 15px; background: #38bdf8; vertical-align: -2px; margin-left: 2px; animation: prddBlink 1s steps(1) infinite; }
+    @keyframes prddBlink { 50% { opacity: 0; } }
+    .prdd-out-bar .prdd-trail { font-size: 0.74rem; color: var(--muted); }
+    .prdd-trail b { color: #4ade80; margin-left: 0.25rem; }
+    .prdd-doc { position: relative; }
+    .prdd-doc .prdd-fixed { background: rgba(74,222,128,0.07); box-shadow: -10px 0 0 rgba(74,222,128,0.07), 10px 0 0 rgba(74,222,128,0.07), inset 3px 0 0 #4ade80; padding-left: 0.6rem; }
+    .prdd-score { border-top: 1px solid var(--border); padding: 0.9rem 1rem 0.4rem; }
+    .prdd-score-head { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
+    .prdd-score-by { font-size: 0.72rem; color: #7dd3fc; }
+    .prdd-score .prdd-loading { padding: 0.6rem 0; }
+    .prdd-score-grid { display: grid; grid-template-columns: 130px 1fr; gap: 1.2rem; align-items: center; }
+    .prdd-ring { position: relative; width: 120px; height: 120px; }
+    .prdd-ring svg { transform: rotate(-90deg); display: block; }
+    .prdd-ring-bg { stroke: rgba(148,163,184,0.18); }
+    #prdd-arc { transition: stroke-dashoffset 1.1s cubic-bezier(.2,.8,.2,1); }
+    .prdd-ring-v { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
+    .prdd-ring-v b { font-size: 1.9rem; color: var(--white); font-family: inherit; }
+    .prdd-ring-v span { font-size: 0.66rem; color: var(--muted); margin-top: 3px; }
+    .prdd-delta { margin-top: 5px !important; font-size: 0.66rem !important; font-weight: 800; color: #0b1220 !important; background: #4ade80; border-radius: 999px; padding: 1px 6px; }
+    .prdd-delta.down { background: #fbbf24; }
+    .prdd-score-fmt { font-size: 0.74rem; color: var(--muted); margin: 0 0 0.55rem; }
+    .prdd-score-fmt .ok { color: #4ade80; } .prdd-score-fmt .imp { color: #fbbf24; } .prdd-score-fmt .blk { color: #fb7185; }
+    .prdd-crit { display: flex; flex-direction: column; gap: 0.42rem; }
+    .prdd-cr { display: grid; grid-template-columns: 160px 1fr 30px; gap: 0.6rem; align-items: center; font-size: 0.76rem; color: var(--text-body); cursor: default; }
+    .prdd-cbar { height: 7px; border-radius: 7px; background: rgba(148,163,184,0.16); overflow: hidden; }
+    .prdd-cbar i { display: block; height: 100%; width: 0; border-radius: 7px; transition: width 1s cubic-bezier(.2,.8,.2,1); }
+    .prdd-cr em { font-style: normal; font-weight: 700; color: var(--white); text-align: right; }
+    .prdd-gap { margin-top: 0.85rem; display: flex; align-items: center; justify-content: space-between; gap: 0.7rem; flex-wrap: wrap; font-size: 0.78rem; color: var(--text-body); background: rgba(251,191,36,0.07); border: 1px solid rgba(251,191,36,0.28); border-radius: 10px; padding: 0.6rem 0.75rem; }
+    .prdd-gap span { flex: 1 1 260px; }
+    .prdd-gap b { color: #fbbf24; }
+    .prdd-gap.done, .prdd-gap:not(:has(button)) { background: rgba(74,222,128,0.07); border-color: rgba(74,222,128,0.3); }
+    .prdd-gap.done b, .prdd-gap:not(:has(button)) b { color: #4ade80; }
+    .prdd-gap .prdd-btn { padding: 0.5rem 0.9rem; font-size: 0.78rem; width: auto; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .prdd-spin.sm { width: 13px; height: 13px; border-width: 2px; border-color: rgba(255,255,255,0.35); border-top-color: #fff; }
+    .prdd-score-note { font-size: 0.7rem; color: var(--muted); margin: 0.7rem 0 0.3rem; }
+    html.light .prdd-skel { background: rgba(255,255,255,0.5); }
+    html.light .prdd-skel i { background: linear-gradient(90deg, rgba(29,78,216,0.06), rgba(29,78,216,0.16), rgba(29,78,216,0.06)); background-size: 200% 100%; }
+    html.light .prdd-score-by { color: #1d4ed8; }
+    html.light .prdd-steps li.done .prdd-dot, html.light .prdd-delta { background: #16a34a; border-color: #16a34a; color: #fff !important; }
+    html.light .prdd-trail b, html.light .prdd-score-fmt .ok, html.light .prdd-gap.done b, html.light .prdd-gap:not(:has(button)) b { color: #15803d; }
+    html.light .prdd-score-fmt .imp, html.light .prdd-gap b { color: #b45309; }
+    html.light .prdd-score-fmt .blk { color: #be123c; }
+    html.light .prdd-doc .prdd-fixed { background: rgba(22,163,74,0.07); box-shadow: inset 3px 0 0 #16a34a; }
+    @media (max-width: 640px) {
+      .prdd-think { grid-template-columns: 1fr; padding: 0.9rem; }
+      .prdd-skel { display: none; }
+      .prdd-score-grid { grid-template-columns: 1fr; justify-items: center; }
+      .prdd-score-grid > div:last-child { width: 100%; }
+      .prdd-cr { grid-template-columns: 112px 1fr 28px; }
+      .prdd-gap .prdd-btn { width: 100%; justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .prdd-steps li .prdd-dot, .prdd-skel i, .prdd-caret { animation: none !important; }
+      #prdd-arc, .prdd-cbar i { transition: none; }
+    }
     @media (max-width: 720px) {
       .prdd-card { padding: 1.1rem 1rem 1.2rem; }
       .prdd-btn { width: 100%; }
@@ -9138,21 +9208,84 @@
       return h;
     }
 
-    var STEPS = ['Framing the problem…', 'Defining users and the core metric…', 'Scoping the MVP…', 'Writing requirements…', 'Adding risks and assumptions…'];
-    function loading() {
-      out.className = 'prdd-out on';
-      out.innerHTML = '<div class="prdd-loading"><span class="prdd-spin"></span><span id="prdd-step">' + STEPS[0] + '</span></div>';
-      var k = 0, el = document.getElementById('prdd-step');
-      return setInterval(function () { k = (k + 1) % STEPS.length; if (el) el.textContent = STEPS[k]; }, 2600);
+    var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var TPL = { auto: '', onepage: 'One-Page PRD', brief: 'Feature Brief', ai: 'AI Product PRD', epic: 'Agile Epic', full: 'Full PRD' };
+
+    /* ---------- 1. Watch the skill think ---------- */
+    function analyze(prd, fmt) {
+      var lines = prd.replace(/\r/g, '').split('\n');
+      var h1 = (lines.filter(function (l) { return /^#\s/.test(l); })[0] || '');
+      var tpl = /AI Product PRD/i.test(h1) ? 'AI Product PRD' : /One-Page/i.test(h1) ? 'One-Page PRD' :
+        /Feature Brief/i.test(h1) ? 'Feature Brief' : /^#\s*Epic/i.test(h1) ? 'Agile Epic' :
+        /Requirements Document/i.test(h1) ? 'Full PRD' : (TPL[fmt] || 'PRD');
+      var h2 = lines.filter(function (l) { return /^##\s/.test(l); }).length;
+      var h3 = lines.filter(function (l) { return /^###\s/.test(l); }).length;
+      function countUnder(re) {
+        var n = 0, inside = false;
+        lines.forEach(function (l) {
+          if (/^#{1,6}\s/.test(l)) { inside = re.test(l); return; }
+          if (inside && /^\s*(\d+[.)]|[-*])\s+\S/.test(l)) n++;
+        });
+        return n;
+      }
+      return { tpl: tpl, sections: h2 >= 3 ? h2 : (h2 + h3), oq: countUnder(/open questions/i), as: countUnder(/assumption/i) };
     }
 
-    function render(prd, fmt, truncated) {
-      lastMd = prd;
+    function loading(idea, fmt) {
+      out.className = 'prdd-out on';
+      var short = idea.length > 48 ? idea.slice(0, 46) + '…' : idea;
       out.innerHTML =
-        '<div class="prdd-out-bar"><span>' + FMT_NAME[fmt || 'auto'] + ' · generated with prd-v2</span>' +
+        '<div class="prdd-think"><ul class="prdd-steps">' +
+        '<li><span class="prdd-dot"></span><div><b>Reading your idea</b><small>“' + esc(short) + '”</small></div></li>' +
+        '<li><span class="prdd-dot"></span><div><b>Choosing a template</b><small>' + (fmt === 'auto' ? 'prd-v2 picks the best fit' : 'You picked: ' + TPL[fmt]) + '</small></div></li>' +
+        '<li><span class="prdd-dot"></span><div><b>Drafting sections</b><small>problem → metrics → scope → risks</small></div></li>' +
+        '<li><span class="prdd-dot"></span><div><b>Listing assumptions &amp; open questions</b><small>so nothing invented hides</small></div></li>' +
+        '</ul><div class="prdd-skel" aria-hidden="true"><i style="width:62%"></i><i></i><i style="width:88%"></i><i style="width:74%"></i><i></i><i style="width:55%"></i><span>prd-v2 is writing…</span></div></div>';
+      var li = out.querySelectorAll('.prdd-steps li'), timers = [];
+      function set(i, st) { if (li[i]) li[i].className = st; }
+      set(0, 'run');
+      timers.push(setTimeout(function () { set(0, 'done'); set(1, 'run'); }, 900));
+      if (fmt !== 'auto') timers.push(setTimeout(function () { set(1, 'done'); set(2, 'run'); }, 2000));
+      return {
+        stop: function () { timers.forEach(clearTimeout); },
+        finish: function (info, cb) {
+          timers.forEach(clearTimeout);
+          var subs = [null, 'Picked: ' + info.tpl, info.sections + ' sections written',
+            (info.oq ? info.oq + ' open question' + (info.oq === 1 ? '' : 's') : 'Open questions flagged') + (info.as ? ' · ' + info.as + ' assumption' + (info.as === 1 ? '' : 's') : '')];
+          var k = 0;
+          (function nextStep() {
+            if (k > 3) { setTimeout(cb, REDUCED ? 0 : 350); return; }
+            if (subs[k]) li[k].querySelector('small').textContent = subs[k];
+            set(k, 'done'); if (k < 3) set(k + 1, 'run');
+            k++; setTimeout(nextStep, REDUCED ? 0 : 260);
+          })();
+        }
+      };
+    }
+
+    function stream(doc, src, done) {
+      if (REDUCED || src.length < 200) { doc.innerHTML = md(src); done(); return; }
+      var n = 0, step = Math.max(40, Math.ceil(src.length / 90));
+      (function frame() {
+        n += step;
+        if (n >= src.length) { doc.innerHTML = md(src); done(); return; }
+        var cut = src.lastIndexOf('\n', n); if (cut < n - 400 || cut <= 0) cut = n;
+        doc.innerHTML = md(src.slice(0, cut)) + '<span class="prdd-caret"></span>';
+        setTimeout(frame, 28);
+      })();
+    }
+
+    function render(prd, fmt, truncated, info) {
+      lastMd = prd;
+      var trail = '<span class="prdd-trail"><b>✓</b> ' + esc(info.tpl) + ' <b>✓</b> ' + info.sections + ' sections' +
+        (info.oq ? ' <b>✓</b> ' + info.oq + ' open questions' : '') + ' · prd-v2</span>';
+      out.innerHTML =
+        '<div class="prdd-out-bar">' + trail +
         '<div class="prdd-actions"><button type="button" class="prdd-btn ghost" id="prdd-copy">Copy Markdown</button>' +
         '<button type="button" class="prdd-btn ghost" id="prdd-dl">Download .md</button></div></div>' +
-        '<div class="prdd-doc">' + md(prd) + '</div>' +
+        '<div class="prdd-doc" id="prdd-doc"></div>' +
+        '<div class="prdd-score" id="prdd-score"><div class="prdd-score-head"><span class="prdd-row-label">PRD Scorecard</span><span class="prdd-score-by">graded live by my prd-eval skill</span></div>' +
+        '<div class="prdd-score-body" id="prdd-score-body"><div class="prdd-loading"><span class="prdd-spin"></span><span>Grading against my prd-eval rubric…</span></div></div></div>' +
         '<div class="prdd-foot">' + (truncated ? 'Trimmed to keep the demo fast — the full skill writes longer docs. ' : '') +
         'AI-generated draft for illustration. Want the full version for your team? <a href="#contact" style="color:#7dd3fc">Let’s talk</a>.</div>';
       document.getElementById('prdd-copy').addEventListener('click', function (e) {
@@ -9166,6 +9299,114 @@
         a.download = 'PRD.md'; document.body.appendChild(a); a.click(); a.remove();
         setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
       });
+      var gen = ++runId, streamed = false, graded = null;
+      function show() { if (gen === runId && streamed && graded) showScore(graded, null); }
+      grade(prd).then(function (d) { graded = d; show(); }, function () { graded = { err: true }; show(); });
+      stream(document.getElementById('prdd-doc'), prd, function () { streamed = true; show(); });
+    }
+
+    /* ---------- 2. PRD Scorecard (prd-eval) ---------- */
+    var runId = 0, fixedTitle = '';
+    function grade(prd) {
+      return fetch(ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ mode: 'eval', prd: prd }) })
+        .then(function (r) { return r.json().then(function (d) { if (!r.ok || !d || typeof d.score !== 'number') throw new Error('eval'); return d; }); });
+    }
+    function tone(v) { return v >= 85 ? '#4ade80' : v >= 65 ? '#38bdf8' : v >= 45 ? '#fbbf24' : '#fb7185'; }
+    var C = 2 * Math.PI * 52;
+
+    function showScore(d, prev) {
+      var body = document.getElementById('prdd-score-body');
+      if (!body) return;
+      if (d.err) { body.innerHTML = '<p class="prdd-score-note">Scorecard is unavailable right now — the PRD above is still yours to use.</p>'; return; }
+      var bars = d.sections.map(function (s) {
+        return '<div class="prdd-cr" title="' + s.pass + ' pass · ' + s.improve + ' to improve · ' + s.blocker + ' blocker' + (s.blocker === 1 ? '' : 's') + '">' +
+          '<span>' + esc(s.name) + '</span><div class="prdd-cbar"><i data-w="' + s.score + '" style="background:' + tone(s.score) + '"></i></div><em>' + s.score + '</em></div>';
+      }).join('');
+      var delta = prev !== null && prev !== undefined && d.score !== prev ? '<span class="prdd-delta' + (d.score > prev ? '' : ' down') + '">' + (d.score > prev ? '▲ +' : '▼ ') + (d.score - prev) + '</span>' : '';
+      var g = d.top_gap;
+      body.innerHTML =
+        '<div class="prdd-score-grid"><div class="prdd-ring">' +
+        '<svg viewBox="0 0 120 120" width="120" height="120"><defs><linearGradient id="prddG" x1="0" x2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>' +
+        '<circle cx="60" cy="60" r="52" fill="none" class="prdd-ring-bg" stroke-width="10"/>' +
+        '<circle id="prdd-arc" cx="60" cy="60" r="52" fill="none" stroke="url(#prddG)" stroke-width="10" stroke-linecap="round" stroke-dasharray="' + C.toFixed(1) + '" stroke-dashoffset="' + (C * (1 - (prev || 0) / 100)).toFixed(1) + '"/></svg>' +
+        '<div class="prdd-ring-v"><b id="prdd-sc">' + (prev || 0) + '</b><span>/ 100</span>' + delta + '</div></div>' +
+        '<div><p class="prdd-score-fmt">' + esc(d.format) + ' rubric · ' + d.checks + ' checks · <span class="ok">' + d.pass + ' pass</span> · <span class="imp">' + d.improve + ' to improve</span> · <span class="blk">' + d.blocker + ' blocker' + (d.blocker === 1 ? '' : 's') + '</span></p>' +
+        '<div class="prdd-crit">' + bars + '</div></div></div>' +
+        (g && g.gap ? '<div class="prdd-gap" id="prdd-gap"><span><b>Biggest gap · ' + esc(g.item || g.section) + '</b> — ' + esc(g.gap) + '</span>' +
+          '<button type="button" class="prdd-btn" id="prdd-fix">✨ ' + (g.heading ? 'Fix this section' : 'Add this section') + '</button></div>' : '') +
+        '<p class="prdd-score-note">Score = passes + ½ improvements, across the rubric checks that apply to this format. Hover a bar for its counts.</p>';
+      requestAnimationFrame(function () { requestAnimationFrame(function () {
+        var arc = document.getElementById('prdd-arc');
+        if (arc) arc.style.strokeDashoffset = (C * (1 - d.score / 100)).toFixed(1);
+        body.querySelectorAll('.prdd-cbar i').forEach(function (i) { i.style.width = i.dataset.w + '%'; });
+        var el = document.getElementById('prdd-sc'), from = prev || 0, t0 = null;
+        if (REDUCED) { el.textContent = d.score; return; }
+        (function tick(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1100); el.textContent = Math.round(from + (d.score - from) * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); })(performance.now());
+      }); });
+      var fx = document.getElementById('prdd-fix');
+      if (fx) fx.addEventListener('click', function () { fixGap(d, fx); });
+    }
+
+    function norm(t) { return t.replace(/[*_`#]/g, '').replace(/^\s*[\d.]+\s*/, '').replace(/[^a-z0-9&]+/gi, ' ').trim().toLowerCase(); }
+
+    function applyFix(section, heading) {
+      var lines = lastMd.replace(/\r/g, '').split('\n'), sec = section.replace(/\r/g, '').split('\n');
+      var first = (sec[0].match(/^(#{1,6})\s+(.*)$/) || []);
+      var i = -1, lvl = 2, target = norm(heading || '');
+      if (target) {
+        for (var k = 0; k < lines.length; k++) {
+          var m = lines[k].match(/^(#{1,6})\s+(.*)$/);
+          if (m && m[1].length > 1) { var t = norm(m[2]); if (t && (t === target || t.indexOf(target) === 0 || target.indexOf(t) === 0)) { i = k; lvl = m[1].length; break; } }
+        }
+      }
+      if (first[1]) sec[0] = new Array((i >= 0 ? lvl : Math.max(2, first[1].length)) + 1).join('#') + ' ' + first[2];
+      else sec.unshift(new Array(lvl + 1).join('#') + ' ' + (heading || 'Added section'));
+      fixedTitle = sec[0].replace(/^#+\s+/, '');
+      if (i >= 0) {
+        var j = i + 1;
+        while (j < lines.length) { var mm = lines[j].match(/^(#{1,6})\s/); if (mm && mm[1].length <= lvl) break; j++; }
+        while (j > i + 1 && /^\s*(-{3,})?\s*$/.test(lines[j - 1])) j--;
+        lines.splice.apply(lines, [i, j - i].concat(sec));
+      } else {
+        var at = -1;
+        for (var q = 0; q < lines.length; q++) { if (/^#{2,3}\s+.*(open questions|assumption)/i.test(lines[q])) { at = q; break; } }
+        if (at < 0) at = lines.length;
+        lines.splice.apply(lines, [at, 0].concat(sec, ['']));
+      }
+      lastMd = lines.join('\n');
+    }
+
+    function highlight(doc) {
+      var want = norm(fixedTitle), hs = doc.querySelectorAll('h1,h2,h3,h4'), h = null;
+      for (var k = 0; k < hs.length; k++) { if (norm(hs[k].textContent) === want) { h = hs[k]; break; } }
+      if (!h) return;
+      var lvl = +h.tagName[1], el = h;
+      do { el.classList.add('prdd-fixed'); el = el.nextElementSibling; }
+      while (el && !(/^H[1-4]$/.test(el.tagName) && +el.tagName[1] <= lvl));
+      doc.scrollTop = Math.max(0, h.offsetTop - 12);
+    }
+
+    function fixGap(d, btn) {
+      var g = d.top_gap, gap = document.getElementById('prdd-gap'), gen = runId;
+      btn.disabled = true; btn.innerHTML = '<span class="prdd-spin sm"></span> Rewriting with prd-v2…';
+      fetch(ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ mode: 'fix', prd: lastMd, heading: g.heading || '', gap: g.gap, item: g.item || '' }) })
+        .then(function (r) { return r.json().then(function (x) { if (!r.ok || !x || !x.section) throw new Error('fix'); return x; }); })
+        .then(function (x) {
+          if (gen !== runId) return;
+          applyFix(x.section, g.heading);
+          var doc = document.getElementById('prdd-doc');
+          doc.innerHTML = md(lastMd); highlight(doc);
+          doc.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' });
+          gap.innerHTML = '<span><b>✓ Fixed · ' + esc(g.item || g.section) + '</b> — highlighted in the PRD above. Re-grading…</span>';
+          return grade(lastMd).then(function (nd) {
+            if (gen !== runId) return;
+            nd.top_gap = null; showScore(nd, d.score);
+            var note = document.querySelector('#prdd-score-body .prdd-score-note');
+            if (note) note.insertAdjacentHTML('beforebegin', '<div class="prdd-gap done"><span><b>✓ Section ' + (g.heading ? 'rewritten' : 'added') + '</b> — highlighted in the PRD above and included in Copy / Download. Re-graded by prd-eval.</span></div>');
+          }, function () { gap.innerHTML = '<span><b>✓ Fixed · ' + esc(g.item || g.section) + '</b> — highlighted in the PRD above and included in Copy / Download.</span>'; });
+        })
+        .catch(function () { btn.disabled = false; btn.textContent = 'Couldn’t fix right now — try again'; });
     }
 
     function fail(msg) {
@@ -9181,23 +9422,27 @@
       var s = session();
       if (s.count >= MAX) { updateMeta(); return; }
       s.count++; save(s);
-      busy = true; updateMeta();
-      var timer = loading();
+      busy = true; updateMeta(); runId++;
+      var fmt = format, think = loading(idea, fmt);
       fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ mode: 'prd', idea: idea, format: format })
+        body: JSON.stringify({ mode: 'prd', idea: idea, format: fmt })
       }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
         .then(function (res) {
-          clearInterval(timer);
-          if (res.ok && res.d && res.d.prd) { render(res.d.prd, res.d.format, res.d.truncated); }
-          else {
+          if (res.ok && res.d && res.d.prd && /^#|\n#/.test(res.d.prd)) {
+            var info = analyze(res.d.prd, fmt);
+            think.finish(info, function () { render(res.d.prd, res.d.format, res.d.truncated, info); });
+          } else if (res.ok && res.d && res.d.prd) {
+            think.stop(); fail(res.d.prd);
+          } else {
+            think.stop();
             s.count = Math.max(0, s.count - 1); save(s);
             fail((res.d && res.d.error && res.d.error.indexOf('idea') !== -1) ? res.d.error : 'Couldn’t generate a PRD right now — try again in a moment, or email me at hello@sankar.work.');
           }
         })
         .catch(function () {
-          clearInterval(timer);
+          think.stop();
           s.count = Math.max(0, s.count - 1); save(s);
           fail('Couldn’t reach the PRD writer right now — try again in a moment.');
         })

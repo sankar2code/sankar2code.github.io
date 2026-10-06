@@ -2948,6 +2948,19 @@
     .ypm-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
     .ypm-compare div { background: rgba(37,99,235,0.06); border: 1px solid var(--border); border-radius: 10px; padding: 0.6rem 0.75rem; font-size: 0.78rem; color: var(--text-body); }
     .ypm-compare b { display: block; color: var(--white); font-size: 0.82rem; }
+    .ypm-meters { margin-left: 2.6rem; padding: 0.7rem 0.8rem; border: 1px solid var(--border); border-radius: 10px; background: rgba(37,99,235,0.05); animation: ypmFade 0.35s ease; }
+    .ypm-meters-h { display: flex; justify-content: space-between; gap: 0.6rem; flex-wrap: wrap; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .ypm-meters-h em { font-style: normal; letter-spacing: 0.04em; text-transform: none; font-weight: 600; }
+    .ypm-meters-h em i { display: inline-block; width: 2px; height: 10px; background: #fbbf24; vertical-align: -1px; margin-right: 4px; }
+    .ypm-mgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+    .ypm-mk { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .ypm-mk b { color: var(--white); letter-spacing: 0; }
+    .ypm-bar { position: relative; height: 8px; border-radius: 8px; background: rgba(255,255,255,0.07); margin-top: 5px; }
+    .ypm-bar i { display: block; height: 100%; width: 0; border-radius: 8px; transition: width 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .ypm-bar u { position: absolute; top: -3px; bottom: -3px; width: 2px; background: #fbbf24; border-radius: 2px; opacity: 0; transition: opacity 0.4s 0.6s; }
+    .ypm-meters.go .ypm-bar u { opacity: 1; }
+    html.light .ypm-bar { background: rgba(0,0,0,0.07); }
+    html.light .ypm-bar u, html.light .ypm-meters-h em i { background: #b45309; }
     @keyframes ypmFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
     html.light .ypm-eyebrow, html.light .ypm-btn.ghost, html.light .ypm-reply { color: #1d4ed8; }
     html.light .ypm-btn.ghost, html.light .ypm-reply { border-color: rgba(29,78,216,0.35); }
@@ -2962,9 +2975,12 @@
       .ypm-compare { grid-template-columns: 1fr; text-align: left; }
       .ypm-dots, .ypm-arch .ypm-actions { justify-content: center; }
       .ypm-thread-actions { padding-left: 0; }
+      .ypm-meters { margin-left: 0; }
+      .ypm-mgrid { grid-template-columns: 1fr; gap: 0.5rem; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .ypm-m, .ypm-arch { animation: none; }
+      .ypm-m, .ypm-arch, .ypm-meters { animation: none; }
+      .ypm-bar i, .ypm-bar u { transition: none; }
       .ypm-typing i { animation: none; }
     }
 
@@ -7526,17 +7542,17 @@
     var S = [
       { chan: 'launch-clinical-ai', tag: 'Launch readiness', from: 'VP Product', av: '👩‍💼', col: '#7c3aed',
         msg: 'Evals came back: 92% on the trial summarizer 🎉 But 3 of the 8 failures invented a stop reason that isn’t in the source. Launch is Friday. Your call?',
-        c: [['🚀 Ship it, patch in v1.1', 's'], ['🧱 Hold — add a hard gate first', 'b'], ['🧑‍⚕️ Ship with a disclaimer', 's']],
+        c: [['🚀 Ship it, patch in v1.1', 's', [90, 30, 85]], ['🧱 Hold — add a hard gate first', 'b', [60, 90, 20]], ['🧑‍⚕️ Ship with a disclaimer', 's', [80, 45, 60]]],
         a: 1, mine: 'Hold and add a hard gate',
         why: 'An average score hides the failure that matters. Fabricated reasons are the one error clinicians won’t forgive, so I added a schema gate that rejects any unlabeled claim, then shipped — the rule that went live in ClinicalAI-TrialAnalysis. Accuracy is a launch bar; trust is the product.' },
       { chan: 'trial-matching', tag: 'Agent or workflow', from: 'Clinical Ops Lead', av: '🧑‍🔬', col: '#0e7490',
         msg: 'Can the matching assistant just decide patient eligibility on its own and email the research coordinator automatically? Would save us hours a week.',
-        c: [['🤖 Yes — full autonomy', 's'], ['🧭 Engine decides, agent assists', 'b'], ['📏 Rules only, skip the AI', 'c']],
+        c: [['🤖 Yes — full autonomy', 's', [95, 25, 90]], ['🧭 Engine decides, agent assists', 'b', [70, 90, 20]], ['📏 Rules only, skip the AI', 'c', [35, 65, 25]]],
         a: 1, mine: 'Engine decides, agent assists',
         why: 'Eligibility is the system of record, so it stays deterministic, criterion-scored, and auditable. The agent earns its place where the path genuinely varies — chasing missing labs, re-screening when a trial opens, drafting the handoff — and nothing is sent without clinician approval.' },
       { chan: 'medical-affairs', tag: 'Regulated rollout', from: 'SVP Medical Affairs', av: '👨‍💼', col: '#b45309',
         msg: 'Leadership wants a gen-AI drafting feature inside our GxP Medical Affairs system next sprint. Validation (IQ/OQ/PQ) will take weeks. What’s your move?',
-        c: [['⚡ Quiet pilot outside the validated system', 's'], ['🪜 Stage it — draft-only while validation runs', 'b'], ['⏸️ Wait a quarter until fully validated', 'c']],
+        c: [['⚡ Quiet pilot outside the validated system', 's', [90, 30, 90]], ['🪜 Stage it — draft-only while validation runs', 'b', [70, 85, 25]], ['⏸️ Wait a quarter until fully validated', 'c', [20, 75, 15]]],
         a: 1, mine: 'Stage it',
         why: 'Speed and compliance aren’t a trade-off if you sequence them. A draft-only, human-reviewed scope delivers value and real usage data now, while the validation package runs in parallel. The GxP decision path opens only once IQ/OQ/PQ is signed off — no shortcuts that become audit findings later.' }
     ];
@@ -7574,6 +7590,14 @@
       picks.push(k);
       document.getElementById('ypm-replies').remove();
       msgs.insertAdjacentHTML('beforeend', '<div class="ypm-m"><div class="ypm-av you">🙂</div><div><b>You</b><small>' + now(1) + '</small><p>' + esc(s.c[k][0]) + '</p></div></div>');
+      var MV = s.c[k][2], MY = s.c[s.a][2], LBL = ['Speed', 'User trust', 'Risk'], COL = ['#38bdf8', '#4ade80', '#fb7185'];
+      var lvl = function (v) { return v >= 75 ? 'High' : v >= 45 ? 'Med' : 'Low'; };
+      msgs.insertAdjacentHTML('beforeend', '<div class="ypm-meters" id="ypm-meters"><div class="ypm-meters-h"><span>Impact of your call</span><em><i></i>my call</em></div><div class="ypm-mgrid">' +
+        LBL.map(function (l, j) { return '<div><div class="ypm-mk">' + l + ' <b>' + lvl(MV[j]) + '</b></div><div class="ypm-bar"><i style="background:' + COL[j] + '" data-w="' + MV[j] + '"></i><u style="left:calc(' + MY[j] + '% - 1px)"></u></div></div>'; }).join('') + '</div></div>');
+      requestAnimationFrame(function () { requestAnimationFrame(function () {
+        var m = document.getElementById('ypm-meters'); if (!m) return; m.classList.add('go');
+        m.querySelectorAll('.ypm-bar i').forEach(function (b) { b.style.width = b.dataset.w + '%'; });
+      }); });
       msgs.insertAdjacentHTML('beforeend', '<div class="ypm-m" id="ypm-typing"><div class="ypm-av me">SK</div><div><b>Sankar</b><small>typing…</small><p><span class="ypm-typing"><i></i><i></i><i></i></span></p></div></div>');
       bars[i].classList.add('done');
       setTimeout(function () {
@@ -7583,7 +7607,7 @@
         msgs.insertAdjacentHTML('beforeend', '<div class="ypm-actions ypm-thread-actions"><button type="button" class="ypm-btn" id="ypm-next">' +
           (i < S.length - 1 ? 'Next scenario →' : 'See your PM style →') + '</button></div>');
         document.getElementById('ypm-next').addEventListener('click', next);
-      }, reduce ? 150 : 1300);
+      }, reduce ? 150 : 1700);
     }
 
     function next() { i++; if (i < S.length) render(); else finish(); }
