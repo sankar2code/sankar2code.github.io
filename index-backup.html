@@ -1958,6 +1958,102 @@
     @media (prefers-reduced-motion: reduce) { .lpf-row { animation: none; } .lpf-row-k { transition: none; } }
 
     .li-metrics { margin-top: 1.5rem; }
+    /* ── LinkedIn Snapshot v2: KPI sparklines + tabbed analytics ── */
+    .lsn { display: flex; flex-direction: column; gap: 0.9rem; }
+    .lsn-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+    .lsn-kpi { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 0.85rem 0.9rem 0.5rem; overflow: hidden; }
+    .lsn-kpi::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--c); opacity: 0.8; }
+    .lsn-kpi .l { font-size: 0.64rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 700; }
+    .lsn-kpi .v { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--white); line-height: 1.2; margin-top: 2px; }
+    .lsn-kpi .s { font-size: 0.68rem; color: var(--muted); }
+    .lsn-kpi svg { display: block; width: 100%; height: 42px; margin-top: 6px; cursor: crosshair; }
+    .lsn-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .lsn-tabs button { font: inherit; font-size: 0.74rem; font-weight: 600; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 0.38rem 0.85rem; cursor: pointer; transition: all 0.2s; }
+    .lsn-tabs button:hover { color: var(--white); border-color: rgba(56,189,248,0.4); }
+    .lsn-tabs button.on { background: linear-gradient(135deg,#2563eb,#6366f1); color: #fff; border-color: transparent; }
+    .lsn-panel { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1rem 1.1rem; min-height: 280px; }
+    .lsn-view { display: none; animation: lsnIn 0.35s ease; }
+    .lsn-view.on { display: block; }
+    @keyframes lsnIn { from { opacity: 0; transform: translateY(6px); } }
+    .lsn-rel { position: relative; }
+    .lsn-tip { position: absolute; pointer-events: none; font-size: 0.7rem; font-weight: 600; color: #0b1220; background: #e0f2fe; border-radius: 7px; padding: 3px 8px; transform: translate(-50%, -130%); opacity: 0; transition: opacity 0.12s; white-space: nowrap; z-index: 5; }
+    .lsn-note { font-size: 0.7rem; color: var(--muted); margin: 0.7rem 0 0; }
+    .lsn-ann { font: 600 10px 'Inter', sans-serif; }
+    .lsn-axis { fill: var(--muted); opacity: 0.75; }
+    .lsn-grid { stroke: var(--border); }
+    #lsn-grow { width: 100%; height: 220px; display: block; }
+    .lsn-gstats { display: flex; gap: 1.4rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
+    .lsn-gstats b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; color: var(--white); }
+    .lsn-gstats span { font-size: 0.7rem; color: var(--muted); }
+    .lsn-tp { display: flex; flex-direction: column; gap: 0.35rem; }
+    .lsn-tr { display: grid; grid-template-columns: 30px minmax(0, 1fr) 110px; gap: 0.8rem; align-items: center; text-decoration: none; color: inherit; padding: 0.45rem 0.4rem; border-radius: 10px; transition: background 0.15s; }
+    .lsn-tr:hover { background: rgba(255,255,255,0.04); }
+    .lsn-rk { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; background: linear-gradient(135deg,#60a5fa,#a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lsn-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-bottom: 0.3rem; }
+    .lsn-tags span { font-size: 0.66rem; color: #93c5fd; background: rgba(56,189,248,0.1); border-radius: 999px; padding: 1px 7px; }
+    .lsn-bar { height: 8px; border-radius: 8px; background: rgba(148,163,184,0.15); overflow: hidden; }
+    .lsn-bar i { display: block; height: 100%; width: 0; border-radius: 8px; background: linear-gradient(90deg,#2563eb,#38bdf8); transition: width 1s cubic-bezier(.2,.8,.2,1); }
+    .lsn-meta { font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; }
+    .lsn-rate { text-align: right; }
+    .lsn-rate b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--white); }
+    .lsn-rate span { font-size: 0.66rem; color: var(--muted); }
+    .lsn-map { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.8rem; }
+    .lsn-region { position: relative; min-height: 230px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 14px; padding: 0.7rem 0.8rem; overflow: hidden; }
+    .lsn-region h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; color: var(--white); margin: 0; }
+    .lsn-region h4 span { font: 500 0.7rem 'Inter', sans-serif; color: var(--muted); }
+    .lsn-bub { position: absolute; border-radius: 50%; display: grid; place-items: center; font-size: 0.62rem; font-weight: 700; color: #fff;
+      background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.35), transparent 50%), var(--c); box-shadow: 0 0 18px var(--c);
+      transform: translate(-50%, -50%) scale(0); transition: transform 0.6s cubic-bezier(.2,.9,.3,1.3); }
+    .lsn-bubl { position: absolute; font-size: 0.62rem; color: var(--text-body); transform: translateX(-50%); white-space: nowrap; }
+    .lsn-hmrow { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 1rem; align-items: start; }
+    .lsn-hm { display: grid; grid-template-columns: 28px repeat(13, minmax(0, 1fr)); gap: 4px; align-items: center; max-width: 560px; }
+    .lsn-hm .dl { font-size: 0.6rem; color: var(--muted); }
+    .lsn-hm .c { aspect-ratio: 1; border-radius: 4px; background: rgba(148,163,184,0.1); }
+    .lsn-hm .c[data-t] { cursor: default; }
+    .lsn-hm .c.l1, .lsn-hlg .l1 { background: #1e3a8a; }
+    .lsn-hm .c.l2, .lsn-hlg .l2 { background: #2563eb; }
+    .lsn-hm .c.l3, .lsn-hlg .l3 { background: #38bdf8; }
+    .lsn-hm .c.l4, .lsn-hlg .l4 { background: #a5f3fc; }
+    .lsn-hlg .l0 { background: rgba(148,163,184,0.1); }
+    .lsn-hlg { display: flex; align-items: center; gap: 4px; font-size: 0.64rem; color: var(--muted); margin-top: 0.6rem; max-width: 560px; justify-content: flex-end; }
+    .lsn-hlg i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+    .lsn-hmside { display: flex; flex-direction: column; gap: 0.5rem; }
+    .lsn-hmside div { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 0.55rem 0.75rem; }
+    .lsn-hmside b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; color: var(--white); }
+    .lsn-hmside span { font-size: 0.68rem; color: var(--muted); }
+    .lsn-atabs { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+    .lsn-atabs button { font: inherit; font-size: 0.7rem; font-weight: 700; color: var(--muted); background: none; border: 1px solid var(--border); border-radius: 999px; padding: 0.25rem 0.75rem; cursor: pointer; }
+    .lsn-atabs button.on { background: linear-gradient(135deg,#f59e0b,#d97706); color: #0b1220; border-color: transparent; }
+    .lsn-aud { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 1.1rem; align-items: center; }
+    .lsn-donut { position: relative; width: 190px; height: 190px; }
+    .lsn-ctr { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+    .lsn-ctr b { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; color: var(--white); }
+    .lsn-ctr span { font-size: 0.68rem; color: var(--muted); }
+    .lsn-leg { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 1rem; font-size: 0.76rem; color: var(--text-body); }
+    .lsn-leg span { display: flex; align-items: center; gap: 0.45rem; min-width: 0; }
+    .lsn-leg i { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+    .lsn-leg em { font-style: normal; margin-left: auto; color: var(--white); font-weight: 700; }
+    .lsn-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.8rem; }
+    .lsn-chips span { font-size: 0.7rem; color: var(--text-body); border: 1px solid var(--border); border-radius: 999px; padding: 0.2rem 0.6rem; background: rgba(255,255,255,0.03); }
+    .lsn-chips b { color: #fbbf24; }
+    html.light .lsn-kpi, html.light .lsn-panel, html.light .lsn-tabs button:not(.on) { background: #fff; }
+    html.light .lsn-tags span { color: #1d4ed8; background: rgba(37,99,235,0.08); }
+    html.light .lsn-chips b { color: #b45309; }
+    html.light .lsn-region, html.light .lsn-hmside div, html.light .lsn-chips span { background: #f8fafc; }
+    html.light .lsn-hm .c, html.light .lsn-hlg .l0 { background: rgba(15,23,42,0.07); }
+    html.light .lsn-hm .c.l1, html.light .lsn-hlg .l1 { background: #bfdbfe; }
+    html.light .lsn-hm .c.l2, html.light .lsn-hlg .l2 { background: #60a5fa; }
+    html.light .lsn-hm .c.l3, html.light .lsn-hlg .l3 { background: #2563eb; }
+    html.light .lsn-hm .c.l4, html.light .lsn-hlg .l4 { background: #1e3a8a; }
+    @media (max-width: 760px) {
+      .lsn-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lsn-map, .lsn-hmrow, .lsn-aud { grid-template-columns: minmax(0, 1fr); }
+      .lsn-donut { margin: 0 auto; }
+      .lsn-tr { grid-template-columns: 24px minmax(0, 1fr) 78px; gap: 0.5rem; }
+      .lsn-panel { padding: 0.85rem; }
+      .lsn-leg { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) { .lsn-view, .lsn-bub, .lsn-bar i { animation: none; transition: none; } }
 
     .li-metrics-header {
       display: flex;
@@ -4072,6 +4168,65 @@
     html.light .graph-card { background: #fff; }
     html.light .graph-svg-wrap { background: radial-gradient(circle at 50% 40%, rgba(37,99,235,0.06), transparent 65%); }
     html.light .graph-link { stroke: rgba(51,65,85,0.2); }
+    /* ── Knowledge graph v2: panel, filters, path, timeline, tour ── */
+    .kg-headbtns { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .kg-seg { display: flex; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 999px; padding: 3px; }
+    .kg-seg button { font: inherit; font-size: 0.68rem; font-weight: 700; color: var(--muted); background: none; border: 0; padding: 0.28rem 0.7rem; border-radius: 999px; cursor: pointer; }
+    .kg-seg button.on { background: linear-gradient(135deg,#2563eb,#6366f1); color: #fff; }
+    .kg-btn { font: inherit; font-size: 0.7rem; font-weight: 700; color: #7dd3fc; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); padding: 0.35rem 0.8rem; border-radius: 20px; cursor: pointer; white-space: nowrap; }
+    .kg-btn-hot { color: #fff; background: linear-gradient(135deg,#f59e0b,#ec4899); border-color: transparent; }
+    .kg-tools { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.6rem; }
+    .kg-search { display: flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 10px; padding: 0.3rem 0.65rem; font-size: 0.8rem; }
+    .kg-search input { font: inherit; font-size: 0.78rem; color: var(--white); background: none; border: 0; outline: none; width: 160px; }
+    .kg-legend { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .kg-lg { font: inherit; display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.67rem; color: var(--text-body); background: none; border: 1px solid var(--border); border-radius: 999px; padding: 0.2rem 0.6rem; cursor: pointer; transition: opacity 0.2s; }
+    .kg-lg i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .kg-lg small { color: var(--muted); font-size: 0.62rem; }
+    .kg-lg.off { opacity: 0.35; text-decoration: line-through; }
+    .kg-path { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .kg-path select { background: var(--bg3, #1a1a2e); color: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 0.25rem 0.4rem; font: inherit; font-size: 0.72rem; max-width: 190px; }
+    .kg-pres { flex-basis: 100%; font-size: 0.74rem; }
+    .kg-pres:empty { display: none; }
+    .kg-pres b { font-weight: 700; }
+    .kg-stagewrap { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 0.75rem; }
+    .kg-stage { position: relative; }
+    .kg-panel { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.8rem; color: var(--text-body); min-height: 200px; }
+    .kg-chip { align-self: flex-start; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 999px; padding: 2px 8px; }
+    .kg-panel h3 { font-size: 1.02rem; line-height: 1.3; color: var(--white); margin: 0; }
+    .kg-panel p { margin: 0; line-height: 1.55; }
+    .kg-meta { font-size: 0.72rem; color: var(--muted); }
+    .kg-conns { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .kg-conns button { font: inherit; font-size: 0.68rem; color: var(--white); background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 999px; padding: 0.15rem 0.55rem; cursor: pointer; }
+    .kg-conns button:hover { border-color: #7dd3fc; }
+    .kg-acts { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: auto; padding-top: 0.4rem; }
+    .kg-empty b { color: var(--white); }
+    .kg-stats { display: flex; flex-wrap: wrap; gap: 0.3rem 0.8rem; font-size: 0.7rem; color: var(--muted); }
+    .kg-stats b { color: var(--white); }
+    .graph-link.kg-x { stroke-dasharray: 3 3; }
+    .graph-link.kg-hl { stroke: #fbbf24 !important; stroke-width: 2.4 !important; opacity: 1 !important; stroke-dasharray: 6 6; animation: kgFlow 1s linear infinite; }
+    @keyframes kgFlow { to { stroke-dashoffset: -12; } }
+    .kg-yr { font: 600 10px 'Inter', sans-serif; fill: rgba(148,163,184,0.6); }
+    .kg-tour { position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 3; display: none; gap: 0.6rem; align-items: center; flex-wrap: wrap;
+      background: rgba(15,15,30,0.94); border: 1px solid rgba(251,191,36,0.4); border-radius: 12px; padding: 0.6rem 0.75rem; font-size: 0.8rem; color: var(--white); }
+    .kg-tour.on { display: flex; }
+    .kg-tour b { color: #fbbf24; }
+    .kg-tour-btns { margin-left: auto; display: flex; gap: 0.35rem; }
+    html.light .kg-panel { background: #f8fafc; }
+    html.light .kg-tour { background: rgba(255,255,255,0.96); color: #0f172a; border-color: rgba(217,119,6,0.45); }
+    html.light .kg-tour b { color: #b45309; }
+    html.light .kg-path select, html.light .kg-search { background: #fff; }
+    html.light .kg-btn { color: #1d4ed8; border-color: rgba(29,78,216,0.3); background: rgba(29,78,216,0.08); }
+    html.light .kg-btn-hot { color: #fff; background: linear-gradient(135deg,#f59e0b,#ec4899); border-color: transparent; }
+    @media (max-width: 860px) {
+      .kg-stagewrap { grid-template-columns: minmax(0, 1fr); }
+      .kg-panel { min-height: 0; }
+    }
+    @media (max-width: 600px) {
+      .graph-svg-wrap.kg-stage { height: 440px; }
+      .kg-search input { width: 120px; }
+      .kg-path select { max-width: 140px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .graph-link.kg-hl { animation: none; } }
 
     @media (max-width: 600px) {
       .twin-card { padding: 1.25rem; }
@@ -7226,21 +7381,27 @@
     <p class="twin-disclaimer">Grounded on my real career, not a guarantee of accuracy. For anything specific, <a href="mailto:hello@sankar.work">email me directly</a>.</p>
   </div>
 
-  <div class="graph-card reveal">
+  <div class="graph-card reveal" id="kg-card">
     <div class="graph-head">
-      <div class="graph-title">Career Knowledge Graph <span>— click any node to trace how it connects</span></div>
-      <button type="button" class="graph-reset-btn" id="graph-reset-btn">Reset view</button>
+      <div class="graph-title">Career Knowledge Graph <span>— click any node to see how it connects</span></div>
+      <div class="kg-headbtns">
+        <div class="kg-seg" id="kg-mode" role="group" aria-label="Graph layout"><button type="button" class="on" data-m="graph">🕸️ Graph</button><button type="button" data-m="time">📅 Timeline</button></div>
+        <button type="button" class="kg-btn kg-btn-hot" id="kg-tour-btn">▶ Take the tour</button>
+        <button type="button" class="graph-reset-btn" id="graph-reset-btn">Reset</button>
+      </div>
     </div>
-    <div class="graph-legend">
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#38bdf8"></span>Companies</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#34d399"></span>Certifications</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#f472b6"></span>Skills</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#fbbf24"></span>Built Projects</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#22d3ee"></span>Tools</span>
-      <span class="graph-legend-item"><span class="graph-legend-dot" style="background:#a78bfa"></span>Impact</span>
+    <div class="kg-tools">
+      <label class="kg-search">🔍<input id="kg-q" type="search" placeholder="Search… e.g. Otsuka, RAG" aria-label="Search the graph" autocomplete="off"></label>
+      <div class="kg-legend" id="kg-legend"></div>
     </div>
-    <div class="graph-svg-wrap" id="graph-svg-wrap"></div>
-    <p class="graph-hint">Drag to reposition · click a node to highlight its connections · click empty space or Reset to clear</p>
+    <div class="kg-path">🧭 Trace a path from <select id="kg-pa" aria-label="Start node"></select> to <select id="kg-pb" aria-label="End node"></select> <button type="button" class="kg-btn" id="kg-go">Trace</button><span class="kg-pres" id="kg-pres"></span></div>
+    <div class="kg-stagewrap">
+      <div class="graph-svg-wrap kg-stage" id="graph-svg-wrap">
+        <div class="kg-tour" id="kg-tour"><span id="kg-tour-txt"></span><span class="kg-tour-btns"><button type="button" class="kg-btn" id="kg-tnext">Next →</button><button type="button" class="kg-btn" id="kg-tstop" aria-label="Close tour">✕</button></span></div>
+      </div>
+      <aside class="kg-panel" id="kg-panel" aria-live="polite"></aside>
+    </div>
+    <p class="graph-hint">Drag nodes · scroll or pinch to zoom · click a node for details · dashed lines are cross-links</p>
   </div>
 </section>
 
@@ -10536,194 +10697,29 @@
   <div class="li-metrics reveal">
     <div class="li-metrics-header">
       <span class="li-metrics-label">LinkedIn Snapshot</span>
-      <span class="li-metrics-sub">Last 90 days · tap a card to flip</span>
+      <span class="li-metrics-sub">Last 90 days · Jul 9 – Oct 6, 2026 · hover the charts</span>
     </div>
-    <div class="li-metrics-grid">
-
-      <div class="li-flip-card li-card-blue" tabindex="0" role="button" aria-pressed="false" aria-label="Reach and engagement metrics, tap to flip for more">
-        <div class="li-card-fx"></div>
-        <div class="li-flip-inner">
-          <div class="li-flip-face li-flip-front">
-            <span class="li-cat-icon">📡</span>
-            <p class="li-cat-title">Reach &amp; Engagement</p>
-            <div class="li-hero-row">
-              <div>
-                <p class="li-hero-num">10.1K</p>
-                <p class="li-hero-sub">impressions · last 90 days</p>
-                <p class="li-hero-sub2">3.0K members reached</p>
-                <p class="li-hero-sub2">3.0 engagements / day avg</p>
-              </div>
-              <div class="li-gauge-wrap">
-                <svg viewBox="0 0 56 56" width="56" height="56">
-                  <circle cx="28" cy="28" r="23" fill="none" stroke="var(--border)" stroke-width="5"/>
-                  <circle cx="28" cy="28" r="23" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="69.4" transform="rotate(-90 28 28)"/>
-                </svg>
-                <span class="li-gauge-val">2.6%</span>
-              </div>
-            </div>
-            <span class="li-flip-hint">👋 Psst, flip me for more</span>
-          </div>
-          <div class="li-flip-face li-flip-back">
-            <p class="li-cat-title"><span class="li-back-dot"></span>Reach &amp; Engagement</p>
-            <div class="li-chart li-chart-blue">
-              <div class="li-chart-bars">
-                <div class="li-chart-bar" style="height:56%"></div>
-                <div class="li-chart-bar" style="height:80%"></div>
-                <div class="li-chart-bar" style="height:100%"></div>
-                <div class="li-chart-bar" style="height:70%"></div>
-                <div class="li-chart-bar" style="height:50%"></div>
-                <div class="li-chart-bar" style="height:56%"></div>
-                <div class="li-chart-bar" style="height:61%"></div>
-                <div class="li-chart-bar" style="height:16%"></div>
-                <div class="li-chart-bar" style="height:95%"></div>
-                <div class="li-chart-bar" style="height:47%"></div>
-                <div class="li-chart-bar" style="height:68%"></div>
-                <div class="li-chart-bar" style="height:55%"></div>
-                <div class="li-chart-bar" style="height:47%"></div>
-              </div>
-              <span class="li-chart-caption">Weekly impressions · 13 weeks</span>
-            </div>
-            <div class="li-stat-row"><span class="li-stat-num">837</span><span class="li-stat-lbl">Peak day (Sep 2)</span></div>
-            <div class="li-stat-row"><span class="li-stat-num">90/90</span><span class="li-stat-lbl">Active days</span></div>
-            <span class="li-flip-hint">😊 Okay, flip me back</span>
-          </div>
-        </div>
+    <div class="lsn" id="lsn">
+      <div class="lsn-kpis" id="lsn-kpis"></div>
+      <div class="lsn-tabs" id="lsn-tabs" role="tablist" aria-label="LinkedIn analytics views">
+        <button type="button" role="tab" class="on" data-v="growth">🚀 Follower growth</button>
+        <button type="button" role="tab" data-v="posts">🏆 Top posts</button>
+        <button type="button" role="tab" data-v="where">🌍 Where</button>
+        <button type="button" role="tab" data-v="cal">🗓️ Calendar</button>
+        <button type="button" role="tab" data-v="who">🎯 Who reads me</button>
       </div>
-
-      <div class="li-flip-card li-card-green" tabindex="0" role="button" aria-pressed="false" aria-label="Follower growth metrics, tap to flip for more">
-        <div class="li-card-fx"></div>
-        <div class="li-flip-inner">
-          <div class="li-flip-face li-flip-front">
-            <span class="li-cat-icon">📈</span>
-            <p class="li-cat-title">Follower Growth</p>
-            <p class="li-hero-num li-hero-num-success">▲ +1,946</p>
-            <p class="li-hero-sub">new followers · last 90 days</p>
-            <p class="li-hero-sub2">8.3K+ total followers</p>
-            <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Base grew by</span><span class="li-bar-pct">30.2%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:30.2%"></div></div>
-            </div>
-            <span class="li-flip-hint">👋 Psst, flip me for more</span>
-          </div>
-          <div class="li-flip-face li-flip-back">
-            <p class="li-cat-title"><span class="li-back-dot"></span>Follower Growth</p>
-            <div class="li-chart li-chart-green">
-              <div class="li-chart-bars">
-                <div class="li-chart-bar" style="height:59%"></div>
-                <div class="li-chart-bar" style="height:80%"></div>
-                <div class="li-chart-bar" style="height:94%"></div>
-                <div class="li-chart-bar" style="height:83%"></div>
-                <div class="li-chart-bar" style="height:46%"></div>
-                <div class="li-chart-bar" style="height:85%"></div>
-                <div class="li-chart-bar" style="height:37%"></div>
-                <div class="li-chart-bar" style="height:80%"></div>
-                <div class="li-chart-bar" style="height:58%"></div>
-                <div class="li-chart-bar" style="height:72%"></div>
-                <div class="li-chart-bar" style="height:61%"></div>
-                <div class="li-chart-bar" style="height:68%"></div>
-                <div class="li-chart-bar" style="height:100%"></div>
-              </div>
-              <span class="li-chart-caption">Weekly new followers · 13 weeks</span>
-            </div>
-            <div class="li-stat-row"><span class="li-stat-num">6,437</span><span class="li-stat-lbl">Followers at period start</span></div>
-            <div class="li-stat-row"><span class="li-stat-num">84</span><span class="li-stat-lbl">Peak day (Aug 3)</span></div>
-            <span class="li-flip-hint">😊 Okay, flip me back</span>
-          </div>
+      <div class="lsn-panel" id="lsn-panel">
+        <div class="lsn-view on" data-v="growth">
+          <div class="lsn-gstats" id="lsn-gstats"></div>
+          <div class="lsn-rel"><svg id="lsn-grow" viewBox="0 0 900 220" preserveAspectRatio="none" role="img" aria-label="Cumulative followers over the last 90 days"></svg><div class="lsn-tip" id="lsn-gtip"></div></div>
         </div>
+        <div class="lsn-view" data-v="posts"><div class="lsn-tp" id="lsn-tp"></div><p class="lsn-note">Topics come from each post's hashtags · click a row to open it on LinkedIn</p></div>
+        <div class="lsn-view" data-v="where"><div class="lsn-map"><div class="lsn-region" id="lsn-us"><h4>🇺🇸 United States <span id="lsn-ust"></span></h4></div><div class="lsn-region" id="lsn-in"><h4>🇮🇳 India <span id="lsn-int"></span></h4></div></div><p class="lsn-note">Top metros by share of followers</p></div>
+        <div class="lsn-view" data-v="cal"><div class="lsn-hmrow"><div class="lsn-rel"><div class="lsn-hm" id="lsn-hm"></div><div class="lsn-hlg">Less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> More</div><div class="lsn-tip" id="lsn-htip"></div></div><div class="lsn-hmside" id="lsn-hmside"></div></div></div>
+        <div class="lsn-view" data-v="who"><div class="lsn-atabs" id="lsn-atabs"></div><div class="lsn-aud"><div class="lsn-donut"><svg id="lsn-donut" viewBox="0 0 190 190" width="190" height="190"></svg><div class="lsn-ctr" id="lsn-dctr"></div></div><div><div class="lsn-leg" id="lsn-leg"></div><div class="lsn-chips" id="lsn-achips"></div></div></div></div>
       </div>
-
-      <div class="li-flip-card li-card-purple" tabindex="0" role="button" aria-pressed="false" aria-label="Post performance metrics, tap to flip for more">
-        <div class="li-card-fx"></div>
-        <div class="li-flip-inner">
-          <div class="li-flip-face li-flip-front">
-            <span class="li-cat-icon">🏆</span>
-            <p class="li-cat-title">Post Performance</p>
-            <div class="li-hero-row">
-              <div>
-                <p class="li-hero-num">1,188</p>
-                <p class="li-hero-sub">most impressions · single post</p>
-                <p class="li-hero-sub2">1.3% engagement rate on it</p>
-              </div>
-              <div class="li-gauge-wrap">
-                <svg viewBox="0 0 56 56" width="56" height="56">
-                  <circle cx="28" cy="28" r="23" fill="none" stroke="var(--border)" stroke-width="5"/>
-                  <circle cx="28" cy="28" r="23" fill="none" stroke="#6366f1" stroke-width="5" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="3.8" transform="rotate(-90 28 28)"/>
-                </svg>
-                <span class="li-gauge-val">9.7%</span>
-              </div>
-            </div>
-            <p class="li-hero-sub2">best rate, different post</p>
-            <span class="li-flip-hint">👋 Psst, flip me for more</span>
-          </div>
-          <div class="li-flip-face li-flip-back">
-            <p class="li-cat-title"><span class="li-back-dot"></span>Post Performance</p>
-            <div class="li-chart li-chart-purple">
-              <div class="li-chart-bars">
-                <div class="li-chart-bar" style="height:10%"></div>
-                <div class="li-chart-bar" style="height:10%"></div>
-                <div class="li-chart-bar" style="height:40%"></div>
-                <div class="li-chart-bar" style="height:80%"></div>
-                <div class="li-chart-bar" style="height:10%"></div>
-                <div class="li-chart-bar" style="height:10%"></div>
-                <div class="li-chart-bar" style="height:10%"></div>
-                <div class="li-chart-bar" style="height:30%"></div>
-                <div class="li-chart-bar" style="height:100%"></div>
-                <div class="li-chart-bar" style="height:10%"></div>
-              </div>
-              <span class="li-chart-caption">Posts / month · since Jul '24</span>
-            </div>
-            <div class="li-stat-row"><span class="li-stat-num">21</span><span class="li-stat-lbl">Most engagements on a post</span></div>
-            <div class="li-stat-row"><span class="li-stat-num">2.8%</span><span class="li-stat-lbl">Avg engagement rate</span></div>
-            <span class="li-flip-hint">😊 Okay, flip me back</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="li-flip-card li-card-amber" tabindex="0" role="button" aria-pressed="false" aria-label="Audience metrics, tap to flip for more">
-        <div class="li-card-fx"></div>
-        <div class="li-flip-inner">
-          <div class="li-flip-face li-flip-front">
-            <span class="li-cat-icon">🌐</span>
-            <p class="li-cat-title">Audience</p>
-            <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Senior professionals</span><span class="li-bar-pct">43%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:43%"></div></div>
-            </div>
-            <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>IT services &amp; consulting</span><span class="li-bar-pct">29%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:29%"></div></div>
-            </div>
-            <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>NYC metro area</span><span class="li-bar-pct">24%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:24%"></div></div>
-            </div>
-            <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Entry-level</span><span class="li-bar-pct">16%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:16%"></div></div>
-            </div>
-            <span class="li-flip-hint">👋 Psst, flip me for more</span>
-          </div>
-          <div class="li-flip-face li-flip-back">
-            <p class="li-cat-title"><span class="li-back-dot"></span>Audience</p>
-            <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>10,001+ employee cos.</span><span class="li-bar-pct">35%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:35%"></div></div>
-            </div>
-            <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Software development</span><span class="li-bar-pct">9%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:9%"></div></div>
-            </div>
-            <div class="li-bar-row">
-              <div class="li-bar-label-row"><span>Product Managers</span><span class="li-bar-pct">5%</span></div>
-              <div class="li-bar-track"><div class="li-bar-fill" style="width:5%"></div></div>
-            </div>
-            <span class="li-top-company">🏢 Top company: Cognizant</span>
-            <span class="li-flip-hint">😊 Okay, flip me back</span>
-          </div>
-        </div>
-      </div>
-
     </div>
+    <script type="application/json" id="li-data">{"E":[["7/9/2026",65,5],["7/10/2026",30,1],["7/11/2026",315,8],["7/12/2026",115,2],["7/13/2026",106,3],["7/14/2026",77,7],["7/15/2026",115,7],["7/16/2026",256,5],["7/17/2026",143,5],["7/18/2026",58,0],["7/19/2026",75,0],["7/20/2026",184,10],["7/21/2026",175,4],["7/22/2026",148,4],["7/23/2026",98,4],["7/24/2026",133,9],["7/25/2026",152,17],["7/26/2026",110,8],["7/27/2026",285,8],["7/28/2026",336,5],["7/29/2026",230,7],["7/30/2026",121,1],["7/31/2026",171,1],["8/1/2026",46,1],["8/2/2026",42,0],["8/3/2026",168,0],["8/4/2026",106,1],["8/5/2026",139,0],["8/6/2026",176,4],["8/7/2026",98,3],["8/8/2026",41,2],["8/9/2026",25,3],["8/10/2026",75,1],["8/11/2026",75,1],["8/12/2026",77,3],["8/13/2026",127,6],["8/14/2026",115,2],["8/15/2026",43,0],["8/16/2026",12,0],["8/17/2026",205,9],["8/18/2026",124,2],["8/19/2026",124,15],["8/20/2026",116,5],["8/21/2026",97,1],["8/22/2026",17,1],["8/23/2026",33,1],["8/24/2026",145,3],["8/25/2026",234,7],["8/26/2026",41,0],["8/27/2026",43,0],["8/28/2026",29,0],["8/29/2026",14,0],["8/30/2026",10,0],["8/31/2026",30,1],["9/1/2026",34,0],["9/2/2026",837,14],["9/3/2026",201,3],["9/4/2026",41,1],["9/5/2026",29,0],["9/6/2026",15,0],["9/7/2026",18,0],["9/8/2026",52,1],["9/9/2026",29,0],["9/10/2026",74,0],["9/11/2026",29,0],["9/12/2026",10,0],["9/13/2026",25,0],["9/14/2026",223,3],["9/15/2026",209,3],["9/16/2026",167,7],["9/17/2026",133,7],["9/18/2026",156,2],["9/19/2026",42,0],["9/20/2026",36,1],["9/21/2026",177,2],["9/22/2026",152,1],["9/23/2026",142,1],["9/24/2026",156,5],["9/25/2026",132,3],["9/26/2026",29,0],["9/27/2026",7,0],["9/28/2026",120,1],["9/29/2026",114,1],["9/30/2026",28,4],["10/1/2026",88,0],["10/2/2026",149,7],["10/3/2026",37,0],["10/4/2026",20,0],["10/5/2026",80,3],["10/6/2026",191,4]],"F":[["7/9/2026",7],["7/10/2026",6],["7/11/2026",9],["7/12/2026",1],["7/13/2026",61],["7/14/2026",40],["7/15/2026",15],["7/16/2026",42],["7/17/2026",13],["7/18/2026",8],["7/19/2026",3],["7/20/2026",29],["7/21/2026",59],["7/22/2026",27],["7/23/2026",25],["7/24/2026",7],["7/25/2026",5],["7/26/2026",3],["7/27/2026",65],["7/28/2026",66],["7/29/2026",18],["7/30/2026",12],["7/31/2026",10],["8/1/2026",4],["8/2/2026",0],["8/3/2026",84],["8/4/2026",47],["8/5/2026",13],["8/6/2026",7],["8/7/2026",6],["8/8/2026",2],["8/9/2026",1],["8/10/2026",5],["8/11/2026",64],["8/12/2026",30],["8/13/2026",27],["8/14/2026",8],["8/15/2026",2],["8/16/2026",3],["8/17/2026",55],["8/18/2026",54],["8/19/2026",15],["8/20/2026",8],["8/21/2026",7],["8/22/2026",4],["8/23/2026",5],["8/24/2026",29],["8/25/2026",10],["8/26/2026",21],["8/27/2026",53],["8/28/2026",19],["8/29/2026",8],["8/30/2026",6],["8/31/2026",33],["9/1/2026",29],["9/2/2026",47],["9/3/2026",20],["9/4/2026",7],["9/5/2026",5],["9/6/2026",2],["9/7/2026",4],["9/8/2026",37],["9/9/2026",16],["9/10/2026",21],["9/11/2026",13],["9/12/2026",5],["9/13/2026",19],["9/14/2026",49],["9/15/2026",29],["9/16/2026",19],["9/17/2026",20],["9/18/2026",21],["9/19/2026",16],["9/20/2026",2],["9/21/2026",28],["9/22/2026",22],["9/23/2026",12],["9/24/2026",34],["9/25/2026",21],["9/26/2026",9],["9/27/2026",1],["9/28/2026",29],["9/29/2026",37],["9/30/2026",6],["10/1/2026",13],["10/2/2026",9],["10/3/2026",50],["10/4/2026",18],["10/5/2026",56],["10/6/2026",59]],"tp":[{"u":"https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_productmanagement-genai-agenticai-share-7500851588643684352-Y3Sc","imp":1188,"date":"9/2/2026","eng":16,"tags":["productmanagement","genai","agenticai"]},{"u":"https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-aiproductmanagement-datagovernance-share-7481694692745609216-UdRh","imp":585,"date":"7/11/2026","eng":21,"tags":["agenticai","aiproductmanagement","datagovernance"]},{"u":"https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_leadership-peoplemanagement-talentdevelopment-share-7493104847110520833-KJcy","imp":368,"date":"8/25/2026","eng":2,"tags":["leadership","peoplemanagement","talentdevelopment"]},{"u":"https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_aistrategy-workforceplanning-futureofwork-share-7504925088715272192-GE1r","imp":357,"date":"9/14/2026","eng":5,"tags":["aistrategy","workforceplanning","futureofwork"]},{"u":"https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_openclaw-agenticai-aiworkflows-share-7461561107955163136-0gTP","imp":318,"date":"5/16/2026","eng":2,"tags":["openclaw","agenticai","aiworkflows"]}],"A":{"Company":[["Cognizant","1%"],["Prophecy Technologies","< 1%"],["HCLTech","< 1%"],["Otsuka Pharmaceutical Companies (U.S.)","< 1%"],["Deloitte","< 1%"],["Tata Consultancy Services","< 1%"],["Microsoft","< 1%"],["IQVIA","< 1%"],["Accenture","< 1%"],["Amazon Web Services (AWS)","< 1%"]],"Location":[["New York City Metropolitan Area","24%"],["Greater Bengaluru Area","6%"],["San Francisco Bay Area","4%"],["Greater Chennai Area","3%"],["Greater Hyderabad Area","3%"],["Dallas-Fort Worth Metroplex","3%"],["Greater Philadelphia","2%"],["Greater Boston","2%"],["Greater Delhi Area","2%"],["Greater Seattle Area","2%"]],"Company size":[["10,001+ employees","35%"],["1,001-5,000 employees","12%"],["51-200 employees","8%"],["11-50 employees","7%"],["2-10 employees","6%"],["5,001-10,000 employees","6%"],["501-1,000 employees","6%"],["201-500 employees","5%"],["0-1 employees","1%"]],"Seniority":[["Senior","43%"],["Entry","16%"],["Director","12%"],["Manager","6%"],["VP","4%"],["CXO","3%"],["Owner","2%"],["Partner","2%"],["Training","< 1%"]],"Job title":[["Product Manager","5%"],["Founder","3%"],["Business Analyst","2%"],["Software Engineer","2%"],["Project Manager","1%"],["Data Engineer","1%"],["Recruiter","1%"],["Co-Founder","1%"],["Talent Acquisition Specialist","1%"],["Data Scientist","1%"]],"Industry":[["IT Services and IT Consulting","29%"],["Software Development","9%"],["Technology, Information and Internet","8%"],["Business Consulting and Services","6%"],["Pharmaceutical Manufacturing","5%"],["Hospitals and Health Care","5%"],["Financial Services","4%"],["Staffing and Recruiting","4%"],["Human Resources Services","2%"],["Higher Education","1%"]]},"total":8383,"reached":2990,"period":"Jul 9 – Oct 6, 2026"}</script>
   </div>
 </section>
 
@@ -13479,305 +13475,325 @@
   const wrap = document.getElementById('graph-svg-wrap');
   if (!wrap || typeof d3 === 'undefined') return;
 
-  const colors = {
-    hub: '#a855f7',
-    Companies: '#38bdf8',
-    Certifications: '#34d399',
-    Skills: '#f472b6',
-    Projects: '#fbbf24',
-    Tools: '#22d3ee',
-    Impact: '#a78bfa'
+  const C = { hub: '#a855f7', Companies: '#38bdf8', Industries: '#fb923c', Skills: '#f472b6', Tools: '#22d3ee', Projects: '#fbbf24', Certifications: '#34d399', Impact: '#a78bfa' };
+  const ICON = { hub: '🙂', Companies: '🏢', Industries: '🏭', Skills: '🧠', Tools: '🛠️', Projects: '🚀', Certifications: '🎓', Impact: '📈' };
+  const MODAL = {
+    'ClinicalAI-TrialAnalysis': 'clinicaltrialanalysis-modal', 'Agentic Clinical Trial Matching': 'ctm-agentic-modal', 'ContractIQ': 'contractiq-modal',
+    'Company Comparison': 'companycomparison-modal', 'ProjectPilot AI': 'projectpilot-modal', 'Compliance Lease Tool': 'complianceleasetool-modal',
+    'Enterprise AI Data Copilot': 'datacopilot-modal', 'ScienceAI': 'scienceai-modal', 'Ad Genie': 'adgenie-modal', 'AI Analyst Builder': 'analyst-modal', 'SurveAI': 'feedback-modal'
   };
 
-  const nodes = [
-    { id: 'Sankar', group: 'hub', r: 24 },
+  // [id, group, year, description]
+  const N = [
+    ['Sankar', 'hub', null, 'AI Product Manager · AI Data Strategist · 15+ years across 5 industries'],
+    ['WIPRO', 'Companies', 2010, 'Project Engineer · clients Diversey & McGraw-Hill Education (2010–2014)'],
+    ['Upchannel', 'Companies', 2015, 'Business Analyst (2015)'],
+    ['Cloudculina', 'Companies', 2015, 'Senior Business Analyst · food-services venture (2015–2017)'],
+    ['Grapnel · Otsuka', 'Companies', 2017, 'BA / Product Owner · client Otsuka (2017–2020)'],
+    ['HCL · Otsuka', 'Companies', 2020, 'Sr BA / Product Owner · client Otsuka (2020–2022)'],
+    ['Prophecy · HealthFirst', 'Companies', 2022, 'Data Engineer / Product Owner · AI-driven provider lifecycle platform (2022–2025)'],
+    ['Prophecy · Otsuka', 'Companies', 2025, 'Sr BA / Product Owner · Medical Affairs systems in a GxP environment (2025–present)'],
+    ['Pharma & Life Sciences', 'Industries', null, 'Commercial, Medical Affairs, Regulatory — GxP, 21 CFR Part 11'],
+    ['Healthcare (payer)', 'Industries', null, 'Provider lifecycle, credentialing, claims'],
+    ['Food service', 'Industries', null, 'Mobile product strategy for a food-services venture'],
+    ['Education', 'Industries', null, 'Global transformations for McGraw-Hill Education'],
+    ['AI/ML Product', 'Skills', null, 'AI/ML product strategy, RAG, agentic systems, evals'],
+    ['Product Ownership', 'Skills', null, 'Discovery → roadmap → delivery → adoption'],
+    ['SAFe / Agile', 'Skills', null, 'Product Owner on Agile Release Trains'],
+    ['Data & Analytics', 'Skills', null, 'Data/platform strategy, BI, KPI frameworks'],
+    ['Compliance (GxP)', 'Skills', null, 'GxP, 21 CFR Part 11, HIPAA, GDPR'],
+    ['Claude Code', 'Tools', null, 'AI coding agent used to ship live apps'],
+    ['Langflow', 'Tools', null, 'Agent / RAG pipeline builder'],
+    ['n8n', 'Tools', null, 'Workflow orchestration and audit trail'],
+    ['Supabase', 'Tools', null, 'Postgres + realtime backend'],
+    ['Next.js', 'Tools', null, 'React framework'],
+    ['RAG & Vector Search', 'Tools', null, 'Retrieval-augmented generation'],
+    ['Salesforce / Veeva', 'Tools', null, 'Pharma CRM platforms'],
+    ['Tableau', 'Tools', null, 'BI & dashboards'],
+    ['Postman', 'Tools', null, 'API validation'],
+    ['Jira / Confluence', 'Tools', null, 'Delivery tooling'],
+    ['ClinicalAI-TrialAnalysis', 'Projects', 2026, 'NCT ID → ranked, source-backed failure hypotheses · live app'],
+    ['Agentic Clinical Trial Matching', 'Projects', 2026, 'Criterion-scored matching + agentic layer, clinician-approved · live app'],
+    ['ContractIQ', 'Projects', 2026, 'Contract review with cited terms · built with Claude Code · live app'],
+    ['Company Comparison', 'Projects', 2026, 'BYOK equity research with live citations · live app'],
+    ['ProjectPilot AI', 'Projects', 2026, 'AI project-management SaaS · live app'],
+    ['Compliance Lease Tool', 'Projects', 2026, 'Lease compliance shipped as a Claude Skill'],
+    ['Enterprise AI Data Copilot', 'Projects', 2026, 'Four agents; deterministic engines own the truth · now building'],
+    ['ScienceAI', 'Projects', 2026, 'RAG research platform with audio summaries'],
+    ['Ad Genie', 'Projects', 2026, 'Ad-creative co-pilot · Agentic AI PM cohort demo'],
+    ['AI Analyst Builder', 'Projects', 2026, '18-agent analysis pipeline · mockup'],
+    ['SurveAI', 'Projects', 2024, 'AI customer-feedback analysis · mockup'],
+    ['AWS Gen AI Developer – Pro', 'Certifications', 2026, 'Amazon Web Services · Q3 2026'],
+    ['Maven Agentic AI PM', 'Certifications', 2026, 'Agentic AI PM certification using Claude Code · Q3 2026'],
+    ['Anthropic AI Fluency', 'Certifications', 2026, 'Anthropic Education · Q3 2026'],
+    ['AWS AI Practitioner', 'Certifications', 2024, 'Amazon Web Services · Q1 2024'],
+    ['CSP-PO', 'Certifications', 2024, 'Scrum Alliance · Q1 2024'],
+    ['SAFe 6 POPM', 'Certifications', 2024, 'Scaled Agile · Q1 2024'],
+    ['A-CSPO', 'Certifications', 2024, 'Scrum Alliance · Q1 2024'],
+    ['MIT No-Code AI & ML', 'Certifications', 2024, 'MIT Professional Education · Q1 2024'],
+    ['MIT Design Thinking', 'Certifications', 2024, 'MIT Management Executive Education · Q1 2024'],
+    ['$16M revenue impact', 'Impact', 2020, 'Enterprise IT products scaled from $0.5M to $4M investment at Otsuka'],
+    ['$5M annual savings', 'Impact', 2017, '80% productivity lift via Tableau / big-data analytics'],
+    ['$20M valuation', 'Impact', 2015, 'Helped a food-services venture reach a $20M valuation'],
+    ['$5M+ new business', 'Impact', 2010, 'Originated at WIPRO'],
+    ['15+ years', 'Impact', null, 'Across pharma, healthcare, food service, education and tech']
+  ].map(([id, g, yr, d]) => ({ id, g, yr, d }));
+  const CATS = Object.keys(C).filter((k) => k !== 'hub');
+  N.push(...CATS.map((c) => ({ id: c, g: 'cat', cat: c, d: 'Category' })));
 
-    { id: 'Companies', group: 'cat', catGroup: 'Companies', r: 15 },
-    { id: 'WIPRO', group: 'Companies', r: 7 },
-    { id: 'Cloudculina', group: 'Companies', r: 7 },
-    { id: 'Grapnel', group: 'Companies', r: 7 },
-    { id: 'HCL', group: 'Companies', r: 7 },
-    { id: 'HealthFirst', group: 'Companies', r: 7 },
-    { id: 'Otsuka (Prophecy)', group: 'Companies', r: 7 },
+  const L = [];
+  const add = (a, b, x) => L.push({ source: a, target: b, x: !!x });
+  CATS.forEach((c) => add('Sankar', c));
+  N.filter((n) => CATS.includes(n.g)).forEach((n) => add(n.g, n.id));
+  [
+    ['WIPRO', 'Education'], ['Cloudculina', 'Food service'], ['Grapnel · Otsuka', 'Pharma & Life Sciences'], ['HCL · Otsuka', 'Pharma & Life Sciences'],
+    ['Prophecy · Otsuka', 'Pharma & Life Sciences'], ['Prophecy · HealthFirst', 'Healthcare (payer)'],
+    ['HCL · Otsuka', '$16M revenue impact'], ['Grapnel · Otsuka', '$5M annual savings'], ['Cloudculina', '$20M valuation'], ['WIPRO', '$5M+ new business'],
+    ['Grapnel · Otsuka', 'Tableau'], ['HCL · Otsuka', 'Salesforce / Veeva'], ['Prophecy · HealthFirst', 'Postman'], ['HCL · Otsuka', 'SAFe / Agile'],
+    ['Prophecy · HealthFirst', 'SAFe / Agile'], ['Prophecy · Otsuka', 'Compliance (GxP)'], ['HCL · Otsuka', 'Compliance (GxP)'], ['Grapnel · Otsuka', 'Data & Analytics'],
+    ['SAFe / Agile', 'SAFe 6 POPM'], ['SAFe / Agile', 'CSP-PO'], ['Product Ownership', 'A-CSPO'], ['Product Ownership', 'CSP-PO'],
+    ['AI/ML Product', 'AWS Gen AI Developer – Pro'], ['AI/ML Product', 'Maven Agentic AI PM'], ['AI/ML Product', 'MIT No-Code AI & ML'],
+    ['AI/ML Product', 'AWS AI Practitioner'], ['AI/ML Product', 'Anthropic AI Fluency'], ['Product Ownership', 'MIT Design Thinking'],
+    ['ContractIQ', 'Claude Code'], ['ProjectPilot AI', 'Supabase'], ['ProjectPilot AI', 'Claude Code'], ['Enterprise AI Data Copilot', 'Langflow'],
+    ['Enterprise AI Data Copilot', 'n8n'], ['ScienceAI', 'Langflow'], ['ScienceAI', 'RAG & Vector Search'], ['ScienceAI', 'Next.js'],
+    ['Agentic Clinical Trial Matching', 'Next.js'], ['ClinicalAI-TrialAnalysis', 'Pharma & Life Sciences'], ['Agentic Clinical Trial Matching', 'Pharma & Life Sciences'],
+    ['Agentic Clinical Trial Matching', 'Compliance (GxP)'], ['Enterprise AI Data Copilot', 'Compliance (GxP)'], ['Enterprise AI Data Copilot', 'Data & Analytics'],
+    ['AI Analyst Builder', 'Data & Analytics'], ['SurveAI', 'AI/ML Product'], ['ClinicalAI-TrialAnalysis', 'AI/ML Product'], ['ContractIQ', 'AI/ML Product'],
+    ['Ad Genie', 'Maven Agentic AI PM'], ['Compliance Lease Tool', 'Claude Code'], ['Company Comparison', 'AI/ML Product'], ['ProjectPilot AI', 'Product Ownership'],
+    ['Jira / Confluence', 'SAFe / Agile']
+  ].forEach(([a, b]) => add(a, b, 1));
 
-    { id: 'Certifications', group: 'cat', catGroup: 'Certifications', r: 15 },
-    { id: 'AWS Gen AI Developer', group: 'Certifications', r: 7 },
-    { id: 'MIT AI & ML', group: 'Certifications', r: 7 },
-    { id: 'CSP-PO', group: 'Certifications', r: 7 },
-    { id: 'MIT Design Thinking', group: 'Certifications', r: 7 },
+  const byId = Object.fromEntries(N.map((n) => [n.id, n]));
+  const adj = {};
+  N.forEach((n) => { adj[n.id] = new Set(); });
+  L.forEach((l) => { adj[l.source].add(l.target); adj[l.target].add(l.source); });
+  N.forEach((n) => { n.r = n.g === 'hub' ? 24 : n.g === 'cat' ? 15 : Math.min(13, 5.5 + adj[n.id].size * 1.3); });
+  const col = (n) => n.g === 'hub' ? C.hub : n.g === 'cat' ? C[n.cat] : C[n.g];
+  const catOf = (n) => n.g === 'cat' ? n.cat : n.g;
+  const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const LANES = ['Companies', 'Impact', 'Certifications', 'Projects'];
 
-    { id: 'Skills', group: 'cat', catGroup: 'Skills', r: 15 },
-    { id: 'AI/ML', group: 'Skills', r: 7 },
-    { id: 'Product', group: 'Skills', r: 7 },
-    { id: 'Agile', group: 'Skills', r: 7 },
-    { id: 'Design', group: 'Skills', r: 7 },
-
-    { id: 'Projects', group: 'cat', catGroup: 'Projects', r: 15 },
-    { id: 'ContractIQ', group: 'Projects', r: 7 },
-    { id: 'ProjectPilot AI', group: 'Projects', r: 7 },
-    { id: 'ScienceAI', group: 'Projects', r: 7 },
-    { id: 'Ad Genie', group: 'Projects', r: 7 },
-    { id: 'AI Analyst Builder', group: 'Projects', r: 7 },
-    { id: 'Compliance Lease Tool', group: 'Projects', r: 7 },
-
-    { id: 'Tools', group: 'cat', catGroup: 'Tools', r: 15 },
-    { id: 'Claude Code', group: 'Tools', r: 7 },
-    { id: 'Python', group: 'Tools', r: 7 },
-    { id: 'Figma', group: 'Tools', r: 7 },
-    { id: 'Jira', group: 'Tools', r: 7 },
-    { id: 'Langflow', group: 'Tools', r: 7 },
-    { id: 'PowerBI', group: 'Tools', r: 7 },
-    { id: 'SQL', group: 'Tools', r: 7 },
-    { id: 'Tableau', group: 'Tools', r: 7 },
-    { id: 'Cursor', group: 'Tools', r: 7 },
-    { id: 'n8n', group: 'Tools', r: 7 },
-    { id: 'GitHub', group: 'Tools', r: 7 },
-    { id: 'Confluence', group: 'Tools', r: 7 },
-    { id: 'AWS', group: 'Tools', r: 7 },
-    { id: 'Docker', group: 'Tools', r: 7 },
-    { id: 'Prompt Engineering', group: 'Tools', r: 7 },
-    { id: 'RAG & Vector Search', group: 'Tools', r: 7 },
-    { id: 'Agentic AI', group: 'Tools', r: 7 },
-    { id: 'Postman', group: 'Tools', r: 7 },
-    { id: 'Supabase', group: 'Tools', r: 7 },
-    { id: 'Vercel', group: 'Tools', r: 7 },
-    { id: 'Roadmapping', group: 'Tools', r: 7 },
-    { id: 'Stakeholder Mgmt', group: 'Tools', r: 7 },
-    { id: 'Product Analytics', group: 'Tools', r: 7 },
-
-    { id: 'Impact', group: 'cat', catGroup: 'Impact', r: 15 },
-    { id: '$16M+ Revenue', group: 'Impact', r: 7 },
-    { id: '$10M+ RFPs Led', group: 'Impact', r: 7 },
-    { id: '$15M+ Pipeline', group: 'Impact', r: 7 },
-    { id: '15+ Years', group: 'Impact', r: 7 }
-  ];
-
-  const links = [
-    { source: 'Sankar', target: 'Companies' },
-    { source: 'Sankar', target: 'Certifications' },
-    { source: 'Sankar', target: 'Skills' },
-    { source: 'Sankar', target: 'Projects' },
-    { source: 'Sankar', target: 'Tools' },
-    { source: 'Sankar', target: 'Impact' },
-
-    { source: 'Companies', target: 'WIPRO' },
-    { source: 'Companies', target: 'Cloudculina' },
-    { source: 'Companies', target: 'Grapnel' },
-    { source: 'Companies', target: 'HCL' },
-    { source: 'Companies', target: 'HealthFirst' },
-    { source: 'Companies', target: 'Otsuka (Prophecy)' },
-
-    { source: 'Certifications', target: 'AWS Gen AI Developer' },
-    { source: 'Certifications', target: 'MIT AI & ML' },
-    { source: 'Certifications', target: 'CSP-PO' },
-    { source: 'Certifications', target: 'MIT Design Thinking' },
-
-    { source: 'Skills', target: 'AI/ML' },
-    { source: 'Skills', target: 'Product' },
-    { source: 'Skills', target: 'Agile' },
-    { source: 'Skills', target: 'Design' },
-
-    { source: 'Projects', target: 'ContractIQ' },
-    { source: 'Projects', target: 'ProjectPilot AI' },
-    { source: 'Projects', target: 'ScienceAI' },
-    { source: 'Projects', target: 'Ad Genie' },
-    { source: 'Projects', target: 'AI Analyst Builder' },
-    { source: 'Projects', target: 'Compliance Lease Tool' },
-
-    { source: 'Tools', target: 'Claude Code' },
-    { source: 'Tools', target: 'Python' },
-    { source: 'Tools', target: 'Figma' },
-    { source: 'Tools', target: 'Jira' },
-    { source: 'Tools', target: 'Langflow' },
-    { source: 'Tools', target: 'PowerBI' },
-    { source: 'Tools', target: 'SQL' },
-    { source: 'Tools', target: 'Tableau' },
-    { source: 'Tools', target: 'Cursor' },
-    { source: 'Tools', target: 'n8n' },
-    { source: 'Tools', target: 'GitHub' },
-    { source: 'Tools', target: 'Confluence' },
-    { source: 'Tools', target: 'AWS' },
-    { source: 'Tools', target: 'Docker' },
-    { source: 'Tools', target: 'Prompt Engineering' },
-    { source: 'Tools', target: 'RAG & Vector Search' },
-    { source: 'Tools', target: 'Agentic AI' },
-    { source: 'Tools', target: 'Postman' },
-    { source: 'Tools', target: 'Supabase' },
-    { source: 'Tools', target: 'Vercel' },
-    { source: 'Tools', target: 'Roadmapping' },
-    { source: 'Tools', target: 'Stakeholder Mgmt' },
-    { source: 'Tools', target: 'Product Analytics' },
-
-    { source: 'Impact', target: '$16M+ Revenue' },
-    { source: 'Impact', target: '$10M+ RFPs Led' },
-    { source: 'Impact', target: '$15M+ Pipeline' },
-    { source: 'Impact', target: '15+ Years' },
-
-    // Cross-links: tie evidence back to the companies/projects that produced it
-    { source: 'Otsuka (Prophecy)', target: '$16M+ Revenue' },
-    { source: 'HealthFirst', target: '$10M+ RFPs Led' },
-    { source: 'Cloudculina', target: '$15M+ Pipeline' },
-    { source: 'AI/ML', target: 'ContractIQ' },
-    { source: 'AI/ML', target: 'ScienceAI' },
-    { source: 'AI/ML', target: 'Claude Code' },
-    { source: 'Product', target: 'ProjectPilot AI' },
-    { source: 'Agile', target: 'CSP-PO' },
-    { source: 'AI/ML', target: 'AWS Gen AI Developer' },
-    { source: 'AI/ML', target: 'MIT AI & ML' },
-    { source: 'Design', target: 'MIT Design Thinking' }
-  ];
-
-  function nodeColor(d) {
-    if (d.group === 'hub') return colors.hub;
-    if (d.group === 'cat') return colors[d.catGroup];
-    return colors[d.group];
-  }
-
-  const icons = {
-    hub: '🙂',
-    Companies: '🏢',
-    Certifications: '🎓',
-    Skills: '🧠',
-    Projects: '🚀',
-    Tools: '🛠️',
-    Impact: '📈'
-  };
-
-  function nodeIcon(d) {
-    if (d.group === 'hub') return icons.hub;
-    if (d.group === 'cat') return icons[d.catGroup];
-    return '';
-  }
-
-  let width = wrap.clientWidth || 600;
-  let height = wrap.clientHeight || 560;
-
-  const svg = d3.select(wrap).append('svg')
-    .attr('viewBox', [0, 0, width, height]);
-
+  const W = wrap.clientWidth || 600, H = wrap.clientHeight || 560;
+  const k = Math.max(0.55, Math.min(1, W / 820)); // gentler forces on narrow screens
+  const svg = d3.select(wrap).insert('svg', ':first-child').attr('viewBox', [0, 0, W, H]);
   const g = svg.append('g');
+  const zoom = d3.zoom().scaleExtent([0.35, 3]).on('zoom', (e) => g.attr('transform', e.transform));
+  svg.call(zoom);
+  const axis = g.append('g');
+  const ls = g.append('g').selectAll('line').data(L).join('line').attr('class', (d) => 'graph-link' + (d.x ? ' kg-x' : ''));
+  const ns = g.append('g').selectAll('g').data(N).join('g').attr('class', 'graph-node');
+  ns.append('circle').attr('r', (d) => d.r).attr('fill', col).attr('fill-opacity', (d) => d.g === 'hub' || d.g === 'cat' ? 0.9 : 0.55)
+    .attr('stroke', col).attr('stroke-width', (d) => d.g === 'hub' ? 2 : 1);
+  ns.filter((d) => d.g === 'hub' || d.g === 'cat').append('text').text((d) => ICON[d.g === 'hub' ? 'hub' : d.cat])
+    .attr('font-size', (d) => d.g === 'hub' ? 20 : 14).attr('text-anchor', 'middle').attr('dominant-baseline', 'central').style('pointer-events', 'none');
+  ns.append('text').text((d) => d.id).attr('font-size', (d) => d.g === 'hub' ? 12 : d.g === 'cat' ? 10.5 : 8.5)
+    .attr('font-weight', (d) => d.g === 'hub' || d.g === 'cat' ? 700 : 500).attr('text-anchor', 'middle').attr('dy', (d) => -(d.r + 5));
 
-  const zoomBehavior = d3.zoom().scaleExtent([0.5, 2.5]).on('zoom', (event) => {
-    g.attr('transform', event.transform);
-  });
-  svg.call(zoomBehavior);
-
-  const linkSel = g.append('g').attr('class', 'graph-links')
-    .selectAll('line')
-    .data(links)
-    .join('line')
-    .attr('class', 'graph-link');
-
-  const nodeSel = g.append('g').attr('class', 'graph-nodes')
-    .selectAll('g')
-    .data(nodes)
-    .join('g')
-    .attr('class', 'graph-node');
-
-  nodeSel.append('circle')
-    .attr('r', d => d.r)
-    .attr('fill', nodeColor)
-    .attr('fill-opacity', d => d.group === 'hub' || d.group === 'cat' ? 0.9 : 0.55)
-    .attr('stroke', nodeColor)
-    .attr('stroke-width', d => d.group === 'hub' ? 2 : 1);
-
-  nodeSel.filter(d => d.group === 'hub' || d.group === 'cat')
-    .append('text')
-    .text(nodeIcon)
-    .attr('class', 'graph-node-icon')
-    .attr('font-size', d => d.group === 'hub' ? 20 : 15)
-    .attr('text-anchor', 'middle')
-    .attr('dominant-baseline', 'central')
-    .attr('dy', '0.05em')
-    .style('pointer-events', 'none');
-
-  nodeSel.append('text')
-    .text(d => d.id)
-    .attr('font-size', d => d.group === 'hub' ? 12 : d.group === 'cat' ? 10.5 : 9)
-    .attr('font-weight', d => d.group === 'hub' || d.group === 'cat' ? 700 : 500)
-    .attr('text-anchor', 'middle')
-    .attr('dy', d => -(d.r + 6));
-
-  const simulation = d3.forceSimulation(nodes)
-    .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.source && d.source.group === 'hub' ? 110 : 55).strength(0.7))
-    .force('charge', d3.forceManyBody().strength(-160))
-    .force('center', d3.forceCenter(width / 2, height / 2))
-    .force('collide', d3.forceCollide().radius(d => d.r + 18));
-
-  simulation.on('tick', () => {
-    const pad = 28;
-    nodes.forEach(d => {
-      const r = d.r + 22;
-      d.x = Math.max(r + pad, Math.min(width - r - pad, d.x));
-      d.y = Math.max(r + pad, Math.min(height - r - pad, d.y));
-    });
-    linkSel
-      .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
-      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-    nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+  const linkForce = () => d3.forceLink(L).id((d) => d.id).distance((l) => (l.x ? 95 : (l.source.id === 'Sankar' ? 95 : 55)) * k).strength((l) => l.x ? 0.12 : 0.7);
+  const chargeForce = () => d3.forceManyBody().strength((d) => (d.g === 'hub' ? -500 : d.g === 'cat' ? -260 : -90) * k);
+  const sim = d3.forceSimulation(N).force('link', linkForce()).force('charge', chargeForce())
+    .force('center', d3.forceCenter(W / 2, H / 2)).force('col', d3.forceCollide((d) => d.r + 9 * k));
+  sim.on('tick', () => {
+    ls.attr('x1', (d) => d.source.x).attr('y1', (d) => d.source.y).attr('x2', (d) => d.target.x).attr('y2', (d) => d.target.y);
+    ns.attr('transform', (d) => `translate(${d.x},${d.y})`);
   });
 
-  nodeSel.call(
-    d3.drag()
-      .on('start', (event, d) => {
-        if (!event.active) simulation.alphaTarget(0.25).restart();
-        d.fx = d.x; d.fy = d.y;
-      })
-      .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
-      .on('end', (event, d) => {
-        if (!event.active) simulation.alphaTarget(0);
-        d.fx = null; d.fy = null;
-      })
-  );
+  let hidden = new Set(), sel = null, pathArr = [], pathSet = null, mode = 'graph', fitPending = true;
 
-  const adjacency = {};
-  links.forEach(l => {
-    const s = typeof l.source === 'object' ? l.source.id : l.source;
-    const t = typeof l.target === 'object' ? l.target.id : l.target;
-    (adjacency[s] = adjacency[s] || new Set()).add(t);
-    (adjacency[t] = adjacency[t] || new Set()).add(s);
-  });
+  ns.call(d3.drag()
+    .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+    .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+    .on('end', (e, d) => { if (!e.active) sim.alphaTarget(0); if (mode === 'graph') { d.fx = null; d.fy = null; } }));
 
-  function clearHighlight() {
-    nodeSel.classed('graph-dim', false);
-    linkSel.classed('graph-dim', false);
+  // Fit the graph into view once the layout settles (keeps small screens tidy).
+  function fit() {
+    const vis = N.filter(isVisible);
+    if (!vis.length) return;
+    const x0 = d3.min(vis, (d) => d.x - d.r), x1 = d3.max(vis, (d) => d.x + d.r);
+    const y0 = d3.min(vis, (d) => d.y - d.r - 14), y1 = d3.max(vis, (d) => d.y + d.r);
+    const s = Math.min(1.2, 0.92 / Math.max((x1 - x0) / W, (y1 - y0) / H));
+    svg.transition().duration(600).call(zoom.transform, d3.zoomIdentity.translate(W / 2 - s * (x0 + x1) / 2, H / 2 - s * (y0 + y1) / 2).scale(s));
+  }
+  sim.on('end', () => { if (fitPending && mode === 'graph') { fitPending = false; fit(); } });
+  setTimeout(() => { if (fitPending && mode === 'graph') fit(); }, 2200); // early fit, refined when the layout settles
+
+  function isVisible(n) {
+    if (mode === 'time' && (n.g === 'hub' || n.g === 'cat' || !n.yr || !LANES.includes(n.g))) return false;
+    return n.g === 'hub' || !hidden.has(catOf(n));
+  }
+  function onPath(d) {
+    for (let i = 0; i < pathArr.length - 1; i++) {
+      const a = pathArr[i], b = pathArr[i + 1];
+      if ((d.source.id === a && d.target.id === b) || (d.source.id === b && d.target.id === a)) return true;
+    }
+    return false;
+  }
+  function paint() {
+    const focus = sel ? new Set([sel, ...adj[sel]]) : null;
+    ns.style('display', (d) => isVisible(d) ? null : 'none')
+      .classed('graph-dim', (d) => !!((focus && !focus.has(d.id)) || (pathSet && !pathSet.has(d.id))));
+    ls.style('display', (d) => isVisible(d.source) && isVisible(d.target) ? null : 'none')
+      .classed('graph-dim', (d) => !!((focus && !(d.source.id === sel || d.target.id === sel)) || (pathSet && !onPath(d))))
+      .classed('kg-hl', (d) => !!pathSet && onPath(d));
+    ns.select('circle').attr('stroke-width', (d) => d.id === sel ? 3 : d.g === 'hub' ? 2 : 1);
   }
 
-  function highlight(d) {
-    const related = adjacency[d.id] || new Set();
-    nodeSel.classed('graph-dim', n => n.id !== d.id && !related.has(n.id));
-    linkSel.classed('graph-dim', l => {
-      const s = typeof l.source === 'object' ? l.source.id : l.source;
-      const t = typeof l.target === 'object' ? l.target.id : l.target;
-      return s !== d.id && t !== d.id;
-    });
+  /* detail panel */
+  const panel = document.getElementById('kg-panel');
+  const leafCount = N.filter((n) => n.g !== 'cat' && n.g !== 'hub').length;
+  function showPanel(id) {
+    if (!id) {
+      panel.innerHTML = '<p class="kg-empty"><b>' + leafCount + ' nodes · ' + L.length + ' connections.</b></p>' +
+        '<p>Click any node to see what it is, when it happened, and everything it connects to. Try <b>Prophecy · Otsuka</b> or <b>ContractIQ</b>.</p>' +
+        '<div class="kg-stats">' + CATS.map((c) => '<span><b>' + N.filter((n) => n.g === c).length + '</b> ' + c + '</span>').join('') + '</div>';
+      return;
+    }
+    const n = byId[id], conns = [...adj[id]].filter((x) => x !== 'Sankar' && byId[x].g !== 'cat');
+    const label = n.g === 'cat' ? 'Category' : n.g === 'hub' ? 'Me' : catOf(n);
+    panel.innerHTML =
+      '<span class="kg-chip" style="color:' + col(n) + ';background:' + col(n) + '22">' + esc(label) + '</span>' +
+      '<h3>' + esc(id) + '</h3><p>' + esc(n.d || '') + '</p>' + (n.yr ? '<span class="kg-meta">📅 ' + n.yr + '</span>' : '') +
+      '<span class="kg-meta">' + conns.length + ' connection' + (conns.length === 1 ? '' : 's') + '</span>' +
+      '<div class="kg-conns">' + conns.map((x) => '<button type="button" data-id="' + esc(x) + '" style="border-color:' + col(byId[x]) + '66">' + esc(x) + '</button>').join('') + '</div>' +
+      '<div class="kg-acts">' + (MODAL[id] ? '<button type="button" class="kg-btn" data-act="open">Open project →</button>' : '') +
+      (n.g !== 'cat' ? '<button type="button" class="kg-btn" data-act="ask">💬 Ask my twin about this</button>' : '') + '</div>';
+    panel.querySelectorAll('.kg-conns button').forEach((b) => b.addEventListener('click', () => select(b.dataset.id)));
+    const open = panel.querySelector('[data-act=open]');
+    if (open) open.addEventListener('click', (e) => { if (typeof openProjectModal === 'function') openProjectModal(e, MODAL[id]); });
+    const ask = panel.querySelector('[data-act=ask]');
+    if (ask) ask.addEventListener('click', () => askTwin(n));
   }
+  function askTwin(n) {
+    const input = document.getElementById('twin-input'), form = document.getElementById('twin-form');
+    if (!input || !form) return;
+    const q = n.g === 'hub' ? 'Give me a quick overview of your career.'
+      : n.g === 'Projects' ? 'Tell me about ' + n.id + ' — what problem it solves and the key design choices.'
+      : n.g === 'Companies' ? 'What did you do at ' + n.id + ', and what was the impact?'
+      : 'How does "' + n.id + '" show up in your work?';
+    const card = document.querySelector('.twin-card');
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    input.value = q;
+    setTimeout(() => { if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', { cancelable: true })); }, 450);
+  }
+  function clearPath() { pathArr = []; pathSet = null; document.getElementById('kg-pres').textContent = ''; }
+  function select(id) { sel = id; clearPath(); paint(); showPanel(id); }
+  ns.on('click', (e, d) => { e.stopPropagation(); select(sel === d.id ? null : d.id); });
+  svg.on('click', () => select(null));
 
-  nodeSel.on('click', (event, d) => {
-    event.stopPropagation();
-    highlight(d);
+  /* search + legend filters */
+  const lg = document.getElementById('kg-legend');
+  lg.innerHTML = CATS.map((c) => '<button type="button" class="kg-lg" data-c="' + c + '"><i style="background:' + C[c] + '"></i>' + c + '<small>' + N.filter((n) => n.g === c).length + '</small></button>').join('');
+  function syncLegend() { lg.querySelectorAll('.kg-lg').forEach((b) => b.classList.toggle('off', hidden.has(b.dataset.c) || (mode === 'time' && !LANES.includes(b.dataset.c)))); }
+  lg.querySelectorAll('.kg-lg').forEach((b) => b.addEventListener('click', () => {
+    const c = b.dataset.c;
+    if (hidden.has(c)) hidden.delete(c); else hidden.add(c);
+    syncLegend(); paint();
+  }));
+  document.getElementById('kg-q').addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    if (!q) { select(null); return; }
+    const m = N.find((n) => n.g !== 'cat' && n.id.toLowerCase().includes(q));
+    if (m) select(m.id);
   });
 
-  svg.on('click', clearHighlight);
+  /* trace a path */
+  const leaves = N.filter((n) => n.g !== 'cat' && n.g !== 'hub').map((n) => n.id).sort((a, b) => a.localeCompare(b));
+  const pa = document.getElementById('kg-pa'), pb = document.getElementById('kg-pb');
+  [pa, pb].forEach((s) => { s.innerHTML = leaves.map((x) => '<option>' + esc(x) + '</option>').join(''); });
+  pa.value = 'CSP-PO'; pb.value = 'ContractIQ';
+  function bfs(a, b, avoid) {
+    const prev = { [a]: null }, q = [a];
+    while (q.length) {
+      const u = q.shift();
+      if (u === b) break;
+      for (const v of adj[u]) {
+        if (v in prev) continue;
+        if (avoid && v !== b && (v === 'Sankar' || byId[v].g === 'cat')) continue;
+        prev[v] = u; q.push(v);
+      }
+    }
+    if (!(b in prev)) return null;
+    const p = [];
+    for (let x = b; x != null; x = prev[x]) p.unshift(x);
+    return p;
+  }
+  function trace(a, b) {
+    if (mode !== 'graph') setMode('graph');
+    const p = bfs(a, b, true) || bfs(a, b, false);
+    if (!p) return;
+    sel = null; pathArr = p; pathSet = new Set(p); paint();
+    document.getElementById('kg-pres').innerHTML = p.map((x) => '<b style="color:' + col(byId[x]) + '">' + esc(x) + '</b>').join(' → ');
+    showPanel(b);
+  }
+  document.getElementById('kg-go').addEventListener('click', () => { stopTour(true); trace(pa.value, pb.value); });
 
-  const resetBtn = document.getElementById('graph-reset-btn');
-  if (resetBtn) resetBtn.addEventListener('click', (event) => {
-    event.stopPropagation();
-    clearHighlight();
-    svg.transition().duration(400).call(zoomBehavior.transform, d3.zoomIdentity);
-    nodes.forEach(n => { n.fx = null; n.fy = null; });
-    simulation.alpha(0.3).restart();
+  /* timeline */
+  const yrs = d3.scaleLinear().domain([2009, 2027]).range([W < 600 ? 40 : 90, W - 24]);
+  const laneY = (i) => 60 + i * ((H - 110) / 3);
+  function setMode(m) {
+    mode = m;
+    document.querySelectorAll('#kg-mode button').forEach((b) => b.classList.toggle('on', b.dataset.m === m));
+    axis.selectAll('*').remove();
+    N.forEach((n) => { n.fx = null; n.fy = null; });
+    if (m === 'time') {
+      [2010, 2014, 2018, 2022, 2026].forEach((y) => {
+        axis.append('line').attr('x1', yrs(y)).attr('x2', yrs(y)).attr('y1', 20).attr('y2', H - 24).attr('stroke', 'rgba(148,163,184,0.1)');
+        axis.append('text').attr('class', 'kg-yr').attr('x', yrs(y)).attr('y', H - 8).attr('text-anchor', 'middle').text(y);
+      });
+      LANES.forEach((c, i) => axis.append('text').attr('class', 'kg-yr').attr('x', 6).attr('y', laneY(i) - 18).text(ICON[c] + ' ' + c));
+      const on = (d) => d.yr && LANES.includes(d.g);
+      sim.force('link', d3.forceLink(L).id((d) => d.id).strength(0))
+        .force('x', d3.forceX((d) => on(d) ? yrs(d.yr) : W / 2).strength((d) => on(d) ? 1 : 0.02))
+        .force('y', d3.forceY((d) => on(d) ? laneY(LANES.indexOf(d.g)) : H * 1.5).strength((d) => on(d) ? 0.9 : 0.3))
+        .force('charge', d3.forceManyBody().strength(-30)).force('center', null);
+      svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity);
+    } else {
+      sim.force('link', linkForce()).force('x', null).force('y', null).force('charge', chargeForce()).force('center', d3.forceCenter(W / 2, H / 2));
+      fitPending = true;
+    }
+    syncLegend();
+    sim.alpha(1).restart();
+    paint();
+  }
+  document.querySelectorAll('#kg-mode button').forEach((b) => b.addEventListener('click', () => {
+    if (b.dataset.m === mode) return;
+    stopTour(true); clearPath(); sel = null; setMode(b.dataset.m); showPanel(null);
+  }));
+
+  /* guided tour */
+  const TOUR = [
+    ['Pharma depth', 'Grapnel · Otsuka', '$16M revenue impact', 'Nearly a decade with Otsuka across three firms — from analytics savings to <b>$16M revenue impact</b> and GxP-compliant launches.'],
+    ['From PO to AI builder', 'CSP-PO', 'ContractIQ', 'Agile product-ownership certs → AI/ML product skills → shipping <b>ContractIQ</b> end-to-end with Claude Code.'],
+    ['Healthcare data → agentic AI', 'Prophecy · HealthFirst', 'Agentic Clinical Trial Matching', 'Healthcare data and compliance work → clinical AI apps with human-in-the-loop guardrails.']
+  ];
+  let ti = -1;
+  const tour = document.getElementById('kg-tour');
+  function step() {
+    ti++;
+    if (ti >= TOUR.length) { stopTour(); return; }
+    const t = TOUR[ti];
+    trace(t[1], t[2]);
+    document.getElementById('kg-tour-txt').innerHTML = '<b>' + (ti + 1) + '/' + TOUR.length + ' · ' + t[0] + '</b> — ' + t[3];
+    document.getElementById('kg-tnext').textContent = ti === TOUR.length - 1 ? 'Finish' : 'Next →';
+    tour.classList.add('on');
+  }
+  function stopTour(keep) {
+    ti = -1; tour.classList.remove('on');
+    if (!keep) { clearPath(); paint(); showPanel(null); }
+  }
+  document.getElementById('kg-tour-btn').addEventListener('click', () => { ti = -1; step(); });
+  document.getElementById('kg-tnext').addEventListener('click', step);
+  document.getElementById('kg-tstop').addEventListener('click', () => stopTour());
+
+  document.getElementById('graph-reset-btn').addEventListener('click', () => {
+    hidden.clear(); document.getElementById('kg-q').value = '';
+    stopTour(true); clearPath(); sel = null;
+    if (mode !== 'graph') setMode('graph'); else { syncLegend(); paint(); fit(); }
+    showPanel(null);
   });
 
-  window.addEventListener('resize', () => {
-    const newW = wrap.clientWidth || width;
-    const newH = wrap.clientHeight || height;
-    if (Math.abs(newW - width) < 20) return;
-    width = newW; height = newH;
-    svg.attr('viewBox', [0, 0, width, height]);
-    simulation.force('center', d3.forceCenter(width / 2, height / 2));
-    simulation.alpha(0.3).restart();
-  });
+  showPanel(null);
+  paint();
 })();
 </script>
 
@@ -14281,6 +14297,243 @@
   }
 
   document.querySelectorAll('.avatar-wrap, .mobile-avatar').forEach(setup);
+})();
+</script>
+
+<script>
+/* LinkedIn Snapshot v2 — reads #li-data (refreshed from each LinkedIn analytics export). */
+(function () {
+  const root = document.getElementById('lsn'), dataEl = document.getElementById('li-data');
+  if (!root || !dataEl) return;
+  let D;
+  try { D = JSON.parse(dataEl.textContent); } catch (e) { return; }
+  const E = D.E, F = D.F, A = D.A;
+  const MON = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const fmtD = (s) => { const p = s.split('/'); return MON[+p[0]] + ' ' + (+p[1]); };
+  const pct = (v) => v === '< 1%' ? 0.5 : parseFloat(v);
+  const n0 = (v) => Math.round(v).toLocaleString('en-US');
+  const kfmt = (v) => v >= 1000 ? (v / 1000).toFixed(1) + 'K' : String(v);
+  const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NS = 'http://www.w3.org/2000/svg';
+
+  const imp = E.map((e) => e[1]), eng = E.map((e) => e[2]);
+  const impT = imp.reduce((a, b) => a + b, 0), engT = eng.reduce((a, b) => a + b, 0);
+  const newF = F.reduce((a, f) => a + f[1], 0), startF = D.total - newF;
+  let c = startF; const fol = F.map((f) => (c += f[1]));
+  const peakI = imp.indexOf(Math.max(...imp));
+  const roll = (a, n) => a.map((_, i) => { const s = a.slice(Math.max(0, i - n + 1), i + 1); return s.reduce((x, y) => x + y, 0) / s.length; });
+
+  /* 1 · KPI strip with sparklines */
+  const K = [
+    ['Impressions', kfmt(impT), n0(imp[peakI]) + ' peak · ' + fmtD(E[peakI][0]), roll(imp, 7), '#38bdf8', (i) => n0(imp[i]) + ' impressions'],
+    ['Engagements', n0(engT), (engT / E.length).toFixed(1) + ' / day · ' + kfmt(D.reached) + ' members reached', roll(eng, 7), '#818cf8', (i) => eng[i] + ' engagements'],
+    ['Followers', n0(D.total), '▲ +' + n0(newF) + ' · +' + (newF / startF * 100).toFixed(1) + '%', fol, '#4ade80', (i) => n0(fol[i]) + ' followers'],
+    ['Engagement rate', (engT / impT * 100).toFixed(1) + '%', '14-day rolling', roll(eng.map((e, i) => imp[i] ? e / imp[i] * 100 : 0), 14), '#fbbf24', (i) => eng[i] + ' eng. / ' + imp[i] + ' impr.']
+  ];
+  const kp = document.getElementById('lsn-kpis');
+  kp.innerHTML = K.map((k, j) => '<div class="lsn-kpi" style="--c:' + k[4] + '"><div class="l">' + k[0] + '</div><div class="v">' + k[1] + '</div><div class="s">' + esc(k[2]) + '</div><svg viewBox="0 0 200 44" preserveAspectRatio="none" aria-hidden="true"></svg><div class="lsn-tip"></div></div>').join('');
+  kp.querySelectorAll('.lsn-kpi').forEach((card, j) => {
+    const k = K[j], s = card.querySelector('svg'), a = k[3], mn = Math.min(...a), mx = Math.max(...a);
+    const X = (i) => i / (a.length - 1) * 200, Y = (v) => 40 - (v - mn) / ((mx - mn) || 1) * 34;
+    const d = a.map((v, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(v).toFixed(1)).join('');
+    s.innerHTML = '<defs><linearGradient id="lsnk' + j + '" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="' + k[4] + '" stop-opacity=".35"/><stop offset="1" stop-color="' + k[4] + '" stop-opacity="0"/></linearGradient></defs>' +
+      '<path d="' + d + 'L200,44L0,44Z" fill="url(#lsnk' + j + ')"/><path d="' + d + '" fill="none" stroke="' + k[4] + '" stroke-width="2" vector-effect="non-scaling-stroke"/>' +
+      '<line class="cur" y1="0" y2="44" stroke="rgba(148,163,184,.6)" stroke-width="1" vector-effect="non-scaling-stroke" opacity="0"/>';
+    const tip = card.querySelector('.lsn-tip'), cur = s.querySelector('.cur');
+    const move = (cx) => {
+      const r = s.getBoundingClientRect(), i = Math.max(0, Math.min(a.length - 1, Math.round((cx - r.left) / r.width * (a.length - 1))));
+      cur.setAttribute('x1', X(i)); cur.setAttribute('x2', X(i)); cur.setAttribute('opacity', 1);
+      tip.textContent = fmtD(E[Math.min(i, E.length - 1)][0]) + ' · ' + k[5](i);
+      tip.style.left = Math.max(60, Math.min(card.clientWidth - 60, cx - card.getBoundingClientRect().left)) + 'px'; tip.style.top = s.offsetTop + 'px'; tip.style.opacity = 1;
+    };
+    s.addEventListener('pointermove', (e) => move(e.clientX));
+    s.addEventListener('pointerleave', () => { tip.style.opacity = 0; cur.setAttribute('opacity', 0); });
+  });
+
+  /* 2 · follower growth curve */
+  function drawGrowth() {
+    const s = document.getElementById('lsn-grow'), W = Math.max(300, Math.round(s.getBoundingClientRect().width) || 900), H = 220;
+    s.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    const mn = Math.floor(startF / 500) * 500, mx = Math.ceil(D.total / 500) * 500 + 100;
+    const X = (i) => 20 + i / (fol.length - 1) * (W - 40), Y = (v) => H - 24 - (v - mn) / (mx - mn) * (H - 44);
+    const d = fol.map((v, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ',' + Y(v).toFixed(1)).join('');
+    let h = '<defs><linearGradient id="lsngg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#4ade80" stop-opacity=".35"/><stop offset="1" stop-color="#4ade80" stop-opacity="0"/></linearGradient></defs>';
+    for (let v = mn + 500; v < mx; v += 500) h += '<line class="lsn-grid" x1="20" x2="' + (W - 20) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text class="lsn-ann lsn-axis" x="22" y="' + (Y(v) - 4) + '">' + n0(v) + '</text>';
+    h += '<path d="' + d + 'L' + X(fol.length - 1) + ',' + (H - 24) + 'L' + X(0) + ',' + (H - 24) + 'Z" fill="url(#lsngg)"/><path class="gl" d="' + d + '" fill="none" stroke="#4ade80" stroke-width="2.5" vector-effect="non-scaling-stroke"/>';
+    const big = [];
+    F.map((f, i) => [f[1], i]).sort((a, b) => b[0] - a[0]).forEach((x) => { if (big.length < 3 && big.every((y) => Math.abs(y[1] - x[1]) > 12)) big.push(x); });
+    big.forEach(([v, i]) => {
+      const anchor = i > fol.length - 8 ? 'end' : i < 6 ? 'start' : 'middle';
+      h += '<circle cx="' + X(i) + '" cy="' + Y(fol[i]) + '" r="5" fill="#fbbf24"/><text class="lsn-ann" x="' + X(i) + '" y="' + (Y(fol[i]) - 10) + '" text-anchor="' + anchor + '" fill="#f59e0b">+' + v + ' · ' + fmtD(F[i][0]) + '</text>';
+    });
+    const mile = Math.floor(D.total / 1000) * 1000, km = fol.findIndex((v) => v >= mile);
+    if (km > 0) h += '<line x1="' + X(km) + '" x2="' + X(km) + '" y1="' + Y(fol[km]) + '" y2="' + (H - 24) + '" stroke="#a78bfa" stroke-dasharray="3 3"/><text class="lsn-ann" x="' + (X(km) - 6) + '" y="' + (H - 30) + '" text-anchor="end" fill="#a78bfa">🎉 ' + (mile / 1000) + 'K crossed · ' + fmtD(F[km][0]) + '</text>';
+    h += '<text class="lsn-ann lsn-axis" x="20" y="' + (H - 6) + '">' + fmtD(F[0][0]) + '</text><text class="lsn-ann lsn-axis" x="' + (W - 20) + '" y="' + (H - 6) + '" text-anchor="end">' + fmtD(F[F.length - 1][0]) + '</text>';
+    h += '<line class="cur" y1="10" y2="' + (H - 24) + '" stroke="rgba(148,163,184,.5)" opacity="0"/>';
+    s.innerHTML = h;
+    const L = s.querySelector('.gl');
+    if (!reduced) { const len = L.getTotalLength() * 1.05; L.style.strokeDasharray = len; L.style.strokeDashoffset = len; L.getBoundingClientRect(); L.style.transition = 'stroke-dashoffset 1.6s ease'; L.style.strokeDashoffset = 0; setTimeout(() => { L.style.strokeDasharray = 'none'; }, 1700); }
+    document.getElementById('lsn-gstats').innerHTML = '<div><b>' + n0(startF) + ' → ' + n0(D.total) + '</b><span>followers</span></div><div><b>+' + (newF / startF * 100).toFixed(1) + '%</b><span>base growth</span></div><div><b>~' + Math.round(newF / F.length) + ' / day</b><span>avg new followers</span></div>';
+    const tip = document.getElementById('lsn-gtip'), cur = s.querySelector('.cur');
+    s.addEventListener('pointermove', (e) => {
+      const r = s.getBoundingClientRect(), i = Math.max(0, Math.min(fol.length - 1, Math.round(((e.clientX - r.left) / r.width * W - 20) / (W - 40) * (fol.length - 1))));
+      cur.setAttribute('x1', X(i)); cur.setAttribute('x2', X(i)); cur.setAttribute('opacity', 1);
+      tip.textContent = fmtD(F[i][0]) + ' · ' + n0(fol[i]) + ' (+' + F[i][1] + ')';
+      tip.style.left = Math.max(70, Math.min(r.width - 70, X(i) / W * r.width)) + 'px'; tip.style.top = (Y(fol[i]) / H * r.height) + 'px'; tip.style.opacity = 1;
+    });
+    s.addEventListener('pointerleave', () => { tip.style.opacity = 0; cur.setAttribute('opacity', 0); });
+  }
+
+  /* 3 · top posts leaderboard */
+  function drawPosts() {
+    const tp = D.tp, mx = tp[0].imp;
+    document.getElementById('lsn-tp').innerHTML = tp.map((p, i) =>
+      '<a class="lsn-tr" href="' + esc(p.u) + '" target="_blank" rel="noopener"><span class="lsn-rk">#' + (i + 1) + '</span><div><div class="lsn-tags">' + p.tags.map((t) => '<span>#' + esc(t) + '</span>').join('') + '</div>' +
+      '<div class="lsn-bar"><i data-w="' + (p.imp / mx * 100) + '"></i></div><div class="lsn-meta">' + n0(p.imp) + ' impressions · ' + fmtD(p.date) + '</div></div>' +
+      '<div class="lsn-rate"><b>' + (p.eng / p.imp * 100).toFixed(1) + '%</b><span>' + p.eng + ' engagements</span></div></a>').join('');
+    requestAnimationFrame(() => requestAnimationFrame(() => document.querySelectorAll('#lsn-tp .lsn-bar i').forEach((b) => { b.style.width = b.dataset.w + '%'; })));
+  }
+
+  /* 4 · where my audience is */
+  function drawWhere() {
+    const P = {
+      'New York City Metropolitan Area': ['us', 74, 44, 'NYC metro'], 'San Francisco Bay Area': ['us', 12, 62, 'SF Bay Area'], 'Dallas-Fort Worth Metroplex': ['us', 36, 70, 'Dallas–Fort Worth'],
+      'Greater Philadelphia': ['us', 66, 82, 'Philadelphia'], 'Greater Boston': ['us', 92, 24, 'Boston'], 'Greater Seattle Area': ['us', 12, 32, 'Seattle'], 'Washington DC-Baltimore Area': ['us', 80, 76, 'DC–Baltimore'],
+      'Greater Chicago Area': ['us', 52, 38, 'Chicago'], 'Greater Bengaluru Area': ['in', 35, 76, 'Bengaluru'], 'Greater Chennai Area': ['in', 72, 76, 'Chennai'],
+      'Greater Hyderabad Area': ['in', 55, 48, 'Hyderabad'], 'Greater Delhi Area': ['in', 38, 26, 'Delhi'], 'Mumbai Metropolitan Region': ['in', 18, 52, 'Mumbai'], 'Pune/Pimpri-Chinchwad Area': ['in', 26, 66, 'Pune']
+    };
+    const tot = { us: 0, in: 0 };
+    (A.Location || []).forEach(([name, v], i) => {
+      const p = P[name]; if (!p) return;
+      const r = document.getElementById('lsn-' + p[0]), val = pct(v), sz = 24 + val * 2.6;
+      tot[p[0]] += val;
+      const b = document.createElement('div');
+      b.className = 'lsn-bub'; b.title = name + ' · ' + v;
+      b.style.cssText = 'left:' + p[1] + '%;top:' + p[2] + '%;width:' + sz + 'px;height:' + sz + 'px;--c:' + (p[0] === 'us' ? '#2563eb' : '#f59e0b');
+      b.textContent = v; r.appendChild(b);
+      const l = document.createElement('span');
+      l.className = 'lsn-bubl'; l.style.cssText = 'left:' + p[1] + '%;top:calc(' + p[2] + '% + ' + (sz / 2 + 2) + 'px)'; l.textContent = p[3]; r.appendChild(l);
+      setTimeout(() => { b.style.transform = 'translate(-50%,-50%) scale(1)'; }, reduced ? 0 : 120 + i * 80);
+    });
+    document.getElementById('lsn-ust').textContent = '· ' + Math.round(tot.us) + '% in these metros';
+    document.getElementById('lsn-int').textContent = '· ' + Math.round(tot.in) + '% in these metros';
+  }
+
+  /* 5 · 90-day impressions calendar */
+  function drawCal() {
+    const hm = document.getElementById('lsn-hm'), mx = Math.max(...imp);
+    const p0 = E[0][0].split('/'), first = new Date(+p0[2], +p0[0] - 1, +p0[1]).getDay();
+    const weeks = Math.ceil((E.length + first) / 7);
+    hm.style.gridTemplateColumns = '28px repeat(' + weeks + ', minmax(0, 1fr))';
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], cells = {};
+    E.forEach((e, i) => { const kk = i + first; cells[(kk % 7) + ':' + Math.floor(kk / 7)] = e; });
+    const lv = (v) => v === 0 ? '' : v < mx * 0.12 ? 'l1' : v < mx * 0.25 ? 'l2' : v < mx * 0.45 ? 'l3' : 'l4';
+    let h = '';
+    for (let d = 0; d < 7; d++) {
+      h += '<span class="dl">' + (d % 2 ? days[d] : '') + '</span>';
+      for (let w = 0; w < weeks; w++) { const e = cells[d + ':' + w]; h += e ? '<span class="c ' + lv(e[1]) + '" data-t="' + fmtD(e[0]) + ' · ' + e[1] + ' impressions"></span>' : '<span></span>'; }
+    }
+    hm.innerHTML = h;
+    const tip = document.getElementById('lsn-htip');
+    hm.querySelectorAll('.c[data-t]').forEach((cEl) => {
+      cEl.addEventListener('pointerenter', () => { tip.textContent = cEl.dataset.t; tip.style.left = Math.max(70, cEl.offsetLeft + cEl.offsetWidth / 2) + 'px'; tip.style.top = cEl.offsetTop + 'px'; tip.style.opacity = 1; });
+      cEl.addEventListener('pointerleave', () => { tip.style.opacity = 0; });
+    });
+    const wk = [0, 0, 0, 0, 0, 0, 0], wc = [0, 0, 0, 0, 0, 0, 0];
+    E.forEach((e, i) => { wk[(i + first) % 7] += e[1]; wc[(i + first) % 7]++; });
+    const avg = wk.map((v, i) => wc[i] ? v / wc[i] : 0), best = avg.indexOf(Math.max(...avg));
+    document.getElementById('lsn-hmside').innerHTML = '<div><b>' + imp.filter((v) => v > 0).length + ' / ' + E.length + '</b><span>days with impressions</span></div>' +
+      '<div><b>' + days[best] + '</b><span>strongest weekday</span></div><div><b>' + n0(imp[peakI]) + '</b><span>peak day · ' + fmtD(E[peakI][0]) + '</span></div>';
+  }
+
+  /* 6 · who reads me */
+  function drawWho() {
+    const T = {
+      'Seniority': ['#f59e0b', '#fbbf24', '#fde68a', '#d97706', '#b45309', '#92400e', '#fcd34d'],
+      'Industry': ['#38bdf8', '#0ea5e9', '#7dd3fc', '#0284c7', '#bae6fd', '#0369a1', '#075985'],
+      'Company size': ['#a78bfa', '#8b5cf6', '#c4b5fd', '#7c3aed', '#ddd6fe', '#6d28d9', '#5b21b6']
+    };
+    const tabs = document.getElementById('lsn-atabs');
+    tabs.innerHTML = Object.keys(T).filter((k) => A[k]).map((k, i) => '<button type="button" class="' + (i ? '' : 'on') + '" data-k="' + k + '">' + k + '</button>').join('');
+    const sum = (k, keys) => (A[k] || []).filter((r) => keys.includes(r[0])).reduce((a, r) => a + pct(r[1]), 0);
+    function draw(k) {
+      const rows = A[k].filter((r) => pct(r[1]) >= 1).slice(0, 7), cols = T[k];
+      let a0 = -Math.PI / 2, h = '<circle cx="95" cy="95" r="70" fill="none" stroke="rgba(148,163,184,.12)" stroke-width="22"/>';
+      rows.forEach((r, i) => {
+        const v = pct(r[1]), a1 = a0 + v / 100 * Math.PI * 2, lg = a1 - a0 > Math.PI ? 1 : 0;
+        const p = (a) => [95 + 70 * Math.cos(a), 95 + 70 * Math.sin(a)], s0 = p(a0 + 0.012), s1 = p(a1 - 0.012);
+        h += '<path d="M' + s0[0] + ',' + s0[1] + ' A70,70 0 ' + lg + ' 1 ' + s1[0] + ',' + s1[1] + '" fill="none" stroke="' + cols[i] + '" stroke-width="22"><title>' + esc(r[0]) + ' · ' + r[1] + '</title></path>';
+        a0 = a1;
+      });
+      document.getElementById('lsn-donut').innerHTML = h;
+      const top = rows[0];
+      document.getElementById('lsn-dctr').innerHTML = '<div><b>' + top[1] + '</b><span>' + esc(top[0].length > 18 ? top[0].slice(0, 17) + '…' : top[0]) + '</span></div>';
+      document.getElementById('lsn-leg').innerHTML = rows.map((r, i) => '<span><i style="background:' + cols[i] + '"></i>' + esc(r[0]) + '<em>' + r[1] + '</em></span>').join('');
+      const ch = k === 'Seniority' ? [['Director+', sum(k, ['Director', 'VP', 'CXO', 'Partner', 'Owner'])], ['Senior', sum(k, ['Senior'])]]
+        : k === 'Industry' ? [['Pharma + Health', sum(k, ['Pharmaceutical Manufacturing', 'Hospitals and Health Care'])], ['IT services', sum(k, ['IT Services and IT Consulting'])]]
+        : [['Enterprise 10K+', sum(k, ['10,001+ employees'])], ['Mid-size 1K–10K', sum(k, ['1,001-5,000 employees', '5,001-10,000 employees'])]];
+      let extra = '';
+      if (k === 'Seniority') {
+        if (A['Job title'] && A['Job title'][0]) extra += '<span>Top title: <b>' + esc(A['Job title'][0][0]) + '</b></span>';
+        if (A['Company'] && A['Company'][0]) extra += '<span>Top company: <b>' + esc(A['Company'][0][0]) + '</b></span>';
+      }
+      document.getElementById('lsn-achips').innerHTML = ch.map(([nm, v]) => '<span><b>' + Math.round(v) + '%</b> ' + nm + '</span>').join('') + extra;
+    }
+    tabs.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { tabs.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); draw(b.dataset.k); }));
+    draw(Object.keys(T).find((k) => A[k]));
+  }
+
+  /* odometer roll — replays every time the section scrolls into view, and when a tab opens */
+  const ROLL_SEL = '.lsn-kpi .v, .lsn-gstats b, .lsn-rate b, .lsn-hmside b, .lsn-ctr b, .lsn-chips b, .lsn-leg em, .lsn-bub';
+  function rollEl(el, dur) {
+    const orig = el.dataset.rollOrig || el.textContent;
+    el.dataset.rollOrig = orig;
+    const ms = [...orig.matchAll(/\d[\d,]*(\.\d+)?/g)];
+    if (!ms.length || reduced) { el.textContent = orig; return; }
+    cancelAnimationFrame(el._roll);
+    const t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      let out = '', last = 0;
+      ms.forEach((m) => {
+        const raw = m[0], dec = m[1] ? m[1].length - 1 : 0, val = parseFloat(raw.replace(/,/g, '')) * e;
+        let f = val.toFixed(dec);
+        if (raw.indexOf(',') !== -1) { const parts = f.split('.'); parts[0] = Number(parts[0]).toLocaleString('en-US'); f = parts.join('.'); }
+        out += orig.slice(last, m.index) + f; last = m.index + raw.length;
+      });
+      el.textContent = out + orig.slice(last);
+      if (p < 1) el._roll = requestAnimationFrame(step); else el.textContent = orig;
+    };
+    el._roll = requestAnimationFrame(step);
+  }
+  function rollIn(scope, dur) { (scope || root).querySelectorAll(ROLL_SEL).forEach((el) => rollEl(el, dur || 1200)); }
+
+  /* tabs — each view renders the first time it is shown */
+  const drawn = {}, DRAW = { growth: drawGrowth, posts: drawPosts, where: drawWhere, cal: drawCal, who: drawWho };
+  const tabs = document.getElementById('lsn-tabs');
+  function show(v) {
+    tabs.querySelectorAll('button').forEach((b) => { const on = b.dataset.v === v; b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    root.querySelectorAll('.lsn-view').forEach((el) => el.classList.toggle('on', el.dataset.v === v));
+    if (!drawn[v]) { drawn[v] = true; try { DRAW[v](); } catch (e) { /* keep the rest of the page working */ } }
+    const view = root.querySelector('.lsn-view[data-v="' + v + '"]');
+    if (view) rollIn(view, 900);
+  }
+  tabs.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => show(b.dataset.v)));
+  let current = null, inView = false;
+  tabs.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { current = b.dataset.v; }));
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((es) => {
+      const vis = es.some((e) => e.isIntersecting);
+      if (vis && !inView) {
+        if (!current) { current = 'growth'; show('growth'); }
+        rollIn(root.querySelector('.lsn-kpis'), 1300);
+        const view = root.querySelector('.lsn-view.on');
+        if (view) rollIn(view, 1300);
+      }
+      inView = vis;
+    }, { threshold: 0.2 }).observe(root);
+  } else { show('growth'); }
 })();
 </script>
 
