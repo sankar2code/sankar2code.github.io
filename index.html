@@ -7720,63 +7720,14 @@
 
         <div class="modal-section">
           <h4>Problem Statement</h4>
-          <p>Trial eligibility criteria are written for humans: age ranges, diagnosis and stage, biomarker status, recent lab values, performance status, prior lines of therapy, and exclusions such as organ dysfunction or conflicting medications. The patient data needed to check them is scattered across structured EHR fields, pathology reports, imaging, and clinical notes. Research coordinators bridge that gap by hand, one patient and one trial at a time, so matching happens late, inconsistently, or not at all.</p>
+          <p>Matching a patient to a clinical trial means reading a chart against dozens of free-text inclusion and exclusion criteria — age, diagnosis and stage, biomarkers, recent labs, performance status, prior therapy. The data needed to check them is scattered across structured EHR fields, pathology reports, and clinical notes, so coordinators screen by hand, one patient and one trial at a time, and eligible patients are routinely missed — often because the chart is simply incomplete. Dropping an AI agent into that workflow creates a different risk: in healthcare, an answer that sounds right but isn't backed by the record is worse than no answer at all.</p>
         </div>
 
         <div class="modal-section">
-          <h4>How the Matching Engine Works</h4>
-          <ol class="modal-list">
-            <li><strong>Trial ingestion:</strong> open trials are pulled from registries such as ClinicalTrials.gov, along with site, phase, and enrollment status.</li>
-            <li><strong>Criteria structuring:</strong> each free-text criterion is parsed into a computable rule (for example, "eGFR ≥ 60 within 28 days" or "PD-L1 TPS ≥ 50%"), and reviewed before it goes live.</li>
-            <li><strong>Patient data assembly:</strong> structured data comes in through FHIR (conditions, observations, medications, diagnostic reports), and NLP extracts what only exists in unstructured notes and pathology reports.</li>
-            <li><strong>Per-criterion evaluation:</strong> every criterion is scored Met, Not met, or Unknown, and each result is linked to the exact note, lab, or report it came from.</li>
-            <li><strong>Ranking:</strong> eligible trials are then ordered by clinical fit, site proximity, and enrollment status to produce a ranked recommendation list.</li>
-          </ol>
-        </div>
-
-        <div class="modal-section">
-          <h4>Design Principles</h4>
-          <ul class="modal-list">
-            <li><strong>"Unknown" is a product decision.</strong> Charts are often missing data. Showing "eligible if a recent creatinine is confirmed" is more useful than a false yes or no.</li>
-            <li><strong>Eligibility is not the same as recommendation.</strong> Eligibility establishes whether a patient could plausibly enroll; recommendation reflects whether the trial is appropriate to pursue given the patient's current clinical needs. Ranked trial recommendations require both.</li>
-            <li><strong>Explainability is per criterion.</strong> Every "met" links to its source evidence. That is what earns clinician trust and gets the system through governance review.</li>
-          </ul>
-        </div>
-
-        <div class="modal-section">
-          <h4>The Agentic Layer</h4>
-          <p>A standard LLM call is one prompt in, one answer out. An agent is given a goal and works toward it in a loop: plan, call a tool, observe the result, decide the next step, and repeat until done. It has four parts:</p>
-          <ul class="modal-list">
-            <li><strong>Model:</strong> does the reasoning.</li>
-            <li><strong>Tools:</strong> FHIR queries, trial search, the matching engine, clinical calculators.</li>
-            <li><strong>State / memory:</strong> what it has learned so far.</li>
-            <li><strong>Guardrails:</strong> permissions, human approval gates, and audit logs.</li>
-          </ul>
-          <p>In a workflow, the steps are fixed and the LLM fills in each one; in an agent, the model chooses the steps. Agents are used only where the path genuinely varies.</p>
-        </div>
-
-        <div class="modal-section">
-          <h4>Example Flow</h4>
-          <p>A clinician asks, "Any lung cancer trials for this patient?" The agent:</p>
-          <ol class="modal-list">
-            <li>Pulls the chart through FHIR tools.</li>
-            <li>Calls the matching engine.</li>
-            <li>Sees PD-L1 status marked Unknown.</li>
-            <li>Searches the pathology reports and finds it.</li>
-            <li>Re-runs the match.</li>
-            <li>Returns a ranked list with cited rationale.</li>
-            <li>Offers to draft a referral to the research coordinator. Nothing is sent without clinician approval.</li>
-          </ol>
-        </div>
-
-        <div class="modal-section">
-          <h4>Where Agents Fit — and Where They Don't</h4>
-          <ul class="modal-list">
-            <li><strong>Resolving unknowns</strong> by finding missing data across sources.</li>
-            <li><strong>Continuous monitoring:</strong> re-screening patients when a new trial opens or a new lab result arrives.</li>
-            <li><strong>Drafting coordinator handoffs</strong> for clinician review.</li>
-          </ul>
-          <p>Agents do not make the final eligibility determination. That stays deterministic or criterion-scored, validated, and signed off by a human, because agents add latency, cost, and nondeterminism that are harder to defend under InfoSec and clinical governance.</p>
+          <h4>Solution</h4>
+          <p>Agentic Clinical Trial Matching is a live, interactive prototype built against a full AI PRD, designed around one decision: what the model is not allowed to do. A deterministic rules engine decides eligibility, scoring every criterion Met, Not met, Unknown, or Needs review — and every Met must cite the exact source text, so a value that isn't in the document is rejected. The AI agent only gathers evidence and drafts: it runs read-only tools under an 8-call cap and a per-user quota, with prompt-injection scanning and patient scoping, and anything it drafts (referrals, outside-records requests) waits for a clinician. Nothing leaves the system until a clinician approves it.</p>
+          <p>The PRD became 13 features, including a path-to-eligibility planner with a what-if sandbox, an evidence expiry clock with time travel, a one-page visit brief and plain-language patient handout, a tamper-evident audit log chained with SHA-256 plus replay under today's rules, rule impact previews, a guardrail lab where you switch a control off and watch the attack it was stopping succeed, and an eval harness with ship thresholds and a release gate. Rollout runs shadow mode, then human-in-the-loop, then steady state, with promotion gated by exit criteria computed from evidence instead of a button.</p>
+          <p>To test it, about 4,200 automated checks run across 19 groups using independent oracles and the real API route handlers; 36 bugs were then put back one at a time to confirm the suite catches each one. A second AI reviewing the build cold found 17 problems — the worst, a "deterministic" check that would have accepted a PD-L1 score of 22 because 22C3 is the name of the assay, not the result — and all 17 were fixed, each with a regression check. Everything runs on synthetic data; it is not a clinical tool.</p>
         </div>
       </details>
 
