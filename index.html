@@ -2762,8 +2762,8 @@
     .ba-ends b { color: var(--white); font-weight: 600; }
     .ba-ends span:last-child { text-align: right; }
     .ba-range { width: 100%; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 8px; outline: none; cursor: pointer; background: linear-gradient(90deg, #475569, #2563eb, #38bdf8); }
-    .ba-range::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 3px solid #38bdf8; box-shadow: 0 0 12px rgba(56,189,248,0.6); cursor: grab; }
-    .ba-range::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid #38bdf8; cursor: grab; }
+    .ba-range::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 40px; border-radius: 50%; background: transparent; border: 0; box-shadow: none; cursor: grab; }
+    .ba-range::-moz-range-thumb { width: 40px; height: 40px; border-radius: 50%; background: transparent; border: 0; cursor: grab; }
     .ba-range:focus-visible { box-shadow: 0 0 0 3px rgba(56,189,248,0.35); }
     .ba-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; margin: 1rem 0; }
     .ba-m { background: rgba(37,99,235,0.06); border: 1px solid var(--border); border-radius: 12px; padding: 0.8rem 0.9rem; }
@@ -2771,6 +2771,15 @@
     .ba-m .v { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--white); font-variant-numeric: tabular-nums; }
     .ba-m .s { font-size: 0.74rem; color: #7dd3fc; }
     .ba-track { position: relative; padding-top: 2.4rem; }
+    .ba-thumb {
+      position: absolute; top: calc(2.4rem + 4px); left: 20px; transform: translate(-50%, -50%); pointer-events: none; z-index: 2;
+      width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-size: 1.15rem; line-height: 1;
+      border: 2px solid #94a3b8; background: #1e293b; transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .ba-thumb.ai { background: #0c1a33; border-color: #38bdf8; box-shadow: 0 0 18px rgba(56,189,248,0.7); }
+    .ba-range:focus-visible ~ .ba-thumb { outline: 3px solid rgba(56,189,248,0.45); outline-offset: 2px; }
+    html.light .ba-thumb { background: #e2e8f0; border-color: #64748b; }
+    html.light .ba-thumb.ai { background: #dbeafe; border-color: #1d4ed8; box-shadow: 0 0 14px rgba(29,78,216,0.4); }
     .ba-bubble {
       position: absolute; top: 0; left: 12px; transform: translateX(-50%); white-space: nowrap; pointer-events: none;
       font-size: 0.76rem; font-weight: 700; color: #0b1220; background: #7dd3fc; border-radius: 8px; padding: 0.2rem 0.6rem;
@@ -7153,7 +7162,7 @@
     </div>
     <div class="ba-play"><button type="button" class="ba-pbtn" id="ba-play" aria-label="Play the transformation">▶</button><span class="ba-ptext" id="ba-ptext"></span></div>
     <div class="ba-ends"><span>Before · <b id="ba-before"></b></span><span>After · <b id="ba-after"></b></span></div>
-    <div class="ba-track"><div class="ba-bubble manual" id="ba-bubble" aria-hidden="true">Manual</div><input type="range" class="ba-range" id="ba-range" min="0" max="100" value="0" aria-label="Before to after"></div>
+    <div class="ba-track"><div class="ba-bubble manual" id="ba-bubble" aria-hidden="true">Manual</div><input type="range" class="ba-range" id="ba-range" min="0" max="100" value="0" aria-label="Before to after"><div class="ba-thumb" id="ba-thumb" aria-hidden="true">✋</div></div>
     <div class="ba-metrics">
       <div class="ba-m"><div class="k" id="ba-k0"></div><div class="v" id="ba-v0"></div><div class="s" id="ba-s0"></div></div>
       <div class="ba-m"><div class="k" id="ba-k1"></div><div class="v" id="ba-v1"></div><div class="s" id="ba-s1"></div></div>
@@ -13563,7 +13572,9 @@
         var m0 = d.m[0], val = Math.round(m0[1] * p);
         bub.textContent = val === 0 ? '✋ Manual' : '~' + val + '% ' + d.bub;
         bub.classList.toggle('manual', val === 0);
-        var W = range.offsetWidth, x = 12 + p * (W - 24), half = bub.offsetWidth / 2;
+        var W = range.offsetWidth, x = 20 + p * (W - 40), half = bub.offsetWidth / 2;
+        var th = document.getElementById('ba-thumb');
+        if (th) { var ai = p >= 0.5; th.style.left = x + 'px'; th.classList.toggle('ai', ai); th.textContent = ai ? '⚡' : '✋'; }
         var left = Math.max(half, Math.min(W - half, x));
         bub.style.left = left + 'px';
         bub.style.setProperty('--arrow', (x - left) + 'px');
