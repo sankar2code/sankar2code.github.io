@@ -2901,21 +2901,10 @@
     }
 
     /* ═══════════════════════════════════════════════
-       YOU BE THE PM — decision simulator
+       YOU BE THE PM — Slack-style scenarios + PM archetype
     ═══════════════════════════════════════════════ */
-    .ypm-card {
-      position: relative;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.2rem 1.4rem 1.3rem;
-      margin-bottom: 1.5rem;
-      overflow: hidden;
-    }
-    .ypm-card::before {
-      content: ""; position: absolute; inset: 0 0 auto 0; height: 2px;
-      background: var(--grad);
-    }
+    .ypm-card { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem 1.4rem 1.3rem; margin-bottom: 1.5rem; overflow: hidden; }
+    .ypm-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--grad); }
     .ypm-head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
     .ypm-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #7dd3fc; }
     .ypm-score { font-size: 0.75rem; color: var(--muted); }
@@ -2923,57 +2912,60 @@
     .ypm-progress { display: flex; gap: 0.35rem; margin-bottom: 0.9rem; }
     .ypm-progress i { flex: 1; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.08); transition: background 0.3s; }
     .ypm-progress i.done { background: var(--grad2); }
-    .ypm-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #a78bfa; }
-    .ypm-q { font-size: 1rem; color: var(--white); font-weight: 500; line-height: 1.6; margin: 0.3rem 0 1rem; }
-    .ypm-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
-    .ypm-choice {
-      text-align: left; cursor: pointer; font: inherit; font-size: 0.86rem; color: var(--text-body);
-      background: rgba(37,99,235,0.06); border: 1px solid var(--border); border-radius: 12px;
-      padding: 0.8rem 0.9rem; transition: border-color 0.2s, background 0.2s, transform 0.15s;
-    }
-    .ypm-choice b { display: block; color: var(--white); font-weight: 600; margin-bottom: 0.15rem; }
-    .ypm-choice small { color: var(--muted); font-size: 0.76rem; }
-    .ypm-choice:hover:not([disabled]) { border-color: #38bdf8; transform: translateY(-1px); }
-    .ypm-choice:active:not([disabled]) { transform: scale(0.98); }
-    .ypm-choice[disabled] { cursor: default; opacity: 0.55; }
-    .ypm-choice.picked { opacity: 1; border-color: #38bdf8; background: rgba(56,189,248,0.1); }
-    .ypm-choice.mine { opacity: 1; border-color: #22c55e; background: rgba(34,197,94,0.08); }
-    .ypm-reveal {
-      display: none; margin-top: 0.9rem; padding: 0.9rem 1rem; border-left: 3px solid #22c55e;
-      background: rgba(34,197,94,0.07); border-radius: 0 12px 12px 0;
-    }
-    .ypm-reveal.on { display: block; animation: ypmFade 0.4s ease; }
-    .ypm-verdict { font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--white); font-size: 0.95rem; margin-bottom: 0.3rem; }
-    .ypm-why { font-size: 0.88rem; color: var(--text-body); line-height: 1.7; }
-    .ypm-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; }
-    .ypm-btn {
-      font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; border-radius: 10px; padding: 0.55rem 1rem;
-      color: #fff; border: 0; background: var(--grad2); text-decoration: none; display: inline-block;
-    }
+    .ypm-slack { background: rgba(8,8,20,0.55); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .ypm-chan { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--border); font-size: 0.82rem; font-weight: 600; color: var(--white); }
+    .ypm-chan span { color: var(--muted); font-weight: 400; }
+    .ypm-msgs { padding: 0.9rem; display: flex; flex-direction: column; gap: 0.8rem; min-height: 120px; }
+    .ypm-m { display: flex; gap: 0.65rem; align-items: flex-start; animation: ypmFade 0.35s ease; }
+    .ypm-av { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; font-size: 0.95rem; flex: none; color: #fff; font-weight: 700; }
+    .ypm-av.you { background: #334155; }
+    .ypm-av.me { background: var(--grad2); font-size: 0.72rem; }
+    .ypm-m b { color: var(--white); font-size: 0.84rem; }
+    .ypm-m small { color: var(--muted); font-size: 0.7rem; margin-left: 0.35rem; }
+    .ypm-m p { font-size: 0.88rem; color: var(--text-body); line-height: 1.6; margin-top: 0.1rem; }
+    .ypm-typing { display: inline-flex; gap: 3px; padding-top: 6px; }
+    .ypm-typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: ypmDot 1s infinite; }
+    .ypm-typing i:nth-child(2) { animation-delay: 0.15s; } .ypm-typing i:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes ypmDot { 50% { opacity: 0.2; } }
+    .ypm-replies { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0 0.9rem 0.9rem; }
+    .ypm-reply { font: inherit; font-size: 0.8rem; text-align: left; border: 1px solid rgba(56,189,248,0.35); background: rgba(37,99,235,0.08); color: #7dd3fc; border-radius: 999px; padding: 0.4rem 0.85rem; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+    .ypm-reply:hover { background: rgba(56,189,248,0.16); border-color: #38bdf8; }
+    .ypm-reply:active { transform: scale(0.97); }
+    .ypm-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
+    .ypm-thread-actions { padding-left: 2.6rem; }
+    .ypm-btn { font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; border-radius: 10px; padding: 0.55rem 1rem; color: #fff; border: 0; background: var(--grad2); text-decoration: none; display: inline-block; }
     .ypm-btn.ghost { background: transparent; border: 1px solid rgba(56,189,248,0.35); color: #7dd3fc; }
     .ypm-btn:active { transform: scale(0.97); }
-    .ypm-final { text-align: center; padding: 0.6rem 0 0.2rem; }
-    .ypm-final .ypm-big { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .ypm-final p { color: var(--text-body); font-size: 0.9rem; max-width: 520px; margin: 0.3rem auto 0; }
-    .ypm-final .ypm-actions { justify-content: center; }
+    .ypm-arch { display: grid; grid-template-columns: auto 1fr; gap: 1.2rem; align-items: center; animation: ypmFade 0.4s ease; }
+    .ypm-badge { width: 112px; height: 112px; border-radius: 50%; display: grid; place-items: center; font-size: 2.8rem;
+      background: radial-gradient(circle at 35% 30%, rgba(56,189,248,0.35), rgba(99,102,241,0.25) 60%, transparent 72%);
+      border: 2px solid rgba(56,189,248,0.5); box-shadow: 0 0 30px rgba(56,189,248,0.3); }
+    .ypm-arch h3 { font-size: 1.3rem; color: var(--white); margin: 0.15rem 0 0.3rem; }
+    .ypm-arch p { font-size: 0.88rem; color: var(--text-body); line-height: 1.6; }
+    .ypm-dots { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0; }
+    .ypm-dots span { font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); }
+    .ypm-dots span.y { color: #4ade80; border-color: rgba(74,222,128,0.45); }
+    .ypm-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .ypm-compare div { background: rgba(37,99,235,0.06); border: 1px solid var(--border); border-radius: 10px; padding: 0.6rem 0.75rem; font-size: 0.78rem; color: var(--text-body); }
+    .ypm-compare b { display: block; color: var(--white); font-size: 0.82rem; }
     @keyframes ypmFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    html.light .ypm-eyebrow, html.light .ypm-btn.ghost { color: #1d4ed8; }
-    html.light .ypm-btn.ghost { border-color: rgba(29,78,216,0.35); }
+    html.light .ypm-eyebrow, html.light .ypm-btn.ghost, html.light .ypm-reply { color: #1d4ed8; }
+    html.light .ypm-btn.ghost, html.light .ypm-reply { border-color: rgba(29,78,216,0.35); }
     html.light .ypm-score b { color: #1d4ed8; }
-    html.light .ypm-tag { color: #7c3aed; }
     html.light .ypm-progress i { background: rgba(0,0,0,0.08); }
     html.light .ypm-progress i.done { background: var(--grad2); }
-    html.light .ypm-choice { background: rgba(37,99,235,0.04); }
-    html.light .ypm-choice.picked { border-color: #1d4ed8; background: rgba(37,99,235,0.08); }
-    html.light .ypm-choice.mine { border-color: #15803d; background: rgba(21,128,61,0.08); }
-    html.light .ypm-reveal { border-left-color: #15803d; background: rgba(21,128,61,0.07); }
+    html.light .ypm-slack { background: rgba(255,255,255,0.7); }
+    html.light .ypm-dots span.y { color: #15803d; border-color: rgba(21,128,61,0.4); }
     @media (max-width: 720px) {
-      .ypm-choices { grid-template-columns: 1fr; }
       .ypm-card { padding: 1rem 1.1rem; }
+      .ypm-arch { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+      .ypm-compare { grid-template-columns: 1fr; text-align: left; }
+      .ypm-dots, .ypm-arch .ypm-actions { justify-content: center; }
+      .ypm-thread-actions { padding-left: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .ypm-reveal.on { animation: none; }
-      .ypm-choice, .ypm-progress i { transition: none; }
+      .ypm-m, .ypm-arch { animation: none; }
+      .ypm-typing i { animation: none; }
     }
 
     /* ═══════════════════════════════════════════════
@@ -7519,7 +7511,7 @@
   </div>
 
   <div style="height:1.5rem"></div>
-  <!-- YOU BE THE PM — decision simulator -->
+  <!-- YOU BE THE PM — Slack-style scenarios + PM archetype -->
   <div class="ypm-card reveal" id="ypm">
     <div class="ypm-head">
       <span class="ypm-eyebrow">🎮 You Be the PM · Make the call</span>
@@ -7530,95 +7522,96 @@
   </div>
   <script>
   (function () {
+    // t: choice type — 'b' balanced (my call), 's' speed-first, 'c' caution-first
     var S = [
-      {
-        tag: 'Launch readiness',
-        q: 'Your clinical-trial AI summarizer scores 92% on the eval set, but 3 of the 8 failures invent a stop reason that isn\u2019t in the source. Launch is Friday. What do you do?',
-        c: [
-          ['🚀 Ship it', '92% clears the bar; patch in v1.1'],
-          ['🧱 Hold & add a hard gate', 'Block any unlabeled claim, then ship'],
-          ['🧑\u200d⚕️ Ship with a disclaimer', 'Tell users to double-check']
-        ],
-        a: 1,
-        v: 'Hold and add a hard gate',
-        w: 'An average score hides the failure that matters. Fabricated reasons are the one error clinicians won\u2019t forgive, so I added a schema gate that rejects any response with an unlabeled claim \u2014 the rule that shipped in ClinicalAI-TrialAnalysis. Accuracy is a launch bar; trust is the product.'
-      },
-      {
-        tag: 'Agent or workflow',
-        q: 'A stakeholder wants the trial-matching assistant to decide patient eligibility on its own and email the research coordinator automatically. How do you scope it?',
-        c: [
-          ['🤖 Full autonomy', 'Let the agent decide and send'],
-          ['🧭 Engine decides, agent assists', 'Deterministic eligibility; agent gathers evidence; clinician approves'],
-          ['📏 Rules only, no AI', 'Skip the LLM entirely']
-        ],
-        a: 1,
-        v: 'Engine decides, agent assists',
-        w: 'Eligibility is the system of record, so it stays deterministic, criterion-scored, and auditable. The agent earns its place where the path genuinely varies \u2014 chasing missing labs, re-screening when a trial opens, drafting the handoff \u2014 and nothing is sent without clinician approval.'
-      },
-      {
-        tag: 'Regulated rollout',
-        q: 'Leadership wants a gen-AI drafting feature inside a GxP Medical Affairs system next sprint. Validation (IQ/OQ/PQ) will take weeks. What\u2019s your move?',
-        c: [
-          ['⚡ Quiet pilot', 'Ship it outside the validated system'],
-          ['🪜 Stage it', 'Start draft-only and human-reviewed while validation runs'],
-          ['⏸️ Wait a quarter', 'Hold everything until fully validated']
-        ],
-        a: 1,
-        v: 'Stage it',
-        w: 'Speed and compliance aren\u2019t a trade-off if you sequence them. A draft-only, human-reviewed scope delivers value and real usage data now, while the validation package runs in parallel. The GxP decision path only opens once IQ/OQ/PQ is signed off \u2014 no shortcuts that create audit findings later.'
-      }
+      { chan: 'launch-clinical-ai', tag: 'Launch readiness', from: 'VP Product', av: '👩‍💼', col: '#7c3aed',
+        msg: 'Evals came back: 92% on the trial summarizer 🎉 But 3 of the 8 failures invented a stop reason that isn’t in the source. Launch is Friday. Your call?',
+        c: [['🚀 Ship it, patch in v1.1', 's'], ['🧱 Hold — add a hard gate first', 'b'], ['🧑‍⚕️ Ship with a disclaimer', 's']],
+        a: 1, mine: 'Hold and add a hard gate',
+        why: 'An average score hides the failure that matters. Fabricated reasons are the one error clinicians won’t forgive, so I added a schema gate that rejects any unlabeled claim, then shipped — the rule that went live in ClinicalAI-TrialAnalysis. Accuracy is a launch bar; trust is the product.' },
+      { chan: 'trial-matching', tag: 'Agent or workflow', from: 'Clinical Ops Lead', av: '🧑‍🔬', col: '#0e7490',
+        msg: 'Can the matching assistant just decide patient eligibility on its own and email the research coordinator automatically? Would save us hours a week.',
+        c: [['🤖 Yes — full autonomy', 's'], ['🧭 Engine decides, agent assists', 'b'], ['📏 Rules only, skip the AI', 'c']],
+        a: 1, mine: 'Engine decides, agent assists',
+        why: 'Eligibility is the system of record, so it stays deterministic, criterion-scored, and auditable. The agent earns its place where the path genuinely varies — chasing missing labs, re-screening when a trial opens, drafting the handoff — and nothing is sent without clinician approval.' },
+      { chan: 'medical-affairs', tag: 'Regulated rollout', from: 'SVP Medical Affairs', av: '👨‍💼', col: '#b45309',
+        msg: 'Leadership wants a gen-AI drafting feature inside our GxP Medical Affairs system next sprint. Validation (IQ/OQ/PQ) will take weeks. What’s your move?',
+        c: [['⚡ Quiet pilot outside the validated system', 's'], ['🪜 Stage it — draft-only while validation runs', 'b'], ['⏸️ Wait a quarter until fully validated', 'c']],
+        a: 1, mine: 'Stage it',
+        why: 'Speed and compliance aren’t a trade-off if you sequence them. A draft-only, human-reviewed scope delivers value and real usage data now, while the validation package runs in parallel. The GxP decision path opens only once IQ/OQ/PQ is signed off — no shortcuts that become audit findings later.' }
     ];
-    var i = 0, score = 0;
+    var ARCH = {
+      b: ['🛡️', 'The Trust Builder', 'You ship when the guardrails are real, and you sequence speed and safety instead of trading one for the other.'],
+      s: ['🚀', 'The Shipper', 'You bias toward momentum and learning in market. Great instinct — I’d add hard guardrails wherever the failure is unforgivable.'],
+      c: ['🧭', 'The Guardian', 'You protect users and compliance first. I’d look for a staged path that delivers value while the safeguards land.'],
+      m: ['⚖️', 'The Pragmatist', 'You read each situation on its own terms — sometimes fast, sometimes careful. That’s a good instinct to build on.']
+    };
+    var i = 0, picks = [];
     var body = document.getElementById('ypm-body');
     var scoreEl = document.getElementById('ypm-score');
     var bars = document.querySelectorAll('#ypm-progress i');
     if (!body) return;
-
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+    function now(add) { var d = new Date(Date.now() + add * 60000); return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); }
 
     function render() {
       var s = S[i];
       scoreEl.innerHTML = 'Scenario <b>' + (i + 1) + '</b> / ' + S.length;
-      var h = '<span class="ypm-tag">' + esc(s.tag) + '</span>' +
-              '<p class="ypm-q">' + esc(s.q) + '</p><div class="ypm-choices">';
+      body.innerHTML = '<div class="ypm-slack"><div class="ypm-chan"># ' + esc(s.chan) + ' <span>· ' + esc(s.tag) + '</span></div>' +
+        '<div class="ypm-msgs" id="ypm-msgs"><div class="ypm-m"><div class="ypm-av" style="background:' + s.col + '">' + s.av + '</div><div><b>' + esc(s.from) + '</b><small>' + now(0) + '</small><p>' + esc(s.msg) + '</p></div></div></div>' +
+        '<div class="ypm-replies" id="ypm-replies"></div></div>';
+      var rep = document.getElementById('ypm-replies');
       s.c.forEach(function (c, k) {
-        h += '<button type="button" class="ypm-choice" data-k="' + k + '"><b>' + esc(c[0]) + '</b><small>' + esc(c[1]) + '</small></button>';
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'ypm-reply'; b.textContent = c[0];
+        b.addEventListener('click', function () { pick(k); });
+        rep.appendChild(b);
       });
-      h += '</div><div class="ypm-reveal" id="ypm-reveal" aria-live="polite"></div>';
-      body.innerHTML = h;
-      body.querySelectorAll('.ypm-choice').forEach(function (b) { b.addEventListener('click', pick); });
     }
 
-    function pick(e) {
-      var k = +e.currentTarget.dataset.k, s = S[i], hit = k === s.a;
-      if (hit) score++;
-      body.querySelectorAll('.ypm-choice').forEach(function (b, n) {
-        b.disabled = true;
-        if (n === k) b.classList.add('picked');
-        if (n === s.a) b.classList.add('mine');
-      });
+    function pick(k) {
+      var s = S[i], hit = k === s.a, msgs = document.getElementById('ypm-msgs');
+      picks.push(k);
+      document.getElementById('ypm-replies').remove();
+      msgs.insertAdjacentHTML('beforeend', '<div class="ypm-m"><div class="ypm-av you">🙂</div><div><b>You</b><small>' + now(1) + '</small><p>' + esc(s.c[k][0]) + '</p></div></div>');
+      msgs.insertAdjacentHTML('beforeend', '<div class="ypm-m" id="ypm-typing"><div class="ypm-av me">SK</div><div><b>Sankar</b><small>typing…</small><p><span class="ypm-typing"><i></i><i></i><i></i></span></p></div></div>');
       bars[i].classList.add('done');
-      var r = document.getElementById('ypm-reveal');
-      r.innerHTML = '<p class="ypm-verdict">' + (hit ? '✅ You matched my call: ' : 'My call: ') + esc(s.v) + '</p>' +
-        '<p class="ypm-why">' + esc(s.w) + '</p><div class="ypm-actions">' +
-        '<button type="button" class="ypm-btn" id="ypm-next">' + (i < S.length - 1 ? 'Next scenario →' : 'See my result →') + '</button></div>';
-      r.classList.add('on');
-      document.getElementById('ypm-next').addEventListener('click', next);
+      setTimeout(function () {
+        var t = document.getElementById('ypm-typing'); if (t) t.remove();
+        msgs.insertAdjacentHTML('beforeend', '<div class="ypm-m" aria-live="polite"><div class="ypm-av me">SK</div><div><b>Sankar</b><small>' + now(2) + '</small><p>' +
+          (hit ? '✅ Same call I made. ' : 'I’d go a different way: <b>' + esc(s.mine) + '</b>. ') + esc(s.why) + '</p></div></div>');
+        msgs.insertAdjacentHTML('beforeend', '<div class="ypm-actions ypm-thread-actions"><button type="button" class="ypm-btn" id="ypm-next">' +
+          (i < S.length - 1 ? 'Next scenario →' : 'See your PM style →') + '</button></div>');
+        document.getElementById('ypm-next').addEventListener('click', next);
+      }, reduce ? 150 : 1300);
     }
 
-    function next() {
-      i++;
-      if (i < S.length) { render(); return; }
+    function next() { i++; if (i < S.length) render(); else finish(); }
+
+    function finish() {
       scoreEl.innerHTML = 'Done';
-      var msg = score === S.length ? 'We think alike. Let\u2019s talk about building something together.'
-              : score >= 1 ? 'Close calls make the best conversations \u2014 ask my twin why I chose differently.'
-              : 'Different instincts, great debate. Ask my twin to defend my choices.';
-      body.innerHTML = '<div class="ypm-final"><div class="ypm-big">' + score + ' / ' + S.length + '</div>' +
-        '<p>calls matched mine. ' + msg + '</p><div class="ypm-actions">' +
-        '<a class="ypm-btn" href="#ai-twin">Ask my twin →</a>' +
-        '<button type="button" class="ypm-btn ghost" id="ypm-restart">Play again</button></div></div>';
+      var n = { b: 0, s: 0, c: 0 }, matched = 0;
+      picks.forEach(function (k, j) { n[S[j].c[k][1]]++; if (k === S[j].a) matched++; });
+      var key = n.b >= 2 ? 'b' : n.s >= 2 ? 's' : n.c >= 2 ? 'c' : 'm';
+      var A = ARCH[key];
+      var miss = -1; picks.forEach(function (k, j) { if (miss < 0 && k !== S[j].a) miss = j; });
+      var dots = S.map(function (s, j) { var y = picks[j] === s.a; return '<span class="' + (y ? 'y' : '') + '">' + (y ? '✓ ' : '✗ ') + esc(s.tag) + '</span>'; }).join('');
+      var cmp = miss < 0 ? '' : '<div class="ypm-compare"><div><b>You: ' + esc(S[miss].c[picks[miss]][0].replace(/^\S+\s/, '')) + '</b>' + esc(S[miss].tag) + '</div><div><b>Me: ' + esc(S[miss].mine) + '</b>' + esc(S[miss].tag) + '</div></div>';
+      var q = miss < 0 ? 'How do you balance speed and safety when shipping AI products?' : 'In the "' + S[miss].tag + '" scenario, why did you choose "' + S[miss].mine + '"?';
+      body.innerHTML = '<div class="ypm-arch"><div class="ypm-badge" aria-hidden="true">' + A[0] + '</div><div>' +
+        '<span class="ypm-eyebrow">Your PM style</span><h3>' + esc(A[1]) + '</h3><p>' + esc(A[2]) + ' ' +
+        (matched === S.length ? 'All 3 calls matched mine — let’s talk.' : matched + ' of ' + S.length + ' calls matched mine.') + '</p>' +
+        '<div class="ypm-dots">' + dots + '</div>' + cmp +
+        '<div class="ypm-actions" style="margin-top:0.8rem"><button type="button" class="ypm-btn" id="ypm-ask">Ask my twin why →</button>' +
+        '<button type="button" class="ypm-btn ghost" id="ypm-restart">Play again</button></div></div></div>';
       document.getElementById('ypm-restart').addEventListener('click', function () {
-        i = 0; score = 0; bars.forEach(function (b) { b.classList.remove('done'); }); render();
+        i = 0; picks = []; bars.forEach(function (b) { b.classList.remove('done'); }); render();
+      });
+      document.getElementById('ypm-ask').addEventListener('click', function () {
+        var twin = document.getElementById('ai-twin'), form = document.getElementById('twin-form'), input = document.getElementById('twin-input');
+        if (!twin || !form || !input) return;
+        twin.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(function () { input.value = q; if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', { cancelable: true })); }, 700);
       });
     }
 
