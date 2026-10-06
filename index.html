@@ -6049,6 +6049,18 @@
       line-height: 1.75;
     }
 
+    .modal-section ul.modal-list, .modal-section ol.modal-list {
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.75;
+      padding-left: 1.3rem;
+      margin: 0.4rem 0 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .modal-section .modal-list strong { color: var(--white); font-weight: 700; }
+
     .modal-impact {
       font-size: 0.85rem;
       font-weight: 700;
@@ -7160,6 +7172,24 @@
       </div>
     </div>
 
+    <!-- Agentic Clinical Trial Matching -->
+    <div class="project-card project-card--interactive" onclick="openProjectModal(event, 'ctm-agentic-modal')">
+      <div class="project-header ph-3">🩺</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-coral">GenAI · Clinical Trials</span>
+          <span class="tag tag-purple">Agentic AI</span>
+          <span class="tag tag-coming-soon">In Progress</span>
+        </div>
+        <h3>Agentic Clinical Trial Matching</h3>
+        <div class="project-pills">
+          <span class="project-pill">FHIR + NLP patient data</span>
+          <span class="project-pill">Per-criterion evidence</span>
+          <span class="project-pill">Clinician-approved agent actions</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </section>
@@ -7222,6 +7252,120 @@
             GitHub Repo
           </a>
           <a href="#contact" onclick="openCollabForm('datacopilot-modal')" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Collaboration
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────────────────────────────────
+  AGENTIC CLINICAL TRIAL MATCHING MODAL
+──────────────────────────────────────────── -->
+<div class="modal-backdrop" id="ctm-agentic-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🩺 Agentic Clinical Trial Matching</div>
+        <div class="modal-tags">
+          <span class="tag tag-coral">GenAI · Clinical Trials</span>
+          <span class="tag tag-purple">Agentic AI</span>
+          <span class="tag tag-cyan">FHIR · Human-in-the-Loop</span>
+          <span class="modal-year tag-coming-soon">In Progress</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeProjectModal('ctm-agentic-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Matching a patient to a clinical trial means reading a chart against dozens of free-text inclusion and exclusion criteria. It is slow, manual, and eligible patients are routinely missed, often because the chart is simply incomplete.</p>
+        <p><span class="qs-label qs-approach">Approach</span>A deterministic, criterion-scored matching engine is the system of record for eligibility. An agentic layer on top gathers evidence, resolves unknowns, and moves the workflow forward, with a clinician approving every action that matters.</p>
+        <p><span class="qs-label qs-result">Status</span>Architecture and design principles defined; build in progress.</p>
+      </div>
+
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Trial eligibility criteria are written for humans: age ranges, diagnosis and stage, biomarker status, recent lab values, performance status, prior lines of therapy, and exclusions such as organ dysfunction or conflicting medications. The patient data needed to check them is scattered across structured EHR fields, pathology reports, imaging, and clinical notes. Research coordinators bridge that gap by hand, one patient and one trial at a time, so matching happens late, inconsistently, or not at all.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>How the Matching Engine Works</h4>
+          <ol class="modal-list">
+            <li><strong>Trial ingestion:</strong> open trials are pulled from registries such as ClinicalTrials.gov, along with site, phase, and enrollment status.</li>
+            <li><strong>Criteria structuring:</strong> each free-text criterion is parsed into a computable rule (for example, "eGFR ≥ 60 within 28 days" or "PD-L1 TPS ≥ 50%"), and reviewed before it goes live.</li>
+            <li><strong>Patient data assembly:</strong> structured data comes in through FHIR (conditions, observations, medications, diagnostic reports), and NLP extracts what only exists in unstructured notes and pathology reports.</li>
+            <li><strong>Per-criterion evaluation:</strong> every criterion is scored Met, Not met, or Unknown, and each result is linked to the exact note, lab, or report it came from.</li>
+            <li><strong>Ranking:</strong> eligible trials are then ordered by clinical fit, site proximity, and enrollment status to produce a ranked recommendation list.</li>
+          </ol>
+        </div>
+
+        <div class="modal-section">
+          <h4>Design Principles</h4>
+          <ul class="modal-list">
+            <li><strong>"Unknown" is a product decision.</strong> Charts are often missing data. Showing "eligible if a recent creatinine is confirmed" is more useful than a false yes or no.</li>
+            <li><strong>Eligibility is not the same as recommendation.</strong> Eligibility establishes whether a patient could plausibly enroll; recommendation reflects whether the trial is appropriate to pursue given the patient's current clinical needs. Ranked trial recommendations require both.</li>
+            <li><strong>Explainability is per criterion.</strong> Every "met" links to its source evidence. That is what earns clinician trust and gets the system through governance review.</li>
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h4>The Agentic Layer</h4>
+          <p>A standard LLM call is one prompt in, one answer out. An agent is given a goal and works toward it in a loop: plan, call a tool, observe the result, decide the next step, and repeat until done. It has four parts:</p>
+          <ul class="modal-list">
+            <li><strong>Model:</strong> does the reasoning.</li>
+            <li><strong>Tools:</strong> FHIR queries, trial search, the matching engine, clinical calculators.</li>
+            <li><strong>State / memory:</strong> what it has learned so far.</li>
+            <li><strong>Guardrails:</strong> permissions, human approval gates, and audit logs.</li>
+          </ul>
+          <p>In a workflow, the steps are fixed and the LLM fills in each one; in an agent, the model chooses the steps. Agents are used only where the path genuinely varies.</p>
+        </div>
+
+        <div class="modal-section">
+          <h4>Example Flow</h4>
+          <p>A clinician asks, "Any lung cancer trials for this patient?" The agent:</p>
+          <ol class="modal-list">
+            <li>Pulls the chart through FHIR tools.</li>
+            <li>Calls the matching engine.</li>
+            <li>Sees PD-L1 status marked Unknown.</li>
+            <li>Searches the pathology reports and finds it.</li>
+            <li>Re-runs the match.</li>
+            <li>Returns a ranked list with cited rationale.</li>
+            <li>Offers to draft a referral to the research coordinator. Nothing is sent without clinician approval.</li>
+          </ol>
+        </div>
+
+        <div class="modal-section">
+          <h4>Where Agents Fit — and Where They Don't</h4>
+          <ul class="modal-list">
+            <li><strong>Resolving unknowns</strong> by finding missing data across sources.</li>
+            <li><strong>Continuous monitoring:</strong> re-screening patients when a new trial opens or a new lab result arrives.</li>
+            <li><strong>Drafting coordinator handoffs</strong> for clinician review.</li>
+          </ul>
+          <p>Agents do not make the final eligibility determination. That stays deterministic or criterion-scored, validated, and signed off by a human, because agents add latency, cost, and nondeterminism that are harder to defend under InfoSec and clinical governance.</p>
+        </div>
+      </details>
+
+      <div class="modal-section">
+        <h4>Business Value</h4>
+        <div class="modal-impact">⚡ Surfaces eligible patients that manual chart review misses ✦ Turns missing chart data into a clear "Unknown" with the next step to resolve it, instead of a false yes or no ✦ Per-criterion evidence links that clinicians and governance teams can audit ✦ Agent actions gated by clinician approval, with a full audit trail</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Status</h4>
+        <p>In progress — matching-engine architecture, agent boundaries, and design principles are defined; build underway.</p>
+      </div>
+
+      <div class="modal-section">
+        <h4>Documents</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="#contact" onclick="openCollabForm('ctm-agentic-modal')" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#a855f7);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             Collaboration
           </a>
