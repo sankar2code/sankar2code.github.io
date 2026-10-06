@@ -2695,9 +2695,20 @@
     html.light .atw-box { border-color: rgba(29,78,216,0.3); background: rgba(29,78,216,0.05); }
 
     /* ═══════════════════════════════════════════════
-       ARCHITECTURE X-RAY — on built project cards
+       ARCHITECTURE X-RAY — 3D flip with timeline back
     ═══════════════════════════════════════════════ */
-    .xr-host { position: relative; }
+    .xr-host { position: relative; min-height: 320px; }
+    .xr-inner { position: relative; flex: 1; display: flex; perspective: 1100px; }
+    .xr-front { flex: 1; display: flex; flex-direction: column; transition: transform 0.32s cubic-bezier(0.55, 0, 0.75, 0.2); }
+    .xr-back {
+      position: absolute; inset: 0; transform: rotateY(-90deg); visibility: hidden; transition: transform 0.32s cubic-bezier(0.25, 0.8, 0.45, 1);
+      display: flex; flex-direction: column; padding: 1rem 1.05rem 0.9rem; overflow-y: auto; cursor: default;
+      background-color: #0d0d1d; border-radius: inherit;
+      background-image: linear-gradient(rgba(56,189,248,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.06) 1px, transparent 1px);
+      background-size: 18px 18px;
+    }
+    .xr-host.xr-on { border-color: rgba(56,189,248,0.5); }
+    .xr-host.xr-on::after { opacity: 0 !important; }
     .xr-btn {
       position: absolute; top: 10px; left: 10px; z-index: 4; font: inherit; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.12em;
       color: #0b1220; background: #7dd3fc; border: 0; border-radius: 999px; padding: 4px 10px; cursor: pointer;
@@ -2705,49 +2716,36 @@
     }
     .xr-btn:hover { transform: translateY(-1px); }
     .xr-btn:active { transform: scale(0.95); }
-    .xr-panel {
-      position: absolute; inset: 0; z-index: 3; padding: 2.6rem 1rem 1rem; overflow-y: auto; cursor: default;
-      background: rgba(10,10,22,0.97); backdrop-filter: blur(6px); border-radius: inherit;
-      opacity: 0; visibility: hidden; transform: scale(0.98); transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
-      background-image: linear-gradient(rgba(56,189,248,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.05) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-    .xr-host.xr-on .xr-panel { opacity: 1; visibility: visible; transform: none; }
-    .xr-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #7dd3fc; margin-bottom: 0.55rem; }
-    .xr-layers { display: flex; flex-direction: column; gap: 0.4rem; position: relative; }
-    .xr-layer {
-      display: grid; grid-template-columns: 84px 1fr; gap: 0.5rem; align-items: center; border-radius: 9px; padding: 0.45rem 0.6rem;
-      font-size: 0.74rem; line-height: 1.4; color: var(--text-body);
-    }
-    .xr-layer b { font-size: 0.56rem; letter-spacing: 0.1em; text-transform: uppercase; }
-    .xr-io  { background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
-    .xr-io b { color: var(--muted); }
-    .xr-det { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.4); }
-    .xr-det b { color: #7dd3fc; }
-    .xr-llm { background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.45); }
-    .xr-llm b { color: #c4b5fd; }
-    .xr-hum { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.4); }
-    .xr-hum b { color: #4ade80; }
-    .xr-legend { display: flex; flex-wrap: wrap; gap: 0.7rem; font-size: 0.66rem; color: var(--muted); margin-top: 0.6rem; }
-    .xr-legend span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; vertical-align: 0; }
-    .xr-legend .l1::before { background: #38bdf8; } .xr-legend .l2::before { background: #a78bfa; } .xr-legend .l3::before { background: #22c55e; }
-    .xr-open { font: inherit; font-size: 0.74rem; font-weight: 600; color: #7dd3fc; background: transparent; border: 1px solid rgba(56,189,248,0.35); border-radius: 8px; padding: 0.3rem 0.7rem; cursor: pointer; margin-top: 0.6rem; }
-    html.light .xr-panel { background-color: rgba(255,255,255,0.97); }
-    html.light .xr-title, html.light .xr-det b, html.light .xr-open { color: #1d4ed8; }
-    html.light .xr-llm b { color: #6d28d9; }
-    html.light .xr-hum b { color: #15803d; }
-    html.light .xr-btn { background: #1d4ed8; color: #fff; }
+    .xr-head { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; margin-bottom: 0.65rem; }
+    .xr-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #7dd3fc; }
+    .xr-close { font: inherit; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.1em; color: #0b1220; background: #7dd3fc; border: 0; border-radius: 999px; padding: 4px 10px; cursor: pointer; }
+    .xr-steps { position: relative; padding-left: 1.1rem; display: flex; flex-direction: column; }
+    .xr-steps::before { content: ""; position: absolute; left: 5px; top: 10px; bottom: 12px; width: 2px; background: linear-gradient(#94a3b8, #38bdf8, #a78bfa, #4ade80); }
+    .xr-step { position: relative; padding: 0.1rem 0 0.55rem 0.4rem; font-size: 0.78rem; line-height: 1.4; color: var(--text-body); }
+    .xr-step::before { content: ""; position: absolute; left: -1.1rem; top: 0.4rem; width: 12px; height: 12px; border-radius: 50%; background: #0d0d1d; border: 2px solid var(--xc); }
+    .xr-step b { display: block; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--xc); }
+    .xr-io { --xc: #94a3b8; } .xr-det { --xc: #38bdf8; } .xr-llm { --xc: #a78bfa; } .xr-hum { --xc: #4ade80; }
+    .xr-foot { margin-top: auto; padding-top: 0.5rem; display: flex; justify-content: flex-end; }
+    .xr-open { font: inherit; font-size: 0.74rem; font-weight: 600; color: #7dd3fc; background: transparent; border: 1px solid rgba(56,189,248,0.35); border-radius: 8px; padding: 0.3rem 0.75rem; cursor: pointer; }
+    .xr-open:hover { border-color: #38bdf8; }
+    html.light .xr-back { background-color: #f8fafc; }
+    html.light .xr-step::before { background: #f8fafc; }
+    html.light .xr-title, html.light .xr-open { color: #1d4ed8; }
+    html.light .xr-btn, html.light .xr-close { background: #1d4ed8; color: #fff; }
+    html.light .xr-det { --xc: #1d4ed8; } html.light .xr-llm { --xc: #7c3aed; } html.light .xr-hum { --xc: #15803d; } html.light .xr-io { --xc: #64748b; }
+    html.light .xr-host.xr-on { border-color: rgba(29,78,216,0.45); }
+    @media (prefers-reduced-motion: reduce) { .xr-front, .xr-back { transition: none; } }
 
-    /* xr-scroll-theme — themed scrollbars for X-ray panel + PRD output */
-    .xr-panel, .prdd-doc { scrollbar-width: thin; scrollbar-color: rgba(56,189,248,0.45) transparent; }
-    .xr-panel::-webkit-scrollbar, .prdd-doc::-webkit-scrollbar { width: 6px; height: 6px; }
-    .xr-panel::-webkit-scrollbar-track, .prdd-doc::-webkit-scrollbar-track { background: transparent; }
-    .xr-panel::-webkit-scrollbar-thumb, .prdd-doc::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.4); border-radius: 6px; }
-    .xr-panel::-webkit-scrollbar-thumb:hover, .prdd-doc::-webkit-scrollbar-thumb:hover { background: rgba(56,189,248,0.7); }
-    .xr-panel::-webkit-scrollbar-corner, .prdd-doc::-webkit-scrollbar-corner { background: transparent; }
-    html.light .xr-panel, html.light .prdd-doc { scrollbar-color: rgba(29,78,216,0.35) transparent; }
-    html.light .xr-panel::-webkit-scrollbar-thumb, html.light .prdd-doc::-webkit-scrollbar-thumb { background: rgba(29,78,216,0.3); }
-    html.light .xr-panel::-webkit-scrollbar-thumb:hover, html.light .prdd-doc::-webkit-scrollbar-thumb:hover { background: rgba(29,78,216,0.55); }
+    /* xr-scroll-theme — themed scrollbars for X-ray back + PRD output */
+    .xr-back, .prdd-doc { scrollbar-width: thin; scrollbar-color: rgba(56,189,248,0.45) transparent; }
+    .xr-back::-webkit-scrollbar, .prdd-doc::-webkit-scrollbar { width: 6px; height: 6px; }
+    .xr-back::-webkit-scrollbar-track, .prdd-doc::-webkit-scrollbar-track { background: transparent; }
+    .xr-back::-webkit-scrollbar-thumb, .prdd-doc::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.4); border-radius: 6px; }
+    .xr-back::-webkit-scrollbar-thumb:hover, .prdd-doc::-webkit-scrollbar-thumb:hover { background: rgba(56,189,248,0.7); }
+    .xr-back::-webkit-scrollbar-corner, .prdd-doc::-webkit-scrollbar-corner { background: transparent; }
+    html.light .xr-back, html.light .prdd-doc { scrollbar-color: rgba(29,78,216,0.35) transparent; }
+    html.light .xr-back::-webkit-scrollbar-thumb, html.light .prdd-doc::-webkit-scrollbar-thumb { background: rgba(29,78,216,0.3); }
+    html.light .xr-back::-webkit-scrollbar-thumb:hover, html.light .prdd-doc::-webkit-scrollbar-thumb:hover { background: rgba(29,78,216,0.55); }
 
     /* ═══════════════════════════════════════════════
        BEFORE / AFTER IMPACT SLIDER — functional domains
@@ -2810,7 +2808,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .atw-btn, .ba-pbtn { animation: none; }
-      .xr-panel, .ba-steps span { transition: none; }
+      .ba-steps span { transition: none; }
     }
 
     /* ═══════════════════════════════════════════════
@@ -13410,43 +13408,43 @@
     });
   }
 
-  /* 2. Architecture X-ray — built project cards */
+  /* 2. Architecture X-ray — 3D flip, timeline back */
   var XR = {
+    'Agentic Clinical Trial Matching': [
+      ['io', 'Patient data', 'FHIR + NLP over notes and pathology'],
+      ['det', 'Engine · rules', 'Scores each criterion, cites the source'],
+      ['llm', 'Agent · AI', 'Finds missing data, drafts handoffs'],
+      ['hum', 'Clinician · human', 'Approves every action']],
     'ClinicalAI-TrialAnalysis': [
-      ['io', 'Input', 'NCT ID — validated client-side, stateless, no login'],
-      ['det', 'Retrieval', 'ClinicalTrials.gov v2 + linked PubMed (NCBI E-utilities) only'],
-      ['llm', 'LLM', 'Claude reasons over a 7-category failure taxonomy and ranks hypotheses'],
-      ['det', 'Gate', 'Schema validation — every claim labeled Fact, Inference, or Hypothesis']],
+      ['io', 'Input', 'NCT ID — stateless, no login'],
+      ['det', 'Retrieval · rules', 'ClinicalTrials.gov + PubMed only'],
+      ['llm', 'Reasoning · AI', 'Ranks failure hypotheses across 7 categories'],
+      ['det', 'Gate · rules', 'Every claim labeled Fact / Inference / Hypothesis']],
     'Company Comparison': [
-      ['io', 'Input', 'Two company names + visitor’s own OpenAI key (stays in the browser)'],
+      ['io', 'Input', 'Two companies + visitor’s own key'],
       ['det', 'Tool', 'Live web search for current data'],
-      ['llm', 'LLM', 'GPT-4o-mini writes the structured comparison: financials, moats, SWOT, risks'],
-      ['hum', 'Verify', 'Citations on claims so the reader can check the output']],
+      ['llm', 'Analysis · AI', 'Financials, moats, SWOT, risks'],
+      ['hum', 'Reader · human', 'Checks claims against citations']],
     'ContractIQ': [
-      ['io', 'Input', 'NDA or MSA upload — full text kept as context, no chunking'],
-      ['llm', 'LLM', 'GPT-4o JSON mode, temp 0.1, few-shot extraction of 10 NDA / 12 MSA terms'],
-      ['det', 'Guardrails', 'JSON-parse retry · "not found" regression test · CUAD calibration checks'],
-      ['hum', 'Human', 'Confidence score + page + verbatim source; under 50% gets a non-dismissible warning']],
+      ['io', 'Input', 'NDA or MSA — full text, no chunking'],
+      ['llm', 'Extraction · AI', 'Key terms in JSON, low temperature'],
+      ['det', 'Guardrails · rules', 'Retry loop, "not found" tests, calibration'],
+      ['hum', 'Reviewer · human', 'Confidence, page, source sentence for each term']],
     'ProjectPilot AI': [
       ['io', 'UI', 'Drag-and-drop Kanban boards'],
-      ['det', 'Data', 'Supabase Realtime sync + multi-tenant workspaces with role management'],
-      ['llm', 'LLM', 'Backlog-aware assistant answers questions and creates issues from natural language'],
-      ['hum', 'Team', 'Owners, admins, and members stay in control of the board']],
+      ['det', 'Data · rules', 'Supabase Realtime + role-based workspaces'],
+      ['llm', 'Assistant · AI', 'Answers backlog questions, creates issues'],
+      ['hum', 'Team · human', 'Owners and admins stay in control']],
     'ScienceAI': [
-      ['io', 'Sources', 'Papers, clinical trials, conferences, competitor data'],
-      ['det', 'Retrieval', 'Langflow RAG pipeline over a GraphDB'],
-      ['llm', 'LLM', 'GPT-5-mini streams sourced answers (Next.js)'],
-      ['io', 'Output', 'ElevenLabs TTS audio summaries and dual-voice podcasts']],
+      ['io', 'Sources', 'Papers, trials, conferences, competitors'],
+      ['det', 'Retrieval · rules', 'Langflow RAG over a GraphDB'],
+      ['llm', 'Answers · AI', 'GPT-5-mini streams sourced answers'],
+      ['io', 'Output', 'Audio summaries and podcasts']],
     'Enterprise AI Data Copilot Suite': [
-      ['io', 'Orchestration', 'n8n scheduling + MCP bridge · per-step audit trail'],
-      ['det', 'Engines', 'ydata-profiling · pgvector · sqlglot (read-only SQL) · Presidio (PII/PHI)'],
-      ['llm', 'LLM', 'Langflow agents explain, classify, and narrate — never own the ground truth'],
-      ['hum', 'Governance', 'Findings mapped to HIPAA, GDPR, and 21 CFR Part 11 for review']],
-    'Agentic Clinical Trial Matching': [
-      ['io', 'Patient data', 'FHIR resources + NLP over notes and pathology reports'],
-      ['det', 'Engine', 'Criterion-scored eligibility: Met / Not met / Unknown, with source links'],
-      ['llm', 'Agent', 'Resolves unknowns, re-screens on new trials or labs, drafts handoffs'],
-      ['hum', 'Clinician', 'Approves every action — agents never make the eligibility call']]
+      ['io', 'Orchestration', 'n8n + MCP, per-step audit trail'],
+      ['det', 'Engines · rules', 'Profiling, safe SQL, PII detection'],
+      ['llm', 'Agents · AI', 'Explain and narrate, never own the truth'],
+      ['hum', 'Governance · human', 'HIPAA, GDPR, Part 11 mapping']]
   };
   function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
   function setupXray() {
@@ -13455,26 +13453,42 @@
       var key = Object.keys(XR).filter(function (k) { return h.textContent.indexOf(k) === 0; })[0];
       if (!key) return;
       card.classList.add('xr-host');
+      var inner = document.createElement('div'); inner.className = 'xr-inner';
+      var front = document.createElement('div'); front.className = 'xr-front';
+      while (card.firstChild) front.appendChild(card.firstChild);
+      var back = document.createElement('div'); back.className = 'xr-back'; back.setAttribute('aria-hidden', 'true');
+      back.innerHTML = '<div class="xr-head"><span class="xr-title">How it’s built</span><button type="button" class="xr-close">✕ CLOSE</button></div>' +
+        '<div class="xr-steps">' + XR[key].map(function (l) { return '<div class="xr-step xr-' + l[0] + '"><b>' + esc(l[1]) + '</b>' + esc(l[2]) + '</div>'; }).join('') + '</div>' +
+        '<div class="xr-foot"><button type="button" class="xr-open">Open project →</button></div>';
       var btn = document.createElement('button');
       btn.type = 'button'; btn.className = 'xr-btn'; btn.textContent = 'X-RAY'; btn.setAttribute('aria-expanded', 'false');
       btn.setAttribute('aria-label', 'Show how ' + key + ' is built');
-      var panel = document.createElement('div');
-      panel.className = 'xr-panel';
-      panel.innerHTML = '<div class="xr-title">How it’s built</div><div class="xr-layers">' +
-        XR[key].map(function (l) { return '<div class="xr-layer xr-' + l[0] + '"><b>' + esc(l[1]) + '</b><span>' + esc(l[2]) + '</span></div>'; }).join('') +
-        '</div><div class="xr-legend"><span class="l1">Deterministic</span><span class="l2">LLM / agent</span><span class="l3">Human</span></div>' +
-        '<button type="button" class="xr-open">Open project →</button>';
-      card.appendChild(panel); card.appendChild(btn);
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var on = card.classList.toggle('xr-on');
-        btn.textContent = on ? 'CARD ✕' : 'X-RAY';
-        btn.setAttribute('aria-expanded', on);
-      });
-      panel.addEventListener('click', function (e) { e.stopPropagation(); });
-      panel.querySelector('.xr-open').addEventListener('click', function (e) {
-        e.stopPropagation();
-        card.classList.remove('xr-on'); btn.textContent = 'X-RAY';
+      front.appendChild(btn);
+      inner.appendChild(front); inner.appendChild(back); card.appendChild(inner);
+      var busy = false, reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      function swap(out, inn, outDeg, inDeg, done) {
+        // 2-step flip: rotate the visible face to edge-on, swap faces, rotate the other face in
+        out.style.transform = 'rotateY(' + outDeg + 'deg)';
+        setTimeout(function () {
+          out.style.visibility = 'hidden';
+          inn.style.transition = 'none'; inn.style.transform = 'rotateY(' + inDeg + 'deg)'; inn.style.visibility = 'visible';
+          void inn.offsetWidth; inn.style.transition = ''; inn.style.transform = 'rotateY(0deg)';
+          setTimeout(done, 330);
+        }, reduce ? 0 : 320);
+      }
+      function set(on) {
+        if (busy || card.classList.contains('xr-on') === on) return;
+        busy = true;
+        card.classList.toggle('xr-on', on);
+        btn.setAttribute('aria-expanded', on); back.setAttribute('aria-hidden', !on); front.setAttribute('aria-hidden', on);
+        var done = function () { busy = false; };
+        if (on) swap(front, back, 90, -90, done); else swap(back, front, -90, 90, done);
+      }
+      btn.addEventListener('click', function (e) { e.stopPropagation(); set(true); });
+      back.addEventListener('click', function (e) { e.stopPropagation(); });
+      back.querySelector('.xr-close').addEventListener('click', function (e) { e.stopPropagation(); set(false); });
+      back.querySelector('.xr-open').addEventListener('click', function (e) {
+        e.stopPropagation(); set(false);
         var m = (card.getAttribute('onclick') || '').match(/'([^']+-modal)'/);
         if (m && window.openProjectModal) window.openProjectModal(e, m[1]);
       });
