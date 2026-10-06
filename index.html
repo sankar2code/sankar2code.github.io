@@ -13564,8 +13564,7 @@
     var pbtn = document.getElementById('ba-play'), ptext = document.getElementById('ba-ptext'), timer = null;
     function idleText() { ptext.textContent = 'Watch ' + NAMES[cur] + ' go from manual to AI-powered'; }
     function stop(label) { clearInterval(timer); timer = null; pbtn.classList.remove('playing'); pbtn.textContent = label || '▶'; pbtn.setAttribute('aria-label', 'Play the transformation'); }
-    pbtn.addEventListener('click', function () {
-      if (timer) { stop('▶'); ptext.textContent = 'Paused — press play or drag the bar'; return; }
+    function play() {
       if (+range.value >= 100) { range.value = 0; upd(); }
       pbtn.classList.add('playing'); pbtn.textContent = '❚❚'; pbtn.setAttribute('aria-label', 'Pause');
       ptext.textContent = 'Transforming ' + NAMES[cur] + '…';
@@ -13573,13 +13572,17 @@
         range.value = Math.min(100, +range.value + 1); upd();
         if (+range.value >= 100) { stop('↺'); pbtn.setAttribute('aria-label', 'Replay'); ptext.textContent = 'Done — drag the bar to explore, or replay'; }
       }, 30);
+    }
+    pbtn.addEventListener('click', function () {
+      if (timer) { stop('▶'); ptext.textContent = 'Paused — press play or drag the bar'; return; }
+      play();
     });
     range.addEventListener('input', function () { if (timer) stop('▶'); upd(); });
     tabs.forEach(function (t) {
       t.addEventListener('click', function () {
         cur = +t.dataset.i;
         tabs.forEach(function (x) { var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
-        stop('▶'); range.value = 0; upd(); idleText();
+        stop('▶'); range.value = 0; upd(); play();
       });
     });
     upd(); idleText();
