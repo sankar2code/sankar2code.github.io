@@ -7234,6 +7234,32 @@
       .timeline-header { padding: 0.6rem 0.8rem; }
       .social-btn { font-size: 0.7rem; padding: 0.4rem 0.7rem; }
     }
+  
+    /* tools search + level filter */
+    .tf-bar { display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; margin:.9rem 0 1rem; }
+    .tf-search { flex:1 1 220px; display:flex; align-items:center; gap:.5rem; background:var(--card); border:1px solid var(--border); border-radius:999px; padding:.45rem .9rem; color:var(--muted); transition:border-color .2s, box-shadow .2s; }
+    .tf-search:focus-within { border-color:rgba(56,189,248,.6); box-shadow:0 0 0 3px rgba(56,189,248,.15); }
+    .tf-search input { flex:1; min-width:0; background:none; border:0; outline:0; color:var(--white); font:inherit; font-size:.88rem; }
+    .tf-search input::placeholder { color:var(--muted); }
+    .tf-levels { display:flex; flex-wrap:wrap; gap:.4rem; }
+    .tf-lv { display:inline-flex; align-items:center; gap:.35rem; background:var(--card); border:1px solid var(--border); color:var(--text-body); border-radius:999px; padding:.38rem .8rem; font:inherit; font-size:.8rem; font-weight:600; cursor:pointer; transition:all .2s; }
+    .tf-lv i { font-style:normal; font-size:.7rem; opacity:.7; }
+    .tf-lv:hover { border-color:rgba(56,189,248,.5); }
+    .tf-lv.on { background:var(--grad2); color:#fff; border-color:transparent; }
+    .tf-dot { width:7px; height:7px; border-radius:50%; }
+    .tf-dot.ex, .tf-mix .ex { background:#4ade80; }
+    .tf-dot.pr, .tf-mix .pr { background:#38bdf8; }
+    .tf-dot.fa, .tf-mix .fa { background:#94a3b8; }
+    .tf-mix { flex-basis:100%; display:flex; height:5px; border-radius:99px; overflow:hidden; background:var(--border); }
+    .tf-mix span { height:100%; width:0; transition:width .6s cubic-bezier(.2,.8,.2,1); }
+    .tf-empty { display:none; flex-basis:100%; font-size:.85rem; color:var(--muted); }
+    .tf-empty.show { display:block; }
+    .tools-chips .chip.tf-hide { display:none; }
+    .tools-chips .chip mark { background:rgba(56,189,248,.28); color:inherit; border-radius:3px; padding:0 1px; }
+    .cert-tab .tf-n { display:inline-block; margin-left:.35rem; font-size:.66rem; font-weight:800; background:#38bdf8; color:#0b1220; border-radius:999px; padding:0 .4rem; line-height:1.4; }
+    .cert-tab .tf-n.zero { background:var(--border); color:var(--muted); }
+    @media (max-width:600px){ .tf-search{ flex-basis:100%; } .tf-levels{ flex-basis:100%; flex-wrap:nowrap; gap:.3rem; } .tf-lv{ flex:1 1 auto; justify-content:center; padding:.34rem .35rem; font-size:.72rem; gap:.25rem; } }
+    .tools-panel.tf-none h4 { display:none; }
   </style>
 </head>
 <body>
@@ -9312,6 +9338,18 @@
       <button type="button" class="cert-tab" onclick="selectToolsTab(2, this)">🏥 Domain</button>
       <button type="button" class="cert-tab" onclick="selectToolsTab(3, this)">🎯 Technical PM</button>
     </div>
+
+  <div class="tf-bar" id="tf-bar">
+    <label class="tf-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input id="tf-q" type="search" placeholder="Search all tools &amp; skills" autocomplete="off" aria-label="Search tools and skills"></label>
+    <div class="tf-levels" role="group" aria-label="Filter by level">
+      <button type="button" class="tf-lv on" data-lv="all">All <i></i></button>
+      <button type="button" class="tf-lv" data-lv="expert"><span class="tf-dot ex"></span>Expert <i></i></button>
+      <button type="button" class="tf-lv" data-lv="proficient"><span class="tf-dot pr"></span>Proficient <i></i></button>
+      <button type="button" class="tf-lv" data-lv="familiar"><span class="tf-dot fa"></span>Familiar <i></i></button>
+    </div>
+    <div class="tf-mix" id="tf-mix" aria-hidden="true"><span class="ex"></span><span class="pr"></span><span class="fa"></span></div>
+    <div class="tf-empty" id="tf-empty">No matches in this tab.</div>
+  </div>
 
   <div class="tools-section-grid">
 
@@ -15060,6 +15098,57 @@
     const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); setTimeout(play, 300); } }, { threshold: 0.6 });
     io.observe(box);
   }
+})();
+</script>
+
+<script>
+/* Tools: search + level filter (scoped to active tab; search shows match counts on every tab) */
+(function(){
+  const bar=document.getElementById('tf-bar'); if(!bar) return;
+  const q=document.getElementById('tf-q'), empty=document.getElementById('tf-empty');
+  const mix=document.getElementById('tf-mix').children, tabs=[...document.querySelectorAll('#tools-tabs .cert-tab')];
+  const panels=[...document.querySelectorAll('.tools-panel')];
+  const chips=panels.map(p=>[...p.querySelectorAll('.tools-chips .chip')].map(el=>{
+    const tag=el.querySelector('.chip-tag'); const lv=tag?(['expert','proficient','familiar'].find(k=>tag.classList.contains(k))||''):'';
+    const tn=[...el.childNodes].find(n=>n.nodeType===3&&n.textContent.trim());
+    return {el,lv,tn,name:tn?tn.textContent:''};
+  }));
+  let level='all';
+  const esc=t=>t.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  function active(){ return Math.max(0,panels.findIndex(p=>p.classList.contains('active'))); }
+  function paint(c,term){
+    const old=c.el.querySelector('.tf-name'); 
+    if(!c.tn && !old) return;
+    let span=old; if(!span){ span=document.createElement('span'); span.className='tf-name'; c.tn.replaceWith(span); }
+    const i=term?c.name.toLowerCase().indexOf(term):-1;
+    span.innerHTML=i<0?esc(c.name):esc(c.name.slice(0,i))+'<mark>'+esc(c.name.slice(i,i+term.length))+'</mark>'+esc(c.name.slice(i+term.length));
+  }
+  function run(){
+    const term=q.value.trim().toLowerCase(), a=active();
+    const cur=chips[a]||[];
+    const pool=cur.filter(c=>!term||c.name.toLowerCase().includes(term));
+    const cnt={expert:0,proficient:0,familiar:0}; pool.forEach(c=>{ if(cnt[c.lv]!=null) cnt[c.lv]++; });
+    bar.querySelectorAll('.tf-lv').forEach(b=>{ const k=b.dataset.lv; b.querySelector('i').textContent=k==='all'?pool.length:cnt[k]; });
+    const tot=pool.length||1; mix[0].style.width=cnt.expert/tot*100+'%'; mix[1].style.width=cnt.proficient/tot*100+'%'; mix[2].style.width=cnt.familiar/tot*100+'%';
+    let shown=0;
+    chips.forEach((list,pi)=>list.forEach(c=>{
+      const ok=(!term||c.name.toLowerCase().includes(term))&&(level==='all'||c.lv===level);
+      c.el.classList.toggle('tf-hide',!ok); paint(c,term); if(pi===a&&ok) shown++;
+    }));
+    tabs.forEach((t,i)=>{ let n=t.querySelector('.tf-n');
+      if(!term){ if(n) n.remove(); return; }
+      if(!n){ n=document.createElement('span'); n.className='tf-n'; t.appendChild(n); }
+      const m=(chips[i]||[]).filter(c=>c.name.toLowerCase().includes(term)&&(level==='all'||c.lv===level)).length;
+      n.textContent=m; n.classList.toggle('zero',!m);
+    });
+    empty.textContent=term&&tabs.some((t,i)=>i!==a&&(chips[i]||[]).some(c=>c.name.toLowerCase().includes(term)))?'No matches in this tab. Check the tabs with a blue count.':'No matches in this tab.';
+    empty.classList.toggle('show',!shown);
+    panels.forEach((p,i)=>p.classList.toggle('tf-none',i===a&&!shown));
+  }
+  bar.querySelectorAll('.tf-lv').forEach(b=>b.addEventListener('click',()=>{ level=b.dataset.lv; bar.querySelectorAll('.tf-lv').forEach(x=>x.classList.toggle('on',x===b)); run(); }));
+  q.addEventListener('input',run);
+  const orig=window.selectToolsTab; if(typeof orig==='function'){ window.selectToolsTab=function(i,btn){ orig(i,btn); run(); }; }
+  run();
 })();
 </script>
 </body>
