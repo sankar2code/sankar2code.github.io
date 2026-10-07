@@ -16,7 +16,7 @@
   <meta name="twitter:description" content="15+ years shipping data- and AI-powered products across pharma, healthcare, and tech. Explore live AI products, PRDs, and ask my AI twin." />
   <meta name="twitter:image" content="https://sankar.work/images/profile-photo.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@700&display=swap" rel="stylesheet" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZWKVT2CXY"></script>
@@ -343,6 +343,40 @@
       pointer-events: none;
     }
 
+    /* Sunset landscape toggle: night by default, day under html.light */
+    .tt-scene { position: absolute; inset: 0; border-radius: 999px; overflow: hidden; pointer-events: none;
+      background: linear-gradient(#0b1033, #312e81); box-shadow: inset 0 2px 6px rgba(0,0,0,0.4), 0 0 0 1px rgba(129,140,248,0.35);
+      transition: background 0.7s ease, box-shadow 0.7s ease; }
+    html.light .tt-scene { background: linear-gradient(#60a5fa, #bae6fd); box-shadow: inset 0 2px 6px rgba(0,0,0,0.18), 0 0 0 1px rgba(37,99,235,0.3); }
+    .tt-sun { position: absolute; left: 9px; top: 7px; width: 16px; height: 16px; border-radius: 50%;
+      background: radial-gradient(circle, #fef3c7, #f59e0b); box-shadow: 0 0 10px #fbbf24;
+      transform: translateY(30px); transition: transform 0.8s cubic-bezier(.6,.05,.3,1); }
+    html.light .tt-sun { transform: none; }
+    .tt-moon { position: absolute; right: 10px; top: 6px; width: 14px; height: 14px; border-radius: 50%; box-shadow: -4px 2px 0 0 #f1f5f9;
+      transform: none; transition: transform 0.8s cubic-bezier(.6,.05,.3,1) 0.1s; }
+    html.light .tt-moon { transform: translateY(-30px); }
+    .tt-star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: 1; transition: opacity 0.6s 0.3s; animation: ttTwinkle 1.6s infinite; }
+    html.light .tt-star { opacity: 0; transition-delay: 0s; }
+    @keyframes ttTwinkle { 50% { transform: scale(0.4); } }
+    .tt-hill { position: absolute; bottom: -9px; border-radius: 50%; transition: background 0.7s ease; }
+    .tt-h1 { left: -7px; width: 44px; height: 22px; background: #1e1b4b; }
+    .tt-h2 { right: -10px; width: 50px; height: 25px; background: #312e81; }
+    html.light .tt-h1 { background: #16a34a; }
+    html.light .tt-h2 { background: #22c55e; }
+    .tt-cloud { position: absolute; top: 9px; left: 0; width: 13px; height: 5px; border-radius: 5px; background: #fff; opacity: 0;
+      animation: ttDrift 7s linear infinite; transition: opacity 0.5s; }
+    .tt-cloud::before { content: ""; position: absolute; left: 3px; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: #fff; }
+    .tt-cloud2 { top: 16px; transform: scale(0.8); animation-duration: 9s; animation-delay: -4s; }
+    html.light .tt-cloud { opacity: 0.9; }
+    @keyframes ttDrift { from { transform: translateX(70px); } to { transform: translateX(-20px); } }
+    .theme-toggle:hover .tt-scene { box-shadow: inset 0 2px 6px rgba(0,0,0,0.4), 0 0 0 1px rgba(125,211,252,0.6), 0 0 14px rgba(56,189,248,0.35); }
+    .theme-toggle:active .tt-scene { transform: scale(0.96); }
+    .theme-toggle:focus-visible { outline: 2px solid #38bdf8; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      .tt-sun, .tt-moon, .tt-scene, .tt-hill, .tt-star { transition: none; }
+      .tt-star, .tt-cloud { animation: none; }
+    }
+
     /* ─── COMMAND PALETTE ────────────────────── */
     .cmdk-trigger {
       display: flex;
@@ -521,6 +555,25 @@
     .nav-logo:hover {
       opacity: 0.8;
     }
+
+    /* Hand-drawn signature logo */
+    .nav-sig { --sig: #7dd3fc; --sig-ul: #38bdf8; }
+    html.light .nav-sig { --sig: #1d4ed8; --sig-ul: #2563eb; }
+    .nav-sig:hover { opacity: 1; }
+    .sig-svg { display: block; width: 132px; height: 40px; overflow: visible; }
+    .sig-text { font: 700 34px 'Caveat', cursive; fill: var(--sig); stroke: var(--sig); stroke-width: 1.1;
+      stroke-dasharray: 400; stroke-dashoffset: 0; }
+    .sig-ul { fill: none; stroke: var(--sig-ul); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 140; stroke-dashoffset: 0; }
+    .nav-sig.sig-wait .sig-svg { opacity: 0; }
+    .nav-sig.sig-draw .sig-text { animation: sigDraw 2.2s ease forwards; }
+    .nav-sig.sig-draw .sig-ul { stroke-dashoffset: 140; animation: sigUl 0.6s ease 1.7s forwards; }
+    @keyframes sigDraw { 0% { stroke-dashoffset: 400; fill: transparent; } 70% { stroke-dashoffset: 0; fill: transparent; } 100% { stroke-dashoffset: 0; fill: var(--sig); } }
+    @keyframes sigUl { to { stroke-dashoffset: 0; } }
+    .nav-sig .sig-svg { filter: drop-shadow(0 0 6px rgba(56,189,248,0.45)); transition: filter 0.3s; }
+    html.light .nav-sig .sig-svg { filter: none; }
+    .nav-sig:hover .sig-svg { filter: drop-shadow(0 0 10px rgba(56,189,248,0.7)); }
+    @media (max-width: 400px) { .sig-svg { width: 112px; height: 34px; } }
+    @media (prefers-reduced-motion: reduce) { .nav-sig.sig-draw .sig-text, .nav-sig.sig-draw .sig-ul { animation: none; stroke-dashoffset: 0; } }
 
     .nav-badge {
       display: inline-flex;
@@ -7158,13 +7211,11 @@
   NAV
 ──────────────────────────────────────────── -->
 <nav>
-  <a href="#hero" class="nav-logo">
-    <span class="nav-badge">
-      <svg class="nav-badge-trace" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <polygon points="10,0 100,0 90,100 0,100" pathLength="100"/>
-      </svg>
-      <span class="nav-badge-name" data-text="Sankar">Sankar</span>
-    </span>
+  <a href="#hero" class="nav-logo nav-sig" id="nav-sig" aria-label="Sankar Kumar Palaniappan, back to top">
+    <svg class="sig-svg" viewBox="0 0 150 44" aria-hidden="true">
+      <text class="sig-text" x="4" y="33">Sankar</text>
+      <path class="sig-ul" d="M6 40 Q 70 34 132 38"/>
+    </svg>
   </a>
   <ul class="nav-links">
     <li class="nav-item-group">
@@ -7241,7 +7292,13 @@
       <span class="cmdk-kbd">⌘K</span>
     </button>
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle dark/light mode">
-      <div id="tt-lottie" class="tt-lottie" aria-hidden="true"></div>
+      <span class="tt-scene" aria-hidden="true">
+        <span class="tt-cloud"></span><span class="tt-cloud tt-cloud2"></span>
+        <span class="tt-sun"></span><span class="tt-moon"></span>
+        <span class="tt-star" style="left:10px;top:7px"></span><span class="tt-star" style="left:22px;top:15px;animation-delay:.4s"></span>
+        <span class="tt-star" style="left:33px;top:5px;animation-delay:.8s"></span><span class="tt-star" style="left:41px;top:13px;animation-delay:1.2s"></span>
+        <span class="tt-hill tt-h1"></span><span class="tt-hill tt-h2"></span>
+      </span>
     </button>
     <div class="hamburger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -14653,7 +14710,7 @@
 (function () {
   const wrap = document.getElementById('hello-wrap'), btn = document.getElementById('hello-btn');
   if (!wrap || !btn) return;
-  const G = [['Hello', 'EN'], ['Vanakkam', 'TA'], ['Hola', 'ES'], ['Namaste', 'HI'], ['Bonjour', 'FR'], ['Ciao', 'IT']];
+  const G = [['Hello', 'EN'], ['Vanakkam', 'TA'], ['Hola', 'ES'], ['Olá', 'PT'], ['Bonjour', 'FR'], ['Hallo', 'DE'], ['Ciao', 'IT'], ['Hej', 'SV'], ['Marhaba', 'AR'], ['Ni hao', 'ZH'], ['Annyeong', 'KO'], ['Konnichiwa', 'JA'], ['Jambo', 'SW'], ['Bello!', '🤪']];
   const gEl = document.getElementById('hello-g'), lEl = document.getElementById('hello-lang');
   const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let gi = 0;
@@ -14801,6 +14858,67 @@
     const href = post.getAttribute('href');
     if (href) { qf.href = href; qf.target = '_blank'; qf.rel = 'noopener'; }
   }
+})();
+</script>
+<script>
+/* In-page links: land each target just below the fixed menu, and re-correct if
+   content above it (lazy images, charts, reveals) changes height mid-scroll. */
+(function () {
+  const nav = document.querySelector('nav');
+  let userMoved = false, timers = [];
+  ['wheel', 'touchstart', 'keydown'].forEach((ev) => window.addEventListener(ev, () => { userMoved = true; }, { passive: true }));
+  function offsetFor(el) {
+    const navH = nav ? nav.getBoundingClientRect().height : 62;
+    return el.tagName === 'SECTION' ? 0 : navH + 16;
+  }
+  function targetY(el) { return Math.max(0, window.scrollY + el.getBoundingClientRect().top - offsetFor(el)); }
+  function go(el, smooth) {
+    timers.forEach(clearTimeout); timers = []; userMoved = false;
+    window.scrollTo({ top: targetY(el), behavior: smooth ? 'smooth' : 'auto' });
+    [450, 900, 1400, 2000].forEach((ms) => timers.push(setTimeout(() => {
+      if (userMoved) return;
+      const y = targetY(el);
+      if (Math.abs(window.scrollY - y) > 6) window.scrollTo({ top: y, behavior: 'smooth' });
+    }, ms)));
+  }
+  document.addEventListener('click', (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = decodeURIComponent(a.getAttribute('href').slice(1));
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // let menus close first so nothing shifts under the scroll
+    setTimeout(() => go(el, !reduced), 10);
+    if (history.pushState) history.pushState(null, '', '#' + id);
+  });
+  // direct visits like sankar.work/#work
+  window.addEventListener('load', () => {
+    const id = location.hash.slice(1);
+    const el = id && document.getElementById(id);
+    if (el) setTimeout(() => go(el, false), 60);
+  });
+})();
+</script>
+<script>
+/* Signature logo: write it out once the script font is ready; replay on hover (at most every 4s) */
+(function () {
+  const a = document.getElementById('nav-sig');
+  if (!a) return;
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let last = 0;
+  function draw() {
+    if (reduced) return;
+    last = Date.now();
+    a.classList.remove('sig-draw'); void a.offsetWidth; a.classList.add('sig-draw');
+  }
+  if (!reduced) a.classList.add('sig-wait');
+  const ready = document.fonts && document.fonts.load ? document.fonts.load('700 34px Caveat') : Promise.resolve();
+  Promise.race([ready, new Promise((r) => setTimeout(r, 1500))]).then(() => { a.classList.remove('sig-wait'); draw(); });
+  a.addEventListener('mouseenter', () => { if (Date.now() - last > 4000) draw(); });
 })();
 </script>
 </body>
