@@ -6345,7 +6345,8 @@
       border-bottom-color: #38bdf8;
     }
 
-    .wizard-textarea { min-height: 54px; }
+    .wizard-textarea { min-height: 150px; line-height: 1.55; text-align: left; resize: none; overflow: hidden; border: 1px solid rgba(56,189,248,0.3); border-radius: 12px; padding: 0.7rem 0.85rem; background: rgba(56,189,248,0.04); }
+    .wizard-textarea:focus { border-color: #38bdf8; }
 
     .wizard-controls {
       display: flex;
@@ -7443,6 +7444,38 @@
     html.light .ch-intent { background:#fff; }
     html.light .ch-pill { background:rgba(37,99,235,.05); }
     @media (max-width:520px) { .ch-intents { grid-template-columns:1fr; } }
+  
+    /* Skills grid: dense one-line tiles (compact layout) */
+    .skc-grid { grid-template-columns:repeat(4, minmax(0,1fr)) !important; gap:.45rem !important; }
+    @media (max-width:980px) { .skc-grid { grid-template-columns:repeat(3, minmax(0,1fr)) !important; } }
+    @media (max-width:680px) { .skc-grid { grid-template-columns:repeat(2, minmax(0,1fr)) !important; } }
+    @media (max-width:380px) { .skc-grid { grid-template-columns:1fr !important; } }
+    .skc-card { position:relative; align-items:center !important; gap:.5rem !important; min-height:40px; padding:.35rem .65rem !important; border-radius:10px !important; }
+    .skc-card:hover { transform:none !important; background:rgba(56,189,248,.06); }
+    .skc-card .skc-ic { width:22px !important; height:22px !important; font-size:.95rem !important; background:none !important; border-radius:0 !important; }
+    .skc-nm { flex:1; min-width:0; font-size:.8rem; font-weight:600; line-height:1.25; color:var(--white); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    @media (max-width:680px) { .skc-nm { font-size:.76rem; } }
+    .skc-ag { flex-shrink:0; display:inline-grid; place-items:center; width:15px; height:15px; border-radius:50%; border:1px solid rgba(251,191,36,.7); color:#fbbf24; font:800 .52rem Inter,sans-serif; }
+    .skc-qd { flex-shrink:0; width:7px; height:7px; border-radius:50%; background:var(--qc); }
+    .skc-tip { position:absolute; left:0; right:0; bottom:calc(100% + 6px); z-index:20; background:#0b0b18; border:1px solid rgba(56,189,248,.35); border-radius:10px; padding:.5rem .65rem; font-size:.72rem; line-height:1.4; color:#cbd5e1; box-shadow:0 12px 28px rgba(0,0,0,.45); opacity:0; transform:translateY(4px); pointer-events:none; transition:opacity .15s, transform .15s; }
+    .skc-tip b { display:block; color:#fff; font-size:.76rem; margin-bottom:.1rem; }
+    .skc-tip em { font-style:normal; font-weight:700; color:var(--qc); }
+    .skc-card:hover .skc-tip, .skc-card:focus-visible .skc-tip { opacity:1; transform:none; }
+    .skc-card:focus-visible { outline:2px solid #38bdf8; outline-offset:2px; }
+    .skc-legend { display:flex; flex-wrap:wrap; align-items:center; gap:.4rem .9rem; font-size:.68rem; color:var(--muted); margin-top:.7rem; }
+    .skc-legend span { display:inline-flex; align-items:center; gap:.35rem; }
+    .skc-legend i { width:7px; height:7px; border-radius:50%; display:inline-block; }
+    .skc-legend .skc-legend-hint { margin-left:auto; }
+    html.light .skc-tip { background:#ffffff; color:#475569; border-color:rgba(37,99,235,.3); box-shadow:0 12px 28px rgba(15,23,42,.15); }
+    html.light .skc-tip b { color:#0f172a; }
+    @media (hover:none) { .skc-legend .skc-legend-hint { display:none; } }
+  
+    /* Recommendation theme tags */
+    .rec-tag { display:inline-flex; align-items:center; font-size:.6rem; font-weight:700; line-height:1.5; color:var(--tc); background:color-mix(in srgb, var(--tc) 12%, transparent); border:1px solid color-mix(in srgb, var(--tc) 38%, transparent); border-radius:999px; padding:0 .45rem; white-space:nowrap; }
+    .rec-row-tags { display:flex; flex-wrap:wrap; gap:.25rem; margin:.3rem 0 0; }
+    .rec-spot-tags { display:flex; flex-wrap:wrap; gap:.35rem; margin:.2rem 0 .9rem; min-height:1.1rem; transition:opacity .35s; }
+    .rec-spot-tags .rec-tag { font-size:.68rem; padding:.05rem .6rem; }
+    html.light .rec-tag { background:color-mix(in srgb, var(--tc) 10%, #fff); border-color:color-mix(in srgb, var(--tc) 45%, transparent); color:color-mix(in srgb, var(--tc) 70%, #0f172a); }
   </style>
 </head>
 <body>
@@ -9751,147 +9784,120 @@
     <label class="skc-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input id="skc-q" type="search" placeholder="Search, e.g. PRD, retention, Part 11" autocomplete="off" aria-label="Search skills"></label>
     <p class="skc-notes"><span class="skc-note" data-k="all">All 28 tools in one place. Pick a pack to see what it's for.</span><span class="skc-note" data-k="pm" hidden>The core PM toolkit: research, PRDs and evaluation. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/skills-guide.md" target="_blank" rel="noopener">Skills guide →</a></span><span class="skc-note" data-k="prod" hidden>Five approval-gated stages from a PRD to a secure Next.js + Supabase app. I used it to ship ContractIQ. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/prd-to-production.md" target="_blank" rel="noopener">Pack guide →</a></span><span class="skc-note" data-k="ana" hidden>From a vague question to a decision-ready readout. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/product-analytics.md" target="_blank" rel="noopener">Pack guide →</a></span><span class="skc-note" data-k="clin" hidden>Trials, GxP compliance and clinical AI evaluation, using public data only. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/pharma-clinical.md" target="_blank" rel="noopener">Pack guide →</a></span><span class="skc-note" data-k="agent" hidden>Claude Code sub-agents that work through a whole task on their own: reviewing, building, analyzing and auditing. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/subagent-guide.md" target="_blank" rel="noopener">Sub-agent guide →</a></span></p>
     <div class="skc-grid" id="skc-grid">
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-writer/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8">
-        <span class="skc-ic" aria-hidden="true">📝</span>
-        <span class="skc-txt"><b>PRD Writer</b><small>Structured PRDs in five formats</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#38bdf8">Q1'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-writer/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8;--qc:#38bdf8">
+        <span class="skc-ic" aria-hidden="true">📝</span><span class="skc-nm">PRD Writer</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>PRD Writer</b>Structured PRDs in five formats · <em>Q1'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-evaluator/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8">
-        <span class="skc-ic" aria-hidden="true">✅</span>
-        <span class="skc-txt"><b>PRD Evaluator</b><small>Scores a PRD against the right rubric</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-evaluator/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8;--qc:#a855f7">
+        <span class="skc-ic" aria-hidden="true">✅</span><span class="skc-nm">PRD Evaluator</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>PRD Evaluator</b>Scores a PRD against the right rubric · <em>Q2'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/market-research/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8">
-        <span class="skc-ic" aria-hidden="true">📊</span>
-        <span class="skc-txt"><b>Market Research</b><small>Landscape, TAM/SAM/SOM and positioning</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#38bdf8">Q1'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/market-research/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8;--qc:#38bdf8">
+        <span class="skc-ic" aria-hidden="true">📊</span><span class="skc-nm">Market Research</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Market Research</b>Landscape, TAM/SAM/SOM and positioning · <em>Q1'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/user-research/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8">
-        <span class="skc-ic" aria-hidden="true">🔍</span>
-        <span class="skc-txt"><b>User Research</b><small>Interview synthesis, personas and pain points</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/user-research/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8;--qc:#a855f7">
+        <span class="skc-ic" aria-hidden="true">🔍</span><span class="skc-nm">User Research</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>User Research</b>Interview synthesis, personas and pain points · <em>Q2'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/engineering-planner/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
-        <span class="skc-ic" aria-hidden="true">🏗️</span>
-        <span class="skc-txt"><b>Engineering Planner</b><small>PRD to architecture, data model, API spec and roadmap</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/engineering-planner/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa;--qc:#a855f7">
+        <span class="skc-ic" aria-hidden="true">🏗️</span><span class="skc-nm">Engineering Planner</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Engineering Planner</b>PRD to architecture, data model, API spec and roadmap · <em>Q2'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/implementation-specs/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
-        <span class="skc-ic" aria-hidden="true">📐</span>
-        <span class="skc-txt"><b>Implementation Specs</b><small>Buildable specs, paste-and-run Supabase SQL, .env.example</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/implementation-specs/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa;--qc:#a855f7">
+        <span class="skc-ic" aria-hidden="true">📐</span><span class="skc-nm">Implementation Specs</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Implementation Specs</b>Buildable specs, paste-and-run Supabase SQL, .env.example · <em>Q2'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/security-foundation/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
-        <span class="skc-ic" aria-hidden="true">🛡️</span>
-        <span class="skc-txt"><b>Security Foundation</b><small>Auth, RLS, rate limits and prompt-injection guards</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/security-foundation/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa;--qc:#a855f7">
+        <span class="skc-ic" aria-hidden="true">🛡️</span><span class="skc-nm">Security Foundation</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Security Foundation</b>Auth, RLS, rate limits and prompt-injection guards · <em>Q2'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/frontend-setup/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
-        <span class="skc-ic" aria-hidden="true">⚡</span>
-        <span class="skc-txt"><b>Frontend Setup</b><small>Scaffolds and runs a Next.js 16 + React 19 app</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/frontend-setup/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa;--qc:#a855f7">
+        <span class="skc-ic" aria-hidden="true">⚡</span><span class="skc-nm">Frontend Setup</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Frontend Setup</b>Scaffolds and runs a Next.js 16 + React 19 app · <em>Q2'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/design-system/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
-        <span class="skc-ic" aria-hidden="true">🎨</span>
-        <span class="skc-txt"><b>Design System</b><small>Keeps every screen on your design tokens</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/design-system/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa;--qc:#a855f7">
+        <span class="skc-ic" aria-hidden="true">🎨</span><span class="skc-nm">Design System</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Design System</b>Keeps every screen on your design tokens · <em>Q2'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/analytics-question-framing/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
-        <span class="skc-ic" aria-hidden="true">🎯</span>
-        <span class="skc-txt"><b>Question Framing</b><small>Turns a vague ask into prioritized questions</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#10b981">Q3'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/analytics-question-framing/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80;--qc:#10b981">
+        <span class="skc-ic" aria-hidden="true">🎯</span><span class="skc-nm">Question Framing</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Question Framing</b>Turns a vague ask into prioritized questions · <em>Q3'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/metric-root-cause/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
-        <span class="skc-ic" aria-hidden="true">🔎</span>
-        <span class="skc-txt"><b>Metric Root Cause</b><small>Why a metric moved: data checks, mix vs rate</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#10b981">Q3'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/metric-root-cause/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80;--qc:#10b981">
+        <span class="skc-ic" aria-hidden="true">🔎</span><span class="skc-nm">Metric Root Cause</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Metric Root Cause</b>Why a metric moved: data checks, mix vs rate · <em>Q3'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/cohort-retention/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
-        <span class="skc-ic" aria-hidden="true">📈</span>
-        <span class="skc-txt"><b>Cohort Retention</b><small>Retention triangles and curves, explained</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#10b981">Q3'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/cohort-retention/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80;--qc:#10b981">
+        <span class="skc-ic" aria-hidden="true">📈</span><span class="skc-nm">Cohort Retention</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Cohort Retention</b>Retention triangles and curves, explained · <em>Q3'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/opportunity-sizing/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
-        <span class="skc-ic" aria-hidden="true">💰</span>
-        <span class="skc-txt"><b>Opportunity Sizing</b><small>Low/base/high value with sensitivity</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#10b981">Q3'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/opportunity-sizing/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80;--qc:#10b981">
+        <span class="skc-ic" aria-hidden="true">💰</span><span class="skc-nm">Opportunity Sizing</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Opportunity Sizing</b>Low/base/high value with sensitivity · <em>Q3'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/experiment-design/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
-        <span class="skc-ic" aria-hidden="true">⚖️</span>
-        <span class="skc-txt"><b>Experiment Design</b><small>A/B plans with sample size and decision rules</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#10b981">Q3'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/experiment-design/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80;--qc:#10b981">
+        <span class="skc-ic" aria-hidden="true">⚖️</span><span class="skc-nm">Experiment Design</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Experiment Design</b>A/B plans with sample size and decision rules · <em>Q3'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/insight-storyteller/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
-        <span class="skc-ic" aria-hidden="true">🗣️</span>
-        <span class="skc-txt"><b>Insight Storyteller</b><small>Answer-first readouts, decks and messages</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#10b981">Q3'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/insight-storyteller/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80;--qc:#10b981">
+        <span class="skc-ic" aria-hidden="true">🗣️</span><span class="skc-nm">Insight Storyteller</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Insight Storyteller</b>Answer-first readouts, decks and messages · <em>Q3'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/trial-failure-investigator/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6">
-        <span class="skc-ic" aria-hidden="true">🔬</span>
-        <span class="skc-txt"><b>Trial Failure Investigator</b><small>NCT ID to source-backed reasons a trial stopped</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/trial-failure-investigator/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">🔬</span><span class="skc-nm">Trial Failure Investigator</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Trial Failure Investigator</b>NCT ID to source-backed reasons a trial stopped · <em>Q4'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/trial-eligibility-matcher/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6">
-        <span class="skc-ic" aria-hidden="true">🧩</span>
-        <span class="skc-txt"><b>Trial Eligibility Matcher</b><small>Patient-to-trial screening, a cited source for every Met</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/trial-eligibility-matcher/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">🧩</span><span class="skc-nm">Trial Eligibility Matcher</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Trial Eligibility Matcher</b>Patient-to-trial screening, a cited source for every Met · <em>Q4'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/gxp-part11-checker/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6">
-        <span class="skc-ic" aria-hidden="true">📋</span>
-        <span class="skc-txt"><b>GxP / Part 11 Checker</b><small>Gaps against 21 CFR Part 11, Annex 11 and ALCOA+</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/gxp-part11-checker/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">📋</span><span class="skc-nm">GxP / Part 11 Checker</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>GxP / Part 11 Checker</b>Gaps against 21 CFR Part 11, Annex 11 and ALCOA+ · <em>Q4'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/clinical-ai-evaluation-design/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6">
-        <span class="skc-ic" aria-hidden="true">🩺</span>
-        <span class="skc-txt"><b>Clinical AI Evaluation</b><small>From a model drift signal to the right trial design</small></span>
-        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/clinical-ai-evaluation-design/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">🩺</span><span class="skc-nm">Clinical AI Evaluation</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Clinical AI Evaluation</b>From a model drift signal to the right trial design · <em>Q4'26</em> · Skill</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/mockup-generator.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
-        <span class="skc-ic" aria-hidden="true">🖼️</span>
-        <span class="skc-txt"><b>Mockup Generator</b><small>Turns a PRD into a clickable HTML prototype</small></span>
-        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/mockup-generator.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24;--qc:#a855f7">
+        <span class="skc-ic" aria-hidden="true">🖼️</span><span class="skc-nm">Mockup Generator</span><span class="skc-ag" title="Sub-agent" aria-hidden="true">A</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Mockup Generator</b>Turns a PRD into a clickable HTML prototype · <em>Q2'26</em> · Sub-agent</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/prd-red-team-reviewer.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
-        <span class="skc-ic" aria-hidden="true">🛑</span>
-        <span class="skc-txt"><b>PRD Red-Team Reviewer</b><small>Reviews a PRD cold and scores it, with fixes</small></span>
-        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/prd-red-team-reviewer.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">🛑</span><span class="skc-nm">PRD Red-Team Reviewer</span><span class="skc-ag" title="Sub-agent" aria-hidden="true">A</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>PRD Red-Team Reviewer</b>Reviews a PRD cold and scores it, with fixes · <em>Q4'26</em> · Sub-agent</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/backlog-builder.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
-        <span class="skc-ic" aria-hidden="true">🗂️</span>
-        <span class="skc-txt"><b>Backlog Builder</b><small>PRD to epics, stories and acceptance criteria</small></span>
-        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/backlog-builder.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">🗂️</span><span class="skc-nm">Backlog Builder</span><span class="skc-ag" title="Sub-agent" aria-hidden="true">A</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Backlog Builder</b>PRD to epics, stories and acceptance criteria · <em>Q4'26</em> · Sub-agent</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/feature-builder.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
-        <span class="skc-ic" aria-hidden="true">🛠️</span>
-        <span class="skc-txt"><b>Feature Builder</b><small>Builds one spec'd feature with tests and a passing build</small></span>
-        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/feature-builder.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">🛠️</span><span class="skc-nm">Feature Builder</span><span class="skc-ag" title="Sub-agent" aria-hidden="true">A</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Feature Builder</b>Builds one spec'd feature with tests and a passing build · <em>Q4'26</em> · Sub-agent</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/data-analyst.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
-        <span class="skc-ic" aria-hidden="true">📉</span>
-        <span class="skc-txt"><b>Data Analyst</b><small>Data file to checks, charts and an answer-first readout</small></span>
-        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/data-analyst.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">📉</span><span class="skc-nm">Data Analyst</span><span class="skc-ag" title="Sub-agent" aria-hidden="true">A</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Data Analyst</b>Data file to checks, charts and an answer-first readout · <em>Q4'26</em> · Sub-agent</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/clinical-trial-landscape-scout.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
-        <span class="skc-ic" aria-hidden="true">🗺️</span>
-        <span class="skc-txt"><b>Trial Landscape Scout</b><small>Who's testing what: sponsors, phases, endpoints, stops</small></span>
-        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/clinical-trial-landscape-scout.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">🗺️</span><span class="skc-nm">Trial Landscape Scout</span><span class="skc-ag" title="Sub-agent" aria-hidden="true">A</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Trial Landscape Scout</b>Who's testing what: sponsors, phases, endpoints, stops · <em>Q4'26</em> · Sub-agent</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/security-compliance-auditor.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
-        <span class="skc-ic" aria-hidden="true">🔐</span>
-        <span class="skc-txt"><b>Security &amp; Compliance Auditor</b><small>Read-only code audit, including Part 11 checks</small></span>
-        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/security-compliance-auditor.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">🔐</span><span class="skc-nm">Security &amp; Compliance Auditor</span><span class="skc-ag" title="Sub-agent" aria-hidden="true">A</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Security &amp; Compliance Auditor</b>Read-only code audit, including Part 11 checks · <em>Q4'26</em> · Sub-agent</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/release-notes-writer.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
-        <span class="skc-ic" aria-hidden="true">📣</span>
-        <span class="skc-txt"><b>Release Notes Writer</b><small>Git history to release notes and announcements</small></span>
-        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/release-notes-writer.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">📣</span><span class="skc-nm">Release Notes Writer</span><span class="skc-ag" title="Sub-agent" aria-hidden="true">A</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>Release Notes Writer</b>Git history to release notes and announcements · <em>Q4'26</em> · Sub-agent</span>
       </a>
-      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/ai-eval-builder.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
-        <span class="skc-ic" aria-hidden="true">🧪</span>
-        <span class="skc-txt"><b>AI Eval Builder</b><small>Test sets, LLM judges and release gates for AI features</small></span>
-        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/ai-eval-builder.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24;--qc:#f59e0b">
+        <span class="skc-ic" aria-hidden="true">🧪</span><span class="skc-nm">AI Eval Builder</span><span class="skc-ag" title="Sub-agent" aria-hidden="true">A</span><span class="skc-qd" aria-hidden="true"></span>
+        <span class="skc-tip"><b>AI Eval Builder</b>Test sets, LLM judges and release gates for AI features · <em>Q4'26</em> · Sub-agent</span>
       </a>
     </div>
+    <div class="skc-legend" aria-hidden="true"><span><i style="background:#38bdf8"></i>Q1'26</span><span><i style="background:#a855f7"></i>Q2'26</span><span><i style="background:#10b981"></i>Q3'26</span><span><i style="background:#f59e0b"></i>Q4'26</span><span><b class="skc-ag">A</b>sub-agent</span><span class="skc-legend-hint">Hover a tool for details</span></div>
     <p class="skc-empty" id="skc-empty" hidden>No skills match that search.</p>
     <button type="button" class="skc-more" id="skc-more" hidden></button>
   </div>
@@ -10285,6 +10291,7 @@
   <div class="rec-spotlight reveal" id="rec-spotlight">
     <div class="rec-quote-mark">"</div>
     <p class="rec-spot-quote" id="rec-spot-quote"></p>
+    <p class="rec-spot-tags" id="rec-spot-tags" aria-label="What this recommendation praises"></p>
     <div class="rec-spot-meta" id="rec-spot-meta">
       <div class="rec-spot-avatar-frame">
         <div class="rec-spot-avatar" id="rec-spot-avatar"></div>
@@ -10312,6 +10319,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Edlyn Pangaro, PMP</p>
         <p class="rec-card-role">IT Program Director | Global Regulatory Affairs Technology Business Partner</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#818cf8">Strategy</span><span class="rec-tag" style="--tc:#34d399">Delivery</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10322,6 +10330,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Carolyn Hudson, MBA</p>
         <p class="rec-card-role">Program Director, Healthfirst</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#818cf8">Strategy</span><span class="rec-tag" style="--tc:#34d399">Delivery</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10332,6 +10341,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Chandrashekhar Hajare</p>
         <p class="rec-card-role">Validation Lead</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#34d399">Delivery</span><span class="rec-tag" style="--tc:#f472b6">Collaboration</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10342,6 +10352,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Prag Ravichandran</p>
         <p class="rec-card-role">Founder | Salesforce MVP | Certified Architect | 10x Dreamforce Speaker</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#818cf8">Strategy</span><span class="rec-tag" style="--tc:#38bdf8">Technical depth</span><span class="rec-tag" style="--tc:#f472b6">Collaboration</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10352,6 +10363,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Sri Kumaran Thirupathy</p>
         <p class="rec-card-role">Platform & Product Leader | Data Thinker | Curious Mind in Tech & Beyond</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#a78bfa">Product & AI</span><span class="rec-tag" style="--tc:#fbbf24">Business &rarr; solutions</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10362,6 +10374,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Vivek Thomas</p>
         <p class="rec-card-role">Senior Manager, Data Informatics</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#fbbf24">Business &rarr; solutions</span><span class="rec-tag" style="--tc:#34d399">Delivery</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10372,6 +10385,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Muthamizhselvan Kalidoss</p>
         <p class="rec-card-role">Senior Manager, Cloud & Infrastructure Services</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#a78bfa">Product & AI</span><span class="rec-tag" style="--tc:#fbbf24">Business &rarr; solutions</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10382,6 +10396,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Imthias Shaffiullah</p>
         <p class="rec-card-role">Software Engineer, Spotline, Inc.</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#a78bfa">Product & AI</span><span class="rec-tag" style="--tc:#34d399">Delivery</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10392,6 +10407,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Rajesh Sundarraj</p>
         <p class="rec-card-role">Group Technical Specialist, HCL Technology</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#fbbf24">Business &rarr; solutions</span><span class="rec-tag" style="--tc:#f472b6">Collaboration</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10402,6 +10418,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Vigneshwaran Sivaprakasam</p>
         <p class="rec-card-role">Group Project Manager, HCL America Inc.</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#fbbf24">Business &rarr; solutions</span><span class="rec-tag" style="--tc:#f472b6">Collaboration</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10412,6 +10429,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Sneha Gayathri C</p>
         <p class="rec-card-role">QA Engineer, Life Sciences Domain</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#fbbf24">Business &rarr; solutions</span><span class="rec-tag" style="--tc:#f472b6">Collaboration</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #6366f1);">Q3'26</span>
     </div>
@@ -10422,6 +10440,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Ravi Vishwas</p>
         <p class="rec-card-role">Enterprise Technology & ERP Senior Consultant</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#818cf8">Strategy</span><span class="rec-tag" style="--tc:#38bdf8">Technical depth</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #0284c7, #0ea5e9);">Q2'25</span>
     </div>
@@ -10432,6 +10451,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Giridhar Golkonda</p>
         <p class="rec-card-role">IT Leader & Enterprise Architect</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#818cf8">Strategy</span><span class="rec-tag" style="--tc:#38bdf8">Technical depth</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #0369a1, #0284c7);">Q1'25</span>
     </div>
@@ -10442,6 +10462,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Peter Dudek</p>
         <p class="rec-card-role">Pega Certified Senior System Architect</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#a78bfa">Product & AI</span><span class="rec-tag" style="--tc:#38bdf8">Technical depth</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #38bdf8);">Q3'24</span>
     </div>
@@ -10452,6 +10473,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Paul Atherton</p>
         <p class="rec-card-role">Manager Provider Data Management, Healthfirst</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#fb923c">Leadership</span><span class="rec-tag" style="--tc:#f472b6">Collaboration</span><span class="rec-tag" style="--tc:#34d399">Delivery</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #1d4ed8, #2563eb);">Q3'24</span>
     </div>
@@ -10462,6 +10484,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Denise Hurley-Forgach</p>
         <p class="rec-card-role">Senior Manager, Utilities Industries</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#fb923c">Leadership</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #2563eb, #60a5fa);">Q2'24</span>
     </div>
@@ -10472,6 +10495,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Narayanan Ramaswamy</p>
         <p class="rec-card-role">Sr. Client Partner @ Saama | Health Sciences</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#34d399">Delivery</span><span class="rec-tag" style="--tc:#fb923c">Leadership</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">Q1'24</span>
     </div>
@@ -10482,6 +10506,7 @@
       <div class="rec-row-info">
         <p class="rec-card-name">Thukkaram Periasamy</p>
         <p class="rec-card-role">Associate Manager, Accenture</p>
+        <p class="rec-row-tags"><span class="rec-tag" style="--tc:#fbbf24">Business &rarr; solutions</span><span class="rec-tag" style="--tc:#818cf8">Strategy</span></p>
       </div>
       <span class="rec-row-badge" style="background: linear-gradient(135deg, #1e40af, #2563eb);">Q4'23</span>
     </div>
@@ -11304,7 +11329,7 @@
         <div class="wizard-step" data-step="2">
           <p class="wizard-eyebrow">Step 3 of 3</p>
           <label class="wizard-question" for="wizard-message">What would you like to say?</label>
-          <textarea id="wizard-message" class="wizard-input wizard-textarea" rows="2"></textarea>
+          <textarea id="wizard-message" class="wizard-input wizard-textarea" rows="6"></textarea>
         </div>
         <div class="wizard-controls">
           <button type="button" class="wizard-back" id="wizard-back-btn">← Back</button>
@@ -12569,6 +12594,8 @@
   }
 
   // ── Recommendation spotlight carousel ──
+  window.REC_THEMES = {"edlyn-pangaro": ["Strategy", "Delivery"], "carolyn-hudson": ["Strategy", "Delivery"], "chandrashekhar-hajare": ["Delivery", "Collaboration"], "prag-ravichandran": ["Strategy", "Technical depth", "Collaboration"], "sri-kumaran-thirupathy": ["Product & AI", "Business → solutions"], "vivek-thomas": ["Business → solutions", "Delivery"], "muthamizhselvan-kalidoss": ["Product & AI", "Business → solutions"], "imthias-shaffiullah": ["Product & AI", "Delivery"], "rajesh-sundarraj": ["Business → solutions", "Collaboration"], "vigneshwaran-sivaprakasam": ["Business → solutions", "Collaboration"], "sneha-gayathri": ["Business → solutions", "Collaboration"], "ravi-vishwas": ["Strategy", "Technical depth"], "giridhar-golkonda": ["Strategy", "Technical depth"], "peter-dudek": ["Product & AI", "Technical depth"], "paul-atherton": ["Leadership", "Collaboration", "Delivery"], "denise-hurley": ["Leadership"], "narayanan-ramaswamy": ["Delivery", "Leadership"], "thukkaram-periasamy": ["Business → solutions", "Strategy"]};
+  window.REC_THEME_COLORS = {"Strategy": "#818cf8", "Delivery": "#34d399", "Collaboration": "#f472b6", "Technical depth": "#38bdf8", "Product & AI": "#a78bfa", "Business → solutions": "#fbbf24", "Leadership": "#fb923c"};
   const recSpotData = [
     { id: 'edlyn-pangaro', name: 'Edlyn Pangaro, PMP', role: 'IT Program Director | Global Regulatory Affairs Technology Business Partner', quote: 'Highly proactive, detail-oriented, and exceptionally customer-focused. Sankar quickly understands complex situations, thinks strategically, and consistently delivers high-quality results.', img: 'images/edlyn-pangaro.jpeg' },
     { id: 'carolyn-hudson', name: 'Carolyn Hudson, MBA', role: 'Program Director, Healthfirst', quote: 'His ability to blend high level strategy with practical execution helped the team deliver the highest ROI in less than four months post implementation.', img: 'images/carolyn-hudson.jpeg' },
@@ -12618,6 +12645,8 @@
         recQuoteEl.textContent = '“' + r.quote + '”';
         recNameEl.textContent = r.name;
         recRoleEl.textContent = r.role;
+        const recTagsEl = document.getElementById('rec-spot-tags');
+        if (recTagsEl) recTagsEl.innerHTML = (window.REC_THEMES && window.REC_THEMES[r.id] || []).map(t => '<span class="rec-tag" style="--tc:' + window.REC_THEME_COLORS[t] + '">' + t + '</span>').join('');
         renderRecAvatar(r);
         recQuoteEl.style.opacity = '1';
         recMetaEl.style.opacity = '1';
@@ -12661,6 +12690,7 @@
     const r0 = recSpotData[0];
     recQuoteEl.textContent = '“' + r0.quote + '”';
     recNameEl.textContent = r0.name;
+    { const t0 = document.getElementById('rec-spot-tags'); if (t0) t0.innerHTML = (window.REC_THEMES[r0.id] || []).map(t => '<span class="rec-tag" style="--tc:' + window.REC_THEME_COLORS[t] + '">' + t + '</span>').join(''); }
     recRoleEl.textContent = r0.role;
     renderRecAvatar(r0);
     recCounterBadgeEl.textContent = '1 / ' + recTotalCount;
@@ -15508,7 +15538,7 @@
   var grid=document.getElementById('skc-grid'); if(!grid) return;
   var cards=[].slice.call(grid.querySelectorAll('.skc-card')), q=document.getElementById('skc-q'), empty=document.getElementById('skc-empty');
   var tabs=[].slice.call(document.querySelectorAll('.skc-tab')), notes=[].slice.call(document.querySelectorAll('.skc-note')), pack='all';
-  var more=document.getElementById('skc-more'), expanded=false, CAP=8;
+  var more=document.getElementById('skc-more'), expanded=false, CAP=12;
   function run(){
     var t=(q.value||'').trim().toLowerCase(), shown=0, matched=0;
     var capped=!expanded&&pack==='all'&&!t&&window.innerWidth<600;
@@ -15650,8 +15680,18 @@
     var panel=document.getElementById('contact-wizard');
     if(panel && (panel.style.display==='none' || !panel.style.display) && typeof window.toggleContactWizard==='function') window.toggleContactWizard();
     var msg=document.getElementById('wizard-message');
-    if(msg) msg.value=b.dataset.msg;
+    if(msg){ msg.value=b.dataset.msg; msg.dispatchEvent(new Event('input')); }
   });
+})();
+</script>
+
+<script>
+/* Contact wizard: message box grows with its content (no scroll bar) */
+(function(){
+  var m=document.getElementById('wizard-message'); if(!m) return;
+  var fit=function(){ m.style.height='auto'; m.style.height=Math.max(150, m.scrollHeight+2)+'px'; };
+  m.addEventListener('input',fit); m.addEventListener('focus',fit);
+  window.addEventListener('resize',function(){ if(m.offsetParent) fit(); });
 })();
 </script>
 </body>
