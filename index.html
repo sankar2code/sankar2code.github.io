@@ -7318,8 +7318,8 @@
     .skc-notes { font-size:.8rem; color:var(--muted); margin:.7rem 0 .8rem; min-height:1.2em; }
     .skc-notes a { color:#38bdf8; font-weight:600; text-decoration:none; }
     .skc-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:.7rem; }
-    .skc-card { display:flex; align-items:flex-start; gap:.65rem; background:var(--card); border:1px solid var(--border); border-left:3px solid var(--pc); border-radius:12px; padding:.75rem .8rem; text-decoration:none; transition:transform .2s, border-color .2s, box-shadow .2s; min-width:0; }
-    .skc-card:hover { transform:translateY(-2px); border-color:var(--pc); box-shadow:0 8px 22px rgba(0,0,0,.18); }
+    .skc-card { display:flex; align-items:flex-start; gap:.65rem; background:var(--card); border:1px solid var(--border); border-left:3px solid color-mix(in srgb, var(--pc) 28%, var(--border)); border-radius:12px; padding:.75rem .8rem; text-decoration:none; transition:transform .2s, border-color .2s, box-shadow .2s; min-width:0; }
+    .skc-card:hover { transform:translateY(-2px); border-color:color-mix(in srgb, var(--pc) 45%, var(--border)); box-shadow:0 8px 22px rgba(0,0,0,.18); }
     .skc-card[hidden] { display:none; }
     .skc-ic { font-size:1.15rem; width:34px; height:34px; flex-shrink:0; display:grid; place-items:center; border-radius:9px; background:rgba(127,127,127,.1); }
     .skc-txt { flex:1; min-width:0; }
