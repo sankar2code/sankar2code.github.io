@@ -3451,9 +3451,76 @@
       background: transparent;
       transition: all 0.3s;
     }
-    .loop-step-chip { text-transform: capitalize; }
-    .loop-step-chip.done   { color: #7dd3fc; border-color: rgba(56,189,248,0.35); }
-    .loop-step-chip.active { background: #7dd3fc; color: #0b1220; border-color: #7dd3fc; font-weight: 700; }
+    .loop-steps { gap: 0.55rem 0.7rem; }
+    .loop-grp { display: flex; flex-direction: column; gap: 0.3rem; }
+    .loop-grp-label {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-family: 'Space Grotesk', monospace; font-size: 0.56rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--pc); padding-left: 0.15rem;
+    }
+    .loop-grp-label::after { content: ''; flex: 1; min-width: 14px; height: 2px; border-radius: 2px; background: color-mix(in srgb, var(--pc) 40%, transparent); }
+    .loop-grp-row { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+    .loop-step-chip { position: relative; overflow: hidden; display: inline-block; }
+    .loop-step-chip::first-letter { text-transform: uppercase; }
+    .loop-step-chip:hover { color: var(--white); border-color: color-mix(in srgb, var(--pc) 60%, transparent); }
+    .loop-step-chip.done   { color: var(--white); border-color: color-mix(in srgb, var(--pc) 50%, transparent); }
+    .loop-step-chip.active { background: var(--pc); color: #0b1220; border-color: var(--pc); font-weight: 700; }
+    .loop-fill { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: #0b1220; opacity: 0.4; pointer-events: none; }
+    .loop-card.is-playing .loop-step-chip.active .loop-fill { animation: loopFill var(--loop-dur, 8600ms) linear forwards; }
+    @keyframes loopFill { to { width: 100%; } }
+    .loop-ctrls { display: flex; gap: 0.3rem; }
+    .loop-track { display: none; }
+    .loop-head { margin-bottom: 0.15rem; }
+    .loop-head-l { display: flex; align-items: center; gap: 0.6rem; }
+    .loop-ring { position: relative; width: 34px; height: 34px; flex: none; }
+    .loop-ring svg { width: 34px; height: 34px; transform: rotate(-90deg); display: block; }
+    .loop-ring svg circle { transition: stroke-dasharray 0.5s ease, stroke 0.4s; }
+    .loop-ring .loop-ring-bg { stroke: var(--border); }
+    .loop-ring b { position: absolute; inset: 0; display: grid; place-items: center; font: 700 0.6rem 'Space Grotesk', monospace; color: var(--white); }
+    .loop-step-chip { display: inline-flex; align-items: center; gap: 0.3rem; }
+    .loop-ic { width: 12px; height: 12px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .loop-step-chip.done .loop-ic { color: var(--pc); }
+    .loop-detail-main { display: flex; gap: 1rem; align-items: center; }
+    .loop-detail-text { min-width: 0; flex: 1; }
+    .loop-scene {
+      width: 132px; height: 86px; flex: none; border-radius: 12px; overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--loop-pc, #7dd3fc) 35%, var(--border));
+      background: radial-gradient(circle at 50% 110%, color-mix(in srgb, var(--loop-pc, #7dd3fc) 22%, transparent), transparent 70%);
+      transition: border-color 0.4s;
+    }
+    .loop-scene svg { width: 100%; height: 100%; display: block; }
+    .ls-scan { animation: lsScan 3s ease-in-out infinite; }
+    .ls-write { stroke-dasharray: 60; animation: lsWrite 1.2s ease-out both; }
+    .ls-spin { animation: lsSpin 4s linear infinite; }
+    .ls-rev { animation-duration: 3s; animation-direction: reverse; }
+    .ls-bub { animation: lsBub 1.8s infinite; opacity: 0; }
+    .ls-launch { animation: lsLaunch 2.4s ease-in-out infinite; }
+    .ls-grow { animation: lsGrow 0.9s cubic-bezier(.34,1.4,.64,1) both; }
+    @keyframes lsScan { 0%,100% { transform: translate(0,0); } 50% { transform: translate(38px,6px); } }
+    @keyframes lsWrite { from { stroke-dashoffset: 60; } to { stroke-dashoffset: 0; } }
+    @keyframes lsSpin { to { transform: rotate(360deg); } }
+    @keyframes lsBub { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-26px); opacity: 0; } }
+    @keyframes lsLaunch { 0%,100% { transform: translateY(18px); } 60% { transform: translateY(-6px); } }
+    @keyframes lsGrow { from { transform: scaleY(.15); } to { transform: scaleY(1); } }
+    @media (prefers-reduced-motion: reduce) { .loop-scene * { animation: none !important; opacity: 1 !important; } }
+    @media (max-width: 520px) { .loop-scene { width: 96px; height: 64px; } .loop-detail-main { align-items: flex-start; gap: 0.75rem; } }
+    .loop-count b { color: var(--loop-pc, #38bdf8) !important; }
+    .loop-phase { color: var(--loop-pc, #a78bfa) !important; }
+    .loop-detail-side .loop-skills-label { margin-top: 0.75rem; }
+    .loop-skills { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .loop-skill {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.66rem; text-decoration: none;
+      color: var(--white); border-radius: 7px; padding: 0.2rem 0.6rem;
+      border: 1px solid color-mix(in srgb, var(--loop-pc, #7dd3fc) 45%, transparent);
+      background: color-mix(in srgb, var(--loop-pc, #7dd3fc) 10%, transparent);
+      transition: background 0.2s;
+    }
+    .loop-skill:hover { background: color-mix(in srgb, var(--loop-pc, #7dd3fc) 22%, transparent); }
+    html.light .loop-grp-label { color: color-mix(in srgb, var(--pc) 65%, #000); }
+    html.light .loop-step-chip.done { color: #1e1b2e; }
+    html.light .loop-count b, html.light .loop-phase { color: color-mix(in srgb, var(--loop-pc, #1d4ed8) 65%, #000) !important; }
+    html.light .loop-skill { color: #1e1b2e; }
+    @media (prefers-reduced-motion: reduce) { .loop-card.is-playing .loop-step-chip.active .loop-fill { animation: none; } }
 
     .loop-detail {
       display: grid;
@@ -7997,8 +8064,15 @@
   <!-- THE LOOP - how I build with AI -->
   <div class="loop-card reveal">
     <div class="loop-head">
-      <span class="loop-eyebrow">The Loop · How I build with AI</span>
-      <button type="button" class="loop-toggle" id="loop-toggle" aria-label="Pause the loop">&#10073;&#10073;</button>
+      <div class="loop-head-l">
+        <span class="loop-ring" id="loop-ring" aria-hidden="true"></span>
+        <span class="loop-eyebrow">The Loop · How I build with AI</span>
+      </div>
+      <div class="loop-ctrls">
+        <button type="button" class="loop-toggle loop-nav" id="loop-prev" aria-label="Previous step">&#8249;</button>
+        <button type="button" class="loop-toggle" id="loop-toggle" aria-label="Pause the loop">&#10073;&#10073;</button>
+        <button type="button" class="loop-toggle loop-nav" id="loop-next" aria-label="Next step">&#8250;</button>
+      </div>
     </div>
 
     <div class="loop-track">
@@ -8027,15 +8101,20 @@
 
     <div class="loop-detail">
       <div class="loop-detail-main">
+        <div class="loop-scene" id="loop-scene" aria-hidden="true"></div>
+        <div class="loop-detail-text">
         <p class="loop-count"><b id="loop-num">01</b><span> / 12 · </span><span class="loop-phase" id="loop-phase"></span></p>
         <p class="loop-step-title" id="loop-title"></p>
         <p class="loop-step-desc" id="loop-desc"></p>
+        </div>
       </div>
       <div class="loop-detail-side">
         <p class="loop-side-label">I produce</p>
         <p class="loop-artifact" id="loop-art"></p>
         <p class="loop-side-label">I measure</p>
         <div class="loop-chips" id="loop-chips"></div>
+        <p class="loop-side-label loop-skills-label">Skills I use here</p>
+        <div class="loop-skills" id="loop-skills"></div>
       </div>
     </div>
   </div>
@@ -13926,6 +14005,34 @@
     { k: 'learn',      p: 'Learn',    t: 'close the loop',         d: 'I watch real usage, log where it disappoints, and feed that into the next increment.',           a: 'Usage insights + next backlog',        m: ['Adoption', 'Task Completion', 'CSAT'] }
   ];
 
+  const LOOP_SKILL_URL = {"Question Framing": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/analytics-question-framing/SKILL.md", "Market Research": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/market-research/SKILL.md", "User Research": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/user-research/SKILL.md", "Opportunity Sizing": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/opportunity-sizing/SKILL.md", "PRD Writer": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-writer/SKILL.md", "PRD Evaluator": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-evaluator/SKILL.md", "PRD Red-Team Reviewer": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/prd-red-team-reviewer.md", "Clinical AI Evaluation": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/clinical-ai-evaluation-design/SKILL.md", "Mockup Generator": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/mockup-generator.md", "Frontend Setup": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/frontend-setup/SKILL.md", "Feature Builder": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/feature-builder.md", "Security Foundation": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/security-foundation/SKILL.md", "GxP / Part 11 Checker": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/gxp-part11-checker/SKILL.md", "AI Eval Builder": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/ai-eval-builder.md", "Security & Compliance Auditor": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/security-compliance-auditor.md", "Release Notes Writer": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/release-notes-writer.md", "Backlog Builder": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/backlog-builder.md", "Metric Root Cause": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/metric-root-cause/SKILL.md", "Cohort Retention": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/cohort-retention/SKILL.md", "Insight Storyteller": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/insight-storyteller/SKILL.md"};
+  const LOOP_SKILLS = {"frame": ["Question Framing", "Market Research"], "users": ["User Research"], "size": ["Opportunity Sizing", "Market Research"], "PRD": ["PRD Writer", "PRD Evaluator", "PRD Red-Team Reviewer"], "HHH bar": ["Clinical AI Evaluation"], "prototype": ["Mockup Generator", "Frontend Setup", "Feature Builder"], "guardrails": ["Security Foundation", "GxP / Part 11 Checker"], "eval set": ["AI Eval Builder"], "evals": ["AI Eval Builder", "Clinical AI Evaluation"], "red team": ["Security & Compliance Auditor"], "ship": ["Release Notes Writer", "Backlog Builder"], "learn": ["Metric Root Cause", "Cohort Retention", "Insight Storyteller"]};
+  const PHASE_C = { Discover:'#a78bfa', Define:'#818cf8', Build:'#38bdf8', Validate:'#34d399', Ship:'#fbbf24', Learn:'#f472b6' };
+
+  const LOOP_IC = {
+    frame: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+    users: '<path d="M4 5h16v10H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
+    size: '<path d="M4 20V4"/><path d="M4 20h16"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/>',
+    PRD: '<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h7M9 16h5"/>',
+    'HHH bar': '<path d="M12 4v16M6 20h12"/><path d="M5 8h14"/><path d="M5 8l-3 6h6zM19 8l-3 6h6z"/>',
+    prototype: '<path d="M14.5 6.5a4 4 0 0 0 5 5L12 19a2.1 2.1 0 0 1-3-3l7.5-7.5a4 4 0 0 0-2-2z"/>',
+    guardrails: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+    'eval set': '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/>',
+    evals: '<path d="M9 3h6M10 3v6L4 19a1.5 1.5 0 0 0 1.3 2h13.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/><path d="M7 15h10"/>',
+    'red team': '<path d="M3 8c3-2 15-2 18 0 0 6-3 9-5 9-2 0-2.5-2-4-2s-2 2-4 2c-2 0-5-3-5-9z"/><circle cx="8.5" cy="11" r="1.3"/><circle cx="15.5" cy="11" r="1.3"/>',
+    ship: '<path d="M12 3c3 2 5 6 4 11l-4 3-4-3c-1-5 1-9 4-11z"/><circle cx="12" cy="9" r="1.6"/><path d="M8 14l-3 2 1 3 3-1M16 14l3 2-1 3-3-1"/>',
+    learn: '<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>'
+  };
+  const LOOP_SCENE = {
+    Discover: c => '<svg viewBox="0 0 150 96"><g fill="' + c + '" opacity=".55"><circle cx="40" cy="40" r="4"/><circle cx="62" cy="58" r="4"/><circle cx="84" cy="36" r="4"/><circle cx="104" cy="60" r="4"/></g><g class="ls-scan"><circle cx="48" cy="44" r="15" fill="none" stroke="' + c + '" stroke-width="3"/><path d="M59 55l12 12" stroke="' + c + '" stroke-width="4" stroke-linecap="round"/></g></svg>',
+    Define: c => '<svg viewBox="0 0 150 96"><rect x="40" y="14" width="64" height="70" rx="6" fill="none" stroke="' + c + '" stroke-width="2.5" opacity=".7"/><g stroke="' + c + '" stroke-width="3" stroke-linecap="round"><path class="ls-write" d="M50 32h44"/><path class="ls-write" style="animation-delay:.5s" d="M50 46h36"/><path class="ls-write" style="animation-delay:1s" d="M50 60h40"/></g><path d="M100 64l12-30 6 3-12 30z" fill="' + c + '"/></svg>',
+    Build: c => '<svg viewBox="0 0 150 96"><g class="ls-spin" style="transform-origin:62px 50px"><circle cx="62" cy="50" r="18" fill="none" stroke="' + c + '" stroke-width="7" stroke-dasharray="8 6"/><circle cx="62" cy="50" r="7" fill="' + c + '"/></g><g class="ls-spin ls-rev" style="transform-origin:96px 38px"><circle cx="96" cy="38" r="11" fill="none" stroke="' + c + '" stroke-width="5" stroke-dasharray="5 4" opacity=".7"/></g></svg>',
+    Validate: c => '<svg viewBox="0 0 150 96"><path d="M64 14h22M68 14v22L50 74a5 5 0 0 0 4.5 7h41a5 5 0 0 0 4.5-7L82 36V14" fill="none" stroke="' + c + '" stroke-width="3" stroke-linejoin="round"/><path d="M57 62h36l7 12a3 3 0 0 1-2.7 5H53a3 3 0 0 1-2.7-5z" fill="' + c + '" opacity=".5"/>' + [0, .6, 1.2].map((d, k) => '<circle class="ls-bub" style="animation-delay:' + d + 's" cx="' + (68 + k * 7) + '" cy="64" r="2.6" fill="' + c + '"/>').join('') + '</svg>',
+    Ship: c => '<svg viewBox="0 0 150 96"><g class="ls-launch"><path d="M75 12c9 6 13 18 10 32l-10 8-10-8c-3-14 1-26 10-32z" fill="none" stroke="' + c + '" stroke-width="3"/><circle cx="75" cy="28" r="4" fill="' + c + '"/><path d="M69 56l6 14 6-14" fill="' + c + '" opacity=".6"/></g><path d="M30 88h90" stroke="' + c + '" stroke-width="2" opacity=".4"/></svg>',
+    Learn: c => '<svg viewBox="0 0 150 96"><path d="M30 84h96" stroke="' + c + '" stroke-width="2" opacity=".5"/>' + [[40, 22], [62, 34], [84, 48], [106, 62]].map(([x, h], k) => '<rect class="ls-grow" style="transform-origin:' + x + 'px 84px;animation-delay:' + (k * 0.15) + 's" x="' + x + '" y="' + (84 - h) + '" width="14" height="' + h + '" rx="3" fill="' + c + '" opacity="' + (0.45 + k * 0.15) + '"/>').join('') + '<path d="M38 56l24-12 22 6 30-26" fill="none" stroke="' + c + '" stroke-width="2.5" stroke-dasharray="4 3"/></svg>'
+  };
+  let lastScene = null;
+
   const DUR = 8600;
   const wrap    = document.getElementById('loop-steps');
   const numEl   = document.getElementById('loop-num');
@@ -13940,13 +14047,36 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let i = 0, timer = null, typer = null, playing = false, seen = false, userPaused = false;
 
+  const chipEls = [];
+  let grp = null, lastP = null;
   steps.forEach((s, n) => {
-    const e = document.createElement('span');
+    if (s.p !== lastP) {
+      lastP = s.p;
+      grp = document.createElement('div');
+      grp.className = 'loop-grp';
+      grp.style.setProperty('--pc', PHASE_C[s.p] || '#7dd3fc');
+      grp.innerHTML = '<span class="loop-grp-label">' + s.p + '</span><div class="loop-grp-row"></div>';
+      wrap.appendChild(grp);
+    }
+    const e = document.createElement('button');
+    e.type = 'button';
     e.className = 'loop-step-chip';
-    e.textContent = s.k;
+    e.style.setProperty('--pc', PHASE_C[s.p] || '#7dd3fc');
+    e.innerHTML = '<svg class="loop-ic" viewBox="0 0 24 24" aria-hidden="true">' + (LOOP_IC[s.k] || '') + '</svg>';
+    e.appendChild(document.createTextNode(s.t.charAt(0).toUpperCase() + s.t.slice(1)));
+    const f = document.createElement('span');
+    f.className = 'loop-fill';
+    e.appendChild(f);
     e.addEventListener('click', () => { userPaused = true; pause(); i = n; render(); });
-    wrap.appendChild(e);
+    grp.lastChild.appendChild(e);
+    chipEls.push(e);
   });
+  card.style.setProperty('--loop-dur', DUR + 'ms');
+  function restartFill() {
+    const f = chipEls[i] && chipEls[i].querySelector('.loop-fill');
+    if (!f) return;
+    f.style.animation = 'none'; void f.offsetWidth; f.style.animation = '';
+  }
 
   function type(el, txt) {
     clearInterval(typer);
@@ -13967,13 +14097,43 @@
     artEl.textContent = s.a;
     type(descEl, s.d);
 
-    Array.prototype.forEach.call(wrap.children, (e, n) => {
+    const pc = PHASE_C[s.p] || '#7dd3fc';
+    card.style.setProperty('--loop-pc', pc);
+    chipEls.forEach((e, n) => {
       e.classList.toggle('active', n === i);
       e.classList.toggle('done', n < i);
     });
+    restartFill();
 
-    const el = wrap.children[i];
-    if (el) botEl.style.left = Math.max(0, el.offsetLeft + el.offsetWidth / 2 - 12) + 'px';
+    const sceneEl = document.getElementById('loop-scene');
+    if (sceneEl && lastScene !== s.p) {
+      lastScene = s.p;
+      sceneEl.innerHTML = (LOOP_SCENE[s.p] || LOOP_SCENE.Discover)(pc);
+    }
+    const ringEl = document.getElementById('loop-ring');
+    if (ringEl) {
+      const C = 2 * Math.PI * 14, f = (i + 1) / steps.length;
+      ringEl.innerHTML = '<svg viewBox="0 0 34 34"><circle cx="17" cy="17" r="14" fill="none" class="loop-ring-bg" stroke-width="3.5"/><circle cx="17" cy="17" r="14" fill="none" stroke="' + pc + '" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="' + (C * f).toFixed(1) + ' ' + C.toFixed(1) + '"/></svg><b>' + String(i + 1).padStart(2, '0') + '</b>';
+    }
+
+    const el = chipEls[i];
+    if (el) {
+      const tr = botEl.parentElement.getBoundingClientRect(), er = el.getBoundingClientRect();
+      botEl.style.left = Math.max(0, er.left - tr.left + er.width / 2 - 12) + 'px';
+    }
+
+    const skEl = document.getElementById('loop-skills');
+    if (skEl) {
+      skEl.innerHTML = '';
+      (LOOP_SKILLS[s.k] || []).forEach((nm) => {
+        const a = document.createElement('a');
+        a.className = 'loop-skill';
+        a.href = LOOP_SKILL_URL[nm] || '#skills';
+        a.target = '_blank'; a.rel = 'noopener';
+        a.textContent = '\u26A1 ' + nm;
+        skEl.appendChild(a);
+      });
+    }
 
     chipsEl.innerHTML = '';
     s.m.forEach((m) => {
@@ -13988,6 +14148,8 @@
     if (timer) clearInterval(timer);
     timer = setInterval(() => { i = (i + 1) % steps.length; render(); }, DUR);
     playing = true;
+    card.classList.add('is-playing');
+    restartFill();
     btn.innerHTML = '&#10073;&#10073;';
     btn.setAttribute('aria-label', 'Pause the loop');
   }
@@ -13996,9 +14158,16 @@
     clearInterval(timer);
     timer = null;
     playing = false;
+    card.classList.remove('is-playing');
     btn.innerHTML = '&#9654;';
     btn.setAttribute('aria-label', 'Play the loop');
   }
+
+  const goStep = (d) => { userPaused = true; pause(); i = (i + d + steps.length) % steps.length; render(); };
+  const prevB = document.getElementById('loop-prev'), nextB = document.getElementById('loop-next');
+  if (prevB) prevB.addEventListener('click', () => goStep(-1));
+  if (nextB) nextB.addEventListener('click', () => goStep(1));
+  window.addEventListener('resize', () => { const el = chipEls[i]; if (el) { const tr = botEl.parentElement.getBoundingClientRect(), er = el.getBoundingClientRect(); botEl.style.left = Math.max(0, er.left - tr.left + er.width / 2 - 12) + 'px'; } });
 
   btn.addEventListener('click', () => {
     if (playing) { userPaused = true; pause(); }
