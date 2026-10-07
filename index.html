@@ -5395,8 +5395,11 @@
     .career-ascent {
       position: relative;
       max-width: 700px;
-      margin: 0 auto 1.75rem;
+      margin: 0 auto 3.25rem; /* room for role cards that sit below the year/location labels */
     }
+    @media (max-width: 640px) { .career-ascent { margin-bottom: 4.75rem; } }
+    .ascent-replay { transition: opacity .25s; }
+    .career-ascent.climbing + .ascent-replay { opacity: 0; pointer-events: none; }
 
     .ascent-svg { width: 100%; height: auto; display: block; }
 
@@ -6342,7 +6345,8 @@
       border-bottom-color: #38bdf8;
     }
 
-    .wizard-textarea { min-height: 54px; }
+    .wizard-textarea { min-height: 150px; line-height: 1.55; text-align: left; resize: none; overflow: hidden; border: 1px solid rgba(56,189,248,0.3); border-radius: 12px; padding: 0.7rem 0.85rem; background: rgba(56,189,248,0.04); }
+    .wizard-textarea:focus { border-color: #38bdf8; }
 
     .wizard-controls {
       display: flex;
@@ -7420,6 +7424,26 @@
     html.light .hif-overlay { background:rgba(15,23,42,.45); }
     html.light .hif-box { background:#f8fafc; }
     html.light .hif-pill, html.light .hif-detail, html.light .hif-acc details, html.light .hif-seg, html.light .hif-x { background:#ffffff; }
+  
+    /* Say Hello: availability strip + intent picker */
+    .ch-avail { display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; margin:.4rem 0 1.4rem; }
+    .ch-pill { display:inline-flex; align-items:center; gap:.4rem; font-size:.8rem; color:var(--muted); font-weight:500; padding:.35rem .85rem; border:1px solid var(--border); border-radius:999px; background:rgba(37,99,235,.06); }
+    .ch-pill b { color:var(--white); font-weight:700; }
+    .ch-dot { width:8px; height:8px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 0 rgba(34,197,94,.55); animation:chPulse 1.8s infinite; }
+    @keyframes chPulse { 70% { box-shadow:0 0 0 7px rgba(34,197,94,0); } 100% { box-shadow:0 0 0 0 rgba(34,197,94,0); } }
+    @media (prefers-reduced-motion: reduce) { .ch-dot { animation:none; } }
+    .ch-ask { font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--white); font-size:1rem; margin:0 0 .7rem; }
+    #contact .contact-card .ch-ask { color:var(--white); margin:0 0 .7rem; max-width:none; }
+    .ch-intents { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:.6rem; max-width:560px; margin:0 auto 1.3rem; text-align:left; }
+    .ch-intent { display:grid; grid-template-columns:auto 1fr; column-gap:.65rem; align-items:center; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:.75rem .9rem; cursor:pointer; font:inherit; color:inherit; text-align:left; transition:transform .2s, border-color .2s, box-shadow .2s; }
+    .ch-intent i { grid-row:span 2; font-style:normal; font-size:1.25rem; }
+    .ch-intent b { color:var(--white); font-size:.88rem; }
+    .ch-intent small { color:var(--muted); font-size:.74rem; }
+    .ch-intent:hover, .ch-intent.on { transform:translateY(-2px); border-color:rgba(99,102,241,.7); box-shadow:0 10px 24px rgba(99,102,241,.18); }
+    .ch-intent:focus-visible { outline:2px solid #818cf8; outline-offset:2px; }
+    html.light .ch-intent { background:#fff; }
+    html.light .ch-pill { background:rgba(37,99,235,.05); }
+    @media (max-width:520px) { .ch-intents { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -11238,13 +11262,22 @@
     <h2>Let's Build AI Products<br/><span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Together</span> <span class="wave-glow">👋</span></h2>
 
     <div class="contact-desc">
-      <p>I love turning bold ideas into AI and data products that people genuinely enjoy using. I thrive on building great teams, tearing down silos, and shipping things that make a real difference for both the business and the people who use them.</p>
-      <p>Want to geek out over AI product strategy, LLM and agentic apps, ML-driven platforms, or enterprise SaaS? Or just feel like saying hi? I'd absolutely love that. 😊 Reach out anytime. My inbox is always open, and I can't wait to connect!</p>
+      <p>I turn bold ideas into AI products people actually use, especially in healthcare and life sciences.</p>
+      <p>Hiring for an AI PM, building something agentic, or just curious about my work? I reply to every message.</p>
     </div>
 
-    <div class="contact-location">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      🇺🇸 New York / New Jersey, USA
+    <div class="ch-avail" aria-label="Availability">
+      <span class="ch-pill"><i class="ch-dot" aria-hidden="true"></i>Open to AI PM roles</span>
+      <span class="ch-pill">📍 New York / New Jersey · <b id="ch-time">ET</b></span>
+      <span class="ch-pill">⚡ Replies within 24h</span>
+    </div>
+
+    <p class="ch-ask">What brings you here?</p>
+    <div class="ch-intents" id="ch-intents">
+      <button type="button" class="ch-intent" data-tag="Hiring" data-msg="Hi Sankar, I'm hiring for a [role] on our [team] at [company]. Your work on [project] caught my eye. Are you open to a quick chat this week?"><i aria-hidden="true">💼</i><b>I'm hiring</b><small>AI PM / Product Owner roles</small></button>
+      <button type="button" class="ch-intent" data-tag="Collaboration" data-msg="Hi Sankar, I'm working on [idea] and think your experience with agentic AI and regulated products could help. Would you like to explore it?"><i aria-hidden="true">🤝</i><b>Let's build something</b><small>Projects, pilots, advisory</small></button>
+      <button type="button" class="ch-intent" data-tag="Skills kit" data-msg="Hi Sankar, I tried your [skill / sub-agent] from the Claude skills collection and wanted to share feedback / ask about…"><i aria-hidden="true">🧰</i><b>About your skills kit</b><small>Feedback, questions, ideas</small></button>
+      <button type="button" class="ch-intent" data-tag="Hello" data-msg="Hi Sankar, just wanted to say hello. I enjoyed your post on…"><i aria-hidden="true">👋</i><b>Just saying hi</b><small>Always welcome</small></button>
     </div>
 
     <button type="button" class="contact-form-toggle" id="contact-form-toggle-btn" onclick="toggleContactWizard()">
@@ -11272,7 +11305,7 @@
         <div class="wizard-step" data-step="2">
           <p class="wizard-eyebrow">Step 3 of 3</p>
           <label class="wizard-question" for="wizard-message">What would you like to say?</label>
-          <textarea id="wizard-message" class="wizard-input wizard-textarea" rows="2"></textarea>
+          <textarea id="wizard-message" class="wizard-input wizard-textarea" rows="6"></textarea>
         </div>
         <div class="wizard-controls">
           <button type="button" class="wizard-back" id="wizard-back-btn">← Back</button>
@@ -13026,7 +13059,7 @@
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `Portfolio contact from ${name}`,
+          subject: (window.__contactIntent ? '[' + window.__contactIntent + '] ' : '') + `Portfolio contact from ${name}`,
           name,
           email,
           message,
@@ -15315,6 +15348,8 @@
   ];
   const XS = [65, 155, 245, 335, 425, 515, 620];
   const steps = [...box.querySelectorAll('.ascent-step')];
+  const locs = [...box.querySelectorAll('.ascent-svg text.ascent-loc')];
+  const texts = [...box.querySelectorAll('.ascent-svg text')];
   const card = document.createElement('div'); card.className = 'ascent-card'; card.setAttribute('aria-hidden', 'true'); box.appendChild(card);
   const L = base.getTotalLength();
   const stops = XS.map((x) => { let lo = 0, hi = L; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; if (base.getPointAtLength(m).x < x) lo = m; else hi = m; } return lo; });
@@ -15327,10 +15362,18 @@
     // left steps: card above (empty sky); right steps: card below (empty space under the stairs)
     const below = i >= 3;
     card.classList.toggle('below', below);
-    const y = st ? st.offsetTop + (below ? 14 : -8) : 0;
+    // below: start under this step's year + location labels so they stay readable
+    let y = st ? st.offsetTop + (below ? 14 : -8) : 0;
+    if (below && locs[i]) { const lr = locs[i].getBoundingClientRect(), br = box.getBoundingClientRect(); y = Math.max(y, lr.bottom - br.top - 8); }
     card.classList.add('on');
     const cw = card.offsetWidth, half = cw / 2;
-    card.style.left = below ? Math.max(4, Math.min(bw - cw - 4, x - cw * 0.15)) + 'px' : Math.max(half, Math.min(bw - half, x)) + 'px';
+    const left = below ? Math.max(4, Math.min(bw - cw - 4, x - cw * 0.15)) : Math.max(half, Math.min(bw - half, x));
+    card.style.left = left + 'px';
+    if (below) {
+      // also clear any other year/location labels under the card's width (e.g. the step to its left)
+      const br = box.getBoundingClientRect(), l0 = br.left + left, l1 = l0 + cw;
+      texts.forEach((t) => { const r = t.getBoundingClientRect(); if (r.right > l0 && r.left < l1) y = Math.max(y, r.bottom - br.top - 8); });
+    }
     card.style.top = y + 'px';
   }
   function play() {
@@ -15592,6 +15635,34 @@
   openBtn.addEventListener('click',open);
   document.getElementById('hif-close').addEventListener('click',close);
   ov.addEventListener('click',function(e){ if(e.target===ov) close(); });
+})();
+</script>
+
+<script>
+/* Say Hello: live ET clock + intent picker that pre-fills the contact wizard */
+(function(){
+  var t=document.getElementById('ch-time');
+  if(t){ var tick=function(){ try{ t.textContent=new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})+' ET'; }catch(e){} }; tick(); setInterval(tick,30000); }
+  var box=document.getElementById('ch-intents'); if(!box) return;
+  box.addEventListener('click',function(e){
+    var b=e.target.closest('.ch-intent'); if(!b) return;
+    [].forEach.call(box.querySelectorAll('.ch-intent'),function(x){ x.classList.toggle('on', x===b); x.setAttribute('aria-pressed', x===b); });
+    window.__contactIntent=b.dataset.tag;
+    var panel=document.getElementById('contact-wizard');
+    if(panel && (panel.style.display==='none' || !panel.style.display) && typeof window.toggleContactWizard==='function') window.toggleContactWizard();
+    var msg=document.getElementById('wizard-message');
+    if(msg){ msg.value=b.dataset.msg; msg.dispatchEvent(new Event('input')); }
+  });
+})();
+</script>
+
+<script>
+/* Contact wizard: message box grows with its content (no scroll bar) */
+(function(){
+  var m=document.getElementById('wizard-message'); if(!m) return;
+  var fit=function(){ m.style.height='auto'; m.style.height=Math.max(150, m.scrollHeight+2)+'px'; };
+  m.addEventListener('input',fit); m.addEventListener('focus',fit);
+  window.addEventListener('resize',function(){ if(m.offsetParent) fit(); });
 })();
 </script>
 </body>
