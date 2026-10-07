@@ -7318,8 +7318,8 @@
     .skc-notes { font-size:.8rem; color:var(--muted); margin:.7rem 0 .8rem; min-height:1.2em; }
     .skc-notes a { color:#38bdf8; font-weight:600; text-decoration:none; }
     .skc-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:.7rem; }
-    .skc-card { display:flex; align-items:flex-start; gap:.65rem; background:var(--card); border:1px solid var(--border); border-left:3px solid var(--pc); border-radius:12px; padding:.75rem .8rem; text-decoration:none; transition:transform .2s, border-color .2s, box-shadow .2s; min-width:0; }
-    .skc-card:hover { transform:translateY(-2px); border-color:var(--pc); box-shadow:0 8px 22px rgba(0,0,0,.18); }
+    .skc-card { display:flex; align-items:flex-start; gap:.65rem; background:var(--card); border:1px solid var(--border); border-left:3px solid color-mix(in srgb, var(--pc) 28%, var(--border)); border-radius:12px; padding:.75rem .8rem; text-decoration:none; transition:transform .2s, border-color .2s, box-shadow .2s; min-width:0; }
+    .skc-card:hover { transform:translateY(-2px); border-color:color-mix(in srgb, var(--pc) 45%, var(--border)); box-shadow:0 8px 22px rgba(0,0,0,.18); }
     .skc-card[hidden] { display:none; }
     .skc-ic { font-size:1.15rem; width:34px; height:34px; flex-shrink:0; display:grid; place-items:center; border-radius:9px; background:rgba(127,127,127,.1); }
     .skc-txt { flex:1; min-width:0; }
@@ -7337,6 +7337,86 @@
     .skc-more[hidden] { display:none; }
     @media (max-width:760px){ .skc-hero { grid-template-columns:1fr; padding:1.1rem; } .skc-search { max-width:none; } }
     @media (max-width:420px){ .skc-stats { flex-wrap:wrap; } .skc-stats div { flex:1 1 40%; } .skc-grid { grid-template-columns:1fr; } }
+  
+    /* How it fits together pop-up */
+    .hif-overlay { position:fixed; inset:0; z-index:10050; background:rgba(3,3,10,.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:flex; align-items:flex-start; justify-content:center; padding:4vh 16px; overflow-y:auto; opacity:0; transition:opacity .2s; }
+    .hif-overlay[hidden] { display:none; }
+    .hif-overlay.open { opacity:1; }
+    body.hif-lock { overflow:hidden; }
+    .hif-box { width:min(1120px,100%); background:var(--bg2, #0d0d1a); border:1px solid rgba(56,189,248,.28); border-radius:20px; padding:20px; box-shadow:0 30px 80px rgba(0,0,0,.5); transform:translateY(10px); transition:transform .25s; outline:none; }
+    .hif-overlay.open .hif-box { transform:none; }
+    .hif-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+    .hif-top h3 { font-family:'Space Grotesk',sans-serif; font-size:1.25rem; color:var(--white); }
+    .hif-top p { font-size:.82rem; color:var(--muted); }
+    .hif-ctl { display:flex; align-items:center; gap:8px; }
+    .hif-seg { display:inline-flex; background:var(--card); border:1px solid var(--border); border-radius:999px; padding:3px; }
+    .hif-seg button { font:600 .74rem Inter,sans-serif; color:var(--muted); background:none; border:0; border-radius:999px; padding:5px 11px; cursor:pointer; }
+    .hif-seg button.on { background:var(--grad2); color:#fff; }
+    .hif-x { width:34px; height:34px; border-radius:50%; border:1px solid var(--border); background:var(--card); color:var(--white); font-size:.95rem; cursor:pointer; }
+    .hif-x:hover { border-color:rgba(56,189,248,.6); }
+    .hif-legend { display:flex; gap:14px; flex-wrap:wrap; font-size:.72rem; color:var(--muted); margin:10px 0 16px; }
+    .hif-legend span { display:inline-flex; align-items:center; gap:6px; }
+    .hif-ls { width:22px; border-top:2px solid #a78bfa; } .hif-ld { width:22px; border-top:2px dashed #38bdf8; }
+    .hif-ro { font-style:normal; font-size:.56rem; font-weight:800; color:#22c55e; border:1px solid rgba(34,197,94,.5); border-radius:999px; padding:0 5px; }
+    .hif-map { display:grid; grid-template-columns:150px minmax(0,1fr) minmax(0,1.05fr); column-gap:70px; position:relative; }
+    .hif-colh { font:800 .64rem Inter,sans-serif; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+    .hif-you { text-align:center; font-size:.72rem; color:var(--muted); margin-bottom:8px; }
+    .hif-claude { position:sticky; top:0; background:linear-gradient(135deg,rgba(37,99,235,.36),rgba(56,189,248,.1)); border:1px solid rgba(56,189,248,.55); border-radius:16px; padding:14px 10px; text-align:center; cursor:pointer; z-index:2; transition:box-shadow .2s; }
+    .hif-claude.on { box-shadow:0 0 0 3px rgba(56,189,248,.25); }
+    .hif-big { font-size:1.9rem; } .hif-claude b { display:block; color:var(--white); font:700 1rem 'Space Grotesk',sans-serif; } .hif-claude small { display:block; font-size:.7rem; color:var(--muted); } .hif-claude .hif-c2 { color:#38bdf8; margin-top:6px; }
+    .hif-grp { font:700 .6rem Inter,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:10px 0 5px; display:flex; align-items:center; gap:6px; }
+    .hif-grp:first-child { margin-top:0; }
+    .hif-grp i { width:7px; height:7px; border-radius:50%; }
+    .hif-pill { display:flex; align-items:center; gap:7px; width:100%; text-align:left; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:6px 9px; margin-bottom:5px; font:500 .76rem Inter,sans-serif; color:var(--white); cursor:pointer; transition:opacity .2s, border-color .2s, box-shadow .2s, transform .2s; position:relative; z-index:2; }
+    .hif-pill .e { font-style:normal; width:18px; text-align:center; flex-shrink:0; }
+    .hif-pill .nm { flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .hif-pill .n { font-size:.62rem; color:var(--muted); background:rgba(127,127,127,.12); border-radius:999px; padding:0 6px; }
+    .hif-pill.ag { border-left:3px solid color-mix(in srgb,#fbbf24 40%,var(--border)); }
+    .hif-pill.sk { border-left:3px solid color-mix(in srgb,var(--pc) 32%,var(--border)); }
+    .hif-pill.on { transform:translateX(2px); border-color:var(--hl); box-shadow:0 0 0 3px color-mix(in srgb,var(--hl) 22%,transparent); }
+    .hif-pill.ag.on { --hl:#fbbf24; } .hif-pill.sk.on { --hl:var(--pc); }
+    .hif-pill.dim { opacity:.28; }
+    .hif-pill.pin::after { content:"📌"; position:absolute; right:-9px; top:-9px; font-size:.72rem; filter:drop-shadow(0 1px 2px rgba(0,0,0,.4)); }
+    .hif-hint { font-size:.72rem; color:var(--muted); margin:-6px 0 12px; }
+    .hif-pinned + .hif-acc + .hif-detail { border-color:rgba(56,189,248,.5); }
+    .hif-lines { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; overflow:visible; }
+    .hif-lines path { fill:none; stroke-width:1.8; opacity:0; transition:opacity .25s; }
+    .hif-lines path.uses { stroke:#a78bfa; } .hif-lines path.input { stroke:#38bdf8; stroke-dasharray:5 4; } .hif-lines path.lead { stroke:rgba(56,189,248,.5); stroke-width:1.2; }
+    .hif-lines path.show { opacity:.85; } .hif-lines path.faint { opacity:.14; }
+    .hif-detail { margin-top:18px; background:var(--card); border:1px solid rgba(56,189,248,.28); border-radius:16px; padding:16px 18px; display:grid; grid-template-columns:1.2fr 1fr; gap:18px; }
+    .hif-tags { display:flex; gap:6px; flex-wrap:wrap; }
+    .hif-tags span { font-size:.62rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; border-radius:999px; padding:2px 8px; border:1px solid var(--border); color:var(--muted); }
+    .hif-detail h4 { font-family:'Space Grotesk',sans-serif; font-size:1.12rem; color:var(--white); margin:8px 0 4px; }
+    .hif-detail .lead { font-size:.84rem; color:var(--text-body, var(--muted)); }
+    .hif-io { display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:center; margin-top:12px; }
+    .hif-io > div { background:rgba(127,127,127,.07); border:1px solid var(--border); border-radius:10px; padding:8px 10px; font-size:.74rem; color:var(--white); }
+    .hif-io > div b { display:block; font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
+    .hif-io > span { color:var(--muted); }
+    .hif-lbl { font-size:.6rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:12px 0 5px; }
+    .hif-lbl:first-child { margin-top:0; }
+    .hif-chips { display:flex; flex-wrap:wrap; gap:5px; }
+    .hif-chips span { font-size:.72rem; border-radius:8px; padding:3px 8px; background:rgba(127,127,127,.08); border:1px solid var(--border); color:var(--white); }
+    .hif-chips span.u { border-color:rgba(167,139,250,.5); } .hif-chips span.i { border-style:dashed; border-color:rgba(56,189,248,.6); }
+    .hif-ask { font-size:.8rem; color:var(--white); background:rgba(56,189,248,.08); border-left:3px solid #38bdf8; border-radius:6px; padding:7px 10px; }
+    .hif-links { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+    .hif-links a, .hif-links button { font:700 .74rem Inter,sans-serif; color:var(--white); border-radius:999px; padding:6px 12px; border:1px solid var(--border); background:rgba(127,127,127,.06); text-decoration:none; cursor:pointer; }
+    .hif-links .pri { background:var(--grad2); border-color:transparent; color:#fff; }
+    .hif-acc { display:none; }
+    .hif-mclaude { display:flex; gap:10px; align-items:center; background:linear-gradient(135deg,rgba(37,99,235,.32),rgba(56,189,248,.08)); border:1px solid rgba(56,189,248,.5); border-radius:14px; padding:12px; margin-bottom:10px; }
+    .hif-mclaude b { color:var(--white); } .hif-mclaude small { display:block; font-size:.72rem; color:var(--muted); }
+    .hif-acc details { background:var(--card); border:1px solid var(--border); border-left:3px solid color-mix(in srgb,#fbbf24 40%,var(--border)); border-radius:12px; margin-bottom:7px; }
+    .hif-acc summary { list-style:none; cursor:pointer; padding:10px 12px; display:flex; gap:8px; align-items:center; font-size:.84rem; color:var(--white); font-weight:600; }
+    .hif-acc summary::-webkit-details-marker { display:none; }
+    .hif-acc summary .n { margin-left:auto; font-size:.66rem; color:var(--muted); font-weight:500; }
+    .hif-acc .body { padding:0 12px 12px; font-size:.78rem; color:var(--muted); }
+    .hif-acc .body .hif-chips { margin-top:6px; }
+    .hif-acc .body .hif-ask { margin-top:8px; }
+    .hif-acc .body a { color:#38bdf8; font-weight:600; font-size:.74rem; text-decoration:none; display:inline-block; margin-top:8px; }
+    .hif-ro { white-space:nowrap; }
+    @media (max-width:860px) { .hif-hint { display:none; } .hif-map { display:none; } .hif-acc { display:block; } .hif-detail { display:none; } .hif-box { padding:16px; } .hif-seg { display:none; } .hif-legend span:nth-child(-n+2) { display:none; } .hif-top { flex-wrap:nowrap; } .hif-top > div:first-child { flex:1; min-width:0; } .hif-legend { margin:8px 0 12px; } }
+    html.light .hif-overlay { background:rgba(15,23,42,.45); }
+    html.light .hif-box { background:#f8fafc; }
+    html.light .hif-pill, html.light .hif-detail, html.light .hif-acc details, html.light .hif-seg, html.light .hif-x { background:#ffffff; }
   </style>
 </head>
 <body>
@@ -9626,6 +9706,7 @@
         <div><b data-to="19">19</b><span>skills</span></div><div><b data-to="9">9</b><span>sub-agents</span></div><div><b data-to="5">5</b><span>packs</span></div><div><b data-to="7">7</b><span>scripts</span></div>
       </div>
       <div class="skc-btns">
+        <button type="button" class="skc-btn" id="hif-open" aria-haspopup="dialog">🧭 How it fits together</button>
         <a class="skc-btn pri" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
         <a class="skc-btn" href="#prd-demo">▶ Try PRD Writer live</a>
       </div>
@@ -11671,13 +11752,13 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       document.querySelectorAll('.modal-backdrop.open').forEach(m => closeProjectModal(m.id));
-      // Cleanup icon cloud animations
-      Object.keys(iconCloudAnimations).forEach(key => {
-        if (iconCloudAnimations[key].cleanup) {
-          iconCloudAnimations[key].cleanup();
-        }
-      });
-      iconCloudAnimations = {};
+      // Cleanup icon cloud animations (if that feature is present)
+      if (typeof window.iconCloudAnimations === 'object' && window.iconCloudAnimations) {
+        Object.keys(window.iconCloudAnimations).forEach(key => {
+          if (window.iconCloudAnimations[key].cleanup) window.iconCloudAnimations[key].cleanup();
+        });
+        window.iconCloudAnimations = {};
+      }
       document.body.style.overflow = '';
     }
   });
@@ -15394,6 +15475,108 @@
     new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; var t0=performance.now();
       (function f(t){ var k=Math.min(1,(t-t0)/1100), v=1-Math.pow(1-k,3); nums.forEach(function(n){ n.textContent=Math.round(+n.dataset.to*v); }); if(k<1) requestAnimationFrame(f); })(t0); }); },{threshold:.5}).observe(stats);
   }
+})();
+</script>
+
+<!-- How it fits together: relationship map pop-up -->
+<div class="hif-overlay" id="hif" role="dialog" aria-modal="true" aria-labelledby="hif-title" hidden>
+  <div class="hif-box" tabindex="-1">
+    <div class="hif-top">
+      <div><h3 id="hif-title">How it fits together</h3><p>Claude leads, sub-agents do the jobs, skills supply the know-how.</p></div>
+      <div class="hif-ctl"><div class="hif-seg" id="hif-mode"><button type="button" class="on" data-m="sel">Selected links</button><button type="button" data-m="all">All links</button></div>
+      <button type="button" class="hif-x" id="hif-close" aria-label="Close">✕</button></div>
+    </div>
+    <div class="hif-legend"><span><i class="hif-ls"></i>follows the skill's method</span><span><i class="hif-ld"></i>works from the skill's output</span><span><i class="hif-ro">READ-ONLY</i>can't change your files</span></div>
+    <p class="hif-hint" id="hif-hint">Hover to preview. Click a sub-agent, a skill or Claude to keep it selected; its details stay below.</p>
+    <div class="hif-map" id="hif-map">
+      <div><div class="hif-colh" style="color:#38bdf8">The agent</div><div class="hif-you">👤 You ask</div><div class="hif-claude" id="hif-claude" tabindex="0"><div class="hif-big">🧠</div><b>Claude</b><small>plans, delegates, decides</small><small class="hif-c2">9 sub-agents · 19 skills</small></div></div>
+      <div><div class="hif-colh" style="color:#fbbf24">Sub-agents · do the job</div><div id="hif-agents"></div></div>
+      <div><div class="hif-colh" style="color:#c4b5fd">Skills · the know-how</div><div id="hif-skills"></div></div>
+      <svg class="hif-lines" id="hif-lines" aria-hidden="true"></svg>
+    </div>
+    <div class="hif-acc" id="hif-acc"></div>
+    <div class="hif-detail" id="hif-detail" aria-live="polite"></div>
+  </div>
+</div>
+
+<script>
+/* How it fits together: relationship map pop-up */
+(function(){
+  var D={"repo": "https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/", "sk": [["pm", "📝", "PRD Writer", "prd-writer", "Structured PRDs in five formats"], ["pm", "✅", "PRD Evaluator", "prd-evaluator", "Scores a PRD against the right rubric"], ["pm", "📊", "Market Research", "market-research", "Landscape, TAM/SAM/SOM and positioning"], ["pm", "🔍", "User Research", "user-research", "Interview synthesis, personas and pain points"], ["prod", "🏗️", "Engineering Planner", "engineering-planner", "PRD to architecture, data model, API spec and roadmap"], ["prod", "📐", "Implementation Specs", "implementation-specs", "Buildable specs, Supabase SQL, .env.example"], ["prod", "🛡️", "Security Foundation", "security-foundation", "Auth, RLS, rate limits, prompt-injection guards"], ["prod", "⚡", "Frontend Setup", "frontend-setup", "Scaffolds and runs a Next.js 16 app"], ["prod", "🎨", "Design System", "design-system", "Keeps every screen on your design tokens"], ["ana", "🎯", "Question Framing", "analytics-question-framing", "Vague ask to prioritized questions"], ["ana", "🔎", "Metric Root Cause", "metric-root-cause", "Why a metric moved: mix vs rate"], ["ana", "📈", "Cohort Retention", "cohort-retention", "Retention triangles and curves"], ["ana", "💰", "Opportunity Sizing", "opportunity-sizing", "Low/base/high value with sensitivity"], ["ana", "⚖️", "Experiment Design", "experiment-design", "A/B plans, sample size, decision rules"], ["ana", "🗣️", "Insight Storyteller", "insight-storyteller", "Answer-first readouts and messages"], ["clin", "🔬", "Trial Failure Investigator", "trial-failure-investigator", "NCT ID to why a trial stopped"], ["clin", "🧩", "Trial Eligibility Matcher", "trial-eligibility-matcher", "Patient-to-trial screening with citations"], ["clin", "📋", "GxP / Part 11 Checker", "gxp-part11-checker", "Part 11, Annex 11 and ALCOA+ gaps"], ["clin", "🩺", "Clinical AI Evaluation", "clinical-ai-evaluation-design", "Drift signal to trial design and estimand"]], "ag": [["Define", "🛑", "PRD Red-Team Reviewer", "prd-red-team-reviewer", true, "A PRD or spec", "Scored review: findings, fixes, verdict", "Read, Glob, Grep, Web search", ["PRD Evaluator"], ["PRD Writer"], "Red-team docs/prd.md before I send it to engineering", "Reviews a PRD cold, without seeing how it was written, so the critique is unbiased."], ["Define", "🗂️", "Backlog Builder", "backlog-builder", false, "An approved PRD", "Epics, stories, acceptance criteria, Jira/Linear CSV", "Read, Write, Edit, Glob, Grep", [], ["PRD Writer"], "Break docs/prd.md into a backlog for sprint planning", "Turns the PRD into small, testable stories and an MVP slice."], ["Define", "🖼️", "Mockup Generator", "mockup-generator", false, "A PRD or spec", "Clickable HTML prototype, every screen traced to a requirement", "Read, Write, Edit, Glob, Grep, Bash", [], ["PRD Writer"], "Mock up the screens in this PRD so the team can click through", "Makes the PRD tangible before design and engineering invest."], ["Build", "🛠️", "Feature Builder", "feature-builder", false, "docs/specs/ and an approved feature", "Working code, tests, passing build, report", "Read, Write, Edit, Glob, Grep, Bash", ["Security Foundation", "Design System"], ["Implementation Specs", "Engineering Planner"], "Build the next feature from the specs", "Stage 5 of PRD → Production: one feature at a time, on your security setup and design system."], ["Ship", "🔐", "Security & Compliance Auditor", "security-compliance-auditor", true, "A codebase", "Findings by severity with file:line and fixes", "Read, Glob, Grep, Bash (read-only)", ["Security Foundation", "GxP / Part 11 Checker"], [], "Audit this repo before launch, including Part 11", "Checks the code against your security controls and Part 11, without changing anything."], ["Ship", "📣", "Release Notes Writer", "release-notes-writer", false, "Git history between two versions", "Release notes, changelog entry, announcement", "Read, Write, Edit, Glob, Grep, Bash", [], [], "Write release notes for everything since v1.5", "Works straight from git history; no skill needed."], ["Measure", "📉", "Data Analyst", "data-analyst", false, "A data file and a question", "Checked analysis, charts, answer-first readout", "Read, Write, Edit, Glob, Grep, Bash", ["Question Framing", "Metric Root Cause", "Cohort Retention", "Opportunity Sizing", "Experiment Design", "Insight Storyteller"], [], "Why did activation drop last month? Data is in events.csv", "Runs the whole Product Analytics pack on your data, using its scripts."], ["Measure", "🧪", "AI Eval Builder", "ai-eval-builder", false, "An AI feature (PRD, prompt, code)", "Test set, rubric, AI judge, release gates, runnable script", "Read, Write, Edit, Glob, Grep, Bash", ["Experiment Design"], [], "Build an eval suite for our ticket-triage AI", "Defines what \"good enough to ship\" means for an AI feature, with zero-tolerance safety gates."], ["Clinical", "🗺️", "Trial Landscape Scout", "clinical-trial-landscape-scout", false, "A condition, drug class or sponsor", "Landscape report and a CSV of every trial", "Read, Write, Bash, Web", ["Trial Failure Investigator"], [], "Map the KRAS G12C lung cancer trial landscape", "Maps who is testing what on ClinicalTrials.gov, and classifies stopped trials the investigator's way."]]};
+  var ov=document.getElementById('hif'), openBtn=document.getElementById('hif-open'); if(!ov||!openBtn) return;
+  var PK={pm:['PM Core','#38bdf8'],prod:['PRD \u2192 Production','#a78bfa'],ana:['Product Analytics','#4ade80'],clin:['Pharma & Clinical','#f472b6']};
+  var STAGES=['Define','Build','Ship','Measure','Clinical'];
+  var SK=D.sk, AG=D.ag, REPO=D.repo;
+  var map=document.getElementById('hif-map'), svg=document.getElementById('hif-lines'), det=document.getElementById('hif-detail'), claude=document.getElementById('hif-claude');
+  var esc=function(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var idx=function(n){for(var i=0;i<SK.length;i++) if(SK[i][2]===n) return i; return -1;};
+  var links=function(a){return a[8].length+a[9].length;};
+  var users=function(n){var r=[];AG.forEach(function(a,i){if(a[8].indexOf(n)>-1||a[9].indexOf(n)>-1) r.push(i);});return r;};
+  var built=false, ap=[], sp=[], mode='sel', cur=null, lastFocus=null, pinned=false;
+  function pin(fn){ pinned=true; fn(); map.classList.add('hif-pinned');
+    var r=det.getBoundingClientRect(); if(r.top>window.innerHeight-120) det.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+  function build(){
+    document.getElementById('hif-agents').innerHTML=STAGES.map(function(st){return '<div class="hif-grp">'+st+'</div>'+AG.map(function(a,i){return a[0]!==st?'':'<button type="button" class="hif-pill ag" data-a="'+i+'"><i class="e">'+a[1]+'</i><span class="nm">'+esc(a[2])+'</span>'+(a[4]?'<i class="hif-ro">READ-ONLY</i>':'')+'<span class="n">'+links(a)+'</span></button>';}).join('');}).join('');
+    document.getElementById('hif-skills').innerHTML=Object.keys(PK).map(function(k){return '<div class="hif-grp"><i style="background:'+PK[k][1]+'"></i>'+esc(PK[k][0])+'</div>'+SK.map(function(s,j){return s[0]!==k?'':'<button type="button" class="hif-pill sk" data-s="'+j+'" style="--pc:'+PK[k][1]+'"><i class="e">'+s[1]+'</i><span class="nm">'+esc(s[2])+'</span><span class="n">'+users(s[2]).length+'</span></button>';}).join('');}).join('');
+    ap=[].slice.call(map.querySelectorAll('.hif-pill.ag')).sort(function(x,y){return x.dataset.a-y.dataset.a;});
+    sp=[].slice.call(map.querySelectorAll('.hif-pill.sk')).sort(function(x,y){return x.dataset.s-y.dataset.s;});
+    ap.forEach(function(p,i){p.addEventListener('mouseenter',function(){if(!pinned)selA(i);});p.addEventListener('click',function(){pin(function(){selA(i);});});p.addEventListener('keyup',function(e){if(e.key==='Tab')pin(function(){selA(i);});});});
+    sp.forEach(function(p,j){p.addEventListener('mouseenter',function(){if(!pinned)selS(j);});p.addEventListener('click',function(){pin(function(){selS(j);});});p.addEventListener('keyup',function(e){if(e.key==='Tab')pin(function(){selS(j);});});});
+    claude.addEventListener('mouseenter',function(){if(!pinned)selClaude();});claude.addEventListener('click',function(){pin(selClaude);});claude.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pin(selClaude);}});
+    document.getElementById('hif-mode').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;mode=b.dataset.m;[].forEach.call(this.children,function(x){x.classList.toggle('on',x===b);});if(cur)cur();});
+    var chip=function(n,c){var s=SK[idx(n)];return '<span class="'+c+'">'+s[1]+' '+esc(n)+'</span>';};
+    document.getElementById('hif-acc').innerHTML='<div class="hif-mclaude"><span style="font-size:1.6rem">🧠</span><div><b>Claude leads</b><small>Hands jobs to 9 sub-agents · uses all 19 skills directly</small></div></div>'+
+      AG.map(function(a){return '<details><summary>'+a[1]+' '+esc(a[2])+(a[4]?' <i class="hif-ro">READ-ONLY</i>':'')+'<span class="n">'+links(a)+' skill links</span></summary><div class="body">'+esc(a[11])+'<div class="hif-chips">'+a[8].map(function(n){return chip(n,'u');}).join('')+a[9].map(function(n){return chip(n,'i');}).join('')+'</div><div class="hif-ask">“'+esc(a[10])+'”</div><a href="'+REPO+'agents/'+a[3]+'.md" target="_blank" rel="noopener">View on GitHub →</a></div></details>';}).join('');
+    built=true;
+  }
+  function draw(){
+    var m=map.getBoundingClientRect(); svg.innerHTML=''; if(!m.width||getComputedStyle(map).display==='none') return;
+    svg.setAttribute('viewBox','0 0 '+m.width+' '+m.height);
+    var mk=function(cls,d,a,s){var p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('class',cls);p.setAttribute('d',d);p.dataset.a=a;if(s!==undefined)p.dataset.s=s;svg.appendChild(p);};
+    var c=claude.getBoundingClientRect(), cx=c.right-m.left, cy=c.top+c.height/2-m.top;
+    ap.forEach(function(p,i){var r=p.getBoundingClientRect(),x=r.left-m.left,y=r.top+r.height/2-m.top,mx=(cx+x)/2;mk('lead','M'+cx+','+cy+' C'+mx+','+cy+' '+mx+','+y+' '+x+','+y,i);});
+    AG.forEach(function(a,i){[['uses',a[8]],['input',a[9]]].forEach(function(pair){pair[1].forEach(function(n){var j=idx(n),r1=ap[i].getBoundingClientRect(),r2=sp[j].getBoundingClientRect();
+      var x1=r1.right-m.left,y1=r1.top+r1.height/2-m.top,x2=r2.left-m.left,y2=r2.top+r2.height/2-m.top,mx=(x1+x2)/2;mk(pair[0],'M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2,i,j);});});});
+    if(cur) cur();
+  }
+  function reset(){ap.concat(sp).forEach(function(p){p.classList.remove('on','dim','pin');});claude.classList.remove('on');
+    [].forEach.call(svg.querySelectorAll('path'),function(p){p.classList.remove('show','faint');});
+    if(mode==='all') [].forEach.call(svg.querySelectorAll('path:not(.lead)'),function(p){p.classList.add('faint');});}
+  var show=function(sel){[].forEach.call(svg.querySelectorAll(sel),function(p){p.classList.remove('faint');p.classList.add('show');});};
+  function chipS(n,c){var s=SK[idx(n)];return '<span class="'+c+'">'+s[1]+' '+esc(n)+'</span>';}
+  function selA(i){cur=function(){selA(i);};reset();var a=AG[i];
+    ap.forEach(function(p,k){p.classList.add(k===i?'on':'dim');if(k===i&&pinned)p.classList.add('pin');});sp.forEach(function(p,k){var n=SK[k][2];p.classList.add(a[8].indexOf(n)>-1||a[9].indexOf(n)>-1?'on':'dim');});show('path[data-a="'+i+'"]');
+    det.innerHTML='<div><div class="hif-tags"><span style="color:#fbbf24">Sub-agent</span><span>'+a[0]+'</span>'+(a[4]?'<span style="color:#22c55e">Read-only</span>':'')+'</div><h4>'+a[1]+' '+esc(a[2])+'</h4><p class="lead">'+esc(a[11])+'</p>'+
+      '<div class="hif-io"><div><b>Input</b>'+esc(a[5])+'</div><span>→</span><div><b>Output</b>'+esc(a[6])+'</div></div>'+
+      '<div class="hif-links"><a class="pri" href="'+REPO+'agents/'+a[3]+'.md" target="_blank" rel="noopener">View on GitHub</a><button type="button" data-copy="1">Copy install</button></div></div>'+
+      '<div><div class="hif-lbl">Follows these skills</div><div class="hif-chips">'+(a[8].length?a[8].map(function(n){return chipS(n,'u');}).join(''):'<span>None: works directly</span>')+'</div>'+
+      '<div class="hif-lbl">Works from the output of</div><div class="hif-chips">'+(a[9].length?a[9].map(function(n){return chipS(n,'i');}).join(''):'<span>Your files or data</span>')+'</div>'+
+      '<div class="hif-lbl">Tools</div><div class="hif-chips"><span>'+esc(a[7])+'</span></div><div class="hif-lbl">Try asking</div><div class="hif-ask">“'+esc(a[10])+'”</div></div>';}
+  function selS(j){cur=function(){selS(j);};reset();var s=SK[j],n=s[2],u=users(n),pk=PK[s[0]];
+    sp.forEach(function(p,k){p.classList.add(k===j?'on':'dim');if(k===j&&pinned)p.classList.add('pin');});ap.forEach(function(p,k){p.classList.add(u.indexOf(k)>-1?'on':'dim');});show('path[data-s="'+j+'"]');
+    det.innerHTML='<div><div class="hif-tags"><span style="color:'+pk[1]+'">Skill</span><span>'+esc(pk[0])+'</span></div><h4>'+s[1]+' '+esc(n)+'</h4><p class="lead">'+esc(s[4])+'.</p><div class="hif-links"><a class="pri" href="'+REPO+'skills/'+s[3]+'/SKILL.md" target="_blank" rel="noopener">View on GitHub</a></div></div>'+
+      '<div><div class="hif-lbl">Used by</div><div class="hif-chips"><span>🧠 Claude, directly</span>'+u.map(function(i){var a=AG[i],m=a[8].indexOf(n)>-1;return '<span class="'+(m?'u':'i')+'">'+a[1]+' '+esc(a[2])+(m?'':' (uses its output)')+'</span>';}).join('')+'</div>'+
+      '<div class="hif-lbl">Works in</div><div class="hif-chips"><span>Claude Code</span><span>claude.ai</span></div></div>';}
+  function selClaude(){cur=selClaude;reset();claude.classList.add('on');ap.forEach(function(p){p.classList.add('on');});show('path.lead');
+    det.innerHTML='<div><div class="hif-tags"><span style="color:#38bdf8">The agent</span></div><h4>🧠 Claude</h4><p class="lead">Talks to you, plans the work, and decides what to use. It hands whole jobs to the 9 sub-agents, and loads any of the 19 skills itself when a task needs the know-how.</p>'+
+      '<div class="hif-io"><div><b>You ask</b>“Take this idea to a shipped feature.”</div><span>→</span><div><b>Claude</b>writes the PRD, then delegates review, backlog, building, audit and release notes</div></div></div>'+
+      '<div><div class="hif-lbl">Delegates to (sub-agents)</div><div class="hif-chips">'+AG.map(function(a){return '<span>'+a[1]+' '+esc(a[2])+'</span>';}).join('')+'</div><div class="hif-lbl">Uses directly</div><div class="hif-chips"><span>All 19 skills</span></div>'+
+      '<div class="hif-lbl">Rule of thumb</div><div class="hif-ask">Skill = how to do it · Sub-agent = go do it and report back</div></div>';}
+  det.addEventListener('click',function(e){var b=e.target.closest('[data-copy]');if(!b)return;var txt='/plugin marketplace add sankar2code/Claude-Skill_SubAgent-Builder-Collections\n/plugin install pm-builder-kit@sankar2code';
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){b.textContent='Copied ✓';setTimeout(function(){b.textContent='Copy install';},1500);},function(){b.textContent='Copy failed';});}});
+  var rz; function onResize(){clearTimeout(rz);rz=setTimeout(draw,120);}
+  function open(){ if(!built) build(); lastFocus=document.activeElement; ov.hidden=false; document.body.classList.add('hif-lock');
+    pinned=false; map.classList.remove('hif-pinned');
+    requestAnimationFrame(function(){ov.classList.add('open');draw();if(!cur)selA(3);else cur();ov.querySelector('.hif-box').focus();});
+    window.addEventListener('resize',onResize); document.addEventListener('keydown',onKey); }
+  function close(){ ov.classList.remove('open'); document.body.classList.remove('hif-lock'); window.removeEventListener('resize',onResize); document.removeEventListener('keydown',onKey);
+    setTimeout(function(){ov.hidden=true;},200); if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
+  function onKey(e){ if(e.key==='Escape') close();
+    if(e.key==='Tab'){ var f=[].filter.call(ov.querySelectorAll('button,a[href],summary,[tabindex="0"]'),function(x){return x.offsetParent!==null;}); if(!f.length) return;
+      var first=f[0], last=f[f.length-1]; if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();} else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();} } }
+  openBtn.addEventListener('click',open);
+  document.getElementById('hif-close').addEventListener('click',close);
+  ov.addEventListener('click',function(e){ if(e.target===ov) close(); });
 })();
 </script>
 </body>
