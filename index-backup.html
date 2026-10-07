@@ -7413,6 +7413,9 @@
     .hif-acc .body .hif-ask { margin-top:8px; }
     .hif-acc .body a { color:#38bdf8; font-weight:600; font-size:.74rem; text-decoration:none; display:inline-block; margin-top:8px; }
     .hif-ro { white-space:nowrap; }
+    /* keep the details visible at the bottom of the pop-up while browsing the map */
+    .hif-detail { position:sticky; bottom:12px; z-index:3; max-height:44vh; overflow-y:auto; background:linear-gradient(var(--card),var(--card)), var(--bg2, #0d0d1a); box-shadow:0 -14px 34px rgba(0,0,0,.38); }
+    html.light .hif-detail { background:#ffffff; box-shadow:0 -14px 34px rgba(15,23,42,.12); }
     @media (max-width:860px) { .hif-hint { display:none; } .hif-map { display:none; } .hif-acc { display:block; } .hif-detail { display:none; } .hif-box { padding:16px; } .hif-seg { display:none; } .hif-legend span:nth-child(-n+2) { display:none; } .hif-top { flex-wrap:nowrap; } .hif-top > div:first-child { flex:1; min-width:0; } .hif-legend { margin:8px 0 12px; } }
     html.light .hif-overlay { background:rgba(15,23,42,.45); }
     html.light .hif-box { background:#f8fafc; }
@@ -10836,6 +10839,18 @@
     <div class="lp-scroll-wrap">
     <div class="shipped-list shipped-list-scroll" id="live-post-list">
       <div class="ship-rail"></div>
+      <a class="ship-item ship-item-linked" data-cat="achievement" href="https://lnkd.in/p/e8PEBj8W" target="_blank" rel="noopener">
+        <span class="ship-icon">🧪</span>
+        <div class="ship-body">
+          <p class="ship-text">Built an agentic clinical trial matching prototype, then had a second AI review it cold: it found 17 problems, including a check that read the 22C3 assay name as a PD-L1 score of 22. In healthcare AI, the real work is deciding what the model is not allowed to do<span class="ship-tag ship-tag-achievement">Achievement</span></p>
+        </div>
+      </a>
+      <a class="ship-item ship-item-linked" data-cat="newstart" href="https://lnkd.in/p/emDT65JE" target="_blank" rel="noopener">
+        <span class="ship-icon">🧰</span>
+        <div class="ship-body">
+          <p class="ship-text">Open-sourced my Claude toolkit for product managers: 19 skills and 9 sub-agents for PRDs, production builds, analytics and clinical trials, MIT licensed and installable in Claude Code with two commands<span class="ship-tag ship-tag-newstart">New Start</span></p>
+        </div>
+      </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/eNWyiwBf" target="_blank" rel="noopener">
         <span class="ship-icon">🧭</span>
         <div class="ship-body">
