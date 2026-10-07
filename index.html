@@ -7269,6 +7269,18 @@
     .sr-total { font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:30px; fill:var(--white); }
     .skills-chip .sr-dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--c); margin-right:.4rem; vertical-align:1px; box-shadow:0 0 6px var(--c); }
     @media (max-width:600px){ .skills-rings-svg{ width:140px; height:140px; margin:0 auto; } }
+  
+    /* tools coverage: level-split bars */
+    .tcv-bar { display:flex; height:6px !important; background:var(--border); gap:0; }
+    .tcv-bar span { height:100%; width:0; transition:width 1.1s cubic-bezier(.2,.8,.2,1); }
+    .tcv-bar .ex, .tcv-legend .ex { background:#4ade80; }
+    .tcv-bar .pr, .tcv-legend .pr { background:#38bdf8; }
+    .tcv-bar .fa, .tcv-legend .fa { background:#94a3b8; }
+    .tcv-split { font-size:.7rem; color:var(--muted); margin-top:.45rem; line-height:1.35; }
+    .tcv-split b { color:#4ade80; font-weight:700; }
+    html.light .tcv-split b { color:#15803d; }
+    .tcv-legend { display:flex; justify-content:center; flex-wrap:wrap; gap:1rem; font-size:.72rem; color:var(--muted); margin:-.4rem 0 1.1rem; }
+    .tcv-legend i { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:.35rem; }
   </style>
 </head>
 <body>
@@ -9288,36 +9300,38 @@
     <p class="section-sub">The tools I use to research, design, build, and ship products.</p>
   </div>
 
-  <div class="tools-coverage-card reveal">
+  <div class="tools-coverage-card reveal" id="tools-coverage">
     <div class="tools-coverage-tile">
       <div class="tools-coverage-icon">💻</div>
       <div class="tools-coverage-count">36</div>
       <div class="tools-coverage-label">Technology</div>
-      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+      <div class="tools-coverage-bar-track tcv-bar"><span class="ex"></span><span class="pr"></span><span class="fa"></span></div><div class="tcv-split"></div>
     </div>
     <div class="tools-coverage-tile">
       <div class="tools-coverage-icon">🤖</div>
       <div class="tools-coverage-count">15</div>
       <div class="tools-coverage-label">AI Product</div>
-      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+      <div class="tools-coverage-bar-track tcv-bar"><span class="ex"></span><span class="pr"></span><span class="fa"></span></div><div class="tcv-split"></div>
     </div>
     <div class="tools-coverage-tile">
       <div class="tools-coverage-icon">🧬</div>
       <div class="tools-coverage-count">24</div>
       <div class="tools-coverage-label">Domain</div>
-      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+      <div class="tools-coverage-bar-track tcv-bar"><span class="ex"></span><span class="pr"></span><span class="fa"></span></div><div class="tcv-split"></div>
     </div>
     <div class="tools-coverage-tile">
       <div class="tools-coverage-icon">🎯</div>
       <div class="tools-coverage-count">15</div>
       <div class="tools-coverage-label">Technical PM</div>
-      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+      <div class="tools-coverage-bar-track tcv-bar"><span class="ex"></span><span class="pr"></span><span class="fa"></span></div><div class="tcv-split"></div>
     </div>
   </div>
 
+  <div class="tcv-legend" aria-hidden="true"><span><i class="ex"></i>Expert</span><span><i class="pr"></i>Proficient</span><span><i class="fa"></i>Familiar</span></div>
+
   <div class="cert-summary-card tools-summary-card reveal" id="tools-summary-card">
     <div class="cert-summary-row">
-      <div class="cert-stat"><div class="cert-stat-num">90+</div><div class="cert-stat-lbl">Tools &amp; Skills</div></div>
+      <div class="cert-stat"><div class="cert-stat-num">125</div><div class="cert-stat-lbl">Tools &amp; Skills</div></div>
       <div class="cert-divider-v"></div>
       <div class="cert-stat"><div class="cert-stat-num">4</div><div class="cert-stat-lbl">Categories</div></div>
       <div class="cert-issuers">Engineering · AI Product · Domain Expertise · Technical PM</div>
@@ -9355,38 +9369,52 @@
       <div class="tools-chips">
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>AI SDK<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=aws.amazon.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Amazon QuickSight<span class="chip-tag proficient">Proficient</span></span>
-        <span class="chip">🔌 API<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Anthropic Claude API<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=arize.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Arize AI<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Code<span class="chip-tag expert">Expert</span></span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Skill<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Skills<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=anthropic.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Claude Sub-Agents<span class="chip-tag expert">Expert</span></span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=cursor.sh" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Cursor<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=cloudflare.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Cloudflare Workers<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=atlassian.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Confluence<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=cursor.sh" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Cursor<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=d3js.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>D3.js<span class="chip-tag familiar">Familiar</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=dataiku.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Dataiku<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=docker.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Docker<span class="chip-tag familiar">Familiar</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=elevenlabs.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>ElevenLabs<span class="chip-tag familiar">Familiar</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=figma.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Figma<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=git-scm.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Git<span class="chip-tag familiar">Familiar</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=github.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>GitHub<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=github.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>GitHub Pages<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=jira.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Jira<span class="chip-tag expert">Expert</span></span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=langchain.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langchain<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=langchain.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>LangChain<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=langflow.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Langflow<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=magicui.design" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Magic UI<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=azure.microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Microsoft Azure AI Foundry<span class="chip-tag expert">Expert</span></span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nestjs.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Nest.js<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=dynamics.microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Microsoft Dynamics<span class="chip-tag familiar">Familiar</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=modelcontextprotocol.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Model Context Protocol (MCP)<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=n8n.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>n8n<span class="chip-tag expert">Expert</span></span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nodejs.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>NodeJs<span class="chip-tag familiar">Familiar</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nestjs.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Nest.js<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=netlify.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Netlify<span class="chip-tag familiar">Familiar</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nextjs.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Next.js<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=nodejs.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Node.js<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=openai.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>OpenAI API<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=openclaw.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>OpenClaw<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=pendo.io" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Pendo<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=postgresql.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>PostgreSQL / pgvector<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=postman.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Postman<span class="chip-tag proficient">Proficient</span></span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=powerbi.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>PowerBI<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=powerbi.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Power BI<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=python.org" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Python<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=rapidminer.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>RapidMiner<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=resend.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Resend<span class="chip-tag familiar">Familiar</span></span>
-        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=magicui.design" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Magic UI<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">🔌 REST APIs<span class="chip-tag expert">Expert</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=salesforce.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Salesforce<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=shadcn-ui.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>shadcn/ui<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip">🗄️ SQL<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=stripe.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Stripe<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=supabase.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Supabase<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=tableau.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Tableau<span class="chip-tag expert">Expert</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=v0.dev" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>v0<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=veeva.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Veeva CRM / Vault<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=vercel.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Vercel<span class="chip-tag familiar">Familiar</span></span>
         <span class="chip"><img loading="lazy" src="https://www.google.com/s2/favicons?sz=16&domain=microsoft.com" alt="" style="width:14px;height:14px;margin-right:0.3rem;vertical-align:middle;"/>Visio<span class="chip-tag expert">Expert</span></span>
       </div>
@@ -9400,16 +9428,23 @@
         <span class="chip">AI Chatbots &amp; Assistants<span class="chip-tag expert">Expert</span></span>
         <span class="chip">AI Evaluation &amp; Metrics<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip">AI for Product Management<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">AI Product Strategy<span class="chip-tag expert">Expert</span></span>
         <span class="chip">AI Prompt Engineering<span class="chip-tag expert">Expert</span></span>
         <span class="chip">AI Workflow Automation<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">AI-Assisted Development<span class="chip-tag expert">Expert</span></span>
         <span class="chip">AWS AI Services (Bedrock, SageMaker)<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Context Engineering<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Generative AI Development<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Human-in-the-Loop Review<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip">LLM Applications &amp; Integration<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">LLM-as-Judge &amp; AI Evals<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Multi-Agent Orchestration<span class="chip-tag expert">Expert</span></span>
         <span class="chip">No-Code AI &amp; Machine Learning<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Prompt Behavior Design<span class="chip-tag expert">Expert</span></span>
         <span class="chip">RAG &amp; Vector Search<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip">Responsible AI Guardrails<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Synthetic Data Generation<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Voice AI &amp; Text-to-Speech<span class="chip-tag familiar">Familiar</span></span>
       </div>
     </div>
 
@@ -9427,10 +9462,10 @@
         <span class="chip">Regulatory Systems<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Vendor Product Analysis<span class="chip-tag expert">Expert</span></span>
         <span class="chip">HIPAA Compliance<span class="chip-tag expert">Expert</span></span>
-        <span class="chip">Claims Processing<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Claims Processing<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip">Population Health Management<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Provider Network Management<span class="chip-tag expert">Expert</span></span>
-        <span class="chip">HL7/FHIR Interoperability<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">HL7/FHIR Interoperability<span class="chip-tag proficient">Proficient</span></span>
         <span class="chip">FDA Submission Processes<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Clinical Trial Management Systems (CTMS)<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Electronic Data Capture (EDC)<span class="chip-tag expert">Expert</span></span>
@@ -9440,6 +9475,13 @@
         <span class="chip">Adverse Event Reporting<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Risk-Based Monitoring<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Trial Hub Patient Engagement<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">21 CFR Part 11<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Computer System Validation (IQ/OQ/PQ)<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Pharmacovigilance<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Pharma Commercial CRM<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">GDPR Compliance<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Clinical Trial Eligibility Matching<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Clinical Trial Failure Analysis<span class="chip-tag familiar">Familiar</span></span>
       </div>
     </div>
 
@@ -9461,6 +9503,13 @@
         <span class="chip">Scaled Agile Delivery (ART / PI Planning)<span class="chip-tag expert">Expert</span></span>
         <span class="chip">Stakeholder Management<span class="chip-tag expert">Expert</span></span>
         <span class="chip">User Stories &amp; Requirements<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">PRD Writing<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">OKRs &amp; Success Metrics<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Experimentation &amp; A/B Testing<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">Business Case &amp; ROI<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Build vs. Buy Evaluation<span class="chip-tag expert">Expert</span></span>
+        <span class="chip">Release &amp; Launch Planning<span class="chip-tag proficient">Proficient</span></span>
+        <span class="chip">User Research &amp; Interviews<span class="chip-tag proficient">Proficient</span></span>
       </div>
     </div>
 
@@ -15165,6 +15214,31 @@
     (function f(t){ const k=Math.min(1,(t-t0)/1400); draw(1-Math.pow(1-k,3)); if(k<1) raf=requestAnimationFrame(f); })(t0); }
   draw(0);
   if('IntersectionObserver' in window){ new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting) play(); else { cancelAnimationFrame(raf); draw(0); } }),{threshold:.5}).observe(svg); } else draw(1);
+})();
+</script>
+
+<script>
+/* Tools coverage: counts + Expert/Proficient/Familiar split read from the chips; roll in on every scroll into view */
+(function(){
+  const card=document.getElementById('tools-coverage'); if(!card) return;
+  const tiles=[...card.querySelectorAll('.tools-coverage-tile')];
+  const data=tiles.map((t,i)=>{ const panel=document.querySelector('.tools-panel[data-panel="'+i+'"]');
+    const tags=panel?[...panel.querySelectorAll('.chip-tag')]:[]; const n=k=>tags.filter(x=>x.classList.contains(k)).length;
+    const d={c:panel?panel.querySelectorAll('.tools-chips .chip').length:+t.querySelector('.tools-coverage-count').textContent,ex:n('expert'),pr:n('proficient'),fa:n('familiar')};
+    const parts=['<b>'+d.ex+' expert</b>']; if(d.pr) parts.push(d.pr+' proficient'); if(d.fa) parts.push(d.fa+' familiar');
+    t.querySelector('.tcv-split').innerHTML=parts.join(' · ');
+    t.querySelector('.tools-coverage-count').textContent=d.c; return d; });
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches; let raf;
+  function set(e){ tiles.forEach((t,i)=>{ const d=data[i], tot=d.c||1, bar=t.querySelectorAll('.tcv-bar span');
+    bar[0].style.width=d.ex/tot*100*e+'%'; bar[1].style.width=d.pr/tot*100*e+'%'; bar[2].style.width=d.fa/tot*100*e+'%'; }); }
+  function play(){ cancelAnimationFrame(raf); set(1); if(reduce) return; const t0=performance.now();
+    (function f(t){ const k=Math.min(1,(t-t0)/1200), e=1-Math.pow(1-k,3);
+      tiles.forEach((tile,i)=>{ tile.querySelector('.tools-coverage-count').textContent=Math.round(data[i].c*e); });
+      if(k<1) raf=requestAnimationFrame(f); })(t0); }
+  function reset(){ cancelAnimationFrame(raf); tiles.forEach(t=>t.querySelectorAll('.tcv-bar span').forEach(s=>{ s.style.transition='none'; s.style.width='0'; void s.offsetWidth; s.style.transition=''; })); }
+  if('IntersectionObserver' in window && !reduce){ reset();
+    new IntersectionObserver(es=>es.forEach(en=>{ en.isIntersecting?requestAnimationFrame(play):reset(); }),{threshold:.4}).observe(card);
+  } else set(1);
 })();
 </script>
 </body>

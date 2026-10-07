@@ -7260,6 +7260,27 @@
     .cert-tab .tf-n.zero { background:var(--border); color:var(--muted); }
     @media (max-width:600px){ .tf-search{ flex-basis:100%; } .tf-levels{ flex-basis:100%; flex-wrap:nowrap; gap:.3rem; } .tf-lv{ flex:1 1 auto; justify-content:center; padding:.34rem .35rem; font-size:.72rem; gap:.25rem; } }
     .tools-panel.tf-none h4 { display:none; }
+  
+    /* certification activity rings */
+    .skills-rings-svg { flex-shrink:0; overflow:visible; }
+    .sr-track { fill:none; stroke:var(--border); stroke-width:13; }
+    .sr-bar { fill:none; stroke-width:13; stroke-linecap:round; cursor:pointer; filter:drop-shadow(0 0 4px color-mix(in srgb, var(--c) 55%, transparent)); transition:stroke-width .2s; }
+    .sr-bar:hover, .sr-bar.hl { stroke-width:16; }
+    .sr-total { font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:30px; fill:var(--white); }
+    .skills-chip .sr-dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--c); margin-right:.4rem; vertical-align:1px; box-shadow:0 0 6px var(--c); }
+    @media (max-width:600px){ .skills-rings-svg{ width:140px; height:140px; margin:0 auto; } }
+  
+    /* tools coverage: level-split bars */
+    .tcv-bar { display:flex; height:6px !important; background:var(--border); gap:0; }
+    .tcv-bar span { height:100%; width:0; transition:width 1.1s cubic-bezier(.2,.8,.2,1); }
+    .tcv-bar .ex, .tcv-legend .ex { background:#4ade80; }
+    .tcv-bar .pr, .tcv-legend .pr { background:#38bdf8; }
+    .tcv-bar .fa, .tcv-legend .fa { background:#94a3b8; }
+    .tcv-split { font-size:.7rem; color:var(--muted); margin-top:.45rem; line-height:1.35; }
+    .tcv-split b { color:#4ade80; font-weight:700; }
+    html.light .tcv-split b { color:#15803d; }
+    .tcv-legend { display:flex; justify-content:center; flex-wrap:wrap; gap:1rem; font-size:.72rem; color:var(--muted); margin:-.4rem 0 1.1rem; }
+    .tcv-legend i { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:.35rem; }
   </style>
 </head>
 <body>
@@ -9050,26 +9071,14 @@
   </div>
 
   <div class="skills-snapshot-card reveal">
-    <svg class="skills-radar-svg" width="200" height="145" viewBox="-70 -20 340 245" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="100,20 180,100 100,180 20,100" fill="none" stroke="var(--border)" stroke-width="1"/>
-      <polygon points="100,60 140,100 100,140 60,100" fill="none" stroke="var(--border)" stroke-width="1" opacity="0.6"/>
-      <line x1="100" y1="100" x2="100" y2="20" stroke="var(--border)" stroke-width="1"/>
-      <line x1="100" y1="100" x2="180" y2="100" stroke="var(--border)" stroke-width="1"/>
-      <line x1="100" y1="100" x2="100" y2="180" stroke="var(--border)" stroke-width="1"/>
-      <line x1="100" y1="100" x2="20" y2="100" stroke="var(--border)" stroke-width="1"/>
-      <polygon points="100,26.4 164,100 100,168 42.4,100" fill="rgba(56,189,248,0.28)" stroke="#38bdf8" stroke-width="2"/>
-      <text x="100" y="4" text-anchor="middle" font-size="16" fill="var(--muted)">AI/ML <tspan fill="#38bdf8" font-weight="700">9</tspan></text>
-      <text x="196" y="105" text-anchor="start" font-size="16" fill="var(--muted)">Product <tspan fill="#38bdf8" font-weight="700">6</tspan></text>
-      <text x="100" y="210" text-anchor="middle" font-size="16" fill="var(--muted)">Agile <tspan fill="#38bdf8" font-weight="700">5</tspan></text>
-      <text x="4" y="105" text-anchor="end" font-size="16" fill="var(--muted)">Design <tspan fill="#38bdf8" font-weight="700">4</tspan></text>
-    </svg>
+    <svg class="skills-rings-svg" id="skills-rings" width="168" height="168" viewBox="-100 -100 200 200" role="img" aria-label="Certifications: AI/ML 9, Product 6, Agile 5, Design 4"><g transform="rotate(-90)"><circle class="sr-track" r="86"/><circle class="sr-bar" r="86" stroke="#38bdf8" data-v="9" data-tab="1" style="--c:#38bdf8"><title>AI/ML: 9 certifications</title></circle><circle class="sr-track" r="68"/><circle class="sr-bar" r="68" stroke="#a78bfa" data-v="6" data-tab="2" style="--c:#a78bfa"><title>Product: 6 certifications</title></circle><circle class="sr-track" r="50"/><circle class="sr-bar" r="50" stroke="#fbbf24" data-v="5" data-tab="3" style="--c:#fbbf24"><title>Agile: 5 certifications</title></circle><circle class="sr-track" r="32"/><circle class="sr-bar" r="32" stroke="#f472b6" data-v="4" data-tab="4" style="--c:#f472b6"><title>Design: 4 certifications</title></circle></g><text class="sr-total" y="8" text-anchor="middle">24</text></svg>
     <div class="skills-snapshot-right">
       <div class="skills-snapshot-title">Certification Snapshot: AI/ML depth, product craft, and agile grounding</div>
       <div class="skills-chips">
-        <span class="skills-chip" onclick="jumpToCertTab(1)">🤖 AI/ML · 9 certs</span>
-        <span class="skills-chip" onclick="jumpToCertTab(2)">🎯 Product · 6 certs</span>
-        <span class="skills-chip" onclick="jumpToCertTab(3)">⚡ Agile · 5 certs</span>
-        <span class="skills-chip" onclick="jumpToCertTab(4)">🎨 Design · 4 certs</span>
+        <span class="skills-chip" onclick="jumpToCertTab(1)" style="--c:#38bdf8"><span class="sr-dot"></span>🤖 AI/ML · 9 certs</span>
+        <span class="skills-chip" onclick="jumpToCertTab(2)" style="--c:#a78bfa"><span class="sr-dot"></span>🎯 Product · 6 certs</span>
+        <span class="skills-chip" onclick="jumpToCertTab(3)" style="--c:#fbbf24"><span class="sr-dot"></span>⚡ Agile · 5 certs</span>
+        <span class="skills-chip" onclick="jumpToCertTab(4)" style="--c:#f472b6"><span class="sr-dot"></span>🎨 Design · 4 certs</span>
       </div>
       <div class="skills-chip-hint">Click a tag to jump straight to that category below</div>
     </div>
@@ -9291,32 +9300,34 @@
     <p class="section-sub">The tools I use to research, design, build, and ship products.</p>
   </div>
 
-  <div class="tools-coverage-card reveal">
+  <div class="tools-coverage-card reveal" id="tools-coverage">
     <div class="tools-coverage-tile">
       <div class="tools-coverage-icon">💻</div>
       <div class="tools-coverage-count">36</div>
       <div class="tools-coverage-label">Technology</div>
-      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+      <div class="tools-coverage-bar-track tcv-bar"><span class="ex"></span><span class="pr"></span><span class="fa"></span></div><div class="tcv-split"></div>
     </div>
     <div class="tools-coverage-tile">
       <div class="tools-coverage-icon">🤖</div>
       <div class="tools-coverage-count">15</div>
       <div class="tools-coverage-label">AI Product</div>
-      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+      <div class="tools-coverage-bar-track tcv-bar"><span class="ex"></span><span class="pr"></span><span class="fa"></span></div><div class="tcv-split"></div>
     </div>
     <div class="tools-coverage-tile">
       <div class="tools-coverage-icon">🧬</div>
       <div class="tools-coverage-count">24</div>
       <div class="tools-coverage-label">Domain</div>
-      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+      <div class="tools-coverage-bar-track tcv-bar"><span class="ex"></span><span class="pr"></span><span class="fa"></span></div><div class="tcv-split"></div>
     </div>
     <div class="tools-coverage-tile">
       <div class="tools-coverage-icon">🎯</div>
       <div class="tools-coverage-count">15</div>
       <div class="tools-coverage-label">Technical PM</div>
-      <div class="tools-coverage-bar-track"><div class="tools-coverage-bar-fill"></div></div>
+      <div class="tools-coverage-bar-track tcv-bar"><span class="ex"></span><span class="pr"></span><span class="fa"></span></div><div class="tcv-split"></div>
     </div>
   </div>
+
+  <div class="tcv-legend" aria-hidden="true"><span><i class="ex"></i>Expert</span><span><i class="pr"></i>Proficient</span><span><i class="fa"></i>Familiar</span></div>
 
   <div class="cert-summary-card tools-summary-card reveal" id="tools-summary-card">
     <div class="cert-summary-row">
@@ -15149,6 +15160,50 @@
   q.addEventListener('input',run);
   const orig=window.selectToolsTab; if(typeof orig==='function'){ window.selectToolsTab=function(i,btn){ orig(i,btn); run(); }; }
   run();
+})();
+</script>
+
+<script>
+/* Certification activity rings: fill + roll up each time the card scrolls into view */
+(function(){
+  const svg=document.getElementById('skills-rings'); if(!svg) return;
+  const bars=[...svg.querySelectorAll('.sr-bar')], total=svg.querySelector('.sr-total'), MX=10;
+  const chips=[...document.querySelectorAll('.skills-snapshot-card .skills-chip')];
+  const sum=bars.reduce((a,b)=>a+ +b.dataset.v,0);
+  bars.forEach((b,i)=>{ const L=2*Math.PI*b.r.baseVal.value; b.style.strokeDasharray=L; b.style.strokeDashoffset=L; b._L=L;
+    b.addEventListener('click',()=>{ if(typeof jumpToCertTab==='function') jumpToCertTab(+b.dataset.tab); });
+    const ch=chips[i]; if(ch){ ch.addEventListener('mouseenter',()=>b.classList.add('hl')); ch.addEventListener('mouseleave',()=>b.classList.remove('hl')); } });
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches; let raf;
+  function draw(e){ bars.forEach(b=>{ b.style.strokeDashoffset=b._L*(1-(+b.dataset.v/MX)*e); }); total.textContent=Math.round(sum*e); }
+  function play(){ cancelAnimationFrame(raf); if(reduce) return draw(1); const t0=performance.now();
+    (function f(t){ const k=Math.min(1,(t-t0)/1400); draw(1-Math.pow(1-k,3)); if(k<1) raf=requestAnimationFrame(f); })(t0); }
+  draw(0);
+  if('IntersectionObserver' in window){ new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting) play(); else { cancelAnimationFrame(raf); draw(0); } }),{threshold:.5}).observe(svg); } else draw(1);
+})();
+</script>
+
+<script>
+/* Tools coverage: counts + Expert/Proficient/Familiar split read from the chips; roll in on every scroll into view */
+(function(){
+  const card=document.getElementById('tools-coverage'); if(!card) return;
+  const tiles=[...card.querySelectorAll('.tools-coverage-tile')];
+  const data=tiles.map((t,i)=>{ const panel=document.querySelector('.tools-panel[data-panel="'+i+'"]');
+    const tags=panel?[...panel.querySelectorAll('.chip-tag')]:[]; const n=k=>tags.filter(x=>x.classList.contains(k)).length;
+    const d={c:panel?panel.querySelectorAll('.tools-chips .chip').length:+t.querySelector('.tools-coverage-count').textContent,ex:n('expert'),pr:n('proficient'),fa:n('familiar')};
+    const parts=['<b>'+d.ex+' expert</b>']; if(d.pr) parts.push(d.pr+' proficient'); if(d.fa) parts.push(d.fa+' familiar');
+    t.querySelector('.tcv-split').innerHTML=parts.join(' · ');
+    t.querySelector('.tools-coverage-count').textContent=d.c; return d; });
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches; let raf;
+  function set(e){ tiles.forEach((t,i)=>{ const d=data[i], tot=d.c||1, bar=t.querySelectorAll('.tcv-bar span');
+    bar[0].style.width=d.ex/tot*100*e+'%'; bar[1].style.width=d.pr/tot*100*e+'%'; bar[2].style.width=d.fa/tot*100*e+'%'; }); }
+  function play(){ cancelAnimationFrame(raf); set(1); if(reduce) return; const t0=performance.now();
+    (function f(t){ const k=Math.min(1,(t-t0)/1200), e=1-Math.pow(1-k,3);
+      tiles.forEach((tile,i)=>{ tile.querySelector('.tools-coverage-count').textContent=Math.round(data[i].c*e); });
+      if(k<1) raf=requestAnimationFrame(f); })(t0); }
+  function reset(){ cancelAnimationFrame(raf); tiles.forEach(t=>t.querySelectorAll('.tcv-bar span').forEach(s=>{ s.style.transition='none'; s.style.width='0'; void s.offsetWidth; s.style.transition=''; })); }
+  if('IntersectionObserver' in window && !reduce){ reset();
+    new IntersectionObserver(es=>es.forEach(en=>{ en.isIntersecting?requestAnimationFrame(play):reset(); }),{threshold:.4}).observe(card);
+  } else set(1);
 })();
 </script>
 </body>
