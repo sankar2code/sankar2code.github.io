@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sankar Kumar Palaniappan — AI Product Manager</title>
-  <meta name="description" content="AI Product Manager with 15+ years shipping data- and AI-powered products across pharma, healthcare, and tech — up to $16M revenue impact. Live AI products, PRDs, and an AI twin you can interview." />
+  <title>Sankar Kumar Palaniappan | AI Product Manager</title>
+  <meta name="description" content="AI Product Manager with 15+ years shipping data- and AI-powered products across pharma, healthcare, and tech, delivering up to $16M revenue impact. Live AI products, PRDs, and an AI twin you can interview." />
   <link rel="canonical" href="https://sankar.work/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sankar.work/" />
-  <meta property="og:title" content="Sankar Kumar Palaniappan — AI Product Manager" />
+  <meta property="og:title" content="Sankar Kumar Palaniappan | AI Product Manager" />
   <meta property="og:description" content="15+ years shipping data- and AI-powered products across pharma, healthcare, and tech. Explore live AI products, PRDs, and ask my AI twin." />
   <meta property="og:image" content="https://sankar.work/images/profile-photo.jpeg" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Sankar Kumar Palaniappan — AI Product Manager" />
+  <meta name="twitter:title" content="Sankar Kumar Palaniappan | AI Product Manager" />
   <meta name="twitter:description" content="15+ years shipping data- and AI-powered products across pharma, healthcare, and tech. Explore live AI products, PRDs, and ask my AI twin." />
   <meta name="twitter:image" content="https://sankar.work/images/profile-photo.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -731,8 +731,8 @@
 
     /* Outer container is flush against the trigger (top:100%, no real gap) so the
        mouse never leaves a hoverable element while moving from button to menu.
-       The 10px "gap" is invisible top padding on this same box — still part of
-       its hit area — while the visible card lives in .nav-dropdown-inner below it. */
+       The 10px "gap" is invisible top padding on this same box - still part of
+       its hit area - while the visible card lives in .nav-dropdown-inner below it. */
     .nav-dropdown {
       position: absolute;
       top: 100%;
@@ -795,6 +795,92 @@
       transition: transform 0.2s, box-shadow 0.2s !important;
     }
 
+    /* ── Say Hello: multilingual greeting + quick-contact menu ── */
+    .hello-wrap { position: relative; }
+    .hello-btn { border: 0; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 0.25rem; line-height: 1.2; }
+    .hello-g { display: inline-block; min-width: 4.9em; text-align: center; transition: opacity 0.28s, transform 0.28s; }
+    .hello-g.out { opacity: 0; transform: translateY(-7px); }
+    .hello-lang { font-size: 0.56rem; font-weight: 800; letter-spacing: 0.06em; opacity: 0.6; min-width: 1.4em; }
+    .hello-car { font-size: 0.62rem; margin-left: 0.15rem; transition: transform 0.2s; }
+    .hello-wrap.open .hello-car { transform: rotate(180deg); }
+    .hello-menu { position: absolute; right: 0; top: calc(100% + 10px); width: 260px; padding: 6px; z-index: 1200;
+      background: #151527; border: 1px solid rgba(56,189,248,0.25); border-radius: 14px; box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+      opacity: 0; transform: translateY(-6px) scale(0.98); transform-origin: top right; pointer-events: none; visibility: hidden;
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s; }
+    .hello-wrap.open .hello-menu { opacity: 1; transform: none; pointer-events: auto; visibility: visible; }
+    .nav-links .hello-menu a.hello-item { display: flex; align-items: center; gap: 0.65rem; padding: 0.5rem 0.6rem; border-radius: 10px;
+      color: var(--white); font-size: 0.82rem; font-weight: 600; text-decoration: none; text-align: left; }
+    .nav-links .hello-menu a.hello-item::after { display: none; }
+    .hello-item:hover, .hello-item:focus-visible { background: rgba(56,189,248,0.1); outline: none; }
+    .hello-item i { font-style: normal; flex: none; width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: rgba(255,255,255,0.06); }
+    .hello-item small { display: block; color: var(--muted); font-size: 0.68rem; font-weight: 500; }
+    .hello-item small.ok { color: #4ade80; }
+    html.light .hello-menu { background: #fff; border-color: rgba(29,78,216,0.2); box-shadow: 0 18px 40px rgba(15,23,42,0.15); }
+    html.light .nav-links .hello-menu a.hello-item { color: #0f172a; }
+    html.light .hello-item i { background: #f1f5f9; }
+    html.light .hello-item small.ok { color: #15803d; }
+    .nav-links.mobile-open .hello-wrap { width: 100%; }
+    .nav-links.mobile-open .hello-menu { position: static; width: 100%; margin-top: 0.5rem; box-shadow: none; transform: none; display: none; }
+    .nav-links.mobile-open .hello-wrap.open .hello-menu { display: block; }
+    @media (prefers-reduced-motion: reduce) { .hello-g, .hello-menu, .hello-car { transition: none; } }
+
+    .nav-links .hello-btn:hover, .hello-wrap.open .hello-btn { filter: brightness(1.12); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(56,189,248,0.45); }
+    .nav-links .hello-menu a.hello-item:hover { background: rgba(56,189,248,0.1); color: var(--white); }
+    html.light .nav-links .hello-menu a.hello-item:hover { color: #0f172a; }
+    /* ── Nav: sliding glow pill + mega menu ── */
+    @media (min-width: 901px) {
+      .nav-links { position: relative; }
+      .nav-pill { position: absolute; top: 0; left: 0; width: 0; height: 32px; border-radius: 999px; pointer-events: none; z-index: 0; opacity: 0;
+        background: rgba(37,99,235,0.26); box-shadow: inset 0 0 0 1px rgba(56,189,248,0.45), 0 0 18px rgba(56,189,248,0.25);
+        transition: left 0.32s cubic-bezier(.3,.8,.3,1), width 0.32s cubic-bezier(.3,.8,.3,1), top 0.32s, opacity 0.25s; }
+      .nav-pill.on { opacity: 1; }
+      .nav-links > li { position: relative; z-index: 1; }
+      .nav-links > li > a:not(.nav-cta), .nav-links .nav-group-trigger { border-radius: 999px; padding: 0.4rem 0.8rem; }
+      .nav-links > li > a:not(.nav-cta):hover, .nav-links > li > a:not(.nav-cta).active, .nav-links > li > a:not(.nav-cta):active,
+      .nav-links .nav-group-trigger:hover, .nav-item-group.open .nav-group-trigger, .nav-item-group:hover .nav-group-trigger { background: transparent; color: var(--white); }
+      .nav-links > li > a:not(.nav-cta).active { color: var(--white); font-weight: 500; }
+      .nav-links > li > a:not(.nav-cta).active::after { display: none; }
+      .nav-links .pill-here { color: var(--white); }
+      html.light .nav-links > li > a:not(.nav-cta):hover, html.light .nav-links > li > a:not(.nav-cta).active, html.light .nav-links > li > a:not(.nav-cta):active,
+      html.light .nav-item-group.open .nav-group-trigger, html.light .nav-item-group:hover .nav-group-trigger { background: transparent; color: #111118; box-shadow: none; }
+      html.light .nav-links .pill-here { color: #111118; }
+      html.light .nav-pill { background: rgba(37,99,235,0.12); box-shadow: inset 0 0 0 1px rgba(37,99,235,0.35), 0 0 14px rgba(37,99,235,0.15); }
+
+      /* mega panel: centred under the whole bar */
+      .nav-item-group .nav-dropdown { position: fixed; top: calc(100% - 18px); left: 50%; transform: translateX(-50%) translateY(-6px); padding-top: 26px;
+        width: min(780px, 94vw); transition: opacity 0.22s ease, visibility 0.22s, transform 0.22s ease; }
+      .nav-item-group.open .nav-dropdown, .nav-item-group:hover .nav-dropdown { transform: translateX(-50%); }
+      .nav-dropdown-inner.mega { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 0.6rem; padding: 0.75rem; border-radius: 16px;
+        border-color: rgba(56,189,248,0.22); box-shadow: 0 24px 50px rgba(0,0,0,0.45); }
+      .mega-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2rem; }
+    }
+    .nav-links .nav-dropdown a.mega-link { display: flex; gap: 0.65rem; align-items: flex-start; white-space: normal; padding: 0.6rem 0.65rem; border-radius: 12px; color: var(--white); }
+    .nav-links .nav-dropdown a.mega-link:hover, .nav-links .nav-dropdown a.mega-link.active { background: rgba(56,189,248,0.1); color: var(--white); }
+    .nav-links .nav-dropdown a.mega-link.active { font-weight: 500; }
+    .nav-links .nav-dropdown a.mega-link::after { display: none; }
+    .mega-link i { font-style: normal; flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,0.06); font-size: 1rem; }
+    .mega-link b { display: block; font-size: 0.84rem; font-weight: 600; }
+    .mega-link small { display: block; font-size: 0.7rem; color: var(--muted); line-height: 1.4; margin-top: 1px; }
+    .nav-links .nav-dropdown a.mega-feat { display: flex; flex-direction: column; gap: 0.3rem; white-space: normal; padding: 0.85rem; border-radius: 12px; color: var(--white);
+      background: radial-gradient(120% 120% at 0 0, rgba(99,102,241,0.32), transparent 60%), rgba(255,255,255,0.03); border: 1px solid rgba(129,140,248,0.35); transition: border-color 0.2s, transform 0.2s; }
+    .nav-links .nav-dropdown a.mega-feat:hover { border-color: rgba(125,211,252,0.6); transform: translateY(-1px); background: radial-gradient(120% 120% at 0 0, rgba(99,102,241,0.4), transparent 60%), rgba(255,255,255,0.04); }
+    .nav-links .nav-dropdown a.mega-feat::after { display: none; }
+    .mf-k { font-size: 0.58rem; font-weight: 800; letter-spacing: 0.12em; color: #4ade80; }
+    .mega-feat b { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; line-height: 1.3; }
+    .mega-feat small { font-size: 0.72rem; color: var(--muted); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .mf-go { margin-top: auto; padding-top: 0.3rem; font-size: 0.74rem; font-weight: 600; color: #7dd3fc; }
+    html.light .nav-links .nav-dropdown a.mega-link, html.light .nav-links .nav-dropdown a.mega-feat { color: #0f172a; }
+    html.light .nav-links .nav-dropdown a.mega-link:hover, html.light .nav-links .nav-dropdown a.mega-link.active { background: rgba(37,99,235,0.08); color: #0f172a; }
+    html.light .mega-link i { background: #f1f5f9; }
+    html.light .nav-links .nav-dropdown a.mega-feat { background: radial-gradient(120% 120% at 0 0, rgba(99,102,241,0.14), transparent 60%), #f8fafc; border-color: rgba(99,102,241,0.3); }
+    html.light .mf-k { color: #15803d; } html.light .mf-go { color: #1d4ed8; }
+    @media (max-width: 900px) {
+      .nav-pill, .mega-feat, .mega-link small { display: none !important; }
+      .nav-links .nav-dropdown a.mega-link { padding: 0.45rem 0.6rem; align-items: center; }
+      .mega-link i { width: 26px; height: 26px; font-size: 0.85rem; }
+      .mega-links { display: flex; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { .nav-pill, .nav-item-group .nav-dropdown { transition: none; } }
     .nav-links a.nav-cta:hover {
       background: var(--grad2);
       color: var(--bg) !important;
@@ -1391,7 +1477,7 @@
       transform: translateY(-2px);
     }
 
-    /* ─── JOURNEY MAP FLOATING REVEAL (Option C — top) ─── */
+    /* ─── JOURNEY MAP FLOATING REVEAL (Option C - top) ─── */
     .journey-reveal {
       display: inline-flex;
       position: relative;
@@ -1688,7 +1774,7 @@
       100% { background-position: -200% 0; }
     }
 
-    /* Ambient smoke — slow drifting blurred haze behind the card content */
+    /* Ambient smoke - slow drifting blurred haze behind the card content */
     .shipped-card::after {
       content: '';
       position: absolute;
@@ -2087,7 +2173,7 @@
       height: 235px;
       cursor: pointer;
       /* Force this card onto its own compositing layer so the 3D subtree
-         below isn't merged with siblings — helps iOS Safari keep the
+         below isn't merged with siblings - helps iOS Safari keep the
          preserve-3d context intact instead of flattening it. */
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
@@ -2138,7 +2224,7 @@
     /* Decorative sheen + glow live on the CARD itself, not inside the rotating
        faces. Any overflow:hidden or filter (blur) on a descendant of a
        backface-hidden 3D-transformed element breaks face-culling on Safari/iOS
-       (both faces render at once, one mirrored) — so this layer sits as a
+       (both faces render at once, one mirrored) - so this layer sits as a
        sibling of .li-flip-inner, outside the 3D transform entirely. */
     .li-flip-card { position: relative; }
 
@@ -2440,7 +2526,7 @@
     }
 
     /* A 180deg rotation is a stronger, more disorienting motion than
-       anything else on the site — swap it for a plain opacity cross-fade
+       anything else on the site - swap it for a plain opacity cross-fade
        between the two faces (which stay absolutely positioned on top of
        each other, so nothing reflows) instead of spinning the card. */
     @media (prefers-reduced-motion: reduce) {
@@ -2473,7 +2559,7 @@
       .li-hero-sub, .li-hero-sub2 { font-size: 0.68rem; }
     }
 
-    /* Connecting rail — brightest near the newest item, fading with age */
+    /* Connecting rail - brightest near the newest item, fading with age */
     .ship-rail {
       position: absolute;
       left: 14.5px;
@@ -2861,7 +2947,7 @@
       .heatmap-hourlabels { margin-left: 26px; font-size: 0.5rem; }
       .heatmap-daylabels { width: 20px; font-size: 0.5rem; }
       .heatmap-grid { grid-template-rows: repeat(7, 10px); gap: 2px; }
-      /* Not enough room for title + sub-label + tabs on one line — drop the
+      /* Not enough room for title + sub-label + tabs on one line - drop the
          sub-label so the Skyline/3 weeks toggle stays put next to the title
          instead of wrapping to its own row. */
       .heatmap-header { flex-wrap: nowrap; }
@@ -2895,7 +2981,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       ASK MY TWIN ABOUT THIS — inside project pop-ups
+       ASK MY TWIN ABOUT THIS - inside project pop-ups
     ═══════════════════════════════════════════════ */
     .atw-box { border: 1px solid rgba(56,189,248,0.3); background: rgba(37,99,235,0.07); border-radius: 12px; padding: 0.9rem 1rem; }
     .atw-btn {
@@ -2915,7 +3001,7 @@
     html.light .atw-box { border-color: rgba(29,78,216,0.3); background: rgba(29,78,216,0.05); }
 
     /* ═══════════════════════════════════════════════
-       ARCHITECTURE X-RAY — 3D flip with timeline back
+       ARCHITECTURE X-RAY - 3D flip with timeline back
     ═══════════════════════════════════════════════ */
     .xr-host { position: relative; min-height: 320px; }
     .xr-inner { position: relative; flex: 1; display: flex; perspective: 1100px; }
@@ -2956,7 +3042,7 @@
     html.light .xr-host.xr-on { border-color: rgba(29,78,216,0.45); }
     @media (prefers-reduced-motion: reduce) { .xr-front, .xr-back { transition: none; } }
 
-    /* xr-scroll-theme — themed scrollbars for X-ray back + PRD output */
+    /* xr-scroll-theme - themed scrollbars for X-ray back + PRD output */
     .xr-back, .prdd-doc { scrollbar-width: thin; scrollbar-color: rgba(56,189,248,0.45) transparent; }
     .xr-back::-webkit-scrollbar, .prdd-doc::-webkit-scrollbar { width: 6px; height: 6px; }
     .xr-back::-webkit-scrollbar-track, .prdd-doc::-webkit-scrollbar-track { background: transparent; }
@@ -2968,7 +3054,7 @@
     html.light .xr-back::-webkit-scrollbar-thumb:hover, html.light .prdd-doc::-webkit-scrollbar-thumb:hover { background: rgba(29,78,216,0.55); }
 
     /* ═══════════════════════════════════════════════
-       BEFORE / AFTER IMPACT SLIDER — functional domains
+       BEFORE / AFTER IMPACT SLIDER - functional domains
     ═══════════════════════════════════════════════ */
     .ba-card { position: relative; margin-top: 1.8rem; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.3rem 1.4rem 1.4rem; overflow: hidden; }
     .ba-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--grad); }
@@ -3041,7 +3127,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       PROMPT-TO-PRD — live demo of the prd-v2 skill
+       PROMPT-TO-PRD - live demo of the prd-v2 skill
     ═══════════════════════════════════════════════ */
     .prdd-card {
       position: relative; margin-top: 2rem; background: var(--card); border: 1px solid var(--border);
@@ -3191,7 +3277,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       YOU BE THE PM — Slack-style scenarios + PM archetype
+       YOU BE THE PM - Slack-style scenarios + PM archetype
     ═══════════════════════════════════════════════ */
     .ypm-card { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem 1.4rem 1.3rem; margin-bottom: 1.5rem; overflow: hidden; }
     .ypm-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--grad); }
@@ -3275,7 +3361,7 @@
     }
 
     /* ═══════════════════════════════════════════════
-       THE LOOP — how I build with AI
+       THE LOOP - how I build with AI
     ═══════════════════════════════════════════════ */
     .loop-card {
       background: var(--card);
@@ -5350,7 +5436,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* first nodes: tooltip would clip left — nudge inward */
+    /* first nodes: tooltip would clip left - nudge inward */
     .ascent-step[data-tl="6"]::after { left: 0; transform: translateX(0) translateY(5px); }
     .ascent-step[data-tl="6"]:hover::after { transform: translateX(0) translateY(0); }
     .ascent-step[data-tl="0"]::after { left: auto; right: 0; transform: translateX(0) translateY(5px); }
@@ -5820,7 +5906,7 @@
       background: var(--border);
     }
 
-    /* ── Cert grid — 3 cols desktop ── */
+    /* ── Cert grid - 3 cols desktop ── */
     .cert-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -6501,7 +6587,7 @@
       white-space: nowrap;
     }
 
-    /* Sub-Agent badge — cyan/blue */
+    /* Sub-Agent badge - cyan/blue */
     .skill-badge:not(.skill-badge-default) {
       color: #38bdf8;
     }
@@ -6510,7 +6596,7 @@
       color: #2563eb;
     }
 
-    /* Skill badge — purple/indigo */
+    /* Skill badge - purple/indigo */
     .skill-badge-default {
       color: #a78bfa;
     }
@@ -6578,7 +6664,7 @@
     }
 
     /* ─── PROJECT MODAL ──────────────────────────── */
-    /* Open/close are the same transition run forward and backward — the
+    /* Open/close are the same transition run forward and backward - the
        backdrop stays visible for the tail of the close (via .force-visible,
        toggled in JS) so the reverse animation has time to play instead of
        cutting to display:none instantly. */
@@ -7085,11 +7171,14 @@
       <button type="button" class="nav-group-trigger" onclick="toggleNavGroup(this)">About
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="nav-dropdown"><div class="nav-dropdown-inner">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#recommendations">Recommendations</a>
+      <div class="nav-dropdown"><div class="nav-dropdown-inner mega">
+        <div class="mega-links">
+          <a class="mega-link" href="#about"><i aria-hidden="true">🙂</i><span><b>About me</b><small>15+ years across pharma, healthcare and tech</small></span></a>
+          <a class="mega-link" href="#experience"><i aria-hidden="true">🧭</i><span><b>Experience</b><small>7 roles, from WIPRO to Otsuka</small></span></a>
+          <a class="mega-link" href="#education"><i aria-hidden="true">🎓</i><span><b>Education</b><small>MBA (FDU) · B.E. (Anna University)</small></span></a>
+          <a class="mega-link" href="#recommendations"><i aria-hidden="true">⭐</i><span><b>Recommendations</b><small>What colleagues say about working with me</small></span></a>
+        </div>
+        <a class="mega-feat" href="#ai-twin"><span class="mf-k">TRY IT</span><b>Ask My Twin</b><small>Chat with an AI version of me, grounded on my real career.</small><span class="mf-go">Start chatting →</span></a>
       </div></div>
     </li>
     <li><a href="#ai-twin">Ask My Twin</a></li>
@@ -7097,31 +7186,53 @@
       <button type="button" class="nav-group-trigger" onclick="toggleNavGroup(this)">Work
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="nav-dropdown"><div class="nav-dropdown-inner">
-        <a href="#domains">Projects</a>
-        <a href="#work">Built</a>
+      <div class="nav-dropdown"><div class="nav-dropdown-inner mega">
+        <div class="mega-links">
+          <a class="mega-link" href="#domains"><i aria-hidden="true">🧩</i><span><b>Projects</b><small>Enterprise work across 5 industries</small></span></a>
+          <a class="mega-link" href="#work"><i aria-hidden="true">🚀</i><span><b>Built</b><small>AI products I designed and shipped</small></span></a>
+          <a class="mega-link" href="#ypm"><i aria-hidden="true">🎮</i><span><b>You Be the PM</b><small>Make the call, then compare with mine</small></span></a>
+          <a class="mega-link" href="#prd-demo"><i aria-hidden="true">🧪</i><span><b>Prompt-to-PRD</b><small>Turn an idea into a PRD in seconds</small></span></a>
+        </div>
+        <a class="mega-feat" href="#work" data-feat="project"><span class="mf-k">● LATEST BUILD</span><b>Built projects</b><small>See what I have shipped.</small><span class="mf-go">Open project →</span></a>
       </div></div>
     </li>
     <li class="nav-item-group">
       <button type="button" class="nav-group-trigger" onclick="toggleNavGroup(this)">Skills
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="nav-dropdown"><div class="nav-dropdown-inner">
-        <a href="#certifications">Certifications</a>
-        <a href="#tools">Tools</a>
+      <div class="nav-dropdown"><div class="nav-dropdown-inner mega">
+        <div class="mega-links">
+          <a class="mega-link" href="#certifications"><i aria-hidden="true">🏅</i><span><b>Certifications</b><small>24 credentials · AWS, MIT, SAFe, Anthropic</small></span></a>
+          <a class="mega-link" href="#tools"><i aria-hidden="true">🛠️</i><span><b>Tools</b><small>The stack I build with</small></span></a>
+          <a class="mega-link" href="#kg-card"><i aria-hidden="true">🕸️</i><span><b>Knowledge Graph</b><small>How my career connects</small></span></a>
+          <a class="mega-link" href="#ba-card"><i aria-hidden="true">⚡</i><span><b>Impact slider</b><small>Before vs after AI, by project</small></span></a>
+        </div>
+        <a class="mega-feat" href="#certifications"><span class="mf-k">NEWEST</span><b>AWS Gen AI Developer (Pro)</b><small>Amazon Web Services · Q3 2026</small><span class="mf-go">See all certifications →</span></a>
       </div></div>
     </li>
     <li class="nav-item-group">
       <button type="button" class="nav-group-trigger" onclick="toggleNavGroup(this)">More
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="nav-dropdown"><div class="nav-dropdown-inner">
-        <a href="#opensource">Collections</a>
-        <a href="#shipped">Live Build</a>
-        <a href="#live-post">Live Post</a>
+      <div class="nav-dropdown"><div class="nav-dropdown-inner mega">
+        <div class="mega-links">
+          <a class="mega-link" href="#opensource"><i aria-hidden="true">🧩</i><span><b>Collections</b><small>Free Claude skills and sub-agents</small></span></a>
+          <a class="mega-link" href="#shipped"><i aria-hidden="true">🔨</i><span><b>Live Build</b><small>What I shipped recently</small></span></a>
+          <a class="mega-link" href="#live-post"><i aria-hidden="true">📣</i><span><b>Live Post</b><small>Recent LinkedIn posts</small></span></a>
+          <a class="mega-link" href="#li-snapshot"><i aria-hidden="true">📊</i><span><b>LinkedIn Snapshot</b><small>90-day analytics</small></span></a>
+        </div>
+        <a class="mega-feat" href="#live-post" data-feat="post"><span class="mf-k">● LATEST POST</span><b>Live Post</b><small>My most recent LinkedIn post.</small><span class="mf-go">Read on LinkedIn →</span></a>
       </div></div>
     </li>
-    <li><a href="#contact" class="nav-cta">Say Hello</a></li>
+    <li class="hello-wrap" id="hello-wrap">
+      <button type="button" class="nav-cta hello-btn" id="hello-btn" aria-haspopup="true" aria-expanded="false" aria-controls="hello-menu"><span class="hello-say">Say</span> <span class="hello-g" id="hello-g">Hello</span><span class="hello-lang" id="hello-lang">EN</span><span class="hello-car" aria-hidden="true">▾</span></button>
+      <div class="hello-menu" id="hello-menu" role="menu">
+        <a class="hello-item" role="menuitem" href="mailto:hello@sankar.work" data-act="email"><i>✉️</i><span>Email me<small id="hello-email-sub">hello@sankar.work · click to copy</small></span></a>
+        <a class="hello-item" role="menuitem" href="http://www.linkedin.com/in/sankar-kumar-palaniappan-pm" target="_blank" rel="noopener"><i>💼</i><span>Connect on LinkedIn<small>8.3K+ followers</small></span></a>
+        <a class="hello-item" role="menuitem" href="#ai-twin" data-act="twin"><i>🤖</i><span>Ask my AI twin<small>Instant answers about my work</small></span></a>
+        <a class="hello-item" role="menuitem" href="#contact" data-act="form"><i>📝</i><span>Send a message<small>A quick 3-step form</small></span></a>
+      </div>
+    </li>
   </ul>
   <div class="nav-right">
     <button class="cmdk-trigger" onclick="openCmdk()" aria-label="Open command palette" title="Search (Cmd+K)">
@@ -7219,12 +7330,12 @@
     <!-- Name -->
     <h1 class="hero-name">Sankar Kumar<br/><span>Palaniappan</span></h1>
 
-    <!-- Title — rotating roles -->
+    <!-- Title - rotating roles -->
     <p class="hero-title" id="hero-title-rotator">AI Product Manager · AI Data Strategist</p>
 
     <!-- Tagline -->
     <p class="hero-tagline">
-      AI Product Manager with 15+ years shipping data- and AI-powered products — scaling platforms from $0.5M to $4M and driving up to $16M in revenue impact across pharma, healthcare, and tech.
+      AI Product Manager with 15+ years shipping data- and AI-powered products, scaling platforms from $0.5M to $4M and driving up to $16M in revenue impact across pharma, healthcare, and tech.
     </p>
 
     <!-- CTAs -->
@@ -7263,7 +7374,7 @@
         </div>
       </div>
       <p>
-        I own the full product lifecycle — from discovery and opportunity sizing to roadmap, delivery, and adoption — partnering with engineering, data science, and design to ship AI capabilities that customers and stakeholders actually use.
+        I own the full product lifecycle: from discovery and opportunity sizing to roadmap, delivery, and adoption, partnering with engineering, data science, and design to ship AI capabilities that customers and stakeholders actually use.
       </p>
       <p>
         I specialize in AI/ML product strategy, data and platform strategy, and 0-to-1 through scale execution. I define the problems worth solving, translate them into crisp product requirements and success metrics, and run a hypothesis-led, experiment-driven approach to de-risk ambiguity.
@@ -7342,7 +7453,7 @@
       <span id="aitwin-workplace" class="twin-title-icon" aria-hidden="true"></span>
       <h2 class="section-title">Not sure if I'm the right fit?<br/>Ask my AI twin.</h2>
     </div>
-    <p class="section-sub">A Claude-powered version of me, grounded on my real career. Ask about the AI products I've built, my product/data background, or whether I'm a fit for your role — then email the real me. Five questions per hour, resetting automatically, so make them count.</p>
+    <p class="section-sub">A Claude-powered version of me, grounded on my real career. Ask about the AI products I've built, my product/data background, or whether I'm a fit for your role. Then email the real me. Five questions per hour, resetting automatically, so make them count.</p>
   </div>
 
   <div class="twin-card reveal">
@@ -7383,7 +7494,7 @@
 
   <div class="graph-card reveal" id="kg-card">
     <div class="graph-head">
-      <div class="graph-title">Career Knowledge Graph <span>— click any node to see how it connects</span></div>
+      <div class="graph-title">Career Knowledge Graph <span>· click any node to see how it connects</span></div>
       <div class="kg-headbtns">
         <div class="kg-seg" id="kg-mode" role="group" aria-label="Graph layout"><button type="button" class="on" data-m="graph">🕸️ Graph</button><button type="button" data-m="time">📅 Timeline</button></div>
         <button type="button" class="kg-btn kg-btn-hot" id="kg-tour-btn">▶ Take the tour</button>
@@ -7417,7 +7528,7 @@
       <span id="domains-brainstorm" class="domains-title-icon" aria-hidden="true"></span>
       <h2 class="section-title">Projects Delivered by<br/>Functional Domains</h2>
     </div>
-    <p class="section-sub">Real products built and shipped across industries — from publishing and healthcare to pharma and consumer tech.</p>
+    <p class="section-sub">Real products built and shipped across industries, from publishing and healthcare to pharma and consumer tech.</p>
     <p class="domains-note">Project names anonymized for client confidentiality · Outcomes from internal program reporting</p>
   </div>
   <div class="projects-grid reveal">
@@ -7432,7 +7543,7 @@
           <span class="tag tag-gold">2025 – 2026</span>
         </div>
         <h3>InsightMD – AI Medical Affairs Insights</h3>
-        <p>AI product mining medical, clinical, and field-engagement data to surface new drug insights for MSL and Medical Affairs teams — using NLP and ML to detect trends and knowledge gaps.</p>
+        <p>AI product mining medical, clinical, and field-engagement data to surface new drug insights for MSL and Medical Affairs teams, using NLP and ML to detect trends and knowledge gaps.</p>
         <div class="project-impact">🧠 ~60% faster insight discovery · Stronger scientific engagement · Compliance maintained</div>
       </div>
     </div>
@@ -7447,7 +7558,7 @@
           <span class="tag tag-gold">2022 – 2025</span>
         </div>
         <h3>ProviderIQ – AI Provider Lifecycle Management</h3>
-        <p>AI-driven PLM platform automating provider onboarding, credentialing, claims processing, and compliance tracking — integrating structured healthcare data across enrollment workflows.</p>
+        <p>AI-driven PLM platform automating provider onboarding, credentialing, claims processing, and compliance tracking, integrating structured healthcare data across enrollment workflows.</p>
         <div class="project-impact">⚡ ~40% faster onboarding · ~80% claims accuracy · Compliance tracking automated</div>
       </div>
     </div>
@@ -7462,7 +7573,7 @@
           <span class="tag tag-gold">2017 – 2018</span>
         </div>
         <h3>TrialHub – Custom CTMS</h3>
-        <p>Custom Clinical Trial Management System centralizing site selection, enrollment tracking, milestone monitoring, and document control — integrated with EDC, regulatory, and safety systems.</p>
+        <p>Custom Clinical Trial Management System centralizing site selection, enrollment tracking, milestone monitoring, and document control, integrated with EDC, regulatory, and safety systems.</p>
         <div class="project-impact">🏥 50+ sites centralized · ~30% faster setup · GxP / 21 CFR Part 11 audit-ready</div>
       </div>
     </div>
@@ -7477,7 +7588,7 @@
           <span class="tag tag-gold">2016</span>
         </div>
         <h3>Cloudculina – At-Home Chef Platform</h3>
-        <p>Platform matching customers with vetted chefs based on cuisine preferences, dietary needs, and budget — with streamlined onboarding, scheduling, and secure payments.</p>
+        <p>Platform matching customers with vetted chefs based on cuisine preferences, dietary needs, and budget, with streamlined onboarding, scheduling, and secure payments.</p>
         <div class="project-impact">💰 25% cost reduction · 40% repeat customers · 75% profitability uplift</div>
       </div>
     </div>
@@ -7507,7 +7618,7 @@
           <span class="tag tag-gold">2010 – 2014</span>
         </div>
         <h3>BookSense – Publishing Feasibility Predictor</h3>
-        <p>Predictive analytics product that scores a book's market feasibility before publishing — automating go/no-go decisions using historical sales, genre, and market-trend data.</p>
+        <p>Predictive analytics product that scores a book's market feasibility before publishing, automating go/no-go decisions using historical sales, genre, and market-trend data.</p>
         <div class="project-impact">📈 ~30% fewer costly misses · Decision time cut from weeks to a day · ~25% lift in title success rate</div>
       </div>
     </div>
@@ -7547,10 +7658,10 @@
   <div class="reveal">
     <span class="section-label">As a Builder</span>
     <h2 class="section-title"><span id="work-laptop" class="work-title-icon" aria-hidden="true"></span>Built Projects</h2>
-    <p class="section-sub">Personal AI and data products I've built from scratch — exploring what's possible at the frontier of technology.</p>
+    <p class="section-sub">Personal AI and data products I've built from scratch, exploring what's possible at the frontier of technology.</p>
   </div>
 
-  <!-- THE LOOP — how I build with AI -->
+  <!-- THE LOOP - how I build with AI -->
   <div class="loop-card reveal">
     <div class="loop-head">
       <span class="loop-eyebrow">The Loop · How I build with AI</span>
@@ -7653,7 +7764,7 @@
           <span class="tag tag-purple">BYOK</span>
           <span class="tag tag-gold">Q3 2026</span>
         </div>
-        <h3>Company Comparison — AI Equity Research</h3>
+        <h3>Company Comparison: AI Equity Research</h3>
         <div class="project-pills">
           <span class="project-pill">Analyst-grade output</span>
           <span class="project-pill">Live web search + citations</span>
@@ -7854,10 +7965,10 @@
 
   </div>
 
-  <!-- NOW BUILDING — pipeline projects -->
+  <!-- NOW BUILDING - pipeline projects -->
   <div class="nb-head reveal">
     <span class="section-label">🔭 Now Building</span>
-    <p class="section-sub">In the lab — architecture defined, builds in progress. Open to collaborators.</p>
+    <p class="section-sub">In the lab: architecture defined, builds in progress. Open to collaborators.</p>
   </div>
   <div class="nb-grid reveal">
 
@@ -7882,7 +7993,7 @@
   </div>
 
   <div style="height:1.5rem"></div>
-  <!-- YOU BE THE PM — Slack-style scenarios + PM archetype -->
+  <!-- YOU BE THE PM - Slack-style scenarios + PM archetype -->
   <div class="ypm-card reveal" id="ypm">
     <div class="ypm-head">
       <span class="ypm-eyebrow">🎮 You Be the PM · Make the call</span>
@@ -7893,29 +8004,29 @@
   </div>
   <script>
   (function () {
-    // t: choice type — 'b' balanced (my call), 's' speed-first, 'c' caution-first
+    // t: choice type - 'b' balanced (my call), 's' speed-first, 'c' caution-first
     var S = [
       { chan: 'launch-clinical-ai', tag: 'Launch readiness', from: 'VP Product', av: '👩‍💼', col: '#7c3aed',
         msg: 'Evals came back: 92% on the trial summarizer 🎉 But 3 of the 8 failures invented a stop reason that isn’t in the source. Launch is Friday. Your call?',
-        c: [['🚀 Ship it, patch in v1.1', 's', [90, 30, 85]], ['🧱 Hold — add a hard gate first', 'b', [60, 90, 20]], ['🧑‍⚕️ Ship with a disclaimer', 's', [80, 45, 60]]],
+        c: [['🚀 Ship it, patch in v1.1', 's', [90, 30, 85]], ['🧱 Hold and add a hard gate first', 'b', [60, 90, 20]], ['🧑‍⚕️ Ship with a disclaimer', 's', [80, 45, 60]]],
         a: 1, mine: 'Hold and add a hard gate',
-        why: 'An average score hides the failure that matters. Fabricated reasons are the one error clinicians won’t forgive, so I added a schema gate that rejects any unlabeled claim, then shipped — the rule that went live in ClinicalAI-TrialAnalysis. Accuracy is a launch bar; trust is the product.' },
+        why: 'An average score hides the failure that matters. Fabricated reasons are the one error clinicians won’t forgive, so I added a schema gate that rejects any unlabeled claim, then shipped. That rule went live in ClinicalAI-TrialAnalysis. Accuracy is a launch bar; trust is the product.' },
       { chan: 'trial-matching', tag: 'Agent or workflow', from: 'Clinical Ops Lead', av: '🧑‍🔬', col: '#0e7490',
         msg: 'Can the matching assistant just decide patient eligibility on its own and email the research coordinator automatically? Would save us hours a week.',
-        c: [['🤖 Yes — full autonomy', 's', [95, 25, 90]], ['🧭 Engine decides, agent assists', 'b', [70, 90, 20]], ['📏 Rules only, skip the AI', 'c', [35, 65, 25]]],
+        c: [['🤖 Yes, full autonomy', 's', [95, 25, 90]], ['🧭 Engine decides, agent assists', 'b', [70, 90, 20]], ['📏 Rules only, skip the AI', 'c', [35, 65, 25]]],
         a: 1, mine: 'Engine decides, agent assists',
-        why: 'Eligibility is the system of record, so it stays deterministic, criterion-scored, and auditable. The agent earns its place where the path genuinely varies — chasing missing labs, re-screening when a trial opens, drafting the handoff — and nothing is sent without clinician approval.' },
+        why: 'Eligibility is the system of record, so it stays deterministic, criterion-scored, and auditable. The agent earns its place where the path genuinely varies: chasing missing labs, re-screening when a trial opens, drafting the handoff, and nothing is sent without clinician approval.' },
       { chan: 'medical-affairs', tag: 'Regulated rollout', from: 'SVP Medical Affairs', av: '👨‍💼', col: '#b45309',
         msg: 'Leadership wants a gen-AI drafting feature inside our GxP Medical Affairs system next sprint. Validation (IQ/OQ/PQ) will take weeks. What’s your move?',
-        c: [['⚡ Quiet pilot outside the validated system', 's', [90, 30, 90]], ['🪜 Stage it — draft-only while validation runs', 'b', [70, 85, 25]], ['⏸️ Wait a quarter until fully validated', 'c', [20, 75, 15]]],
+        c: [['⚡ Quiet pilot outside the validated system', 's', [90, 30, 90]], ['🪜 Stage it, draft-only while validation runs', 'b', [70, 85, 25]], ['⏸️ Wait a quarter until fully validated', 'c', [20, 75, 15]]],
         a: 1, mine: 'Stage it',
-        why: 'Speed and compliance aren’t a trade-off if you sequence them. A draft-only, human-reviewed scope delivers value and real usage data now, while the validation package runs in parallel. The GxP decision path opens only once IQ/OQ/PQ is signed off — no shortcuts that become audit findings later.' }
+        why: 'Speed and compliance aren’t a trade-off if you sequence them. A draft-only, human-reviewed scope delivers value and real usage data now, while the validation package runs in parallel. The GxP decision path opens only once IQ/OQ/PQ is signed off, with no shortcuts that become audit findings later.' }
     ];
     var ARCH = {
       b: ['🛡️', 'The Trust Builder', 'You ship when the guardrails are real, and you sequence speed and safety instead of trading one for the other.'],
-      s: ['🚀', 'The Shipper', 'You bias toward momentum and learning in market. Great instinct — I’d add hard guardrails wherever the failure is unforgivable.'],
+      s: ['🚀', 'The Shipper', 'You bias toward momentum and learning in market. Great instinct. I’d add hard guardrails wherever the failure is unforgivable.'],
       c: ['🧭', 'The Guardian', 'You protect users and compliance first. I’d look for a staged path that delivers value while the safeguards land.'],
-      m: ['⚖️', 'The Pragmatist', 'You read each situation on its own terms — sometimes fast, sometimes careful. That’s a good instinct to build on.']
+      m: ['⚖️', 'The Pragmatist', 'You read each situation on its own terms: sometimes fast, sometimes careful. That’s a good instinct to build on.']
     };
     var i = 0, picks = [];
     var body = document.getElementById('ypm-body');
@@ -7979,7 +8090,7 @@
       var q = miss < 0 ? 'How do you balance speed and safety when shipping AI products?' : 'In the "' + S[miss].tag + '" scenario, why did you choose "' + S[miss].mine + '"?';
       body.innerHTML = '<div class="ypm-arch"><div class="ypm-badge" aria-hidden="true">' + A[0] + '</div><div>' +
         '<span class="ypm-eyebrow">Your PM style</span><h3>' + esc(A[1]) + '</h3><p>' + esc(A[2]) + ' ' +
-        (matched === S.length ? 'All 3 calls matched mine — let’s talk.' : matched + ' of ' + S.length + ' calls matched mine.') + '</p>' +
+        (matched === S.length ? 'All 3 calls matched mine. Let’s talk.' : matched + ' of ' + S.length + ' calls matched mine.') + '</p>' +
         '<div class="ypm-dots">' + dots + '</div>' + cmp +
         '<div class="ypm-actions" style="margin-top:0.8rem"><button type="button" class="ypm-btn" id="ypm-ask">Ask my twin why →</button>' +
         '<button type="button" class="ypm-btn ghost" id="ypm-restart">Play again</button></div></div></div>';
@@ -8022,32 +8133,32 @@
     <div class="modal-body">
 
       <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>Enterprises can't trust LLM-only answers about their data — especially in regulated industries that need to prove it to an auditor.</p>
+        <p><span class="qs-label qs-problem">Problem</span>Enterprises can't trust LLM-only answers about their data, especially in regulated industries that need to prove it to an auditor.</p>
         <p><span class="qs-label qs-approach">Approach</span>Built a four-agent architecture where deterministic engines (profiling, SQL safety, PII detection) own the ground truth and the LLM only narrates.</p>
-        <p><span class="qs-label qs-result">Result</span>An auditable, HIPAA/GDPR/21 CFR Part 11-mapped data copilot — architecture and roadmap complete, targeting Q4 2026.</p>
+        <p><span class="qs-label qs-result">Result</span>An auditable, HIPAA/GDPR/21 CFR Part 11-mapped data copilot, with architecture and roadmap complete, targeting Q4 2026.</p>
       </div>
 
       <details class="modal-details">
         <summary>Read the full write-up</summary>
         <div class="modal-section">
           <h4>Problem Statement</h4>
-          <p>Most "AI data copilot" demos ask an LLM to do everything — including things LLMs are bad at, like guaranteeing a SQL query is safe or reliably counting nulls. Enterprises don't just need a plausible-sounding answer about their data; they need to trust it, and in regulated industries, prove that trust to an auditor.</p>
+          <p>Most "AI data copilot" demos ask an LLM to do everything, including things LLMs are bad at, like guaranteeing a SQL query is safe or reliably counting nulls. Enterprises don't just need a plausible-sounding answer about their data; they need to trust it, and in regulated industries, prove that trust to an auditor.</p>
         </div>
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>An agentic platform built around one rule: deterministic engines own the ground truth, the LLM only explains, classifies, and narrates. Four agents each pair a real profiling, validation, or detection engine with an LLM interpretation layer on top — a Data Quality Agent (ydata-profiling / Great Expectations) for nulls, duplicates, and schema drift; a Catalog Agent (pgvector + metadata graph) for lineage and semantic search; an Analytics Agent (sqlglot) that only ever executes safe, read-only, LIMIT-bound SQL generated from natural language; and a Governance Agent (Microsoft Presidio) that scans for PII/PHI and maps findings to HIPAA, GDPR, and 21 CFR Part 11. Langflow handles the reasoning for each agent, n8n orchestrates scheduling, routing, and the audit trail, and MCP is the bridge connecting them — no brittle glue-code HTTP calls. The whole pipeline runs against a synthetic pharma/clinical-trial dataset deliberately seeded with real data-quality issues and PII/PHI fields, so it's inspectable end to end rather than a polished demo.</p>
+          <p>An agentic platform built around one rule: deterministic engines own the ground truth, the LLM only explains, classifies, and narrates. Four agents each pair a real profiling, validation, or detection engine with an LLM interpretation layer on top: a Data Quality Agent (ydata-profiling / Great Expectations) for nulls, duplicates, and schema drift; a Catalog Agent (pgvector + metadata graph) for lineage and semantic search; an Analytics Agent (sqlglot) that only ever executes safe, read-only, LIMIT-bound SQL generated from natural language; and a Governance Agent (Microsoft Presidio) that scans for PII/PHI and maps findings to HIPAA, GDPR, and 21 CFR Part 11. Langflow handles the reasoning for each agent, n8n orchestrates scheduling, routing, and the audit trail, and MCP is the bridge connecting them, with no brittle glue-code HTTP calls. The whole pipeline runs against a synthetic pharma/clinical-trial dataset deliberately seeded with real data-quality issues and PII/PHI fields, so it's inspectable end to end rather than a polished demo.</p>
         </div>
       </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Deterministic engines (data profiling, SQL safety, PII detection) pair with LLM narration for auditable, not just plausible, answers ✦ Four-agent architecture orchestrated via Langflow + n8n + MCP, with a per-step audit trail built in ✦ Designed for regulated-industry compliance — HIPAA, GDPR, and 21 CFR Part 11 mapped directly into the Governance Agent's output</div>
+        <div class="modal-impact">⚡ Deterministic engines (data profiling, SQL safety, PII detection) pair with LLM narration for auditable, not just plausible, answers ✦ Four-agent architecture orchestrated via Langflow + n8n + MCP, with a per-step audit trail built in ✦ Designed for regulated-industry compliance: HIPAA, GDPR, and 21 CFR Part 11 mapped directly into the Governance Agent's output</div>
       </div>
 
       <div class="modal-section">
         <h4>Status</h4>
-        <p>Coming soon, targeting Q4 2026 — architecture and roadmap defined, with the phased build plan documented in the repo.</p>
+        <p>Coming soon, targeting Q4 2026. Architecture and roadmap are defined, with the phased build plan documented in the repo.</p>
       </div>
 
       <div class="modal-section">
@@ -8099,14 +8210,14 @@
 
         <div class="modal-section">
           <h4>Problem Statement</h4>
-          <p>Matching a patient to a clinical trial means reading a chart against dozens of free-text inclusion and exclusion criteria — age, diagnosis and stage, biomarkers, recent labs, performance status, prior therapy. The data needed to check them is scattered across structured EHR fields, pathology reports, and clinical notes, so coordinators screen by hand, one patient and one trial at a time, and eligible patients are routinely missed — often because the chart is simply incomplete. Dropping an AI agent into that workflow creates a different risk: in healthcare, an answer that sounds right but isn't backed by the record is worse than no answer at all.</p>
+          <p>Matching a patient to a clinical trial means reading a chart against dozens of free-text inclusion and exclusion criteria: age, diagnosis and stage, biomarkers, recent labs, performance status, prior therapy. The data needed to check them is scattered across structured EHR fields, pathology reports, and clinical notes, so coordinators screen by hand, one patient and one trial at a time, and eligible patients are routinely missed, often because the chart is simply incomplete. Dropping an AI agent into that workflow creates a different risk: in healthcare, an answer that sounds right but isn't backed by the record is worse than no answer at all.</p>
         </div>
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>Agentic Clinical Trial Matching is a live, interactive prototype built against a full AI PRD, designed around one decision: what the model is not allowed to do. A deterministic rules engine decides eligibility, scoring every criterion Met, Not met, Unknown, or Needs review — and every Met must cite the exact source text, so a value that isn't in the document is rejected. The AI agent only gathers evidence and drafts: it runs read-only tools under an 8-call cap and a per-user quota, with prompt-injection scanning and patient scoping, and anything it drafts (referrals, outside-records requests) waits for a clinician. Nothing leaves the system until a clinician approves it.</p>
+          <p>Agentic Clinical Trial Matching is a live, interactive prototype built against a full AI PRD, designed around one decision: what the model is not allowed to do. A deterministic rules engine decides eligibility, scoring every criterion Met, Not met, Unknown, or Needs review, and every Met must cite the exact source text, so a value that isn't in the document is rejected. The AI agent only gathers evidence and drafts: it runs read-only tools under an 8-call cap and a per-user quota, with prompt-injection scanning and patient scoping, and anything it drafts (referrals, outside-records requests) waits for a clinician. Nothing leaves the system until a clinician approves it.</p>
           <p>The PRD became 13 features, including a path-to-eligibility planner with a what-if sandbox, an evidence expiry clock with time travel, a one-page visit brief and plain-language patient handout, a tamper-evident audit log chained with SHA-256 plus replay under today's rules, rule impact previews, a guardrail lab where you switch a control off and watch the attack it was stopping succeed, and an eval harness with ship thresholds and a release gate. Rollout runs shadow mode, then human-in-the-loop, then steady state, with promotion gated by exit criteria computed from evidence instead of a button.</p>
-          <p>To test it, about 4,200 automated checks run across 19 groups using independent oracles and the real API route handlers; 36 bugs were then put back one at a time to confirm the suite catches each one. A second AI reviewing the build cold found 17 problems — the worst, a "deterministic" check that would have accepted a PD-L1 score of 22 because 22C3 is the name of the assay, not the result — and all 17 were fixed, each with a regression check. Everything runs on synthetic data; it is not a clinical tool.</p>
+          <p>To test it, about 4,200 automated checks run across 19 groups using independent oracles and the real API route handlers; 36 bugs were then put back one at a time to confirm the suite catches each one. A second AI reviewing the build cold found 17 problems: the worst, a "deterministic" check that would have accepted a PD-L1 score of 22 because 22C3 is the name of the assay, not the result. All 17 were fixed, each with a regression check. Everything runs on synthetic data; it is not a clinical tool.</p>
         </div>
       </details>
 
@@ -8117,7 +8228,7 @@
 
       <div class="modal-section">
         <h4>Status</h4>
-        <p>Live app built against a full AI PRD — all patients, trials, and results are synthetic. Start with the Guided tour in the left nav.</p>
+        <p>Live app built against a full AI PRD; all patients, trials, and results are synthetic. Start with the Guided tour in the left nav.</p>
       </div>
 
       <div class="modal-section">
@@ -8166,27 +8277,27 @@
     <div class="modal-body">
 
       <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>34,023 trials are registered TERMINATED on ClinicalTrials.gov, and 11.5% of a sampled 200 give zero substantive stop reason — the rest give only a one-line label that takes manual cross-referencing to actually explain.</p>
-        <p><span class="qs-label qs-approach">Approach</span>Built a stateless, single-input web app — paste an NCT ID, get back ranked failure hypotheses pulled only from ClinicalTrials.gov and PubMed, with every claim schema-enforced as Fact, Inference, or Hypothesis.</p>
-        <p><span class="qs-label qs-result">Result</span>A live, frictionless tool — no login, no accounts, client-side validation before any network call — targeting sub-20-second results and ≥70% top-hypothesis accuracy against a documented benchmark set.</p>
+        <p><span class="qs-label qs-problem">Problem</span>34,023 trials are registered TERMINATED on ClinicalTrials.gov, and 11.5% of a sampled 200 give zero substantive stop reason, and the rest give only a one-line label that takes manual cross-referencing to actually explain.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built a stateless, single-input web app: paste an NCT ID, get back ranked failure hypotheses pulled only from ClinicalTrials.gov and PubMed, with every claim schema-enforced as Fact, Inference, or Hypothesis.</p>
+        <p><span class="qs-label qs-result">Result</span>A live, frictionless tool: no login, no accounts, client-side validation before any network call, targeting sub-20-second results and ≥70% top-hypothesis accuracy against a documented benchmark set.</p>
       </div>
 
       <details class="modal-details">
         <summary>Read the full write-up</summary>
         <div class="modal-section">
           <h4>Problem Statement</h4>
-          <p>Clinical trials fail for reasons that are rarely stated plainly. Live ClinicalTrials.gov data puts 34,023 trials at TERMINATED status (5.7% of all 595,847 registered studies) — and combined with WITHDRAWN and SUSPENDED, 52,362 trials (8.8%) never reached completion as planned. A random sample of 200 TERMINATED trials shows 8.0% with no stop reason recorded at all and another 3.5% citing only a generic "business decision" with no underlying cause — 11.5% giving literally zero signal. The remaining 88.5% do name a cause, but most are single-line labels like "low enrollment" or "Covid-19" that don't explain the deeper why without cross-referencing enrollment data, results, and publication history by hand. No existing tool does causal reasoning over this public data: ClinicalTrials.gov and the AACT database expose raw fields with no reasoning, PubMed requires manual cross-referencing, and enterprise tools like Citeline/Trialtrove are comprehensive but priced for institutions and still largely descriptive rather than causal.</p>
+          <p>Clinical trials fail for reasons that are rarely stated plainly. Live ClinicalTrials.gov data puts 34,023 trials at TERMINATED status (5.7% of all 595,847 registered studies), and combined with WITHDRAWN and SUSPENDED, 52,362 trials (8.8%) never reached completion as planned. A random sample of 200 TERMINATED trials shows 8.0% with no stop reason recorded at all and another 3.5% citing only a generic "business decision" with no underlying cause, with 11.5% giving literally zero signal. The remaining 88.5% do name a cause, but most are single-line labels like "low enrollment" or "Covid-19" that don't explain the deeper why without cross-referencing enrollment data, results, and publication history by hand. No existing tool does causal reasoning over this public data: ClinicalTrials.gov and the AACT database expose raw fields with no reasoning, PubMed requires manual cross-referencing, and enterprise tools like Citeline/Trialtrove are comprehensive but priced for institutions and still largely descriptive rather than causal.</p>
         </div>
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>ClinicalAI-TrialAnalysis is a single text input: paste an NCT ID and the backend fetches the ClinicalTrials.gov v2 record, resolves linked PubMed publications via NCBI E-utilities, and runs a structured reasoning pass against an explicit 7-category failure taxonomy — recruitment, efficacy, safety/toxicity, funding/business, operational/protocol, strategic/competitive, futility — with few-shot examples and a hidden chain-of-thought scratchpad reasoning through the evidence before committing to a final ranked answer. Every claim across the four output blocks (Bottom Line, Ranked Hypotheses, Evidence, Guardrail) is tagged Fact, Inference, or Hypothesis, enforced by schema validation rather than prompt instruction alone, so an unlabeled claim can never render. The UX is deliberately frictionless: no accounts, no login, no saved history — the product is fully stateless. A malformed NCT ID is rejected client-side before any network call is even made, a well-formed but nonexistent ID gets an explicit "trial not found" state, and if a trial is COMPLETED or still RECRUITING, the tool states plainly that there's no failure to explain instead of fabricating one. If PubMed enrichment fails, it still returns a trial-data-only analysis with a note rather than failing the whole request.</p>
+          <p>ClinicalAI-TrialAnalysis is a single text input: paste an NCT ID and the backend fetches the ClinicalTrials.gov v2 record, resolves linked PubMed publications via NCBI E-utilities, and runs a structured reasoning pass against an explicit 7-category failure taxonomy: recruitment, efficacy, safety/toxicity, funding/business, operational/protocol, strategic/competitive, futility, with few-shot examples and a hidden chain-of-thought scratchpad reasoning through the evidence before committing to a final ranked answer. Every claim across the four output blocks (Bottom Line, Ranked Hypotheses, Evidence, Guardrail) is tagged Fact, Inference, or Hypothesis, enforced by schema validation rather than prompt instruction alone, so an unlabeled claim can never render. The UX is deliberately frictionless: no accounts, no login, no saved history; the product is fully stateless. A malformed NCT ID is rejected client-side before any network call is even made, a well-formed but nonexistent ID gets an explicit "trial not found" state, and if a trial is COMPLETED or still RECRUITING, the tool states plainly that there's no failure to explain instead of fabricating one. If PubMed enrichment fails, it still returns a trial-data-only analysis with a note rather than failing the whole request.</p>
         </div>
       </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Replaces a 30–60 minute manual cross-reference task with a sub-20-second automated read ✦ Fact/Inference/Hypothesis labeling is schema-enforced, not just prompted — 0% of rendered claims are allowed to go unlabeled ✦ Public-registry-only scope (ClinicalTrials.gov + PubMed) keeps every hypothesis traceable and the product legally simple and stateless</div>
+        <div class="modal-impact">⚡ Replaces a 30–60 minute manual cross-reference task with a sub-20-second automated read ✦ Fact/Inference/Hypothesis labeling is schema-enforced, not just prompted, so 0% of rendered claims are allowed to go unlabeled ✦ Public-registry-only scope (ClinicalTrials.gov + PubMed) keeps every hypothesis traceable and the product legally simple and stateless</div>
       </div>
 
       <div class="modal-section">
@@ -8224,21 +8335,21 @@
     <div class="modal-body">
 
       <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>Comparing two companies at an investor-grade level — financials, valuation, moats, risk, outlook — normally means paying for equity research or spending hours across filings and news, and a general chatbot answer skips citations and live data.</p>
+        <p><span class="qs-label qs-problem">Problem</span>Comparing two companies at an investor-grade level (financials, valuation, moats, risk, outlook) normally means paying for equity research or spending hours across filings and news, and a general chatbot answer skips citations and live data.</p>
         <p><span class="qs-label qs-approach">Approach</span>Built a bring-your-own-key tool that runs a live, web-searched deep research pass on any two companies and returns a structured, analyst-style report with sourced citations.</p>
-        <p><span class="qs-label qs-result">Result</span>A live, no-signup tool — enter two company names and an OpenAI key, get financials, valuation, moats, SWOT, risks, and outlook back in under a minute.</p>
+        <p><span class="qs-label qs-result">Result</span>A live, no-signup tool: enter two company names and an OpenAI key, get financials, valuation, moats, SWOT, risks, and outlook back in under a minute.</p>
       </div>
 
       <details class="modal-details">
         <summary>Read the full write-up</summary>
         <div class="modal-section">
           <h4>Problem Statement</h4>
-          <p>Comparing two companies at an investor-grade level — financials, valuation multiples, competitive moats, risk factors, forward outlook — normally means either paying for equity research or spending hours cross-referencing filings, news, and analyst notes yourself. Ask a general chatbot instead and you get a plausible-sounding paragraph with no live data, no citations, and no way to check if any of it is current.</p>
+          <p>Comparing two companies at an investor-grade level (financials, valuation multiples, competitive moats, risk factors, forward outlook) normally means either paying for equity research or spending hours cross-referencing filings, news, and analyst notes yourself. Ask a general chatbot instead and you get a plausible-sounding paragraph with no live data, no citations, and no way to check if any of it is current.</p>
         </div>
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>Company Comparison takes two company names and runs a live, GPT-4o-mini-powered deep research pass with real-time web search, then returns a structured comparison across financials, valuation, moats, SWOT, risks, and outlook, with citations attached to the claims that need them. It's a bring-your-own-key tool by design: the OpenAI key is entered client-side, used only to call OpenAI directly from the browser, and never stored or sent anywhere else — so there's no signup, no backend holding credentials, and no cost to run beyond what the user's own key spends. A single report can take up to a minute since it's doing live research rather than replaying cached training data.</p>
+          <p>Company Comparison takes two company names and runs a live, GPT-4o-mini-powered deep research pass with real-time web search, then returns a structured comparison across financials, valuation, moats, SWOT, risks, and outlook, with citations attached to the claims that need them. It's a bring-your-own-key tool by design: the OpenAI key is entered client-side, used only to call OpenAI directly from the browser, and never stored or sent anywhere else, so there's no signup, no backend holding credentials, and no cost to run beyond what the user's own key spends. A single report can take up to a minute since it's doing live research rather than replaying cached training data.</p>
         </div>
       </details>
 
@@ -8282,8 +8393,8 @@
     <div class="modal-body">
 
       <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>SMBs and freelancers sign NDAs and MSAs without in-house counsel — a single review costs $1,500–$3,000 and 90–120 minutes at standard legal rates, and generic AI summarizers don't cite where a term came from or how confident they are.</p>
-        <p><span class="qs-label qs-approach">Approach</span>Built a GPT-4o extraction pipeline that pulls the terms that matter per contract type, attaches a confidence score and verbatim source sentence to each one, and grounds a follow-up chat entirely in the uploaded document — no chunking, no guessing.</p>
+        <p><span class="qs-label qs-problem">Problem</span>SMBs and freelancers sign NDAs and MSAs without in-house counsel; a single review costs $1,500–$3,000 and 90–120 minutes at standard legal rates, and generic AI summarizers don't cite where a term came from or how confident they are.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Built a GPT-4o extraction pipeline that pulls the terms that matter per contract type, attaches a confidence score and verbatim source sentence to each one, and grounds a follow-up chat entirely in the uploaded document, with no chunking, no guessing.</p>
         <p><span class="qs-label qs-result">Result</span>A live, shipped tool targeting sub-15-minute review time and ≥88% extraction F1 on NDAs, built end-to-end with Claude Code against a full PRD with its own eval suite and HHH readiness criteria.</p>
       </div>
 
@@ -8291,18 +8402,18 @@
         <summary>Read the full write-up</summary>
         <div class="modal-section">
           <h4>Problem Statement</h4>
-          <p>Business professionals — founders, ops managers, procurement leads — routinely sign NDAs and MSAs without fully understanding what they're agreeing to. Without in-house legal teams, reviewing a single contract takes 90–120 minutes and typically costs $1,500–$3,000 at standard $250–$500/hr legal billing rates, and 43% of SMBs report a commercial dispute that traced back to a misunderstood contract term. Existing options are a poor fit at both ends: enterprise contract-lifecycle tools like DocuSign CLM or Ironclad are built for $50k–$500k contracts, and general tools like ChatGPT produce a plausible-sounding summary with no structured extraction, no page attribution, and no way to tell which parts to trust. Rule-based parsers don't hold up either — a standard confidentiality clause alone shows up in 50+ structurally different phrasings across real contracts, which pushes regex-based extraction past a 30% miss rate.</p>
+          <p>Business professionals (founders, ops managers, procurement leads) routinely sign NDAs and MSAs without fully understanding what they're agreeing to. Without in-house legal teams, reviewing a single contract takes 90–120 minutes and typically costs $1,500–$3,000 at standard $250–$500/hr legal billing rates, and 43% of SMBs report a commercial dispute that traced back to a misunderstood contract term. Existing options are a poor fit at both ends: enterprise contract-lifecycle tools like DocuSign CLM or Ironclad are built for $50k–$500k contracts, and general tools like ChatGPT produce a plausible-sounding summary with no structured extraction, no page attribution, and no way to tell which parts to trust. Rule-based parsers don't hold up either. A standard confidentiality clause alone shows up in 50+ structurally different phrasings across real contracts, which pushes regex-based extraction past a 30% miss rate.</p>
         </div>
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>ContractIQ extracts the 10 terms that matter most in an NDA and the 12 that matter most in an MSA — parties, confidentiality obligations, liability caps, termination clauses, and so on — using GPT-4o in JSON mode at temperature 0.1, with a few-shot prompt built from hand-labeled NDA and MSA examples. Every term comes back with three things a plain summary won't give you: a page number, a 0–100% confidence score that's color-coded and never hidden even below 50% — just flagged with a non-dismissible warning — and the verbatim source sentence it was pulled from, with an expandable "Why?" that answers the trust question directly instead of asking for blind faith. A grounded chat layer answers plain-English follow-up questions using the full contract text as context on every turn, with a system prompt that treats "I cannot find this in the document" as a correct answer rather than a failure, and a mandatory page citation on every response. Hallucination is treated as the top trust risk end to end: deterministic decoding settings, a JSON-parse retry loop, an automated regression test confirming the model still says "not found" on off-document questions, and a monthly calibration check against a legal-SME-labeled set plus the CUAD dataset (13,000+ annotations across 510 contracts) — with a UI warning if miscalibration crosses 15%. The whole build is scoped against explicit production-readiness bars before calling anything launched: ≥88% F1 on NDA extraction, ≥85% on MSA, sub-30-second P95 latency, and a correction rate under 12% in any rolling 7-day window. It was developed end-to-end using Claude Code as the primary development partner — a direct test of how far an agentic coding workflow can carry a real product, from a 28-page PRD with its own HHH (Helpful/Honest/Harmless) readiness framework all the way to a live, shipped app.</p>
+          <p>ContractIQ extracts the 10 terms that matter most in an NDA and the 12 that matter most in an MSA: parties, confidentiality obligations, liability caps, termination clauses, and so on, using GPT-4o in JSON mode at temperature 0.1, with a few-shot prompt built from hand-labeled NDA and MSA examples. Every term comes back with three things a plain summary won't give you: a page number, a 0–100% confidence score that's color-coded and never hidden even below 50% (just flagged with a non-dismissible warning) and the verbatim source sentence it was pulled from, with an expandable "Why?" that answers the trust question directly instead of asking for blind faith. A grounded chat layer answers plain-English follow-up questions using the full contract text as context on every turn, with a system prompt that treats "I cannot find this in the document" as a correct answer rather than a failure, and a mandatory page citation on every response. Hallucination is treated as the top trust risk end to end: deterministic decoding settings, a JSON-parse retry loop, an automated regression test confirming the model still says "not found" on off-document questions, and a monthly calibration check against a legal-SME-labeled set plus the CUAD dataset (13,000+ annotations across 510 contracts), with a UI warning if miscalibration crosses 15%. The whole build is scoped against explicit production-readiness bars before calling anything launched: ≥88% F1 on NDA extraction, ≥85% on MSA, sub-30-second P95 latency, and a correction rate under 12% in any rolling 7-day window. It was developed end-to-end using Claude Code as the primary development partner, as a direct test of how far an agentic coding workflow can carry a real product, from a 28-page PRD with its own HHH (Helpful/Honest/Harmless) readiness framework all the way to a live, shipped app.</p>
         </div>
       </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Targets sub-15-minute contract review against a 90–120 minute baseline, at roughly $0.10 in model cost per analysis ✦ Confidence scoring, page citations, and verbatim source sentences replace a black-box summary with something a user can actually verify ✦ Built end-to-end with Claude Code against a full PRD — eval suite, hallucination guardrails, and HHH launch criteria included, not just a UI mockup</div>
+        <div class="modal-impact">⚡ Targets sub-15-minute contract review against a 90–120 minute baseline, at roughly $0.10 in model cost per analysis ✦ Confidence scoring, page citations, and verbatim source sentences replace a black-box summary with something a user can actually verify ✦ Built end-to-end with Claude Code against a full PRD: eval suite, hallucination guardrails, and HHH launch criteria included, not just a UI mockup</div>
       </div>
 
       <div class="modal-section">
@@ -8344,26 +8455,26 @@
 
       <div class="modal-quicksum">
         <p><span class="qs-label qs-problem">Problem</span>Mid-market property managers are stuck choosing between error-prone spreadsheets and $25K–$500K+/yr enterprise lease platforms.</p>
-        <p><span class="qs-label qs-approach">Approach</span>Shipped the core value first as a Claude Skill — a lease compliance assistant usable instantly, with no deployment project needed.</p>
-        <p><span class="qs-label qs-result">Result</span>Zero marginal cost and minutes to start, targeting the underserved "moveable middle" — backed by real market research before any code.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Shipped the core value first as a Claude Skill: a lease compliance assistant usable instantly, with no deployment project needed.</p>
+        <p><span class="qs-label qs-result">Result</span>Zero marginal cost and minutes to start, targeting the underserved "moveable middle", backed by real market research before any code.</p>
       </div>
 
       <details class="modal-details">
         <summary>Read the full write-up</summary>
         <div class="modal-section">
           <h4>Problem Statement</h4>
-          <p>Commercial property managers and multi-site occupiers currently have two bad options: spreadsheets, which are fast to start but error-prone and blind to upcoming deadlines until it's too late, or enterprise/mid-market lease platforms (Yardi, MRI, Visual Lease, LeaseQuery), which are accounting-first, built for ASC 842/IFRS 16 journal entries, expensive ($25K–$500K+/yr), and slow to implement (weeks to 18 months). Nobody has built a lightweight, compliance-and-deadline-first tool for the "moveable middle" — mid-market property managers and franchise/multi-unit occupiers with 20–500 leases who care more about renewal windows, permits, insurance certificates, and jurisdictional obligations than right-of-use asset calculations.</p>
+          <p>Commercial property managers and multi-site occupiers currently have two bad options: spreadsheets, which are fast to start but error-prone and blind to upcoming deadlines until it's too late, or enterprise/mid-market lease platforms (Yardi, MRI, Visual Lease, LeaseQuery), which are accounting-first, built for ASC 842/IFRS 16 journal entries, expensive ($25K–$500K+/yr), and slow to implement (weeks to 18 months). Nobody has built a lightweight, compliance-and-deadline-first tool for the "moveable middle": mid-market property managers and franchise/multi-unit occupiers with 20–500 leases who care more about renewal windows, permits, insurance certificates, and jurisdictional obligations than right-of-use asset calculations.</p>
         </div>
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>Rather than building a standalone SaaS product from scratch, this ships the core value first as a Claude Skill — a SKILL.md that turns Claude into a lease compliance assistant, runnable immediately inside claude.ai, Claude Code, Claude Cowork, or the API, with no deployment or implementation project. Given lease documents and a portfolio spreadsheet, the skill abstracts key lease terms into a structured format, tracks critical dates and obligations (renewals, notice-to-vacate windows, insurance certificate expirations, permit renewals), surfaces jurisdiction-specific regulatory risk that pure accounting tools miss (zoning, ESG/emissions disclosure laws like NYC Local Law 97, ADA/fire-code items), generates compliance-ready reports, and answers natural-language portfolio questions — while explicitly flagging low-confidence, non-standard clauses for human review rather than silently guessing.</p>
+          <p>Rather than building a standalone SaaS product from scratch, this ships the core value first as a Claude Skill: a SKILL.md that turns Claude into a lease compliance assistant, runnable immediately inside claude.ai, Claude Code, Claude Cowork, or the API, with no deployment or implementation project. Given lease documents and a portfolio spreadsheet, the skill abstracts key lease terms into a structured format, tracks critical dates and obligations (renewals, notice-to-vacate windows, insurance certificate expirations, permit renewals), surfaces jurisdiction-specific regulatory risk that pure accounting tools miss (zoning, ESG/emissions disclosure laws like NYC Local Law 97, ADA/fire-code items), generates compliance-ready reports, and answers natural-language portfolio questions, while explicitly flagging low-confidence, non-standard clauses for human review rather than silently guessing.</p>
         </div>
       </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Zero marginal cost and minutes to start, versus $25K–$500K+/yr and weeks-to-18-months for existing platforms ✦ Targets the underserved "moveable middle" — mid-market property managers and multi-unit occupiers with 20–500 leases ✦ Backed by real market research (competitive landscape, positioning, pricing intelligence) before a line of product code was written</div>
+        <div class="modal-impact">⚡ Zero marginal cost and minutes to start, versus $25K–$500K+/yr and weeks-to-18-months for existing platforms ✦ Targets the underserved "moveable middle": mid-market property managers and multi-unit occupiers with 20–500 leases ✦ Backed by real market research (competitive landscape, positioning, pricing intelligence) before a line of product code was written</div>
       </div>
 
       <div class="modal-section">
@@ -8405,9 +8516,9 @@
     <div class="modal-body">
 
       <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>Product teams spend a full week turning a business question into an answer — by delivery, the context has already moved on.</p>
+        <p><span class="qs-label qs-problem">Problem</span>Product teams spend a full week turning a business question into an answer. By delivery, the context has already moved on.</p>
         <p><span class="qs-label qs-approach">Approach</span>Built an 18-agent pipeline that frames hypotheses, runs automated analysis, validates findings across four layers, and builds the deck.</p>
-        <p><span class="qs-label qs-result">Result</span>Analyses that took weeks now take minutes — one analyst effectively becomes three, with 80% less time on execution work.</p>
+        <p><span class="qs-label qs-result">Result</span>Analyses that took weeks now take minutes. One analyst effectively becomes three, with 80% less time on execution work.</p>
       </div>
 
       <details class="modal-details">
@@ -8419,13 +8530,13 @@
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>AI Analyst v2 is an AI-powered research partner that handles the execution layer while you keep the judgment layer. You ask a business question. The system runs an 18-agent pipeline that frames your question into testable hypotheses, analyzes your data with automated exploration, segmentation, cohort analysis, and root-cause investigation, validates findings across four layers (structural, logical, business rules, paradox detection), tells the story with a narrative arc and Storytelling with Data charts, and builds the deck — a branded, presentation-ready slide deck with speaker notes and export-ready assets.</p>
+          <p>AI Analyst v2 is an AI-powered research partner that handles the execution layer while you keep the judgment layer. You ask a business question. The system runs an 18-agent pipeline that frames your question into testable hypotheses, analyzes your data with automated exploration, segmentation, cohort analysis, and root-cause investigation, validates findings across four layers (structural, logical, business rules, paradox detection), tells the story with a narrative arc and Storytelling with Data charts, and builds the deck: a branded, presentation-ready slide deck with speaker notes and export-ready assets.</p>
         </div>
       </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Speed — Analyses that take weeks now take minutes. Insights arrive when they matter ✦ Productivity — One analyst becomes three. 80% less time on execution work ✦ Quality — Systematic, 4-layer validated methodology replaces intuition. Fewer errors reach stakeholders</div>
+        <div class="modal-impact">⚡ Speed: Analyses that take weeks now take minutes. Insights arrive when they matter ✦ Productivity: One analyst becomes three. 80% less time on execution work ✦ Quality: Systematic, 4-layer validated methodology replaces intuition. Fewer errors reach stakeholders</div>
       </div>
 
       <div class="modal-section">
@@ -8483,7 +8594,7 @@
         <summary>Read the full write-up</summary>
         <div class="modal-section">
           <h4>Problem Statement</h4>
-          <p>Marketing teams waste significant time creating, testing, and optimizing ad campaigns across multiple platforms (Google, Meta, LinkedIn, TikTok). Current workflows are fragmented—requiring manual ad copy creation, targeting configuration, budget allocation, and performance monitoring across disparate tools. This inefficiency leads to missed optimization opportunities, delayed market response, and reduced ROI focus. Teams need a unified, intelligent system to accelerate campaign creation and optimization.</p>
+          <p>Marketing teams waste significant time creating, testing, and optimizing ad campaigns across multiple platforms (Google, Meta, LinkedIn, TikTok). Current workflows are fragmented, requiring manual ad copy creation, targeting configuration, budget allocation, and performance monitoring across disparate tools. This inefficiency leads to missed optimization opportunities, delayed market response, and reduced ROI focus. Teams need a unified, intelligent system to accelerate campaign creation and optimization.</p>
         </div>
 
         <div class="modal-section">
@@ -8545,7 +8656,7 @@
       <div class="modal-quicksum">
         <p><span class="qs-label qs-problem">Problem</span>Teams lose alignment across scattered PM tools with no AI-powered visibility into priorities or dependencies.</p>
         <p><span class="qs-label qs-approach">Approach</span>Built an AI-powered Kanban platform with a backlog-aware assistant, real-time sync, and secure multi-tenant workspaces.</p>
-        <p><span class="qs-label qs-result">Result</span>A live, shipped SaaS product — teams get instant natural-language answers about their own backlog instead of digging through boards.</p>
+        <p><span class="qs-label qs-result">Result</span>A live, shipped SaaS product: teams get instant natural-language answers about their own backlog instead of digging through boards.</p>
       </div>
 
       <details class="modal-details">
@@ -8557,7 +8668,7 @@
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>ProjectPilot AI is an AI-powered project management platform combining visual Kanban boards, real-time collaboration, and an intelligent AI assistant. Features include drag-and-drop Kanban boards with unlimited columns, AI assistant that understands your entire backlog and creates issues from natural language, real-time sync powered by Supabase Realtime, secure multi-tenant team workspaces with granular role management (owner, admin, member), and simple flat-rate pricing per workspace (not per seat). The AI knows every issue, priority, and assignee — enabling instant answers to "What are the urgent issues?" and "Who has the most work assigned?"</p>
+          <p>ProjectPilot AI is an AI-powered project management platform combining visual Kanban boards, real-time collaboration, and an intelligent AI assistant. Features include drag-and-drop Kanban boards with unlimited columns, AI assistant that understands your entire backlog and creates issues from natural language, real-time sync powered by Supabase Realtime, secure multi-tenant team workspaces with granular role management (owner, admin, member), and simple flat-rate pricing per workspace (not per seat). The AI knows every issue, priority, and assignee, enabling instant answers to "What are the urgent issues?" and "Who has the most work assigned?"</p>
         </div>
       </details>
 
@@ -8628,7 +8739,7 @@
 
   <div class="timeline reveal">
 
-    <!-- 1 — Most Recent -->
+    <!-- 1 - Most Recent -->
     <div class="timeline-item">
       <div class="timeline-icon">💊</div>
       <div class="timeline-header" onclick="toggleExp(this)">
@@ -8642,7 +8753,7 @@
       </div>
       <ul class="timeline-desc">
         <li>Led requirements definition and delivery for enterprise Medical Affairs system implementations and upgrades across medical, regulatory, and clinical operations in a GxP-regulated environment.</li>
-        <li>Delivered compliant, scalable solutions for scientific exchange, investigator-initiated studies, evidence generation, and medical content management — authoring requirements, user stories, and process flows (Jira/Confluence) aligned to 21 CFR Part 11, FDA, EMA, and SOPs.</li>
+        <li>Delivered compliant, scalable solutions for scientific exchange, investigator-initiated studies, evidence generation, and medical content management, authoring requirements, user stories, and process flows (Jira/Confluence) aligned to 21 CFR Part 11, FDA, EMA, and SOPs.</li>
         <li>Ensured audit readiness through IQ/OQ/PQ, UAT, and validation documentation, and enabled Medical Affairs KPIs and reporting while driving change management and successful system adoption.</li>
       </ul>
     </div>
@@ -8661,7 +8772,7 @@
       </div>
       <ul class="timeline-desc">
         <li>Delivered an AI-driven Provider Lifecycle Management platform, optimizing provider onboarding, credentialing, claims processing, inventory tracking, and regulatory compliance.</li>
-        <li>Integrated structured healthcare data across enrollment, credentialing, and compliance workflows — validating RESTful APIs (Postman, Java) to ensure reliable exchange between provider, claims, analytics, and AI components.</li>
+        <li>Integrated structured healthcare data across enrollment, credentialing, and compliance workflows, validating RESTful APIs (Postman, Java) to ensure reliable exchange between provider, claims, analytics, and AI components.</li>
         <li>Drove SAFe Agile delivery as Product Owner on an Agile Release Train, defining PI objectives, governing EPICs/Features, and managing cross-team dependencies with Product Management, Solution Architects, and Data Engineering.</li>
         <li>Authored solution proposals and led vendor/RFP evaluations for platform expansion, building the business case that informed continued investment in the AI-driven provider platform.</li>
       </ul>
@@ -8682,7 +8793,7 @@
       <ul class="timeline-desc">
         <li>Authored the business case and solution proposal that scaled the multi-year Otsuka platform program (begun in my Grapnel role) from $0.5M to $4M investment, owning CRM and commercial platform strategy across Salesforce, Veeva, and Microsoft Dynamics.</li>
         <li>Delivered audit-ready global pharma programs and drug launches as Product Owner in a SAFe Agile Release Train, aligning epics and roadmaps to business value and regulatory requirements (GxP, 21 CFR Part 11, GCP, EMA, ICH, GDPR, HIPAA) with full IQ/OQ/PQ and UAT validation.</li>
-        <li>Reduced project schedule variance to 4% while delivering enterprise analytics, dashboards, and KPI frameworks that improved engagement, conversion, and retention — generating up to $16M in revenue impact.</li>
+        <li>Reduced project schedule variance to 4% while delivering enterprise analytics, dashboards, and KPI frameworks that improved engagement, conversion, and retention, generating up to $16M in revenue impact.</li>
       </ul>
     </div>
 
@@ -8777,7 +8888,7 @@
 
   <div class="edu-map-card reveal">
     <div class="edu-map-header">
-      <span class="edu-map-title">🌍 Education Journey — Chennai → New Jersey</span>
+      <span class="edu-map-title">🌍 Education Journey: Chennai → New Jersey</span>
       <span class="edu-map-legend"><span class="edu-leg-dot"></span>Hover a marker for details</span>
     </div>
     <div id="edu-map-wrap">
@@ -8836,7 +8947,7 @@
       <text x="4" y="105" text-anchor="end" font-size="16" fill="var(--muted)">Design <tspan fill="#38bdf8" font-weight="700">4</tspan></text>
     </svg>
     <div class="skills-snapshot-right">
-      <div class="skills-snapshot-title">Certification Snapshot — AI/ML depth, product craft, and agile grounding</div>
+      <div class="skills-snapshot-title">Certification Snapshot: AI/ML depth, product craft, and agile grounding</div>
       <div class="skills-chips">
         <span class="skills-chip" onclick="jumpToCertTab(1)">🤖 AI/ML · 9 certs</span>
         <span class="skills-chip" onclick="jumpToCertTab(2)">🎯 Product · 6 certs</span>
@@ -8850,7 +8961,7 @@
   <div class="cert-summary-card reveal" id="cert-summary-card">
     <div class="cert-tagline">⭐ AWS &amp; Anthropic certified · MIT &amp; SAFe trained</div>
     <div class="cert-top-badges">
-      <span class="cert-top-badge-chip">⭐ AWS Gen AI Developer — Pro</span>
+      <span class="cert-top-badge-chip">⭐ AWS Gen AI Developer (Pro)</span>
       <span class="cert-top-badge-chip">⭐ MIT No-Code AI &amp; ML</span>
       <span class="cert-top-badge-chip">⭐ CSP-PO</span>
       <span class="cert-top-badge-chip">⭐ MIT Mastering Design Thinking</span>
@@ -9265,7 +9376,7 @@
 <div class="divider"></div>
 
 <!-- ───────────────────────────────────────────
-  OPEN SOURCE — CLAUDE SKILLS
+  OPEN SOURCE - CLAUDE SKILLS
 ──────────────────────────────────────────── -->
 <section id="opensource">
   <div class="reveal">
@@ -9279,7 +9390,7 @@
     <div class="repo-card-left">
       <div class="repo-card-icon">🛠️</div>
       <div class="repo-card-name">sankar2code / Claude-Skill_SubAgent-Builder-Collections</div>
-      <p class="repo-card-desc">Curated Claude AI skills and sub-agents for product managers — market research, PRD writing, evaluation, user research, mockup generation & more. Free to use and contribute.</p>
+      <p class="repo-card-desc">Curated Claude AI skills and sub-agents for product managers: market research, PRD writing, evaluation, user research, mockup generation & more. Free to use and contribute.</p>
       <div class="repo-card-meta">
         <span class="repo-meta-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
@@ -9381,11 +9492,11 @@
     </div>
   </div>
 
-  <!-- PROMPT-TO-PRD — live demo of the prd-v2 skill -->
+  <!-- PROMPT-TO-PRD - live demo of the prd-v2 skill -->
   <div class="prdd-card reveal" id="prd-demo">
     <div class="prdd-eyebrow"><span class="prdd-live"></span>Try my PRD Writer skill · live</div>
     <h3 class="prdd-title">Give me a feature idea. Get a PRD in seconds.</h3>
-    <p class="prdd-sub">Runs live on Claude using my PRD skill (prd-v2) — the same templates I use for my own builds. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections" target="_blank" rel="noopener">See the skill on GitHub</a></p>
+    <p class="prdd-sub">Runs live on Claude using my PRD skill (prd-v2), the same templates I use for my own builds. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections" target="_blank" rel="noopener">See the skill on GitHub</a></p>
     <form class="prdd-form" id="prdd-form" autocomplete="off">
       <input class="prdd-input" id="prdd-idea" type="text" maxlength="300" placeholder="e.g. AI triage for inbound support tickets" aria-label="Your product or feature idea">
       <button class="prdd-btn" id="prdd-go" type="submit">Generate PRD →</button>
@@ -9434,7 +9545,7 @@
         meta.textContent = left + ' of ' + MAX + ' PRDs left this hour · AI-generated, so review before you use it.';
       } else {
         var mins = Math.max(1, Math.ceil((s.resetAt - Date.now()) / 60000));
-        meta.textContent = 'You’ve used all ' + MAX + ' PRDs this hour — more in ' + mins + ' min. Or email me at hello@sankar.work.';
+        meta.textContent = 'You’ve used all ' + MAX + ' PRDs this hour. More in ' + mins + ' min. Or email me at hello@sankar.work.';
       }
       go.disabled = busy || left === 0;
     }
@@ -9571,7 +9682,7 @@
         '<div class="prdd-doc" id="prdd-doc"></div>' +
         '<div class="prdd-score" id="prdd-score"><div class="prdd-score-head"><span class="prdd-row-label">PRD Scorecard</span><span class="prdd-score-by">graded live by my prd-eval skill</span></div>' +
         '<div class="prdd-score-body" id="prdd-score-body"><div class="prdd-loading"><span class="prdd-spin"></span><span>Grading against my prd-eval rubric…</span></div></div></div>' +
-        '<div class="prdd-foot">' + (truncated ? 'Trimmed to keep the demo fast — the full skill writes longer docs. ' : '') +
+        '<div class="prdd-foot">' + (truncated ? 'Trimmed to keep the demo fast. The full skill writes longer docs. ' : '') +
         'AI-generated draft for illustration. Want the full version for your team? <a href="#contact" style="color:#7dd3fc">Let’s talk</a>.</div>';
       document.getElementById('prdd-copy').addEventListener('click', function (e) {
         var b = e.currentTarget;
@@ -9602,7 +9713,7 @@
     function showScore(d, prev) {
       var body = document.getElementById('prdd-score-body');
       if (!body) return;
-      if (d.err) { body.innerHTML = '<p class="prdd-score-note">Scorecard is unavailable right now — the PRD above is still yours to use.</p>'; return; }
+      if (d.err) { body.innerHTML = '<p class="prdd-score-note">Scorecard is unavailable right now. The PRD above is still yours to use.</p>'; return; }
       var bars = d.sections.map(function (s) {
         return '<div class="prdd-cr" title="' + s.pass + ' pass · ' + s.improve + ' to improve · ' + s.blocker + ' blocker' + (s.blocker === 1 ? '' : 's') + '">' +
           '<span>' + esc(s.name) + '</span><div class="prdd-cbar"><i data-w="' + s.score + '" style="background:' + tone(s.score) + '"></i></div><em>' + s.score + '</em></div>';
@@ -9617,7 +9728,7 @@
         '<div class="prdd-ring-v"><b id="prdd-sc">' + (prev || 0) + '</b><span>/ 100</span>' + delta + '</div></div>' +
         '<div><p class="prdd-score-fmt">' + esc(d.format) + ' rubric · ' + d.checks + ' checks · <span class="ok">' + d.pass + ' pass</span> · <span class="imp">' + d.improve + ' to improve</span> · <span class="blk">' + d.blocker + ' blocker' + (d.blocker === 1 ? '' : 's') + '</span></p>' +
         '<div class="prdd-crit">' + bars + '</div></div></div>' +
-        (g && g.gap ? '<div class="prdd-gap" id="prdd-gap"><span><b>Biggest gap · ' + esc(g.item || g.section) + '</b> — ' + esc(g.gap) + '</span>' +
+        (g && g.gap ? '<div class="prdd-gap" id="prdd-gap"><span><b>Biggest gap · ' + esc(g.item || g.section) + '</b>: ' + esc(g.gap) + '</span>' +
           '<button type="button" class="prdd-btn" id="prdd-fix">✨ ' + (g.heading ? 'Fix this section' : 'Add this section') + '</button></div>' : '') +
         '<p class="prdd-score-note">Score = passes + ½ improvements, across the rubric checks that apply to this format. Hover a bar for its counts.</p>';
       requestAnimationFrame(function () { requestAnimationFrame(function () {
@@ -9683,15 +9794,15 @@
           var doc = document.getElementById('prdd-doc');
           doc.innerHTML = md(lastMd); highlight(doc);
           doc.scrollIntoView({ block: 'nearest', behavior: REDUCED ? 'auto' : 'smooth' });
-          gap.innerHTML = '<span><b>✓ Fixed · ' + esc(g.item || g.section) + '</b> — highlighted in the PRD above. Re-grading…</span>';
+          gap.innerHTML = '<span><b>✓ Fixed · ' + esc(g.item || g.section) + '</b>. Highlighted in the PRD above. Re-grading…</span>';
           return grade(lastMd).then(function (nd) {
             if (gen !== runId) return;
             nd.top_gap = null; showScore(nd, d.score);
             var note = document.querySelector('#prdd-score-body .prdd-score-note');
-            if (note) note.insertAdjacentHTML('beforebegin', '<div class="prdd-gap done"><span><b>✓ Section ' + (g.heading ? 'rewritten' : 'added') + '</b> — highlighted in the PRD above and included in Copy / Download. Re-graded by prd-eval.</span></div>');
-          }, function () { gap.innerHTML = '<span><b>✓ Fixed · ' + esc(g.item || g.section) + '</b> — highlighted in the PRD above and included in Copy / Download.</span>'; });
+            if (note) note.insertAdjacentHTML('beforebegin', '<div class="prdd-gap done"><span><b>✓ Section ' + (g.heading ? 'rewritten' : 'added') + '</b>. Highlighted in the PRD above and included in Copy / Download. Re-graded by prd-eval.</span></div>');
+          }, function () { gap.innerHTML = '<span><b>✓ Fixed · ' + esc(g.item || g.section) + '</b>. Highlighted in the PRD above and included in Copy / Download.</span>'; });
         })
-        .catch(function () { btn.disabled = false; btn.textContent = 'Couldn’t fix right now — try again'; });
+        .catch(function () { btn.disabled = false; btn.textContent = 'Couldn’t fix right now. Try again'; });
     }
 
     function fail(msg) {
@@ -9703,7 +9814,7 @@
       e.preventDefault();
       var idea = input.value.trim();
       if (busy) return;
-      if (idea.length < 5) { input.focus(); fail('Describe a product or feature idea in a few words — or tap one of the examples.'); return; }
+      if (idea.length < 5) { input.focus(); fail('Describe a product or feature idea in a few words, or tap one of the examples.'); return; }
       var s = session();
       if (s.count >= MAX) { updateMeta(); return; }
       s.count++; save(s);
@@ -9723,13 +9834,13 @@
           } else {
             think.stop();
             s.count = Math.max(0, s.count - 1); save(s);
-            fail((res.d && res.d.error && res.d.error.indexOf('idea') !== -1) ? res.d.error : 'Couldn’t generate a PRD right now — try again in a moment, or email me at hello@sankar.work.');
+            fail((res.d && res.d.error && res.d.error.indexOf('idea') !== -1) ? res.d.error : 'Couldn’t generate a PRD right now. Try again in a moment, or email me at hello@sankar.work.');
           }
         })
         .catch(function () {
           think.stop();
           s.count = Math.max(0, s.count - 1); save(s);
-          fail('Couldn’t reach the PRD writer right now — try again in a moment.');
+          fail('Couldn’t reach the PRD writer right now. Try again in a moment.');
         })
         .then(function () { busy = false; updateMeta(); });
     });
@@ -10249,7 +10360,7 @@
       <div class="ship-item">
         <span class="ship-icon">🤖</span>
         <div class="ship-body">
-          <p class="ship-text">Launched "Ask My Twin" — an AI chatbot grounded on my real career, built with Claude and Cloudflare Workers<span class="ship-tag ship-tag-feature">Feature</span></p>
+          <p class="ship-text">Launched "Ask My Twin": an AI chatbot grounded on my real career, built with Claude and Cloudflare Workers<span class="ship-tag ship-tag-feature">Feature</span></p>
         </div>
       </div>
       <div class="ship-item">
@@ -10350,91 +10461,91 @@
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/eNWyiwBf" target="_blank" rel="noopener">
         <span class="ship-icon">🧭</span>
         <div class="ship-body">
-          <p class="ship-text">On the "failed" DBS pilot that made the venture work — transformation is four kinds of bets (pilots, options, core improvements, ventures), each judged on its own terms before the next gets funded<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On the "failed" DBS pilot that made the venture work: transformation is four kinds of bets (pilots, options, core improvements, ventures), each judged on its own terms before the next gets funded<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/eUsp7PsG" target="_blank" rel="noopener">
         <span class="ship-icon">🌐</span>
         <div class="ship-body">
-          <p class="ship-text">On why everyone having the same AI isn't the point — like the internet in 1995, the model is a commodity; the moat is proprietary data, owned workflows, and reaching the new frontier first<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On why everyone having the same AI isn't the point: like the internet in 1995, the model is a commodity; the moat is proprietary data, owned workflows, and reaching the new frontier first<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/gnJES24W" target="_blank" rel="noopener">
         <span class="ship-icon">💡</span>
         <div class="ship-body">
-          <p class="ship-text">On why one patent bonus drives two opposite behaviors — specialists get more inventive, generalists just get more prolific, so decide whether you're rewarding activity or impact<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On why one patent bonus drives two opposite behaviors: specialists get more inventive, generalists just get more prolific, so decide whether you're rewarding activity or impact<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/gnEjU_f7" target="_blank" rel="noopener">
         <span class="ship-icon">🍽️</span>
         <div class="ship-body">
-          <p class="ship-text">On why José Andrés didn't put his name on World Central Kitchen — the best platforms aren't built to carry your name, they're built to work without you in the room<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On why José Andrés didn't put his name on World Central Kitchen: the best platforms aren't built to carry your name, they're built to work without you in the room<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/gqwaCRnt" target="_blank" rel="noopener">
         <span class="ship-icon">⚔️</span>
         <div class="ship-body">
-          <p class="ship-text">On the startup advantage that cuts both ways — AI-native startups win on workflow data, but agent unpredictability is exactly where incumbents can turn their compliance muscle into a moat<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On the startup advantage that cuts both ways: AI-native startups win on workflow data, but agent unpredictability is exactly where incumbents can turn their compliance muscle into a moat<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/gyap82zB" target="_blank" rel="noopener">
         <span class="ship-icon">🎯</span>
         <div class="ship-body">
-          <p class="ship-text">On how Novartis's "risky" radioligand bet became the obvious move once strategy had a real center — pick one dominant center and capital-allocation fights resolve themselves<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On how Novartis's "risky" radioligand bet became the obvious move once strategy had a real center: pick one dominant center and capital-allocation fights resolve themselves<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/gTgdgJ_T" target="_blank" rel="noopener">
         <span class="ship-icon">⚖️</span>
         <div class="ship-body">
-          <p class="ship-text">On why not all rule-breaking is the same crime — Oxford research on 250+ studies splits misconduct by intent and pressure, so leaders should coach the intent, enforce the boundaries, and know when to fix the system instead of the person<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On why not all rule-breaking is the same crime: Oxford research on 250+ studies splits misconduct by intent and pressure, so leaders should coach the intent, enforce the boundaries, and know when to fix the system instead of the person<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/gFFWfrwJ" target="_blank" rel="noopener">
         <span class="ship-icon">🤖</span>
         <div class="ship-body">
-          <p class="ship-text">On why rigid rulebooks backfire on AI agents — in a 160-run AI-to-AI market simulation, disclosure and reputation helped but structured protocols suppressed engagement, so give agents clean information and real discretion<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On why rigid rulebooks backfire on AI agents: in a 160-run AI-to-AI market simulation, disclosure and reputation helped but structured protocols suppressed engagement, so give agents clean information and real discretion<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/gEpBCW47" target="_blank" rel="noopener">
         <span class="ship-icon">🎬</span>
         <div class="ship-body">
-          <p class="ship-text">On why AI ads pass review but still underperform — in a 3,000-consumer study they ran 14% weaker on sales and 17% weaker on brand equity, so judge AI creative against the human version on the same brief, not on cost per asset<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On why AI ads pass review but still underperform: in a 3,000-consumer study they ran 14% weaker on sales and 17% weaker on brand equity, so judge AI creative against the human version on the same brief, not on cost per asset<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_teamcollaboration-aiatwork-productmanagement-share-7504932466638614528-j9rr/" target="_blank" rel="noopener">
         <span class="ship-icon">🙋</span>
         <div class="ship-body">
-          <p class="ship-text">On why AI adoption stalls at the individual level — only 7% of managers use it in team settings, and how to bring it into meetings before, during, and after instead of solo<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On why AI adoption stalls at the individual level: only 7% of managers use it in team settings, and how to bring it into meetings before, during, and after instead of solo<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_aistrategy-datagovernance-aigovernance-share-7504931940362276864-hCO7/" target="_blank" rel="noopener">
         <span class="ship-icon">🕵️</span>
         <div class="ship-body">
-          <p class="ship-text">On "AI Sherlocking" — how vendor contracts protect your prompts but not your team's feedback and corrections, letting platforms absorb the judgment that's actually your moat<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On "AI Sherlocking": how vendor contracts protect your prompts but not your team's feedback and corrections, letting platforms absorb the judgment that's actually your moat<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_aisafety-aipolicy-responsibleai-share-7504930950775054336-TOzW/" target="_blank" rel="noopener">
         <span class="ship-icon">🚦</span>
         <div class="ship-body">
-          <p class="ship-text">On Dario Amodei's case for pacing AI capability growth rather than pausing it — the alignment incident behind it, and the three-step plan to buy safety work time to catch up<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On Dario Amodei's case for pacing AI capability growth rather than pausing it: the alignment incident behind it, and the three-step plan to buy safety work time to catch up<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_blueoceanstrategy-corporatestrategy-productstrategy-share-7504929734825447424-U4HE/" target="_blank" rel="noopener">
         <span class="ship-icon">🌊</span>
         <div class="ship-body">
-          <p class="ship-text">On blue ocean strategy — why Midea and NVIDIA won by chasing the noncustomers their industries were excluding instead of competing harder on the metrics everyone already fights over<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On blue ocean strategy: why Midea and NVIDIA won by chasing the noncustomers their industries were excluding instead of competing harder on the metrics everyone already fights over<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_entrepreneurship-agenticai-startupstrategy-share-7504928874841927680-p2HD/" target="_blank" rel="noopener">
         <span class="ship-icon">🚀</span>
         <div class="ship-body">
-          <p class="ship-text">On how AI shifted the startup bottleneck from building to judgment — solo founders running multiple businesses, leaner YC cohorts, and the "illusion of progress" risk when speed outruns domain expertise<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On how AI shifted the startup bottleneck from building to judgment: solo founders running multiple businesses, leaner YC cohorts, and the "illusion of progress" risk when speed outruns domain expertise<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_strategicplanning-corporatestrategy-leadership-share-7504927962174140416-dyiQ/" target="_blank" rel="noopener">
         <span class="ship-icon">🎯</span>
         <div class="ship-body">
-          <p class="ship-text">On why a plan's real ambition shows up in how it's funded and staffed, not the goal on paper — reallocation instead of pure allocation, people who stretch beyond the current team's mold, multi-year targets over annual ones<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">On why a plan's real ambition shows up in how it's funded and staffed, not the goal on paper: reallocation instead of pure allocation, people who stretch beyond the current team's mold, multi-year targets over annual ones<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-aigovernance-productmanagement-share-7504927026730946560-HyIn/" target="_blank" rel="noopener">
@@ -10458,229 +10569,229 @@
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_aistrategy-leadership-organizationalchange-share-7493100121203814400-m6l9/" target="_blank" rel="noopener">
         <span class="ship-icon">🎢</span>
         <div class="ship-body">
-          <p class="ship-text">Named "leadership drift" — where executives are clear-eyed on AI one-on-one but every view quietly drops once the room fills up — and why a named owner for the uncomfortable question breaks the pattern<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Named "leadership drift": where executives are clear-eyed on AI one-on-one but every view quietly drops once the room fills up, and why a named owner for the uncomfortable question breaks the pattern<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_innovation-globalstrategy-productstrategy-share-7493099833038307328-T4JB/" target="_blank" rel="noopener">
         <span class="ship-icon">👌</span>
         <div class="ship-body">
-          <p class="ship-text">Argued that designing for the hardest, lowest-resource market first scales up better than stripping down a premium product — the "simplify for everyone else" instinct has it backwards<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Argued that designing for the hardest, lowest-resource market first scales up better than stripping down a premium product: the "simplify for everyone else" instinct has it backwards<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_aiadoption-productmanagement-futureofwork-share-7493099388790210561-yyPb/" target="_blank" rel="noopener">
         <span class="ship-icon">🤖</span>
         <div class="ship-body">
-          <p class="ship-text">Named "botsitting" — the invisible, unrewarded 6.4 hours/week workers spend feeding AI context and catching its errors — as the real metric AI rollouts are missing<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Named "botsitting": the invisible, unrewarded 6.4 hours/week workers spend feeding AI context and catching its errors, as the real metric AI rollouts are missing<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_leadership-corporateturnaround-changemanagement-share-7493099047868665857-wkIy/" target="_blank" rel="noopener">
         <span class="ship-icon">📶</span>
         <div class="ship-body">
-          <p class="ship-text">Told the story of a new CEO who opened with "we are losing" instead of a strategy deck — why turnarounds start with blunt honesty, not a new plan<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Told the story of a new CEO who opened with "we are losing" instead of a strategy deck: why turnarounds start with blunt honesty, not a new plan<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_aistrategy-corporatestrategy-decisionmaking-share-7493098832365473792-KLlK/" target="_blank" rel="noopener">
         <span class="ship-icon">🖥️</span>
         <div class="ship-body">
-          <p class="ship-text">Argued that AI doesn't just speed up strategy — it removes the four-box-SWOT constraint entirely, letting teams consider far more options than a room full of humans ever could<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Argued that AI doesn't just speed up strategy: it removes the four-box-SWOT constraint entirely, letting teams consider far more options than a room full of humans ever could<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" data-posted="2026-08-10T11:00:00" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_leadership-organizationaltransformation-changemanagement-share-7489710355355516928-gG_9/" target="_blank" rel="noopener">
         <span class="ship-icon">📊</span>
         <div class="ship-body">
-          <p class="ship-text">Cited McKinsey and Prosci data on why leaders who visibly model change are 5.3x more likely to succeed — DBS's Piyush Gupta lived it, Credit Suisse's António Horta-Osório is the cautionary tale<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Cited McKinsey and Prosci data on why leaders who visibly model change are 5.3x more likely to succeed: DBS's Piyush Gupta lived it, Credit Suisse's António Horta-Osório is the cautionary tale<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" data-posted="2026-08-07T09:00:00" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_productstrategy-productmanagement-sustainability-share-7489709141574434817-rdkb/" target="_blank" rel="noopener">
         <span class="ship-icon">🌱</span>
         <div class="ship-body">
-          <p class="ship-text">Used Adobe's Project Primrose as a case study for "products that grow" — modular, expandable products that evolve with users instead of expiring on a replacement schedule<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Used Adobe's Project Primrose as a case study for "products that grow": modular, expandable products that evolve with users instead of expiring on a replacement schedule<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" data-posted="2026-08-06T07:30:00" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_mentoring-leadership-talentdevelopment-share-7489708966973833216--fKV/" target="_blank" rel="noopener">
         <span class="ship-icon">🎓</span>
         <div class="ship-body">
-          <p class="ship-text">Argued that AI is quietly deleting the repetitive-work training ground juniors used to build judgment on — and why the fix is redesigned mentoring, not more e-learning<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Argued that AI is quietly deleting the repetitive-work training ground juniors used to build judgment on, and why the fix is redesigned mentoring, not more e-learning<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_foundermindset-decisionmaking-leadership-share-7489708772064546816-LIgd/" target="_blank" rel="noopener">
         <span class="ship-icon">🎲</span>
         <div class="ship-body">
-          <p class="ship-text">Broke down Tim Ferriss's actual risk filter — not "will this work" but whether a bet is recoverable or a one-way door — and why fear-setting beats goal-setting when you're stuck<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Broke down Tim Ferriss's actual risk filter: not "will this work" but whether a bet is recoverable or a one-way door, and why fear-setting beats goal-setting when you're stuck<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_designthinking-leadership-productmanagement-share-7489708450164404224-0tZ4/" target="_blank" rel="noopener">
         <span class="ship-icon">🧭</span>
         <div class="ship-body">
-          <p class="ship-text">Applied design thinking to ambiguity on roadmap calls — reframing problems as questions, seeking inspiration before ideation, and running small experiments instead of waiting for clarity<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Applied design thinking to ambiguity on roadmap calls: reframing problems as questions, seeking inspiration before ideation, and running small experiments instead of waiting for clarity<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_generativeai-aiagents-productmanagement-share-7489708274397831168-uTwS/" target="_blank" rel="noopener">
         <span class="ship-icon">🤖</span>
         <div class="ship-body">
-          <p class="ship-text">Argued that the real shift with AI agents isn't speed but scope — 23% of what people ask agents to do are tasks they never attempted with a plain assistant at all<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Argued that the real shift with AI agents isn't speed but scope: 23% of what people ask agents to do are tasks they never attempted with a plain assistant at all<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_leadership-teamdynamics-productmanagement-share-7484671992445636608-9oPf/" target="_blank" rel="noopener">
         <span class="ship-icon">🤵</span>
         <div class="ship-body">
-          <p class="ship-text">Named the four traps that quietly wreck team trust — certainty, inconsistency, emotional reactivity, and justification — and why justification is the one that turns curiosity into blame<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Named the four traps that quietly wreck team trust: certainty, inconsistency, emotional reactivity, and justification, and why justification is the one that turns curiosity into blame<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_leadership-managingup-executivepresence-share-7484671667848466433-8jer/" target="_blank" rel="noopener">
         <span class="ship-icon">🚨</span>
         <div class="ship-body">
-          <p class="ship-text">Broke down managing an insecure boss — anxious vs. avoidant leader patterns — using a Regulate, Relate, Reason model instead of overaccommodating, withdrawing, or confronting head-on<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Broke down managing an insecure boss (anxious vs. avoidant leader patterns) using a Regulate, Relate, Reason model instead of overaccommodating, withdrawing, or confronting head-on<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_globalteams-productleadership-crossculturalcollaboration-share-7484671302646083584-BQ5R/" target="_blank" rel="noopener">
         <span class="ship-icon">🗺️</span>
         <div class="ship-body">
-          <p class="ship-text">Argued that global team breakdowns get misdiagnosed as culture problems — the real tell is regional leaders with high trust but low influence, and the fix is redesigning decision rights, not fixing culture<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Argued that global team breakdowns get misdiagnosed as culture problems: the real tell is regional leaders with high trust but low influence, and the fix is redesigning decision rights, not fixing culture<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="achievement" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_genai-clinicaltrials-healthtech-share-7487875056300113920-9VaO/" target="_blank" rel="noopener">
         <span class="ship-icon">🧬</span>
         <div class="ship-body">
-          <p class="ship-text">Shipped ClinicalAI-TrialAnalysis — paste an NCT ID, get ranked failure hypotheses from Claude with a self-argued counter-argument on each one, and a hard schema gate that rejects any response with an unlabeled claim<span class="ship-tag ship-tag-achievement">Achievement</span></p>
+          <p class="ship-text">Shipped ClinicalAI-TrialAnalysis: paste an NCT ID, get ranked failure hypotheses from Claude with a self-argued counter-argument on each one, and a hard schema gate that rejects any response with an unlabeled claim<span class="ship-tag ship-tag-achievement">Achievement</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_generativeai-productmanagement-changemanagement-share-7484670696074194944-50QK/" target="_blank" rel="noopener">
         <span class="ship-icon">✋</span>
         <div class="ship-body">
-          <p class="ship-text">Broke down why 45% of CEOs see employee resistance to gen AI — competence, autonomy, and relatedness needs going unmet — and the AWARE framework for closing the trust gap<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Broke down why 45% of CEOs see employee resistance to gen AI: competence, autonomy, and relatedness needs going unmet, and the AWARE framework for closing the trust gap<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="achievement" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_spent-the-past-week-building-an-ai-powered-share-7487229028618153984-taHy/" target="_blank" rel="noopener">
         <span class="ship-icon">🧩</span>
         <div class="ship-body">
-          <p class="ship-text">Wrote up how I built the Company Comparison tool — BYOK with no backend, a web-search-capable model for live citations, and a hand-rolled markdown parser plus D3 relationship graph instead of off-the-shelf libraries<span class="ship-tag ship-tag-achievement">Achievement</span></p>
+          <p class="ship-text">Wrote up how I built the Company Comparison tool: BYOK with no backend, a web-search-capable model for live citations, and a hand-rolled markdown parser plus D3 relationship graph instead of off-the-shelf libraries<span class="ship-tag ship-tag-achievement">Achievement</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_aiinfrastructure-agenticai-dataarchitecture-share-7484670492147326976-gL_g/" target="_blank" rel="noopener">
         <span class="ship-icon">🤖</span>
         <div class="ship-body">
-          <p class="ship-text">Called out the blind spot in agentic AI roadmaps — infrastructure — where vector databases and legacy storage built for human-paced traffic buckle under machine-speed query volume<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Called out the blind spot in agentic AI roadmaps: infrastructure, where vector databases and legacy storage built for human-paced traffic buckle under machine-speed query volume<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="achievement" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_claudecode-agenticai-productmanagement-share-7486594830287056896-SGIO/" target="_blank" rel="noopener">
         <span class="ship-icon">⚖️</span>
         <div class="ship-body">
-          <p class="ship-text">Shipped ContractIQ end-to-end with Claude Code — walked through the step-by-step, from writing the PRD first to defining an HHH launch bar before calling it production-ready<span class="ship-tag ship-tag-achievement">Achievement</span></p>
+          <p class="ship-text">Shipped ContractIQ end-to-end with Claude Code: walked through the step-by-step, from writing the PRD first to defining an HHH launch bar before calling it production-ready<span class="ship-tag ship-tag-achievement">Achievement</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_leadership-productmanagement-organizationalculture-share-7484660715803525120-i3q0/" target="_blank" rel="noopener">
         <span class="ship-icon">👀</span>
         <div class="ship-body">
-          <p class="ship-text">Named the "two-organizations problem" — the gap between the reported org (dashboards, board decks) and the lived org (what teams actually experience) — and why it widens fastest around AI rollouts<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Named the "two-organizations problem": the gap between the reported org (dashboards, board decks) and the lived org (what teams actually experience), and why it widens fastest around AI rollouts<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_productstrategy-saas-gtm-share-7484660473880092673-uQXC/" target="_blank" rel="noopener">
         <span class="ship-icon">💸</span>
         <div class="ship-body">
-          <p class="ship-text">Broke down "sales debt" — taking on poor-fit customers to hit short-term revenue — and why the bill comes due in shrinking margins, customization-eaten roadmaps, and churn nobody wanted<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Broke down "sales debt": taking on poor-fit customers to hit short-term revenue, and why the bill comes due in shrinking margins, customization-eaten roadmaps, and churn nobody wanted<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_organizationaldesign-aistrategy-productstrategy-share-7484660111035244547-zf5z/" target="_blank" rel="noopener">
         <span class="ship-icon">🧩</span>
         <div class="ship-body">
-          <p class="ship-text">Argued that two decades of decomposing firms into modular units left companies great at splitting apart and bad at recombining — and that the real advantage is turning recombination into a managerial "handshake," not just a technical interface<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Argued that two decades of decomposing firms into modular units left companies great at splitting apart and bad at recombining, and that the real advantage is turning recombination into a managerial "handshake," not just a technical interface<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_globalteams-leadership-crossculturalcollaboration-share-7484659699968184320-K19t/" target="_blank" rel="noopener">
         <span class="ship-icon">🌍</span>
         <div class="ship-body">
-          <p class="ship-text">Unpacked why a Fortune 100 exec's Asia-based team stayed quiet on strategy — not a culture problem but a systems one, and why fixing decision rights, not running a culture audit, is the real lever<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Unpacked why a Fortune 100 exec's Asia-based team stayed quiet on strategy: not a culture problem but a systems one, and why fixing decision rights, not running a culture audit, is the real lever<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-productmanagement-aistrategy-share-7484659297520422912-3W3Y/" target="_blank" rel="noopener">
         <span class="ship-icon">🤖</span>
         <div class="ship-body">
-          <p class="ship-text">Broke down why a two-person team — one domain expert, one AI engineer — is the new baseline for building products that used to need eight, and why incumbents must re-architect workflows before automating them<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Broke down why a two-person team (one domain expert, one AI engineer) is the new baseline for building products that used to need eight, and why incumbents must re-architect workflows before automating them<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_ai-aistrategy-leadership-share-7483701378390003712-S1Fc/" target="_blank" rel="noopener">
         <span class="ship-icon">🧱</span>
         <div class="ship-body">
-          <p class="ship-text">Broke down AT&T CEO John Stankey's HBR IdeaCast take that most AI efficiency gains get competed away — the durable edge is marrying proprietary data with AI, not "meat and potatoes" automation<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Broke down AT&T CEO John Stankey's HBR IdeaCast take that most AI efficiency gains get competed away: the durable edge is marrying proprietary data with AI, not "meat and potatoes" automation<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/eVyMiS_F" target="_blank" rel="noopener">
         <span class="ship-icon">📊</span>
         <div class="ship-body">
-          <p class="ship-text">Reacted to an HBR piece on Goldman Sachs' CIO reframing the "10% AI can't do" question — the real shift is operator to supervisor of agents, and AI transformation only works once data and evals are in order<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Reacted to an HBR piece on Goldman Sachs' CIO reframing the "10% AI can't do" question: the real shift is operator to supervisor of agents, and AI transformation only works once data and evals are in order<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="update" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-aiproductmanagement-datagovernance-activity-7481694693861339137-RvYc" target="_blank" rel="noopener">
         <span class="ship-icon">🗂️</span>
         <div class="ship-body">
-          <p class="ship-text">Announced the "Enterprise AI Data Copilot Suite" — an agentic platform where deterministic engines hold the ground truth and the LLM handles explanation, classification, and narration<span class="ship-tag ship-tag-update">Update</span></p>
+          <p class="ship-text">Announced the "Enterprise AI Data Copilot Suite": an agentic platform where deterministic engines hold the ground truth and the LLM handles explanation, classification, and narration<span class="ship-tag ship-tag-update">Update</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="achievement" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_aiassistant-realtimesync-collaboration-activity-7477360276997181442-c9Iy" target="_blank" rel="noopener">
         <span class="ship-icon">🚀</span>
         <div class="ship-body">
-          <p class="ship-text">Shipped "ProjectPilot AI" — a full-stack SaaS project management platform with Kanban boards, AI task intelligence, and a workspace-scoped Claude assistant, from zero to production in days<span class="ship-tag ship-tag-achievement">Achievement</span></p>
+          <p class="ship-text">Shipped "ProjectPilot AI": a full-stack SaaS project management platform with Kanban boards, AI task intelligence, and a workspace-scoped Claude assistant, from zero to production in days<span class="ship-tag ship-tag-achievement">Achievement</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="achievement" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-productmanagement-aiproductmanagement-activity-7476756262404296704-2mui" target="_blank" rel="noopener">
         <span class="ship-icon">🎯</span>
         <div class="ship-body">
-          <p class="ship-text">Demoed "Ad-Genie" at the end of a 6-week Agentic AI PM cohort — an ad-creative co-pilot built with a PRD, eval framework, and pricing model from scratch<span class="ship-tag ship-tag-achievement">Achievement</span></p>
+          <p class="ship-text">Demoed "Ad-Genie" at the end of a 6-week Agentic AI PM cohort: an ad-creative co-pilot built with a PRD, eval framework, and pricing model from scratch<span class="ship-tag ship-tag-achievement">Achievement</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-productmanagement-pricingstrategy-activity-7474915032716877825-913d" target="_blank" rel="noopener">
         <span class="ship-icon">💰</span>
         <div class="ship-body">
-          <p class="ship-text">Reflected on treating pricing as a product decision, not a finance one — mapped Ad-Genie against a fixed/variable, activity/outcome-based framework<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Reflected on treating pricing as a product decision, not a finance one: mapped Ad-Genie against a fixed/variable, activity/outcome-based framework<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-productmanagement-aiagents-activity-7474188402198183168-QfnJ" target="_blank" rel="noopener">
         <span class="ship-icon">🧠</span>
         <div class="ship-body">
-          <p class="ship-text">Explored the real difference between a co-pilot and an agent — initiative — and why Ad-Genie is deliberately scoped as the former for now<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Explored the real difference between a co-pilot and an agent: initiative, and why Ad-Genie is deliberately scoped as the former for now<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-productmanagement-airesponsibility-activity-7473471070341246977-cHqf" target="_blank" rel="noopener">
         <span class="ship-icon">✅</span>
         <div class="ship-body">
-          <p class="ship-text">Learned the HHH framework — Helpful, Honest, Harmless — for evaluating generative AI output where there's no single "right" answer<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Learned the HHH framework (Helpful, Honest, Harmless) for evaluating generative AI output where there's no single "right" answer<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-productmanagement-airoadmaps-activity-7472731648743763968-Hbhw" target="_blank" rel="noopener">
         <span class="ship-icon">🗺️</span>
         <div class="ship-body">
-          <p class="ship-text">Reframed AI roadmaps as sequencing risk instead of features — validate the riskiest assumption before earning the right to build the next thing<span class="ship-tag ship-tag-article">Article</span></p>
+          <p class="ship-text">Reframed AI roadmaps as sequencing risk instead of features: validate the riskiest assumption before earning the right to build the next thing<span class="ship-tag ship-tag-article">Article</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="newstart" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-productmanagement-aiproductmanagement-activity-7472004458955730944-N2T" target="_blank" rel="noopener">
         <span class="ship-icon">🧭</span>
         <div class="ship-body">
-          <p class="ship-text">Kicked off an Agentic AI PM cohort with a 2x2 framework for deciding where AI actually belongs — automate, quality-control, co-pilot, or human-first<span class="ship-tag ship-tag-newstart">New Start</span></p>
+          <p class="ship-text">Kicked off an Agentic AI PM cohort with a 2x2 framework for deciding where AI actually belongs: automate, quality-control, co-pilot, or human-first<span class="ship-tag ship-tag-newstart">New Start</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="newstart" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_github-claudeai-productmanagement-activity-7469116266066546688-h8ef" target="_blank" rel="noopener">
         <span class="ship-icon">🧩</span>
         <div class="ship-body">
-          <p class="ship-text">Published my first public GitHub repo — Claude Skill Builder Collections, a growing library of reusable Claude AI skills for product teams<span class="ship-tag ship-tag-newstart">New Start</span></p>
+          <p class="ship-text">Published my first public GitHub repo: Claude Skill Builder Collections, a growing library of reusable Claude AI skills for product teams<span class="ship-tag ship-tag-newstart">New Start</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="newstart" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_scienceai-rag-productmanagement-activity-7466792080039055360-1Jy0" target="_blank" rel="noopener">
         <span class="ship-icon">🔬</span>
         <div class="ship-body">
-          <p class="ship-text">Built "ScienceAI" — a RAG-powered research assistant that lets scientists talk to the literature and turns findings into audio summaries or podcasts<span class="ship-tag ship-tag-newstart">New Start</span></p>
+          <p class="ship-text">Built "ScienceAI": a RAG-powered research assistant that lets scientists talk to the literature and turns findings into audio summaries or podcasts<span class="ship-tag ship-tag-newstart">New Start</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="achievement" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-productmanagement-maven-activity-7465356883978358784-38Eu" target="_blank" rel="noopener">
         <span class="ship-icon">🎓</span>
         <div class="ship-body">
-          <p class="ship-text">Completed "Building Agentic AI Applications with a Problem-First Approach" on Maven — 35+ hours covering evals, prompt engineering, and multi-agent pipelines<span class="ship-tag ship-tag-achievement">Achievement</span></p>
+          <p class="ship-text">Completed "Building Agentic AI Applications with a Problem-First Approach" on Maven: 35+ hours covering evals, prompt engineering, and multi-agent pipelines<span class="ship-tag ship-tag-achievement">Achievement</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="achievement" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_agenticai-openclaw-productmanagement-activity-7464646736521342976-afNQ" target="_blank" rel="noopener">
         <span class="ship-icon">⚡</span>
         <div class="ship-body">
-          <p class="ship-text">Completed the "Become an Agent-Native Operator in 1 Day" OpenClaw Bootcamp — covering agentic workflows, MCPs, and eval loops<span class="ship-tag ship-tag-achievement">Achievement</span></p>
+          <p class="ship-text">Completed the "Become an Agent-Native Operator in 1 Day" OpenClaw Bootcamp, covering agentic workflows, MCPs, and eval loops<span class="ship-tag ship-tag-achievement">Achievement</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="achievement" href="https://www.linkedin.com/posts/sankar-kumar-palaniappan-pm_generativeai-rag-ai-activity-7436985755366780928-cKus" target="_blank" rel="noopener">
@@ -10694,7 +10805,7 @@
     </div>
   </div>
 
-  <div class="li-metrics reveal">
+  <div class="li-metrics reveal" id="li-snapshot">
     <div class="li-metrics-header">
       <span class="li-metrics-label">LinkedIn Snapshot</span>
       <span class="li-metrics-sub">Last 90 days · Jul 9 – Oct 6, 2026 · hover the charts</span>
@@ -10735,7 +10846,7 @@
 
     <div class="contact-desc">
       <p>I love turning bold ideas into AI and data products that people genuinely enjoy using. I thrive on building great teams, tearing down silos, and shipping things that make a real difference for both the business and the people who use them.</p>
-      <p>Want to geek out over AI product strategy, LLM and agentic apps, ML-driven platforms, or enterprise SaaS? Or just feel like saying hi? I'd absolutely love that. 😊 Reach out anytime — my inbox is always open, and I can't wait to connect!</p>
+      <p>Want to geek out over AI product strategy, LLM and agentic apps, ML-driven platforms, or enterprise SaaS? Or just feel like saying hi? I'd absolutely love that. 😊 Reach out anytime. My inbox is always open, and I can't wait to connect!</p>
     </div>
 
     <div class="contact-location">
@@ -10841,7 +10952,7 @@
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>Built ScienceAI, a Gen AI platform that lets researchers chat with scientific literature — papers, clinical trials, conferences, and competitor data — in one place. A Langflow RAG pipeline with a GraphDB and GPT-5-mini streaming (on Next.js 16) delivers sourced, real-time answers, while ElevenLabs TTS converts insights into on-demand audio summaries and dual-voice podcasts for faster, more accessible research consumption.</p>
+          <p>Built ScienceAI, a Gen AI platform that lets researchers chat with scientific literature (papers, clinical trials, conferences, and competitor data) in one place. A Langflow RAG pipeline with a GraphDB and GPT-5-mini streaming (on Next.js 16) delivers sourced, real-time answers, while ElevenLabs TTS converts insights into on-demand audio summaries and dual-voice podcasts for faster, more accessible research consumption.</p>
         </div>
       </details>
 
@@ -10911,7 +11022,7 @@
 
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>Built an LLM-powered solution that automates the classification and processing of customer reviews — predicting categories, assigning priority, suggesting actions, and generating sentiment-based responses. The solution streamlines review management, enhancing customer satisfaction and operational efficiency in handling feedback and inquiries.</p>
+          <p>Built an LLM-powered solution that automates the classification and processing of customer reviews, predicting categories, assigning priority, suggesting actions, and generating sentiment-based responses. The solution streamlines review management, enhancing customer satisfaction and operational efficiency in handling feedback and inquiries.</p>
         </div>
       </details>
 
@@ -11160,7 +11271,7 @@
   <div class="modal" style="max-width: 950px; max-height: 90vh;">
     <div class="modal-header">
       <div>
-        <div class="modal-title">🧬 ScienceAI — Technology Stack</div>
+        <div class="modal-title">🧬 ScienceAI: Technology Stack</div>
       </div>
       <button class="modal-close" onclick="closeTechStackModalBtn('scienceai')">✕</button>
     </div>
@@ -11237,7 +11348,7 @@
   window.openProjectModal = openProjectModal;
 
   // Closes along the same path it opened (same transition, reversed) instead
-  // of cutting straight to display:none — the backdrop is kept visible via
+  // of cutting straight to display:none - the backdrop is kept visible via
   // .force-visible for the tail of the fade, then fully hidden once it ends.
   function closeProjectModal(id) {
     const backdrop = id ? document.getElementById(id) : null;
@@ -11378,7 +11489,7 @@
     }
   });
 
-  // ── Recently shipped — live from GitHub ──
+  // ── Recently shipped - live from GitHub ──
   (function loadShippedFromGitHub() {
     const GH_USER = 'sankar2code';
     const listEl = document.getElementById('shipped-list');
@@ -11402,11 +11513,11 @@
     }
 
     // Coordinates the "reveal" animations so they play once the section
-    // actually scrolls into view — not buried off-screen at page load.
+    // actually scrolls into view - not buried off-screen at page load.
     // Both the newest-item animation (typewriter + flash) and the streak
     // count-up replay every time the section is scrolled into view (from
     // above or below), regardless of whether the GitHub fetch has settled
-    // yet — each only needs (a) the section visible and (b) its own data
+    // yet - each only needs (a) the section visible and (b) its own data
     // ready, so neither can be silently skipped by the other firing first.
     let sectionVisible = false;
     let listReady = false;
@@ -11452,7 +11563,7 @@
     }
 
     // Newest item gets a one-time typewriter reveal on its text plus a soft
-    // "just shipped" ring flash — signals "this is what's freshest" without
+    // "just shipped" ring flash - signals "this is what's freshest" without
     // re-animating the whole list. Replays every time it's called (e.g. the
     // section is scrolled into view again), so a run-token guards against
     // an interrupted earlier pass fighting with a fresh one.
@@ -11520,7 +11631,7 @@
     }
 
     // Consecutive-day activity streak + commits-this-week, computed from the
-    // same events already fetched — no extra API call needed.
+    // same events already fetched - no extra API call needed.
     function renderStreak(events) {
       const streakEl = document.getElementById('shipped-streak');
       if (!streakEl) return;
@@ -11531,7 +11642,7 @@
       let streak = 0;
       const cursor = new Date();
       if (!activeDays.has(toDateKey(cursor.toISOString()))) {
-        cursor.setDate(cursor.getDate() - 1); // today's quiet — streak may still be "alive" via yesterday
+        cursor.setDate(cursor.getDate() - 1); // today's quiet, streak may still be "alive" via yesterday
       }
       while (activeDays.has(toDateKey(cursor.toISOString()))) {
         streak++;
@@ -11561,9 +11672,9 @@
     // Activity heatmap, built from the same events already fetched. With
     // only a 3-week window there aren't enough distinct days to fill a wide
     // GitHub-style day-column grid, so this aggregates every event into a
-    // day-of-week × hour-of-day matrix (24 columns × 7 rows) — a "punch
+    // day-of-week × hour-of-day matrix (24 columns × 7 rows) - a "punch
     // card" view of when work actually happens. That grid is available as
-    // a secondary view, but the default view is a "build skyline" — the
+    // a secondary view, but the default view is a "build skyline" - the
     // same hour-of-day totals collapsed across all 7 days into a single
     // smooth area chart, which reads faster at a glance than a grid.
     let heatmapShowingGrid = false;
@@ -11585,7 +11696,7 @@
       const weeksBack = 3;
       const cutoff = Date.now() - weeksBack * 7 * 24 * 60 * 60 * 1000;
 
-      // counts[dayOfWeek][hourOfDay] — Sun=0..Sat=6, hour in local time
+      // counts[dayOfWeek][hourOfDay] - Sun=0..Sat=6, hour in local time
       const counts = Array.from({ length: 7 }, () => new Array(24).fill(0));
       events.forEach((ev) => {
         const d = new Date(ev.created_at);
@@ -11739,7 +11850,7 @@
     };
 
     // Push events are the bulk of activity and don't carry any signal beyond
-    // "code changed" — so any repo NOT in the curated map above still needs
+    // "code changed" - so any repo NOT in the curated map above still needs
     // its own look. Hash the repo name into a small icon palette: same repo
     // always lands on the same icon (stable across reloads), different repos
     // usually land on different ones (no manual mapping upkeep required).
@@ -11766,12 +11877,12 @@
             icon: repoIcon || fallbackPushIcon(ev.repo.name),
             tagClass: 'ship-tag-update',
             tag: 'Update',
-            text: `Pushed ${count > 1 ? count + ' commits' : '1 commit'} to <strong>${repo}</strong> — ${msg}`,
+            text: `Pushed ${count > 1 ? count + ' commits' : '1 commit'} to <strong>${repo}</strong>: ${msg}`,
             when: ev.created_at,
           };
         }
         // GitHub's public events endpoint doesn't always include the commits
-        // array (e.g. for older or squashed pushes) — fall back to a generic
+        // array (e.g. for older or squashed pushes) - fall back to a generic
         // "pushed to" message using the branch ref instead of dropping it.
         const branch = (ev.payload.ref || '').split('/').pop();
         return {
@@ -11789,12 +11900,12 @@
           icon: repoIcon || '🗂️',
           tagClass: 'ship-tag-build',
           tag: 'Build',
-          text: `Created a new repository — <strong>${repo}</strong>`,
+          text: `Created a new repository: <strong>${repo}</strong>`,
           when: ev.created_at,
         };
       }
       if (ev.type === 'CreateEvent' && ev.payload.ref_type === 'branch' && ev.payload.description) {
-        // First branch on a brand-new repo — GitHub reports this as a
+        // First branch on a brand-new repo - GitHub reports this as a
         // "branch" create event (not "repository"), but it's effectively
         // the project's kickoff, so treat it as a Build milestone.
         return {
@@ -11802,7 +11913,7 @@
           icon: repoIcon || '🗂️',
           tagClass: 'ship-tag-build',
           tag: 'Build',
-          text: `Started a new project — <strong>${repo}</strong>: ${ev.payload.description}`,
+          text: `Started a new project, <strong>${repo}</strong>: ${ev.payload.description}`,
           when: ev.created_at,
         };
       }
@@ -11836,8 +11947,8 @@
       })
       .then((events) => {
         // Dedupe to one entry per repo (keeping the most recent, since the
-        // API returns newest-first) so a burst of commits to one repo — e.g.
-        // this portfolio site while actively editing it — doesn't crowd out
+        // API returns newest-first) so a burst of commits to one repo - e.g.
+        // this portfolio site while actively editing it - doesn't crowd out
         // activity on every other project.
         const seenRepos = new Set();
         const items = events
@@ -11872,7 +11983,7 @@
         playItemAnim();
       })
       .catch(() => {
-        // Keep the static fallback list already in the markup — it still
+        // Keep the static fallback list already in the markup - it still
         // deserves its reveal animation even without live GitHub data.
         listReady = true;
         playItemAnim();
@@ -12025,7 +12136,7 @@
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
         liMetricsObserver.unobserve(e.target);
-        // Only the front face is visible on first reveal — roll those.
+        // Only the front face is visible on first reveal - roll those.
         e.target.querySelectorAll('.li-flip-front').forEach((face) => rollNumbersIn(face, 1200));
       });
     }, { threshold: 0.35 });
@@ -12034,22 +12145,22 @@
 
   // ── Recommendation spotlight carousel ──
   const recSpotData = [
-    { id: 'edlyn-pangaro', name: 'Edlyn Pangaro, PMP', role: 'IT Program Director | Global Regulatory Affairs Technology Business Partner', quote: 'Highly proactive, detail-oriented, and exceptionally customer-focused — Sankar quickly understands complex situations, thinks strategically, and consistently delivers high-quality results.', img: 'images/edlyn-pangaro.jpeg' },
+    { id: 'edlyn-pangaro', name: 'Edlyn Pangaro, PMP', role: 'IT Program Director | Global Regulatory Affairs Technology Business Partner', quote: 'Highly proactive, detail-oriented, and exceptionally customer-focused. Sankar quickly understands complex situations, thinks strategically, and consistently delivers high-quality results.', img: 'images/edlyn-pangaro.jpeg' },
     { id: 'carolyn-hudson', name: 'Carolyn Hudson, MBA', role: 'Program Director, Healthfirst', quote: 'His ability to blend high level strategy with practical execution helped the team deliver the highest ROI in less than four months post implementation.', img: 'images/carolyn-hudson.jpeg' },
-    { id: 'chandrashekhar-hajare', name: 'Chandrashekhar Hajare', role: 'Validation Lead', quote: 'A dependable professional who consistently supports the team and delivers with confidence — I highly recommend him to any organization looking for a skilled and trusted lead.', img: 'images/chandrashekhar-hajare.jpeg' },
+    { id: 'chandrashekhar-hajare', name: 'Chandrashekhar Hajare', role: 'Validation Lead', quote: 'A dependable professional who consistently supports the team and delivers with confidence. I highly recommend him to any organization looking for a skilled and trusted lead.', img: 'images/chandrashekhar-hajare.jpeg' },
     { id: 'prag-ravichandran', name: 'Prag Ravichandran', role: 'Founder | Salesforce MVP | Certified Architect | 10x Dreamforce Speaker', quote: 'He brings a rare combination of strategic thinking, technical depth, and a genuine willingness to support those around him, making him a trusted partner on every initiative.', img: 'images/prag-ravichandran.jpeg' },
-    { id: 'sri-kumaran-thirupathy', name: 'Sri Kumaran Thirupathy', role: 'Platform & Product Leader | Data Thinker | Curious Mind in Tech & Beyond', quote: 'Sankar consistently demonstrated a strong curiosity for learning and an ability to think beyond conventional approaches — his product mindset enabled him to transform insights into practical, innovative, and impactful outcomes.', img: 'images/sri-kumaran-thirupathy.jpeg' },
+    { id: 'sri-kumaran-thirupathy', name: 'Sri Kumaran Thirupathy', role: 'Platform & Product Leader | Data Thinker | Curious Mind in Tech & Beyond', quote: 'Sankar consistently demonstrated a strong curiosity for learning and an ability to think beyond conventional approaches; his product mindset enabled him to transform insights into practical, innovative, and impactful outcomes.', img: 'images/sri-kumaran-thirupathy.jpeg' },
     { id: 'vivek-thomas', name: 'Vivek Thomas', role: 'Senior Manager, Data Informatics', quote: 'He excels at translating complex business needs into practical solutions and consistently takes ownership to deliver efficient, high-quality work.', img: 'images/vivek-thomas.jpeg' },
     { id: 'muthamizhselvan-kalidoss', name: 'Muthamizhselvan Kalidoss', role: 'Senior Manager, Cloud & Infrastructure Services', quote: 'His ability to quickly understand complex AI concepts and translate them into practical, value-driven product solutions truly stood out.', img: 'images/muthamizhselvan-kalidoss.jpeg' },
     { id: 'imthias-shaffiullah', name: 'Imthias Shaffiullah', role: 'Software Engineer, Spotline, Inc.', quote: 'He consistently impressed me with his product management and business analysis skills, and always delivered on time without sacrificing quality.', img: 'images/imthias-shaffiullah.jpeg' },
-    { id: 'rajesh-sundarraj', name: 'Rajesh Sundarraj', role: 'Group Technical Specialist, HCL Technology', quote: 'His ability to translate complex business needs into practical, technology-driven solutions is impressive — highly collaborative, proactive, and dependable.', img: 'images/rajesh-sundarraj.jpeg' },
+    { id: 'rajesh-sundarraj', name: 'Rajesh Sundarraj', role: 'Group Technical Specialist, HCL Technology', quote: 'His ability to translate complex business needs into practical, technology-driven solutions is impressive. Highly collaborative, proactive, and dependable.', img: 'images/rajesh-sundarraj.jpeg' },
     { id: 'vigneshwaran-sivaprakasam', name: 'Vigneshwaran Sivaprakasam', role: 'Group Project Manager, HCL America Inc.', quote: 'A strong talent for understanding complex business needs and translating them into practical, high-impact solutions while building trusted relationships with clients and stakeholders.', img: 'images/vigneshwaran-sivaprakasam.jpeg' },
-    { id: 'sneha-gayathri', name: 'Sneha Gayathri C', role: 'QA Engineer, Life Sciences Domain', quote: 'An exceptional ability to understand complex business requirements and translate them into clear, actionable solutions — dependable, detail-oriented, and truly collaborative.', img: 'images/sneha-gayathri.jpeg' },
+    { id: 'sneha-gayathri', name: 'Sneha Gayathri C', role: 'QA Engineer, Life Sciences Domain', quote: 'An exceptional ability to understand complex business requirements and translate them into clear, actionable solutions. Dependable, detail-oriented, and truly collaborative.', img: 'images/sneha-gayathri.jpeg' },
     { id: 'ravi-vishwas', name: 'Ravi Vishwas', role: 'Enterprise Technology & ERP Senior Consultant', quote: 'With a deep understanding of complex technological systems and strategic thinking, Sankar identifies optimization opportunities and drives meaningful change.', img: 'images/ravi-vishwas.jpeg' },
-    { id: 'giridhar-golkonda', name: 'Giridhar Golkonda', role: 'IT Leader & Enterprise Architect', quote: 'He adeptly dissected complex data and conveyed clear, actionable insights — enhancing operational efficiency and guiding strategic decisions.', img: 'images/giridhar-golkonda.jpeg' },
-    { id: 'peter-dudek', name: 'Peter Dudek', role: 'Pega Certified Senior System Architect', quote: 'His Product Management skills and deep technical knowledge are invaluable — I am confident that he would be a great asset to any organization.', img: 'images/peter-dudek.jpeg' },
+    { id: 'giridhar-golkonda', name: 'Giridhar Golkonda', role: 'IT Leader & Enterprise Architect', quote: 'He adeptly dissected complex data and conveyed clear, actionable insights, enhancing operational efficiency and guiding strategic decisions.', img: 'images/giridhar-golkonda.jpeg' },
+    { id: 'peter-dudek', name: 'Peter Dudek', role: 'Pega Certified Senior System Architect', quote: 'His Product Management skills and deep technical knowledge are invaluable. I am confident that he would be a great asset to any organization.', img: 'images/peter-dudek.jpeg' },
     { id: 'paul-atherton', name: 'Paul Atherton', role: 'Manager Provider Data Management, Healthfirst', quote: 'His leadership meant that when issues arose for my team, those issues never lingered. His work ethic, collaboration, and results are second to none.', img: 'images/paul-atherton.jpeg' },
-    { id: 'denise-hurley', name: 'Denise Hurley-Forgach', role: 'Senior Manager, Utilities Industries', quote: 'Sankar is one of the most poised and composed professionals I have ever worked with. Not only would I recommend him — I would be grateful to have him on my team.', img: 'images/denise-hurley.jpeg' },
+    { id: 'denise-hurley', name: 'Denise Hurley-Forgach', role: 'Senior Manager, Utilities Industries', quote: 'Sankar is one of the most poised and composed professionals I have ever worked with. Not only would I recommend him, I would be grateful to have him on my team.', img: 'images/denise-hurley.jpeg' },
     { id: 'narayanan-ramaswamy', name: 'Narayanan Ramaswamy', role: 'Sr. Client Partner @ Saama | Health Sciences', quote: 'Sankar consistently delivered exceptional performance, leaving an indelible mark on our IT department. His proactive problem-solving was invaluable.', img: 'images/narayanan-ramaswamy.jpeg' },
     { id: 'thukkaram-periasamy', name: 'Thukkaram Periasamy', role: 'Associate Manager, Accenture', quote: 'Sankar consistently demonstrated his ability to dissect complex requirements and develop comprehensive action plans that translated vision into reality.', img: 'images/thukkaram-periasamy.jpeg' }
   ];
@@ -12435,7 +12546,7 @@
 
     // Explicit Enter handling on every field rather than relying on the
     // browser's implicit-form-submission behavior, which was inconsistent
-    // about advancing past step 1 (name) — the required/type=email fields
+    // about advancing past step 1 (name) - the required/type=email fields
     // on the still-hidden later steps sometimes got included in native
     // constraint validation and silently blocked the submit.
     fieldIds.forEach((id) => {
@@ -12451,7 +12562,7 @@
 
     backBtn.addEventListener('click', () => { if (step > 0) showStep(step - 1); });
 
-    // Sends silently in the background via Web3Forms — the access key is
+    // Sends silently in the background via Web3Forms - the access key is
     // designed to be public in client-side code (it's an alias to your
     // email, not a secret credential), so no server/proxy is needed here.
     const WEB3FORMS_ACCESS_KEY = '1b4d5632-04e2-496f-a6ea-747866eb6c54';
@@ -12492,18 +12603,18 @@
         .then((data) => {
           nextBtn.disabled = false;
           if (data.success) {
-            statusEl.textContent = '✓ sent — thanks, I\'ll get back to you soon!';
+            statusEl.textContent = '✓ sent. Thanks, I\'ll get back to you soon!';
             statusEl.style.color = '#4ade80';
             form.reset();
             setTimeout(() => toggleContactWizard(), 1800);
           } else {
-            statusEl.textContent = '✕ something went wrong — try again?';
+            statusEl.textContent = '✕ something went wrong. Try again?';
             statusEl.style.color = '#f87171';
           }
         })
         .catch(() => {
           nextBtn.disabled = false;
-          statusEl.textContent = '✕ network error — try again?';
+          statusEl.textContent = '✕ network error. Try again?';
           statusEl.style.color = '#f87171';
         });
     });
@@ -12534,7 +12645,7 @@
   });
   // A click leaves a menu "open" (sticky) so it also works on tap/mobile, but
   // that sticky state doesn't clear on its own when the mouse just glides to
-  // a different menu — only :hover changes, not the .open class. So a stale
+  // a different menu - only :hover changes, not the .open class. So a stale
   // menu can stay visible behind the one you're now hovering. Close any other
   // open menu the moment the pointer enters a sibling group.
   document.querySelectorAll('.nav-item-group').forEach((group) => {
@@ -12583,7 +12694,7 @@
   const html = document.documentElement;
   let themeWaving = false;
 
-  // Lottie day/night switch — segments per the file's markers:
+  // Lottie day/night switch - segments per the file's markers:
   // Day Idle [0,20] · Day→Night [20,80] · Night Idle [81,119] · Night→Day [120,200]
   const ttLottieEl = document.getElementById('tt-lottie');
   let ttAnim = null;
@@ -12603,7 +12714,7 @@
     ttAnim.setSubframe(true);
   }
 
-  // AI twin avatar — looping robot animation
+  // AI twin avatar - looping robot animation
   const twinRobotEl = document.getElementById('twin-robot-lottie');
   if (twinRobotEl && window.lottie) {
     const twinAnim = lottie.loadAnimation({
@@ -12621,7 +12732,7 @@
     twinAnim.setSubframe(true);
   }
 
-  // Live Post title — loudspeaker animation
+  // Live Post title - loudspeaker animation
   const lpLoudspeakerEl = document.getElementById('lp-loudspeaker');
   if (lpLoudspeakerEl && window.lottie) {
     const lpAnim = lottie.loadAnimation({
@@ -12639,7 +12750,7 @@
     lpAnim.setSubframe(true);
   }
 
-  // Recently Shipped title — launch animation
+  // Recently Shipped title - launch animation
   const rsLaunchEl = document.getElementById('rs-launch');
   if (rsLaunchEl && window.lottie) {
     const rsAnim = lottie.loadAnimation({
@@ -12657,7 +12768,7 @@
     rsAnim.setSubframe(true);
   }
 
-  // Recommendations title — typing guy animation
+  // Recommendations title - typing guy animation
   const recTypingEl = document.getElementById('rec-typing-guy');
   if (recTypingEl && window.lottie) {
     const recAnim = lottie.loadAnimation({
@@ -12675,7 +12786,7 @@
     recAnim.setSubframe(true);
   }
 
-  // Claude Skill section title — development animation
+  // Claude Skill section title - development animation
   const osDevEl = document.getElementById('os-development');
   if (osDevEl && window.lottie) {
     const osAnim = lottie.loadAnimation({
@@ -12693,7 +12804,7 @@
     osAnim.setSubframe(true);
   }
 
-  // Certifications title — target animation
+  // Certifications title - target animation
   const certTargetEl = document.getElementById('cert-target');
   if (certTargetEl && window.lottie) {
     const certAnim = lottie.loadAnimation({
@@ -12711,7 +12822,7 @@
     certAnim.setSubframe(true);
   }
 
-  // Tools & Technologies title — programming animation
+  // Tools & Technologies title - programming animation
   const toolsProgEl = document.getElementById('tools-programming');
   if (toolsProgEl && window.lottie) {
     const toolsAnim = lottie.loadAnimation({
@@ -12729,7 +12840,7 @@
     toolsAnim.setSubframe(true);
   }
 
-  // Education title — study abroad animation
+  // Education title - study abroad animation
   const eduAbroadEl = document.getElementById('edu-study-abroad');
   if (eduAbroadEl && window.lottie) {
     const eduAnim = lottie.loadAnimation({
@@ -12747,7 +12858,7 @@
     eduAnim.setSubframe(true);
   }
 
-  // Experience title — businessman rocket animation
+  // Experience title - businessman rocket animation
   const expRocketEl = document.getElementById('exp-rocket');
   if (expRocketEl && window.lottie) {
     const expAnim = lottie.loadAnimation({
@@ -12765,7 +12876,7 @@
     expAnim.setSubframe(true);
   }
 
-  // Built Projects title — laptop animation
+  // Built Projects title - laptop animation
   const workLaptopEl = document.getElementById('work-laptop');
   if (workLaptopEl && window.lottie) {
     const workAnim = lottie.loadAnimation({
@@ -12783,7 +12894,7 @@
     workAnim.setSubframe(true);
   }
 
-  // Functional Domains title — team brainstorming animation
+  // Functional Domains title - team brainstorming animation
   const domainsBrainstormEl = document.getElementById('domains-brainstorm');
   if (domainsBrainstormEl && window.lottie) {
     const domainsAnim = lottie.loadAnimation({
@@ -12801,7 +12912,7 @@
     domainsAnim.setSubframe(true);
   }
 
-  // AI Twin title — man and robot workplace animation
+  // AI Twin title - man and robot workplace animation
   const aitwinWorkplaceEl = document.getElementById('aitwin-workplace');
   if (aitwinWorkplaceEl && window.lottie) {
     const aitwinAnim = lottie.loadAnimation({
@@ -12819,7 +12930,7 @@
     aitwinAnim.setSubframe(true);
   }
 
-  // Footer — like button animation (replaces heart emoji)
+  // Footer - like button animation (replaces heart emoji)
   const footerLikeEl = document.getElementById('footer-like');
   if (footerLikeEl && window.lottie) {
     const footerLikeAnim = lottie.loadAnimation({
@@ -13068,7 +13179,7 @@
       const left = remaining();
       remainingEl.textContent = left > 0
         ? `${left} message${left === 1 ? '' : 's'} left this hour`
-        : `Limit reached — resets in ${minutesUntilReset()} min`;
+        : `Limit reached. Resets in ${minutesUntilReset()} min`;
       const disabled = left <= 0;
       inputEl.disabled = disabled;
       sendBtn.disabled = disabled;
@@ -13126,7 +13237,7 @@
       if (el) el.remove();
     }
 
-    // Basic client-side profanity/abuse filter — blocks obvious bad language before
+    // Basic client-side profanity/abuse filter - blocks obvious bad language before
     // it's even sent, so it doesn't cost the visitor a message or an API call.
     // The worker has its own server-side check as a backstop in case this is bypassed.
     const TWIN_BLOCKED_WORDS = [
@@ -13145,7 +13256,7 @@
 
       if (containsBadLanguage(text)) {
         addMessage('user', text);
-        addMessage('error', "Let's keep it professional — try rephrasing that, or email me directly at hello@sankar.work.");
+        addMessage('error', "Let's keep it professional. Try rephrasing that, or email me directly at hello@sankar.work.");
         inputEl.value = '';
         return; // not sent to the API, doesn't count against the message limit
       }
@@ -13166,14 +13277,14 @@
         hideTyping();
 
         if (!res.ok) {
-          addMessage('error', "Something went wrong reaching my AI twin — try again in a moment, or email me directly at hello@sankar.work.");
+          addMessage('error', "Something went wrong reaching my AI twin. Try again in a moment, or email me directly at hello@sankar.work.");
           history.pop(); // don't leave an unanswered user turn in context
           return;
         }
 
         const data = await res.json();
         if (!data.reply) {
-          addMessage('error', "I couldn't generate a reply that time — try rephrasing, or email me directly at hello@sankar.work.");
+          addMessage('error', "I couldn't generate a reply that time. Try rephrasing, or email me directly at hello@sankar.work.");
           history.pop(); // don't poison future turns with a fake assistant reply
           return;
         }
@@ -13181,7 +13292,7 @@
         history.push({ role: 'assistant', content: data.reply });
       } catch (err) {
         hideTyping();
-        addMessage('error', "Couldn't connect to my AI twin right now — email me directly at hello@sankar.work.");
+        addMessage('error', "Couldn't connect to my AI twin right now. Email me directly at hello@sankar.work.");
       }
     }
 
@@ -13205,7 +13316,7 @@
     if (!listEl || !filtersEl) return;
 
     const items = Array.from(listEl.querySelectorAll('.ship-item'));
-    const DOT_COUNT = 5; // fixed — never grows, no matter how many posts are visible
+    const DOT_COUNT = 5; // fixed, never grows, no matter how many posts are visible
 
     function maxScroll() {
       return Math.max(1, listEl.scrollHeight - listEl.clientHeight);
@@ -13273,7 +13384,7 @@
 </script>
 
 <script>
-  // Journey Map reveal — close when clicking outside
+  // Journey Map reveal - close when clicking outside
   document.addEventListener('click', function(e) {
     document.querySelectorAll('.journey-reveal.open').forEach(function(el) {
       if (!el.contains(e.target)) {
@@ -13295,7 +13406,7 @@
 </script>
 
 <!-- ───────────────────────────────────────────
-  THE LOOP — how I build with AI
+  THE LOOP - how I build with AI
 ──────────────────────────────────────────── -->
 <script>
 (function () {
@@ -13312,7 +13423,7 @@
     { k: 'guardrails', p: 'Build',    t: 'design the guardrails',  d: 'I decide what the model may answer, where it must cite, and where it must defer to a human.',    a: 'Guardrail + escalation spec',          m: ['Refusal Accuracy', 'Escalation Rate'] },
     { k: 'eval set',   p: 'Validate', t: 'build the eval set',     d: 'I hand-label a golden set with the hard cases in it, not the ones that demo nicely.',            a: 'Labelled golden set',                  m: ['Coverage', 'Label Quality'] },
     { k: 'evals',      p: 'Validate', t: 'run the evals',          d: 'I score against that set every build, so regressions show up before users find them.',           a: 'Eval report + baseline',               m: ['Accuracy / F1', 'Pass Rate'] },
-    { k: 'red team',   p: 'Validate', t: 'red-team it',            d: 'I try to break it on purpose — jailbreaks, edge cases, and the ways it fails quietly.',          a: 'Red-team findings log',                m: ['Hallucination Rate', 'Jailbreak Resistance'] },
+    { k: 'red team',   p: 'Validate', t: 'red-team it',            d: 'I try to break it on purpose: jailbreaks, edge cases, and the ways it fails quietly.',          a: 'Red-team findings log',                m: ['Hallucination Rate', 'Jailbreak Resistance'] },
     { k: 'ship',       p: 'Ship',     t: 'ship in stages',         d: 'I roll out behind a flag to a small cohort first, with a documented rollback trigger.',          a: 'Staged rollout plan',                  m: ['Error Budget', 'Rollback Trigger'] },
     { k: 'learn',      p: 'Learn',    t: 'close the loop',         d: 'I watch real usage, log where it disappoints, and feed that into the next increment.',           a: 'Usage insights + next backlog',        m: ['Adoption', 'Task Completion', 'CSAT'] }
   ];
@@ -13416,13 +13527,13 @@
 
 <!-- ───────────────────────────────────────────
   LATEST POST HIGHLIGHT (Live Post section)
-  Fully automatic — always highlights whichever <a class="ship-item
+  Fully automatic - always highlights whichever <a class="ship-item
   ship-item-linked"> is FIRST in #live-post-list, since new entries are
   meant to be pasted in at the top (newest-first). No data-posted attribute
   is required for the highlight itself; adding one just upgrades the badge
   from a plain "Latest" to "New today" / "Latest · Xh ago" text. This means
   a freshly added post is highlighted the moment it's added, with zero
-  manual bookkeeping — the previous version required hand-editing a date on
+  manual bookkeeping - the previous version required hand-editing a date on
   every new entry, and silently went dark whenever that was forgotten.
 ──────────────────────────────────────────── -->
 <script>
@@ -13493,7 +13604,7 @@
     ['HCL · Otsuka', 'Companies', 2020, 'Sr BA / Product Owner · client Otsuka (2020–2022)'],
     ['Prophecy · HealthFirst', 'Companies', 2022, 'Data Engineer / Product Owner · AI-driven provider lifecycle platform (2022–2025)'],
     ['Prophecy · Otsuka', 'Companies', 2025, 'Sr BA / Product Owner · Medical Affairs systems in a GxP environment (2025–present)'],
-    ['Pharma & Life Sciences', 'Industries', null, 'Commercial, Medical Affairs, Regulatory — GxP, 21 CFR Part 11'],
+    ['Pharma & Life Sciences', 'Industries', null, 'Commercial, Medical Affairs, Regulatory (GxP, 21 CFR Part 11)'],
     ['Healthcare (payer)', 'Industries', null, 'Provider lifecycle, credentialing, claims'],
     ['Food service', 'Industries', null, 'Mobile product strategy for a food-services venture'],
     ['Education', 'Industries', null, 'Global transformations for McGraw-Hill Education'],
@@ -13667,7 +13778,7 @@
     const input = document.getElementById('twin-input'), form = document.getElementById('twin-form');
     if (!input || !form) return;
     const q = n.g === 'hub' ? 'Give me a quick overview of your career.'
-      : n.g === 'Projects' ? 'Tell me about ' + n.id + ' — what problem it solves and the key design choices.'
+      : n.g === 'Projects' ? 'Tell me about ' + n.id + ': what problem it solves and the key design choices.'
       : n.g === 'Companies' ? 'What did you do at ' + n.id + ', and what was the impact?'
       : 'How does "' + n.id + '" show up in your work?';
     const card = document.querySelector('.twin-card');
@@ -13762,7 +13873,7 @@
 
   /* guided tour */
   const TOUR = [
-    ['Pharma depth', 'Grapnel · Otsuka', '$16M revenue impact', 'Nearly a decade with Otsuka across three firms — from analytics savings to <b>$16M revenue impact</b> and GxP-compliant launches.'],
+    ['Pharma depth', 'Grapnel · Otsuka', '$16M revenue impact', 'Nearly a decade with Otsuka across three firms, from analytics savings to <b>$16M revenue impact</b> and GxP-compliant launches.'],
     ['From PO to AI builder', 'CSP-PO', 'ContractIQ', 'Agile product-ownership certs → AI/ML product skills → shipping <b>ContractIQ</b> end-to-end with Claude Code.'],
     ['Healthcare data → agentic AI', 'Prophecy · HealthFirst', 'Agentic Clinical Trial Matching', 'Healthcare data and compliance work → clinical AI apps with human-in-the-loop guardrails.']
   ];
@@ -13773,7 +13884,7 @@
     if (ti >= TOUR.length) { stopTour(); return; }
     const t = TOUR[ti];
     trace(t[1], t[2]);
-    document.getElementById('kg-tour-txt').innerHTML = '<b>' + (ti + 1) + '/' + TOUR.length + ' · ' + t[0] + '</b> — ' + t[3];
+    document.getElementById('kg-tour-txt').innerHTML = '<b>' + (ti + 1) + '/' + TOUR.length + ' · ' + t[0] + '</b>: ' + t[3];
     document.getElementById('kg-tnext').textContent = ti === TOUR.length - 1 ? 'Finish' : 'Next →';
     tour.classList.add('on');
   }
@@ -13802,7 +13913,7 @@
 (function () {
   function onReady(fn) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn); else fn(); }
 
-  /* 1. Ask my twin about this — every project pop-up */
+  /* 1. Ask my twin about this - every project pop-up */
   function askTwin(modalId, question) {
     if (window.closeProjectModal) window.closeProjectModal(modalId);
     document.body.style.overflow = '';
@@ -13824,7 +13935,7 @@
       var titleEl = bd.querySelector('.modal-title'), body = bd.querySelector('.modal-body');
       if (!titleEl || !body) return;
       var full = titleEl.textContent.replace(/^[^A-Za-z0-9]+/, '').trim();
-      var name = full.split(/\s[–—:-]\s|:\s/)[0].trim();
+      var name = full.split(/\s[–:-]\s|:\s/)[0].trim();
       var qs = ['What trade-offs did you make on ' + name + '?', 'How did you measure success on ' + name + '?', 'What would you build next for ' + name + '?'];
       var sec = document.createElement('div');
       sec.className = 'modal-section';
@@ -13832,7 +13943,7 @@
         '<p class="atw-note">Answered by my Claude-powered AI twin, grounded on my real work · 5 questions per hour.</p></div>';
       var btn = sec.querySelector('.atw-btn');
       btn.textContent = '🤖 Ask my twin about ' + name;
-      btn.addEventListener('click', function () { askTwin(bd.id, 'Tell me about ' + name + ' — what problem did it solve and how did you build it?'); });
+      btn.addEventListener('click', function () { askTwin(bd.id, 'Tell me about ' + name + ': what problem did it solve and how did you build it?'); });
       var wrap = sec.querySelector('.atw-qs');
       qs.forEach(function (q) {
         var b = document.createElement('button'); b.type = 'button'; b.className = 'atw-q'; b.textContent = q;
@@ -13843,7 +13954,7 @@
     });
   }
 
-  /* 2. Architecture X-ray — 3D flip, timeline back */
+  /* 2. Architecture X-ray - 3D flip, timeline back */
   var XR = {
     'Agentic Clinical Trial Matching': [
       ['io', 'Patient data', 'FHIR + NLP over notes and pathology'],
@@ -13851,7 +13962,7 @@
       ['llm', 'Agent · AI', 'Finds missing data, drafts handoffs'],
       ['hum', 'Clinician · human', 'Approves every action']],
     'ClinicalAI-TrialAnalysis': [
-      ['io', 'Input', 'NCT ID — stateless, no login'],
+      ['io', 'Input', 'NCT ID · stateless, no login'],
       ['det', 'Retrieval · rules', 'ClinicalTrials.gov + PubMed only'],
       ['llm', 'Reasoning · AI', 'Ranks failure hypotheses across 7 categories'],
       ['det', 'Gate · rules', 'Every claim labeled Fact / Inference / Hypothesis']],
@@ -13861,7 +13972,7 @@
       ['llm', 'Analysis · AI', 'Financials, moats, SWOT, risks'],
       ['hum', 'Reader · human', 'Checks claims against citations']],
     'ContractIQ': [
-      ['io', 'Input', 'NDA or MSA — full text, no chunking'],
+      ['io', 'Input', 'NDA or MSA · full text, no chunking'],
       ['llm', 'Extraction · AI', 'Key terms in JSON, low temperature'],
       ['det', 'Guardrails · rules', 'Retry loop, "not found" tests, calibration'],
       ['hum', 'Reviewer · human', 'Confidence, page, source sentence for each term']],
@@ -13884,7 +13995,7 @@
       ['io', 'Channels', 'Google Ads, Meta, LinkedIn, TikTok'],
       ['llm', 'Creative · AI', 'Claude writes ad copy variants'],
       ['llm', 'Optimization · ML', 'Targeting, budgets, real-time tuning'],
-      ['hum', 'Marketer · human', 'Co-pilot — the marketer stays in charge']],
+      ['hum', 'Marketer · human', 'Co-pilot: the marketer stays in charge']],
     'AI Analyst Builder': [
       ['io', 'Input', 'A business question + your data'],
       ['llm', 'Analysis · 18 agents', 'Hypotheses, segments, cohorts, root cause'],
@@ -14016,11 +14127,11 @@
       ptext.textContent = 'Transforming ' + NAMES[cur] + '…';
       timer = setInterval(function () {
         range.value = Math.min(100, +range.value + 1); upd();
-        if (+range.value >= 100) { stop('↺'); pbtn.setAttribute('aria-label', 'Replay'); ptext.textContent = 'Done — drag the bar to explore, or replay'; }
+        if (+range.value >= 100) { stop('↺'); pbtn.setAttribute('aria-label', 'Replay'); ptext.textContent = 'Done. Drag the bar to explore, or replay'; }
       }, 30);
     }
     pbtn.addEventListener('click', function () {
-      if (timer) { stop('▶'); ptext.textContent = 'Paused — press play or drag the bar'; return; }
+      if (timer) { stop('▶'); ptext.textContent = 'Paused. Press play or drag the bar'; return; }
       play();
     });
     range.addEventListener('input', function () { if (timer) stop('▶'); upd(); });
@@ -14043,7 +14154,7 @@
   The <a class="ship-item"> entries in #live-post-list stay the single source
   of truth (keep adding new posts at the top). This script reads them and
   renders a hero card for the newest post plus a compact headline list, each
-  post split at its first " — " into a headline and a takeaway.
+  post split at its first " - " into a headline and a takeaway.
 ──────────────────────────────────────────── -->
 <script>
 (function () {
@@ -14065,9 +14176,9 @@
     const clone = p ? p.cloneNode(true) : null;
     if (clone) clone.querySelectorAll('.ship-tag').forEach((t) => t.remove());
     const text = clone ? clone.textContent.replace(/\s+/g, ' ').trim() : '';
-    const cut = text.indexOf(' — ');
+    const cut = text.indexOf(': ');
     const head = cut > 0 ? text.slice(0, cut) : text;
-    const take = cut > 0 ? text.slice(cut + 3) : '';
+    const take = cut > 0 ? text.slice(cut + 2) : '';
     const iconEl = el.querySelector('.ship-icon');
     return {
       cat: el.dataset.cat || 'update',
@@ -14145,7 +14256,7 @@
     side.appendChild(listEl);
 
     if (expanded && boxH) {
-      // Keep the card the same size — the full list scrolls inside it.
+      // Keep the card the same size - the full list scrolls inside it.
       listEl.classList.add('lpf-scroll');
       listEl.style.maxHeight = boxH + 'px';
     }
@@ -14175,7 +14286,7 @@
 </script>
 
 <script>
-/* Hero atom — three orbits = three worlds (AI · Product · Pharma & Health).
+/* Hero atom - three orbits = three worlds (AI · Product · Pharma & Health).
    Electrons with light trails ride the existing rings; hover (or tap) one to name it. */
 (function () {
   const ORBITS = [
@@ -14281,7 +14392,7 @@
       return true;
     }
     if (!init()) {
-      // hidden at this breakpoint — try again when it becomes visible
+      // hidden at this breakpoint - try again when it becomes visible
       const ro = new ResizeObserver(() => { if (size()) { if (reduced) draw(); else if (visible) start(); } });
       ro.observe(host);
     }
@@ -14301,7 +14412,7 @@
 </script>
 
 <script>
-/* LinkedIn Snapshot v2 — reads #li-data (refreshed from each LinkedIn analytics export). */
+/* LinkedIn Snapshot v2 - reads #li-data (refreshed from each LinkedIn analytics export). */
 (function () {
   const root = document.getElementById('lsn'), dataEl = document.getElementById('li-data');
   if (!root || !dataEl) return;
@@ -14484,7 +14595,7 @@
     draw(Object.keys(T).find((k) => A[k]));
   }
 
-  /* odometer roll — replays every time the section scrolls into view, and when a tab opens */
+  /* odometer roll - replays every time the section scrolls into view, and when a tab opens */
   const ROLL_SEL = '.lsn-kpi .v, .lsn-gstats b, .lsn-rate b, .lsn-hmside b, .lsn-ctr b, .lsn-chips b, .lsn-leg em, .lsn-bub';
   function rollEl(el, dur) {
     const orig = el.dataset.rollOrig || el.textContent;
@@ -14509,7 +14620,7 @@
   }
   function rollIn(scope, dur) { (scope || root).querySelectorAll(ROLL_SEL).forEach((el) => rollEl(el, dur || 1200)); }
 
-  /* tabs — each view renders the first time it is shown */
+  /* tabs - each view renders the first time it is shown */
   const drawn = {}, DRAW = { growth: drawGrowth, posts: drawPosts, where: drawWhere, cal: drawCal, who: drawWho };
   const tabs = document.getElementById('lsn-tabs');
   function show(v) {
@@ -14537,5 +14648,160 @@
 })();
 </script>
 
+<script>
+/* Say Hello: greeting cycles through languages; click opens a quick-contact menu */
+(function () {
+  const wrap = document.getElementById('hello-wrap'), btn = document.getElementById('hello-btn');
+  if (!wrap || !btn) return;
+  const G = [['Hello', 'EN'], ['Vanakkam', 'TA'], ['Hola', 'ES'], ['Namaste', 'HI'], ['Bonjour', 'FR'], ['Ciao', 'IT']];
+  const gEl = document.getElementById('hello-g'), lEl = document.getElementById('hello-lang');
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let gi = 0;
+  function lockWidth() {
+    gEl.style.minWidth = ''; lEl.style.minWidth = '';
+    const probe = gEl.cloneNode(); probe.style.cssText = 'position:absolute;visibility:hidden;min-width:0;width:auto';
+    gEl.parentNode.appendChild(probe);
+    let w = 0; G.forEach((g) => { probe.textContent = g[0]; w = Math.max(w, probe.getBoundingClientRect().width); });
+    probe.remove();
+    if (w) gEl.style.minWidth = Math.ceil(w) + 'px';
+    const lp = lEl.cloneNode(); lp.style.cssText = 'position:absolute;visibility:hidden;min-width:0'; lEl.parentNode.appendChild(lp);
+    let lw = 0; G.forEach((g) => { lp.textContent = g[1]; lw = Math.max(lw, lp.getBoundingClientRect().width); }); lp.remove();
+    if (lw) lEl.style.minWidth = Math.ceil(lw) + 'px';
+  }
+  lockWidth();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockWidth);
+  if (!reduced) {
+    setInterval(() => {
+      if (wrap.classList.contains('open') || document.hidden) return;
+      gEl.classList.add('out');
+      setTimeout(() => { gi = (gi + 1) % G.length; gEl.textContent = G[gi][0]; lEl.textContent = G[gi][1]; gEl.classList.remove('out'); }, 280);
+    }, 2200);
+  }
+  function setOpen(on) { wrap.classList.toggle('open', on); btn.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+  btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!wrap.classList.contains('open')); });
+  document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) setOpen(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && wrap.classList.contains('open')) { setOpen(false); btn.focus(); } });
+  function closeMobileNav() {
+    const links = document.querySelector('.nav-links');
+    if (links && links.classList.contains('mobile-open') && typeof toggleMenu === 'function') toggleMenu();
+  }
+  wrap.querySelectorAll('.hello-item').forEach((a) => a.addEventListener('click', (e) => {
+    const act = a.dataset.act;
+    if (act === 'email') {
+      const sub = document.getElementById('hello-email-sub');
+      if (navigator.clipboard && window.isSecureContext) {
+        e.preventDefault();
+        navigator.clipboard.writeText('hello@sankar.work').then(() => {
+          sub.textContent = 'Copied ✓ paste it into your email'; sub.classList.add('ok');
+          setTimeout(() => { sub.textContent = 'hello@sankar.work · click to copy'; sub.classList.remove('ok'); }, 2200);
+        }, () => { window.location.href = 'mailto:hello@sankar.work'; });
+      }
+      return;
+    }
+    setOpen(false);
+    if (act === 'twin') {
+      closeMobileNav();
+      setTimeout(() => { const i = document.getElementById('twin-input'); if (i) i.focus({ preventScroll: true }); }, 700);
+    } else if (act === 'form') {
+      closeMobileNav();
+      const panel = document.getElementById('contact-wizard');
+      if (panel && (panel.style.display === 'none' || !panel.style.display) && typeof window.toggleContactWizard === 'function') {
+        setTimeout(() => window.toggleContactWizard(), 650);
+      }
+    } else { closeMobileNav(); }
+  }));
+})();
+</script>
+<script>
+/* Nav: sliding glow pill (hover + current section) and live featured cards in the mega menu */
+(function () {
+  const ul = document.querySelector('.nav-links');
+  if (!ul) return;
+  const pill = document.createElement('li');
+  pill.className = 'nav-pill'; pill.setAttribute('aria-hidden', 'true');
+  ul.insertBefore(pill, ul.firstChild);
+  const hosts = [...ul.querySelectorAll(':scope > li > a:not(.nav-cta), :scope > li.nav-item-group > .nav-group-trigger')];
+  const groupOf = {};
+  hosts.forEach((h) => {
+    const li = h.closest('li');
+    const ids = [...li.querySelectorAll('a[href^="#"]:not(.mega-feat)')].map((a) => a.getAttribute('href').slice(1));
+    if (h.tagName === 'A') ids.push(h.getAttribute('href').slice(1));
+    ids.forEach((id) => { if (!groupOf[id]) groupOf[id] = h; });
+  });
+  const tracked = Object.keys(groupOf).map((id) => document.getElementById(id)).filter((el) => el && el.tagName === 'SECTION');
+  const desktop = () => window.matchMedia('(min-width: 901px)').matches;
+  let hovering = null, here = null;
+  function moveTo(h) {
+    if (!h || !desktop()) { pill.classList.remove('on'); return; }
+    const r = h.getBoundingClientRect(), u = ul.getBoundingClientRect();
+    pill.style.left = (r.left - u.left) + 'px'; pill.style.width = r.width + 'px';
+    pill.style.top = (r.top - u.top + r.height / 2 - 16) + 'px';
+    pill.classList.add('on');
+  }
+  const rest = () => moveTo(hovering || here);
+  hosts.forEach((h) => {
+    const li = h.closest('li');
+    li.addEventListener('mouseenter', () => { hovering = h; rest(); });
+    li.addEventListener('mouseleave', () => { hovering = null; rest(); });
+    h.addEventListener('focus', () => { hovering = h; rest(); });
+    h.addEventListener('blur', () => { hovering = null; rest(); });
+  });
+  let tick = false;
+  function spy() {
+    tick = false;
+    const probe = window.scrollY + 120;
+    let cur = null;
+    for (const sec of tracked) { if (probe >= sec.offsetTop && probe < sec.offsetTop + sec.offsetHeight) { cur = sec; break; } }
+    const h = cur ? groupOf[cur.id] : null;
+    if (h !== here) {
+      if (here) here.classList.remove('pill-here');
+      here = h;
+      if (here) here.classList.add('pill-here');
+      rest();
+    }
+  }
+  window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(spy); } }, { passive: true });
+  window.addEventListener('resize', rest);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(rest);
+  // The menu is centred, so anything that changes its width (fonts loading, the
+  // Say Hello greeting) shifts every item; re-align the pill whenever that happens.
+  if ('ResizeObserver' in window) new ResizeObserver(rest).observe(ul);
+  spy(); setTimeout(rest, 300);
+
+  /* featured cards stay current: newest built project and newest LinkedIn post */
+  const clean = (t) => (t || '').replace(/\s+/g, ' ').trim();
+  const pf = ul.querySelector('a.mega-feat[data-feat="project"]');
+  const card = document.querySelector('#work .project-card');
+  if (pf && card) {
+    const title = card.querySelector('h3');
+    const m = (card.getAttribute('onclick') || '').match(/openProjectModal\(event,\s*'([^']+)'/);
+    const tags = [...card.querySelectorAll('.project-tags .tag')].map((t) => clean(t.textContent)).filter((t) => !/^Q\d/.test(t)).slice(0, 2);
+    if (title) pf.querySelector('b').textContent = clean(title.textContent);
+    if (tags.length) pf.querySelector('small').textContent = tags.join(' · ');
+    if (m && typeof openProjectModal === 'function') {
+      pf.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item-group.open').forEach((g) => g.classList.remove('open'));
+        openProjectModal(e, m[1]);
+      });
+    }
+  }
+  const qf = ul.querySelector('a.mega-feat[data-feat="post"]');
+  const post = document.querySelector('#live-post-list .ship-item');
+  if (qf && post) {
+    const p = post.querySelector('.ship-text');
+    const c = p ? p.cloneNode(true) : null;
+    if (c) c.querySelectorAll('.ship-tag, .ship-today-head').forEach((x) => x.remove());
+    const text = c ? clean(c.textContent) : '';
+    const cut = text.indexOf(': ');
+    let head = cut > 0 ? text.slice(0, cut) : text, take = cut > 0 ? text.slice(cut + 2) : '';
+    head = head.replace(/^On\s+(why\s+|how\s+|the\s+)?/i, '').replace(/^([^A-Za-z0-9]*)([a-z])/, (x, q, ch) => q + ch.toUpperCase());
+    if (head) qf.querySelector('b').textContent = head;
+    if (take) qf.querySelector('small').textContent = take.charAt(0).toUpperCase() + take.slice(1);
+    const href = post.getAttribute('href');
+    if (href) { qf.href = href; qf.target = '_blank'; qf.rel = 'noopener'; }
+  }
+})();
+</script>
 </body>
 </html>

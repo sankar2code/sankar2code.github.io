@@ -795,6 +795,92 @@
       transition: transform 0.2s, box-shadow 0.2s !important;
     }
 
+    /* ── Say Hello: multilingual greeting + quick-contact menu ── */
+    .hello-wrap { position: relative; }
+    .hello-btn { border: 0; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 0.25rem; line-height: 1.2; }
+    .hello-g { display: inline-block; min-width: 4.9em; text-align: center; transition: opacity 0.28s, transform 0.28s; }
+    .hello-g.out { opacity: 0; transform: translateY(-7px); }
+    .hello-lang { font-size: 0.56rem; font-weight: 800; letter-spacing: 0.06em; opacity: 0.6; min-width: 1.4em; }
+    .hello-car { font-size: 0.62rem; margin-left: 0.15rem; transition: transform 0.2s; }
+    .hello-wrap.open .hello-car { transform: rotate(180deg); }
+    .hello-menu { position: absolute; right: 0; top: calc(100% + 10px); width: 260px; padding: 6px; z-index: 1200;
+      background: #151527; border: 1px solid rgba(56,189,248,0.25); border-radius: 14px; box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+      opacity: 0; transform: translateY(-6px) scale(0.98); transform-origin: top right; pointer-events: none; visibility: hidden;
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s; }
+    .hello-wrap.open .hello-menu { opacity: 1; transform: none; pointer-events: auto; visibility: visible; }
+    .nav-links .hello-menu a.hello-item { display: flex; align-items: center; gap: 0.65rem; padding: 0.5rem 0.6rem; border-radius: 10px;
+      color: var(--white); font-size: 0.82rem; font-weight: 600; text-decoration: none; text-align: left; }
+    .nav-links .hello-menu a.hello-item::after { display: none; }
+    .hello-item:hover, .hello-item:focus-visible { background: rgba(56,189,248,0.1); outline: none; }
+    .hello-item i { font-style: normal; flex: none; width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: rgba(255,255,255,0.06); }
+    .hello-item small { display: block; color: var(--muted); font-size: 0.68rem; font-weight: 500; }
+    .hello-item small.ok { color: #4ade80; }
+    html.light .hello-menu { background: #fff; border-color: rgba(29,78,216,0.2); box-shadow: 0 18px 40px rgba(15,23,42,0.15); }
+    html.light .nav-links .hello-menu a.hello-item { color: #0f172a; }
+    html.light .hello-item i { background: #f1f5f9; }
+    html.light .hello-item small.ok { color: #15803d; }
+    .nav-links.mobile-open .hello-wrap { width: 100%; }
+    .nav-links.mobile-open .hello-menu { position: static; width: 100%; margin-top: 0.5rem; box-shadow: none; transform: none; display: none; }
+    .nav-links.mobile-open .hello-wrap.open .hello-menu { display: block; }
+    @media (prefers-reduced-motion: reduce) { .hello-g, .hello-menu, .hello-car { transition: none; } }
+
+    .nav-links .hello-btn:hover, .hello-wrap.open .hello-btn { filter: brightness(1.12); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(56,189,248,0.45); }
+    .nav-links .hello-menu a.hello-item:hover { background: rgba(56,189,248,0.1); color: var(--white); }
+    html.light .nav-links .hello-menu a.hello-item:hover { color: #0f172a; }
+    /* ── Nav: sliding glow pill + mega menu ── */
+    @media (min-width: 901px) {
+      .nav-links { position: relative; }
+      .nav-pill { position: absolute; top: 0; left: 0; width: 0; height: 32px; border-radius: 999px; pointer-events: none; z-index: 0; opacity: 0;
+        background: rgba(37,99,235,0.26); box-shadow: inset 0 0 0 1px rgba(56,189,248,0.45), 0 0 18px rgba(56,189,248,0.25);
+        transition: left 0.32s cubic-bezier(.3,.8,.3,1), width 0.32s cubic-bezier(.3,.8,.3,1), top 0.32s, opacity 0.25s; }
+      .nav-pill.on { opacity: 1; }
+      .nav-links > li { position: relative; z-index: 1; }
+      .nav-links > li > a:not(.nav-cta), .nav-links .nav-group-trigger { border-radius: 999px; padding: 0.4rem 0.8rem; }
+      .nav-links > li > a:not(.nav-cta):hover, .nav-links > li > a:not(.nav-cta).active, .nav-links > li > a:not(.nav-cta):active,
+      .nav-links .nav-group-trigger:hover, .nav-item-group.open .nav-group-trigger, .nav-item-group:hover .nav-group-trigger { background: transparent; color: var(--white); }
+      .nav-links > li > a:not(.nav-cta).active { color: var(--white); font-weight: 500; }
+      .nav-links > li > a:not(.nav-cta).active::after { display: none; }
+      .nav-links .pill-here { color: var(--white); }
+      html.light .nav-links > li > a:not(.nav-cta):hover, html.light .nav-links > li > a:not(.nav-cta).active, html.light .nav-links > li > a:not(.nav-cta):active,
+      html.light .nav-item-group.open .nav-group-trigger, html.light .nav-item-group:hover .nav-group-trigger { background: transparent; color: #111118; box-shadow: none; }
+      html.light .nav-links .pill-here { color: #111118; }
+      html.light .nav-pill { background: rgba(37,99,235,0.12); box-shadow: inset 0 0 0 1px rgba(37,99,235,0.35), 0 0 14px rgba(37,99,235,0.15); }
+
+      /* mega panel: centred under the whole bar */
+      .nav-item-group .nav-dropdown { position: fixed; top: calc(100% - 18px); left: 50%; transform: translateX(-50%) translateY(-6px); padding-top: 26px;
+        width: min(780px, 94vw); transition: opacity 0.22s ease, visibility 0.22s, transform 0.22s ease; }
+      .nav-item-group.open .nav-dropdown, .nav-item-group:hover .nav-dropdown { transform: translateX(-50%); }
+      .nav-dropdown-inner.mega { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 0.6rem; padding: 0.75rem; border-radius: 16px;
+        border-color: rgba(56,189,248,0.22); box-shadow: 0 24px 50px rgba(0,0,0,0.45); }
+      .mega-links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.2rem; }
+    }
+    .nav-links .nav-dropdown a.mega-link { display: flex; gap: 0.65rem; align-items: flex-start; white-space: normal; padding: 0.6rem 0.65rem; border-radius: 12px; color: var(--white); }
+    .nav-links .nav-dropdown a.mega-link:hover, .nav-links .nav-dropdown a.mega-link.active { background: rgba(56,189,248,0.1); color: var(--white); }
+    .nav-links .nav-dropdown a.mega-link.active { font-weight: 500; }
+    .nav-links .nav-dropdown a.mega-link::after { display: none; }
+    .mega-link i { font-style: normal; flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,0.06); font-size: 1rem; }
+    .mega-link b { display: block; font-size: 0.84rem; font-weight: 600; }
+    .mega-link small { display: block; font-size: 0.7rem; color: var(--muted); line-height: 1.4; margin-top: 1px; }
+    .nav-links .nav-dropdown a.mega-feat { display: flex; flex-direction: column; gap: 0.3rem; white-space: normal; padding: 0.85rem; border-radius: 12px; color: var(--white);
+      background: radial-gradient(120% 120% at 0 0, rgba(99,102,241,0.32), transparent 60%), rgba(255,255,255,0.03); border: 1px solid rgba(129,140,248,0.35); transition: border-color 0.2s, transform 0.2s; }
+    .nav-links .nav-dropdown a.mega-feat:hover { border-color: rgba(125,211,252,0.6); transform: translateY(-1px); background: radial-gradient(120% 120% at 0 0, rgba(99,102,241,0.4), transparent 60%), rgba(255,255,255,0.04); }
+    .nav-links .nav-dropdown a.mega-feat::after { display: none; }
+    .mf-k { font-size: 0.58rem; font-weight: 800; letter-spacing: 0.12em; color: #4ade80; }
+    .mega-feat b { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; line-height: 1.3; }
+    .mega-feat small { font-size: 0.72rem; color: var(--muted); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .mf-go { margin-top: auto; padding-top: 0.3rem; font-size: 0.74rem; font-weight: 600; color: #7dd3fc; }
+    html.light .nav-links .nav-dropdown a.mega-link, html.light .nav-links .nav-dropdown a.mega-feat { color: #0f172a; }
+    html.light .nav-links .nav-dropdown a.mega-link:hover, html.light .nav-links .nav-dropdown a.mega-link.active { background: rgba(37,99,235,0.08); color: #0f172a; }
+    html.light .mega-link i { background: #f1f5f9; }
+    html.light .nav-links .nav-dropdown a.mega-feat { background: radial-gradient(120% 120% at 0 0, rgba(99,102,241,0.14), transparent 60%), #f8fafc; border-color: rgba(99,102,241,0.3); }
+    html.light .mf-k { color: #15803d; } html.light .mf-go { color: #1d4ed8; }
+    @media (max-width: 900px) {
+      .nav-pill, .mega-feat, .mega-link small { display: none !important; }
+      .nav-links .nav-dropdown a.mega-link { padding: 0.45rem 0.6rem; align-items: center; }
+      .mega-link i { width: 26px; height: 26px; font-size: 0.85rem; }
+      .mega-links { display: flex; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { .nav-pill, .nav-item-group .nav-dropdown { transition: none; } }
     .nav-links a.nav-cta:hover {
       background: var(--grad2);
       color: var(--bg) !important;
@@ -7085,11 +7171,14 @@
       <button type="button" class="nav-group-trigger" onclick="toggleNavGroup(this)">About
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="nav-dropdown"><div class="nav-dropdown-inner">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#recommendations">Recommendations</a>
+      <div class="nav-dropdown"><div class="nav-dropdown-inner mega">
+        <div class="mega-links">
+          <a class="mega-link" href="#about"><i aria-hidden="true">🙂</i><span><b>About me</b><small>15+ years across pharma, healthcare and tech</small></span></a>
+          <a class="mega-link" href="#experience"><i aria-hidden="true">🧭</i><span><b>Experience</b><small>7 roles, from WIPRO to Otsuka</small></span></a>
+          <a class="mega-link" href="#education"><i aria-hidden="true">🎓</i><span><b>Education</b><small>MBA (FDU) · B.E. (Anna University)</small></span></a>
+          <a class="mega-link" href="#recommendations"><i aria-hidden="true">⭐</i><span><b>Recommendations</b><small>What colleagues say about working with me</small></span></a>
+        </div>
+        <a class="mega-feat" href="#ai-twin"><span class="mf-k">TRY IT</span><b>Ask My Twin</b><small>Chat with an AI version of me, grounded on my real career.</small><span class="mf-go">Start chatting →</span></a>
       </div></div>
     </li>
     <li><a href="#ai-twin">Ask My Twin</a></li>
@@ -7097,31 +7186,53 @@
       <button type="button" class="nav-group-trigger" onclick="toggleNavGroup(this)">Work
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="nav-dropdown"><div class="nav-dropdown-inner">
-        <a href="#domains">Projects</a>
-        <a href="#work">Built</a>
+      <div class="nav-dropdown"><div class="nav-dropdown-inner mega">
+        <div class="mega-links">
+          <a class="mega-link" href="#domains"><i aria-hidden="true">🧩</i><span><b>Projects</b><small>Enterprise work across 5 industries</small></span></a>
+          <a class="mega-link" href="#work"><i aria-hidden="true">🚀</i><span><b>Built</b><small>AI products I designed and shipped</small></span></a>
+          <a class="mega-link" href="#ypm"><i aria-hidden="true">🎮</i><span><b>You Be the PM</b><small>Make the call, then compare with mine</small></span></a>
+          <a class="mega-link" href="#prd-demo"><i aria-hidden="true">🧪</i><span><b>Prompt-to-PRD</b><small>Turn an idea into a PRD in seconds</small></span></a>
+        </div>
+        <a class="mega-feat" href="#work" data-feat="project"><span class="mf-k">● LATEST BUILD</span><b>Built projects</b><small>See what I have shipped.</small><span class="mf-go">Open project →</span></a>
       </div></div>
     </li>
     <li class="nav-item-group">
       <button type="button" class="nav-group-trigger" onclick="toggleNavGroup(this)">Skills
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="nav-dropdown"><div class="nav-dropdown-inner">
-        <a href="#certifications">Certifications</a>
-        <a href="#tools">Tools</a>
+      <div class="nav-dropdown"><div class="nav-dropdown-inner mega">
+        <div class="mega-links">
+          <a class="mega-link" href="#certifications"><i aria-hidden="true">🏅</i><span><b>Certifications</b><small>24 credentials · AWS, MIT, SAFe, Anthropic</small></span></a>
+          <a class="mega-link" href="#tools"><i aria-hidden="true">🛠️</i><span><b>Tools</b><small>The stack I build with</small></span></a>
+          <a class="mega-link" href="#kg-card"><i aria-hidden="true">🕸️</i><span><b>Knowledge Graph</b><small>How my career connects</small></span></a>
+          <a class="mega-link" href="#ba-card"><i aria-hidden="true">⚡</i><span><b>Impact slider</b><small>Before vs after AI, by project</small></span></a>
+        </div>
+        <a class="mega-feat" href="#certifications"><span class="mf-k">NEWEST</span><b>AWS Gen AI Developer (Pro)</b><small>Amazon Web Services · Q3 2026</small><span class="mf-go">See all certifications →</span></a>
       </div></div>
     </li>
     <li class="nav-item-group">
       <button type="button" class="nav-group-trigger" onclick="toggleNavGroup(this)">More
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
-      <div class="nav-dropdown"><div class="nav-dropdown-inner">
-        <a href="#opensource">Collections</a>
-        <a href="#shipped">Live Build</a>
-        <a href="#live-post">Live Post</a>
+      <div class="nav-dropdown"><div class="nav-dropdown-inner mega">
+        <div class="mega-links">
+          <a class="mega-link" href="#opensource"><i aria-hidden="true">🧩</i><span><b>Collections</b><small>Free Claude skills and sub-agents</small></span></a>
+          <a class="mega-link" href="#shipped"><i aria-hidden="true">🔨</i><span><b>Live Build</b><small>What I shipped recently</small></span></a>
+          <a class="mega-link" href="#live-post"><i aria-hidden="true">📣</i><span><b>Live Post</b><small>Recent LinkedIn posts</small></span></a>
+          <a class="mega-link" href="#li-snapshot"><i aria-hidden="true">📊</i><span><b>LinkedIn Snapshot</b><small>90-day analytics</small></span></a>
+        </div>
+        <a class="mega-feat" href="#live-post" data-feat="post"><span class="mf-k">● LATEST POST</span><b>Live Post</b><small>My most recent LinkedIn post.</small><span class="mf-go">Read on LinkedIn →</span></a>
       </div></div>
     </li>
-    <li><a href="#contact" class="nav-cta">Say Hello</a></li>
+    <li class="hello-wrap" id="hello-wrap">
+      <button type="button" class="nav-cta hello-btn" id="hello-btn" aria-haspopup="true" aria-expanded="false" aria-controls="hello-menu"><span class="hello-say">Say</span> <span class="hello-g" id="hello-g">Hello</span><span class="hello-lang" id="hello-lang">EN</span><span class="hello-car" aria-hidden="true">▾</span></button>
+      <div class="hello-menu" id="hello-menu" role="menu">
+        <a class="hello-item" role="menuitem" href="mailto:hello@sankar.work" data-act="email"><i>✉️</i><span>Email me<small id="hello-email-sub">hello@sankar.work · click to copy</small></span></a>
+        <a class="hello-item" role="menuitem" href="http://www.linkedin.com/in/sankar-kumar-palaniappan-pm" target="_blank" rel="noopener"><i>💼</i><span>Connect on LinkedIn<small>8.3K+ followers</small></span></a>
+        <a class="hello-item" role="menuitem" href="#ai-twin" data-act="twin"><i>🤖</i><span>Ask my AI twin<small>Instant answers about my work</small></span></a>
+        <a class="hello-item" role="menuitem" href="#contact" data-act="form"><i>📝</i><span>Send a message<small>A quick 3-step form</small></span></a>
+      </div>
+    </li>
   </ul>
   <div class="nav-right">
     <button class="cmdk-trigger" onclick="openCmdk()" aria-label="Open command palette" title="Search (Cmd+K)">
@@ -10694,7 +10805,7 @@
     </div>
   </div>
 
-  <div class="li-metrics reveal">
+  <div class="li-metrics reveal" id="li-snapshot">
     <div class="li-metrics-header">
       <span class="li-metrics-label">LinkedIn Snapshot</span>
       <span class="li-metrics-sub">Last 90 days · Jul 9 – Oct 6, 2026 · hover the charts</span>
@@ -14537,5 +14648,203 @@
 })();
 </script>
 
+<script>
+/* Say Hello: greeting cycles through languages; click opens a quick-contact menu */
+(function () {
+  const wrap = document.getElementById('hello-wrap'), btn = document.getElementById('hello-btn');
+  if (!wrap || !btn) return;
+  const G = [['Hello', 'EN'], ['Vanakkam', 'TA'], ['Hola', 'ES'], ['Namaste', 'HI'], ['Bonjour', 'FR'], ['Ciao', 'IT']];
+  const gEl = document.getElementById('hello-g'), lEl = document.getElementById('hello-lang');
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let gi = 0;
+  function lockWidth() {
+    gEl.style.minWidth = ''; lEl.style.minWidth = '';
+    const probe = gEl.cloneNode(); probe.style.cssText = 'position:absolute;visibility:hidden;min-width:0;width:auto';
+    gEl.parentNode.appendChild(probe);
+    let w = 0; G.forEach((g) => { probe.textContent = g[0]; w = Math.max(w, probe.getBoundingClientRect().width); });
+    probe.remove();
+    if (w) gEl.style.minWidth = Math.ceil(w) + 'px';
+    const lp = lEl.cloneNode(); lp.style.cssText = 'position:absolute;visibility:hidden;min-width:0'; lEl.parentNode.appendChild(lp);
+    let lw = 0; G.forEach((g) => { lp.textContent = g[1]; lw = Math.max(lw, lp.getBoundingClientRect().width); }); lp.remove();
+    if (lw) lEl.style.minWidth = Math.ceil(lw) + 'px';
+  }
+  lockWidth();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockWidth);
+  if (!reduced) {
+    setInterval(() => {
+      if (wrap.classList.contains('open') || document.hidden) return;
+      gEl.classList.add('out');
+      setTimeout(() => { gi = (gi + 1) % G.length; gEl.textContent = G[gi][0]; lEl.textContent = G[gi][1]; gEl.classList.remove('out'); }, 280);
+    }, 2200);
+  }
+  function setOpen(on) { wrap.classList.toggle('open', on); btn.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+  btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!wrap.classList.contains('open')); });
+  document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) setOpen(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && wrap.classList.contains('open')) { setOpen(false); btn.focus(); } });
+  function closeMobileNav() {
+    const links = document.querySelector('.nav-links');
+    if (links && links.classList.contains('mobile-open') && typeof toggleMenu === 'function') toggleMenu();
+  }
+  wrap.querySelectorAll('.hello-item').forEach((a) => a.addEventListener('click', (e) => {
+    const act = a.dataset.act;
+    if (act === 'email') {
+      const sub = document.getElementById('hello-email-sub');
+      if (navigator.clipboard && window.isSecureContext) {
+        e.preventDefault();
+        navigator.clipboard.writeText('hello@sankar.work').then(() => {
+          sub.textContent = 'Copied ✓ paste it into your email'; sub.classList.add('ok');
+          setTimeout(() => { sub.textContent = 'hello@sankar.work · click to copy'; sub.classList.remove('ok'); }, 2200);
+        }, () => { window.location.href = 'mailto:hello@sankar.work'; });
+      }
+      return;
+    }
+    setOpen(false);
+    if (act === 'twin') {
+      closeMobileNav();
+      setTimeout(() => { const i = document.getElementById('twin-input'); if (i) i.focus({ preventScroll: true }); }, 700);
+    } else if (act === 'form') {
+      closeMobileNav();
+      const panel = document.getElementById('contact-wizard');
+      if (panel && (panel.style.display === 'none' || !panel.style.display) && typeof window.toggleContactWizard === 'function') {
+        setTimeout(() => window.toggleContactWizard(), 650);
+      }
+    } else { closeMobileNav(); }
+  }));
+})();
+</script>
+<script>
+/* Nav: sliding glow pill (hover + current section) and live featured cards in the mega menu */
+(function () {
+  const ul = document.querySelector('.nav-links');
+  if (!ul) return;
+  const pill = document.createElement('li');
+  pill.className = 'nav-pill'; pill.setAttribute('aria-hidden', 'true');
+  ul.insertBefore(pill, ul.firstChild);
+  const hosts = [...ul.querySelectorAll(':scope > li > a:not(.nav-cta), :scope > li.nav-item-group > .nav-group-trigger')];
+  const groupOf = {};
+  hosts.forEach((h) => {
+    const li = h.closest('li');
+    const ids = [...li.querySelectorAll('a[href^="#"]:not(.mega-feat)')].map((a) => a.getAttribute('href').slice(1));
+    if (h.tagName === 'A') ids.push(h.getAttribute('href').slice(1));
+    ids.forEach((id) => { if (!groupOf[id]) groupOf[id] = h; });
+  });
+  const tracked = Object.keys(groupOf).map((id) => document.getElementById(id)).filter((el) => el && el.tagName === 'SECTION');
+  const desktop = () => window.matchMedia('(min-width: 901px)').matches;
+  let hovering = null, here = null;
+  function moveTo(h) {
+    if (!h || !desktop()) { pill.classList.remove('on'); return; }
+    const r = h.getBoundingClientRect(), u = ul.getBoundingClientRect();
+    pill.style.left = (r.left - u.left) + 'px'; pill.style.width = r.width + 'px';
+    pill.style.top = (r.top - u.top + r.height / 2 - 16) + 'px';
+    pill.classList.add('on');
+  }
+  const rest = () => moveTo(hovering || here);
+  hosts.forEach((h) => {
+    const li = h.closest('li');
+    li.addEventListener('mouseenter', () => { hovering = h; rest(); });
+    li.addEventListener('mouseleave', () => { hovering = null; rest(); });
+    h.addEventListener('focus', () => { hovering = h; rest(); });
+    h.addEventListener('blur', () => { hovering = null; rest(); });
+  });
+  let tick = false;
+  function spy() {
+    tick = false;
+    const probe = window.scrollY + 120;
+    let cur = null;
+    for (const sec of tracked) { if (probe >= sec.offsetTop && probe < sec.offsetTop + sec.offsetHeight) { cur = sec; break; } }
+    const h = cur ? groupOf[cur.id] : null;
+    if (h !== here) {
+      if (here) here.classList.remove('pill-here');
+      here = h;
+      if (here) here.classList.add('pill-here');
+      rest();
+    }
+  }
+  window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(spy); } }, { passive: true });
+  window.addEventListener('resize', rest);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(rest);
+  // The menu is centred, so anything that changes its width (fonts loading, the
+  // Say Hello greeting) shifts every item; re-align the pill whenever that happens.
+  if ('ResizeObserver' in window) new ResizeObserver(rest).observe(ul);
+  spy(); setTimeout(rest, 300);
+
+  /* featured cards stay current: newest built project and newest LinkedIn post */
+  const clean = (t) => (t || '').replace(/\s+/g, ' ').trim();
+  const pf = ul.querySelector('a.mega-feat[data-feat="project"]');
+  const card = document.querySelector('#work .project-card');
+  if (pf && card) {
+    const title = card.querySelector('h3');
+    const m = (card.getAttribute('onclick') || '').match(/openProjectModal\(event,\s*'([^']+)'/);
+    const tags = [...card.querySelectorAll('.project-tags .tag')].map((t) => clean(t.textContent)).filter((t) => !/^Q\d/.test(t)).slice(0, 2);
+    if (title) pf.querySelector('b').textContent = clean(title.textContent);
+    if (tags.length) pf.querySelector('small').textContent = tags.join(' · ');
+    if (m && typeof openProjectModal === 'function') {
+      pf.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item-group.open').forEach((g) => g.classList.remove('open'));
+        openProjectModal(e, m[1]);
+      });
+    }
+  }
+  const qf = ul.querySelector('a.mega-feat[data-feat="post"]');
+  const post = document.querySelector('#live-post-list .ship-item');
+  if (qf && post) {
+    const p = post.querySelector('.ship-text');
+    const c = p ? p.cloneNode(true) : null;
+    if (c) c.querySelectorAll('.ship-tag, .ship-today-head').forEach((x) => x.remove());
+    const text = c ? clean(c.textContent) : '';
+    const cut = text.indexOf(': ');
+    let head = cut > 0 ? text.slice(0, cut) : text, take = cut > 0 ? text.slice(cut + 2) : '';
+    head = head.replace(/^On\s+(why\s+|how\s+|the\s+)?/i, '').replace(/^([^A-Za-z0-9]*)([a-z])/, (x, q, ch) => q + ch.toUpperCase());
+    if (head) qf.querySelector('b').textContent = head;
+    if (take) qf.querySelector('small').textContent = take.charAt(0).toUpperCase() + take.slice(1);
+    const href = post.getAttribute('href');
+    if (href) { qf.href = href; qf.target = '_blank'; qf.rel = 'noopener'; }
+  }
+})();
+</script>
+<script>
+/* In-page links: land each target just below the fixed menu, and re-correct if
+   content above it (lazy images, charts, reveals) changes height mid-scroll. */
+(function () {
+  const nav = document.querySelector('nav');
+  let userMoved = false, timers = [];
+  ['wheel', 'touchstart', 'keydown'].forEach((ev) => window.addEventListener(ev, () => { userMoved = true; }, { passive: true }));
+  function offsetFor(el) {
+    const navH = nav ? nav.getBoundingClientRect().height : 62;
+    return el.tagName === 'SECTION' ? 0 : navH + 16;
+  }
+  function targetY(el) { return Math.max(0, window.scrollY + el.getBoundingClientRect().top - offsetFor(el)); }
+  function go(el, smooth) {
+    timers.forEach(clearTimeout); timers = []; userMoved = false;
+    window.scrollTo({ top: targetY(el), behavior: smooth ? 'smooth' : 'auto' });
+    [450, 900, 1400, 2000].forEach((ms) => timers.push(setTimeout(() => {
+      if (userMoved) return;
+      const y = targetY(el);
+      if (Math.abs(window.scrollY - y) > 6) window.scrollTo({ top: y, behavior: 'smooth' });
+    }, ms)));
+  }
+  document.addEventListener('click', (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = decodeURIComponent(a.getAttribute('href').slice(1));
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // let menus close first so nothing shifts under the scroll
+    setTimeout(() => go(el, !reduced), 10);
+    if (history.pushState) history.pushState(null, '', '#' + id);
+  });
+  // direct visits like sankar.work/#work
+  window.addEventListener('load', () => {
+    const id = location.hash.slice(1);
+    const el = id && document.getElementById(id);
+    if (el) setTimeout(() => go(el, false), 60);
+  });
+})();
+</script>
 </body>
 </html>
