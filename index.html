@@ -12319,14 +12319,23 @@
         ? 'Build activity by hour of day in Eastern Time. Peak around ' + hl(peak) + '.'
         : 'No recent build activity.');
 
-      // Rise the buildings the first time the chart scrolls into view.
+      // Rise the buildings every time the chart scrolls into view,
+      // and flatten them again once it leaves so the next visit replays.
       if (!reduced) {
-        const grow = () => blds.forEach((b, i) => setTimeout(() => { b.style.height = b.dataset.h + 'px'; }, 60 + i * 28));
+        let timers = [];
+        const clear = () => { timers.forEach(clearTimeout); timers = []; };
+        const grow = () => { clear(); blds.forEach((b, i) => timers.push(setTimeout(() => { b.style.height = b.dataset.h + 'px'; }, 60 + i * 28))); };
+        const flatten = () => { clear(); blds.forEach((b) => { b.style.transition = 'none'; b.style.height = '0px'; void b.offsetHeight; b.style.transition = ''; }); };
+        if (city._skyIO) city._skyIO.disconnect();
         if ('IntersectionObserver' in window) {
+          let shown = false;
           const io = new IntersectionObserver((es) => {
-            if (es.some((e) => e.isIntersecting)) { io.disconnect(); grow(); }
-          }, { threshold: 0.3 });
+            const e = es[es.length - 1];
+            if (e.isIntersecting && e.intersectionRatio >= 0.3 && !shown) { shown = true; grow(); }
+            else if (!e.isIntersecting && shown) { shown = false; flatten(); }
+          }, { threshold: [0, 0.3] });
           io.observe(city);
+          city._skyIO = io;
         } else { grow(); }
       }
 
