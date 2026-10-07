@@ -7281,6 +7281,62 @@
     html.light .tcv-split b { color:#15803d; }
     .tcv-legend { display:flex; justify-content:center; flex-wrap:wrap; gap:1rem; font-size:.72rem; color:var(--muted); margin:-.4rem 0 1.1rem; }
     .tcv-legend i { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:.35rem; }
+  
+    /* Skills collection: install hero + pack tabs */
+    .skc-hero { display:grid; grid-template-columns:1.25fr 1fr; gap:1.4rem; align-items:center; background:linear-gradient(160deg, rgba(37,99,235,.12), var(--card)); border:1px solid rgba(56,189,248,.25); border-radius:18px; padding:1.4rem; margin-bottom:1.2rem; }
+    .skc-badges { display:flex; flex-wrap:wrap; gap:.4rem; }
+    .skc-badges span { font-size:.66rem; font-weight:700; border:1px solid var(--border); border-radius:999px; padding:.12rem .55rem; background:rgba(255,255,255,.03); }
+    .skc-name { font-family:'Space Grotesk',sans-serif; font-size:1.3rem; color:var(--white); margin:.6rem 0 .25rem; }
+    .skc-desc { font-size:.86rem; color:var(--muted); line-height:1.55; }
+    .skc-stats { display:flex; gap:.55rem; margin:.9rem 0; }
+    .skc-stats div { flex:1 1 0; min-width:0; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:.5rem .7rem; }
+    .skc-stats b { display:block; font:800 1.3rem 'Space Grotesk',sans-serif; color:var(--white); line-height:1.1; }
+    .skc-stats span { font-size:.68rem; color:var(--muted); }
+    .skc-btns { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .skc-btn { display:inline-flex; align-items:center; gap:.4rem; font-size:.8rem; font-weight:700; border-radius:999px; padding:.5rem 1rem; border:1px solid var(--border); color:var(--white); text-decoration:none; background:rgba(255,255,255,.04); transition:transform .2s, border-color .2s; }
+    .skc-btn:hover { transform:translateY(-1px); border-color:rgba(56,189,248,.5); }
+    .skc-btn.pri { background:var(--grad2); border-color:transparent; color:#fff; }
+    .skc-term { background:#05050c; border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:.8rem .9rem; min-width:0; }
+    .skc-term-top { display:flex; align-items:center; gap:.3rem; margin-bottom:.6rem; }
+    .skc-term-top i { width:9px; height:9px; border-radius:50%; background:#334155; }
+    .skc-term-top span { font-size:.66rem; color:#64748b; margin-left:.4rem; }
+    .skc-copy { margin-left:auto; font:700 .66rem Inter,sans-serif; color:#0b1220; background:#7dd3fc; border:0; border-radius:6px; padding:.2rem .55rem; cursor:pointer; }
+    .skc-term > code { display:block; font:500 .72rem 'JetBrains Mono',ui-monospace,monospace; color:#cbd5e1; white-space:nowrap; overflow-x:auto; padding:.15rem 0; scrollbar-width:none; }
+    .skc-term .p, .skc-term .ok { color:#4ade80; } .skc-term .c { color:#7dd3fc; }
+    .skc-term small { display:block; margin-top:.5rem; font-size:.68rem; color:#64748b; line-height:1.45; }
+    .skc-term small code { font-family:'JetBrains Mono',monospace; color:#94a3b8; }
+    .skc-tabs { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.7rem; }
+    .skc-tab { display:inline-flex; align-items:center; gap:.35rem; font:600 .78rem Inter,sans-serif; color:var(--muted); background:var(--card); border:1px solid var(--border); border-radius:999px; padding:.4rem .8rem; cursor:pointer; transition:all .2s; }
+    .skc-tab i { font-style:normal; font-size:.66rem; background:rgba(127,127,127,.15); border-radius:999px; padding:0 .4rem; }
+    .skc-tab:hover { border-color:rgba(56,189,248,.5); color:var(--white); }
+    .skc-tab.on { background:var(--grad2); color:#fff; border-color:transparent; }
+    .skc-tab.on i { background:rgba(255,255,255,.25); }
+    .skc-dot { width:7px; height:7px; border-radius:50%; }
+    .skc-search { display:flex; align-items:center; gap:.45rem; max-width:340px; background:var(--card); border:1px solid var(--border); border-radius:999px; padding:.45rem .9rem; color:var(--muted); }
+    .skc-search:focus-within { border-color:rgba(56,189,248,.6); box-shadow:0 0 0 3px rgba(56,189,248,.15); }
+    .skc-search input { flex:1; min-width:0; background:none; border:0; outline:0; color:var(--white); font:inherit; font-size:.84rem; }
+    .skc-notes { font-size:.8rem; color:var(--muted); margin:.7rem 0 .8rem; min-height:1.2em; }
+    .skc-notes a { color:#38bdf8; font-weight:600; text-decoration:none; }
+    .skc-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:.7rem; }
+    .skc-card { display:flex; align-items:flex-start; gap:.65rem; background:var(--card); border:1px solid var(--border); border-left:3px solid var(--pc); border-radius:12px; padding:.75rem .8rem; text-decoration:none; transition:transform .2s, border-color .2s, box-shadow .2s; min-width:0; }
+    .skc-card:hover { transform:translateY(-2px); border-color:var(--pc); box-shadow:0 8px 22px rgba(0,0,0,.18); }
+    .skc-card[hidden] { display:none; }
+    .skc-ic { font-size:1.15rem; width:34px; height:34px; flex-shrink:0; display:grid; place-items:center; border-radius:9px; background:rgba(127,127,127,.1); }
+    .skc-txt { flex:1; min-width:0; }
+    .skc-txt b { display:block; font-size:.85rem; color:var(--white); line-height:1.3; }
+    .skc-txt small { display:block; font-size:.73rem; color:var(--muted); line-height:1.4; margin-top:.15rem; }
+    .skc-tag { flex-shrink:0; display:flex; flex-direction:column; align-items:flex-end; gap:.25rem; font-size:.58rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--pc); }
+    .skc-tag .skc-q { font-style:normal; font-size:.62rem; color:var(--qc); background:color-mix(in srgb, var(--qc) 14%, transparent); border:1px solid color-mix(in srgb, var(--qc) 40%, transparent); border-radius:999px; padding:0 .4rem; letter-spacing:.02em; text-transform:none; }
+    .skc-empty { font-size:.85rem; color:var(--muted); padding:.6rem 0; }
+    html.light .skc-hero { background:linear-gradient(160deg, rgba(37,99,235,.07), #ffffff); }
+    html.light .skc-stats div, html.light .skc-card, html.light .skc-tab, html.light .skc-search { background:#ffffff; }
+    html.light .skc-card:hover { box-shadow:0 8px 22px rgba(15,23,42,.08); }
+    html.light .skc-tab.on { background:var(--grad2); color:#fff; }
+    html.light .skc-badges span { filter:brightness(.62) saturate(1.3); }
+    .skc-more { display:block; margin:.8rem auto 0; font:700 .8rem Inter,sans-serif; color:var(--white); background:var(--card); border:1px solid var(--border); border-radius:999px; padding:.5rem 1.1rem; cursor:pointer; }
+    .skc-more[hidden] { display:none; }
+    @media (max-width:760px){ .skc-hero { grid-template-columns:1fr; padding:1.1rem; } .skc-search { max-width:none; } }
+    @media (max-width:420px){ .skc-stats { flex-wrap:wrap; } .skc-stats div { flex:1 1 40%; } .skc-grid { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -9560,302 +9616,137 @@
     <p class="section-sub">Open-source Claude AI skills and sub-agents built for product managers. Free to use, fork, and contribute.</p>
   </div>
 
-  <!-- Repo card -->
-  <div class="repo-card reveal">
-    <div class="repo-card-left">
-      <div class="repo-card-icon">🛠️</div>
-      <div class="repo-card-name">sankar2code / Claude-Skill_SubAgent-Builder-Collections</div>
-      <p class="repo-card-desc">Curated Claude AI skills and sub-agents for product managers: market research, PRD writing and evaluation, user research, mockup generation, a PRD → Production pack that takes a PRD to a secure Next.js + Supabase app, a Product Analytics pack, and a Pharma &amp; Clinical pack. MIT licensed: free to use and contribute.</p>
-      <div class="repo-card-meta">
-        <span class="repo-meta-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-          Public Repository
-        </span>
-        <span class="repo-meta-item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          GitHub
-        </span>
+  <!-- Skills collection: install hero + pack tabs -->
+  <div class="skc-hero reveal">
+    <div class="skc-hero-l">
+      <div class="skc-badges"><span style="color:#4ade80">MIT</span><span style="color:#7dd3fc">v1.5.0</span><span style="color:#fbbf24">Claude Code plugin</span><span style="color:#f472b6">claude.ai skills</span></div>
+      <h3 class="skc-name">pm-builder-kit</h3>
+      <p class="skc-desc">Claude skills and sub-agents I built and use for product work: from research and PRDs to production apps, analytics and clinical trials. Free to use, fork and contribute.</p>
+      <div class="skc-stats" id="skc-stats">
+        <div><b data-to="19">19</b><span>skills</span></div><div><b data-to="1">1</b><span>sub-agent</span></div><div><b data-to="5">5</b><span>packs</span></div><div><b data-to="7">7</b><span>scripts</span></div>
+      </div>
+      <div class="skc-btns">
+        <a class="skc-btn pri" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>View on GitHub</a>
+        <a class="skc-btn" href="#prd-demo">▶ Try PRD Writer live</a>
       </div>
     </div>
-    <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections" target="_blank" class="repo-card-btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      View on GitHub
-    </a>
-  </div>
-
-  <!-- SKILLS SECTION -->
-  <div class="collection-subsection reveal">
-    <h3 class="subsection-title">Skills</h3>
-    <div class="skills-grid">
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/skills-guide.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #38bdf8; margin: 0;">Q1'26</p>
-        <div class="skill-card-icon">📖</div>
-        <div class="skill-card-info">
-          <h4>Skills Guide</h4>
-          <p>Full documentation &amp; usage guide for all skills</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/market-research/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #38bdf8; margin: 0;">Q1'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">📊</div>
-        <div class="skill-card-info">
-          <h4>Market Research</h4>
-          <p>Competitive analysis &amp; market intelligence skill</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-evaluator/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #a855f7; margin: 0;">Q2'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">✅</div>
-        <div class="skill-card-info">
-          <h4>PRD Evaluator</h4>
-          <p>Evaluate and score product requirements docs</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-writer/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #38bdf8; margin: 0;">Q1'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">📝</div>
-        <div class="skill-card-info">
-          <h4>PRD Writer</h4>
-          <p>Generate structured product requirements documents</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/user-research/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #a855f7; margin: 0;">Q2'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">🔍</div>
-        <div class="skill-card-info">
-          <h4>User Research</h4>
-          <p>Synthesize user interviews &amp; research insights</p>
-        </div>
-      </a>
-
+    <div class="skc-term" aria-label="Install in Claude Code">
+      <div class="skc-term-top"><i></i><i></i><i></i><span>Install in Claude Code</span><button type="button" class="skc-copy" id="skc-copy">Copy</button></div>
+      <code><span class="p">›</span> <span class="c">/plugin marketplace add</span> sankar2code/Claude-Skill_SubAgent-Builder-Collections</code>
+      <code><span class="p">›</span> <span class="c">/plugin install</span> pm-builder-kit@sankar2code</code>
+      <code class="ok">✓ 19 skills · 1 sub-agent ready</code>
+      <small>Or copy any skill folder into <code>~/.claude/skills/</code>, or upload it in claude.ai Skills settings.</small>
     </div>
   </div>
 
-  <!-- PRD TO PRODUCTION PACK -->
-  <div class="collection-subsection reveal">
-    <h3 class="subsection-title">PRD → Production Pack</h3>
-    <div class="skills-grid">
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/prd-to-production.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <div class="skill-card-icon">🧭</div>
-        <div class="skill-card-info">
-          <h4>PRD → Production Guide</h4>
-          <p>The 5-stage, approval-gated workflow I used to ship ContractIQ</p>
-        </div>
+  <div class="skc-browse reveal" id="skc-browse">
+    <div class="skc-tabs" role="group" aria-label="Filter by pack"><button type="button" class="skc-tab on" data-k="all" aria-pressed="true">All <i>20</i></button><button type="button" class="skc-tab" data-k="pm" aria-pressed="false"><span class="skc-dot" style="background:#38bdf8"></span>PM Core <i>4</i></button><button type="button" class="skc-tab" data-k="prod" aria-pressed="false"><span class="skc-dot" style="background:#a78bfa"></span>PRD → Production <i>5</i></button><button type="button" class="skc-tab" data-k="ana" aria-pressed="false"><span class="skc-dot" style="background:#4ade80"></span>Product Analytics <i>6</i></button><button type="button" class="skc-tab" data-k="clin" aria-pressed="false"><span class="skc-dot" style="background:#f472b6"></span>Pharma &amp; Clinical <i>4</i></button><button type="button" class="skc-tab" data-k="agent" aria-pressed="false"><span class="skc-dot" style="background:#fbbf24"></span>Sub-agents <i>1</i></button></div>
+    <label class="skc-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg><input id="skc-q" type="search" placeholder="Search, e.g. PRD, retention, Part 11" autocomplete="off" aria-label="Search skills"></label>
+    <p class="skc-notes"><span class="skc-note" data-k="all">All 20 tools in one place. Pick a pack to see what it's for.</span><span class="skc-note" data-k="pm" hidden>The core PM toolkit: research, PRDs and evaluation. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/skills-guide.md" target="_blank" rel="noopener">Skills guide →</a></span><span class="skc-note" data-k="prod" hidden>Five approval-gated stages from a PRD to a secure Next.js + Supabase app. I used it to ship ContractIQ. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/prd-to-production.md" target="_blank" rel="noopener">Pack guide →</a></span><span class="skc-note" data-k="ana" hidden>From a vague question to a decision-ready readout. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/product-analytics.md" target="_blank" rel="noopener">Pack guide →</a></span><span class="skc-note" data-k="clin" hidden>Trials, GxP compliance and clinical AI evaluation, using public data only. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/pharma-clinical.md" target="_blank" rel="noopener">Pack guide →</a></span><span class="skc-note" data-k="agent" hidden>Claude Code sub-agents that work through a whole task on their own. <a href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/subagent-guide.md" target="_blank" rel="noopener">Sub-agent guide →</a></span></p>
+    <div class="skc-grid" id="skc-grid">
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-writer/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8">
+        <span class="skc-ic" aria-hidden="true">📝</span>
+        <span class="skc-txt"><b>PRD Writer</b><small>Structured PRDs in five formats</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#38bdf8">Q1'26</i></span>
       </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/engineering-planner/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">🏗️</div>
-        <div class="skill-card-info">
-          <h4>Engineering Planner</h4>
-          <p>Stage 1: PRD to architecture, data model, API spec and roadmap</p>
-        </div>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/prd-evaluator/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8">
+        <span class="skc-ic" aria-hidden="true">✅</span>
+        <span class="skc-txt"><b>PRD Evaluator</b><small>Scores a PRD against the right rubric</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
       </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/implementation-specs/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">📐</div>
-        <div class="skill-card-info">
-          <h4>Implementation Specs</h4>
-          <p>Stage 2: buildable specs, paste-and-run Supabase SQL, .env.example</p>
-        </div>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/market-research/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8">
+        <span class="skc-ic" aria-hidden="true">📊</span>
+        <span class="skc-txt"><b>Market Research</b><small>Landscape, TAM/SAM/SOM and positioning</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#38bdf8">Q1'26</i></span>
       </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/security-foundation/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">🛡️</div>
-        <div class="skill-card-info">
-          <h4>Security Foundation</h4>
-          <p>Stage 3: auth, RLS, rate limits and prompt-injection guards before any code</p>
-        </div>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/user-research/SKILL.md" target="_blank" rel="noopener" data-pack="pm" style="--pc:#38bdf8">
+        <span class="skc-ic" aria-hidden="true">🔍</span>
+        <span class="skc-txt"><b>User Research</b><small>Interview synthesis, personas and pain points</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
       </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/frontend-setup/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">⚡</div>
-        <div class="skill-card-info">
-          <h4>Frontend Setup</h4>
-          <p>Stage 4: scaffolds and runs a Next.js 16 + React 19 + TypeScript app</p>
-        </div>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/engineering-planner/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
+        <span class="skc-ic" aria-hidden="true">🏗️</span>
+        <span class="skc-txt"><b>Engineering Planner</b><small>PRD to architecture, data model, API spec and roadmap</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
       </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/design-system/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">🎨</div>
-        <div class="skill-card-info">
-          <h4>Design System</h4>
-          <p>Always on: keeps every screen on your design tokens and WCAG AA</p>
-        </div>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/implementation-specs/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
+        <span class="skc-ic" aria-hidden="true">📐</span>
+        <span class="skc-txt"><b>Implementation Specs</b><small>Buildable specs, paste-and-run Supabase SQL, .env.example</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
       </a>
-
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/security-foundation/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
+        <span class="skc-ic" aria-hidden="true">🛡️</span>
+        <span class="skc-txt"><b>Security Foundation</b><small>Auth, RLS, rate limits and prompt-injection guards</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/frontend-setup/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
+        <span class="skc-ic" aria-hidden="true">⚡</span>
+        <span class="skc-txt"><b>Frontend Setup</b><small>Scaffolds and runs a Next.js 16 + React 19 app</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/design-system/SKILL.md" target="_blank" rel="noopener" data-pack="prod" style="--pc:#a78bfa">
+        <span class="skc-ic" aria-hidden="true">🎨</span>
+        <span class="skc-txt"><b>Design System</b><small>Keeps every screen on your design tokens</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/analytics-question-framing/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
+        <span class="skc-ic" aria-hidden="true">🎯</span>
+        <span class="skc-txt"><b>Question Framing</b><small>Turns a vague ask into prioritized questions</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/metric-root-cause/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
+        <span class="skc-ic" aria-hidden="true">🔎</span>
+        <span class="skc-txt"><b>Metric Root Cause</b><small>Why a metric moved: data checks, mix vs rate</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/cohort-retention/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
+        <span class="skc-ic" aria-hidden="true">📈</span>
+        <span class="skc-txt"><b>Cohort Retention</b><small>Retention triangles and curves, explained</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/opportunity-sizing/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
+        <span class="skc-ic" aria-hidden="true">💰</span>
+        <span class="skc-txt"><b>Opportunity Sizing</b><small>Low/base/high value with sensitivity</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/experiment-design/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
+        <span class="skc-ic" aria-hidden="true">⚖️</span>
+        <span class="skc-txt"><b>Experiment Design</b><small>A/B plans with sample size and decision rules</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/insight-storyteller/SKILL.md" target="_blank" rel="noopener" data-pack="ana" style="--pc:#4ade80">
+        <span class="skc-ic" aria-hidden="true">🗣️</span>
+        <span class="skc-txt"><b>Insight Storyteller</b><small>Answer-first readouts, decks and messages</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#22c55e">Q3'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/trial-failure-investigator/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6">
+        <span class="skc-ic" aria-hidden="true">🔬</span>
+        <span class="skc-txt"><b>Trial Failure Investigator</b><small>NCT ID to source-backed reasons a trial stopped</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/trial-eligibility-matcher/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6">
+        <span class="skc-ic" aria-hidden="true">🧩</span>
+        <span class="skc-txt"><b>Trial Eligibility Matcher</b><small>Patient-to-trial screening, a cited source for every Met</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/gxp-part11-checker/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6">
+        <span class="skc-ic" aria-hidden="true">📋</span>
+        <span class="skc-txt"><b>GxP / Part 11 Checker</b><small>Gaps against 21 CFR Part 11, Annex 11 and ALCOA+</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/clinical-ai-evaluation-design/SKILL.md" target="_blank" rel="noopener" data-pack="clin" style="--pc:#f472b6">
+        <span class="skc-ic" aria-hidden="true">🩺</span>
+        <span class="skc-txt"><b>Clinical AI Evaluation</b><small>From a model drift signal to the right trial design</small></span>
+        <span class="skc-tag">Skill<i class="skc-q" style="--qc:#f59e0b">Q4'26</i></span>
+      </a>
+      <a class="skc-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/mockup-generator.md" target="_blank" rel="noopener" data-pack="agent" style="--pc:#fbbf24">
+        <span class="skc-ic" aria-hidden="true">🖼️</span>
+        <span class="skc-txt"><b>Mockup Generator</b><small>Turns a PRD into a clickable HTML prototype</small></span>
+        <span class="skc-tag">Agent<i class="skc-q" style="--qc:#a855f7">Q2'26</i></span>
+      </a>
     </div>
-  </div>
-
-  <!-- PRODUCT ANALYTICS PACK -->
-  <div class="collection-subsection reveal">
-    <h3 class="subsection-title">Product Analytics Pack</h3>
-    <div class="skills-grid">
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/product-analytics.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <div class="skill-card-icon">🧪</div>
-        <div class="skill-card-info">
-          <h4>Product Analytics Guide</h4>
-          <p>From a vague question to a decision-ready readout, in six skills</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/analytics-question-framing/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">🎯</div>
-        <div class="skill-card-info">
-          <h4>Question Framing</h4>
-          <p>Turns a vague ask into prioritized questions tied to a decision</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/metric-root-cause/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">🔎</div>
-        <div class="skill-card-info">
-          <h4>Metric Root Cause</h4>
-          <p>Why a metric moved: data checks, mix vs rate split, drill-down</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/cohort-retention/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">📈</div>
-        <div class="skill-card-info">
-          <h4>Cohort Retention</h4>
-          <p>Retention triangles and curves, and what they say about fit</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/opportunity-sizing/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">💰</div>
-        <div class="skill-card-info">
-          <h4>Opportunity Sizing</h4>
-          <p>Low/base/high value with a driver tree and sensitivity</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/experiment-design/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">⚖️</div>
-        <div class="skill-card-info">
-          <h4>Experiment Design</h4>
-          <p>A/B test plans with sample size, duration and decision rules</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/insight-storyteller/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">🗣️</div>
-        <div class="skill-card-info">
-          <h4>Insight Storyteller</h4>
-          <p>Answer-first readouts, slide outlines and stakeholder messages</p>
-        </div>
-      </a>
-
-    </div>
-  </div>
-
-  <!-- PHARMA & CLINICAL PACK -->
-  <div class="collection-subsection reveal">
-    <h3 class="subsection-title">Pharma &amp; Clinical Pack</h3>
-    <div class="skills-grid">
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/pharma-clinical.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <div class="skill-card-icon">🧬</div>
-        <div class="skill-card-info">
-          <h4>Pharma &amp; Clinical Guide</h4>
-          <p>Skills for trials, GxP compliance and clinical AI evaluation</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/trial-failure-investigator/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">🔬</div>
-        <div class="skill-card-info">
-          <h4>Trial Failure Investigator</h4>
-          <p>NCT ID to source-backed reasons a trial stopped, each claim labeled</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/gxp-part11-checker/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">📋</div>
-        <div class="skill-card-info">
-          <h4>GxP / Part 11 Checker</h4>
-          <p>Gap assessment against 21 CFR Part 11, Annex 11 and ALCOA+</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/skills/clinical-ai-evaluation-design/SKILL.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #f59e0b; margin: 0;">Q4'26</p>
-        <span class="skill-badge skill-badge-default">Skill</span>
-        <div class="skill-card-icon">🩺</div>
-        <div class="skill-card-info">
-          <h4>Clinical AI Evaluation</h4>
-          <p>From a model drift signal to the right trial design and estimand</p>
-        </div>
-      </a>
-
-    </div>
-  </div>
-
-  <!-- SUB-AGENTS SECTION -->
-  <div class="collection-subsection reveal">
-    <h3 class="subsection-title">Sub-Agents</h3>
-    <div class="skills-grid">
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/docs/subagent-guide.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #a855f7; margin: 0;">Q2'26</p>
-        <div class="skill-card-icon">🤖</div>
-        <div class="skill-card-info">
-          <h4>Sub-Agent Guide</h4>
-          <p>Full documentation &amp; guide for all sub-agents</p>
-        </div>
-      </a>
-
-      <a class="skill-card" href="https://github.com/sankar2code/Claude-Skill_SubAgent-Builder-Collections/blob/main/agents/mockup-generator.md" target="_blank">
-        <p style="position: absolute; top: 0.6rem; left: 0.6rem; font-size: 0.75rem; font-weight: 700; color: #a855f7; margin: 0;">Q2'26</p>
-        <span class="skill-badge">Sub-Agent</span>
-        <div class="skill-card-icon">🎨</div>
-        <div class="skill-card-info">
-          <h4>Mockup Generator</h4>
-          <p>Turn PRDs into high-fidelity, clickable HTML mockups</p>
-        </div>
-      </a>
-
-    </div>
+    <p class="skc-empty" id="skc-empty" hidden>No skills match that search.</p>
+    <button type="button" class="skc-more" id="skc-more" hidden></button>
   </div>
 
   <!-- PROMPT-TO-PRD - live demo of the prd-writer skill -->
@@ -15430,6 +15321,39 @@
   if('IntersectionObserver' in window && !reduce){ reset();
     new IntersectionObserver(es=>es.forEach(en=>{ en.isIntersecting?requestAnimationFrame(play):reset(); }),{threshold:.4}).observe(card);
   } else set(1);
+})();
+</script>
+
+<script>
+/* Skills collection: pack tabs, search, stat roll-in, copy install */
+(function(){
+  var grid=document.getElementById('skc-grid'); if(!grid) return;
+  var cards=[].slice.call(grid.querySelectorAll('.skc-card')), q=document.getElementById('skc-q'), empty=document.getElementById('skc-empty');
+  var tabs=[].slice.call(document.querySelectorAll('.skc-tab')), notes=[].slice.call(document.querySelectorAll('.skc-note')), pack='all';
+  var more=document.getElementById('skc-more'), expanded=false, CAP=8;
+  function run(){
+    var t=(q.value||'').trim().toLowerCase(), shown=0, matched=0;
+    var capped=!expanded&&pack==='all'&&!t&&window.innerWidth<600;
+    cards.forEach(function(c){ var ok=(pack==='all'||c.dataset.pack===pack)&&(!t||c.textContent.toLowerCase().indexOf(t)>-1); if(ok) matched++; if(ok&&capped&&matched>CAP) ok=false; c.hidden=!ok; if(ok) shown++; });
+    more.hidden=!(capped&&matched>CAP); more.textContent='Show all '+matched+' tools';
+    notes.forEach(function(n){ n.hidden=n.dataset.k!==pack; });
+    empty.hidden=shown>0;
+  }
+  tabs.forEach(function(b){ b.addEventListener('click',function(){ pack=b.dataset.k; tabs.forEach(function(x){ var on=x===b; x.classList.toggle('on',on); x.setAttribute('aria-pressed',on); }); run(); }); });
+  q.addEventListener('input',run); more.addEventListener('click',function(){ expanded=true; run(); });
+  var rz; window.addEventListener('resize',function(){ clearTimeout(rz); rz=setTimeout(run,150); }); run();
+  var cp=document.getElementById('skc-copy');
+  if(cp) cp.addEventListener('click',function(){
+    var txt='/plugin marketplace add sankar2code/Claude-Skill_SubAgent-Builder-Collections\n/plugin install pm-builder-kit@sankar2code';
+    var done=function(){ cp.textContent='Copied ✓'; setTimeout(function(){ cp.textContent='Copy'; },1600); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done,function(){ cp.textContent='Select the text'; }); } else { cp.textContent='Select the text'; }
+  });
+  var stats=document.getElementById('skc-stats'), reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(stats&&!reduce&&'IntersectionObserver' in window){
+    var nums=[].slice.call(stats.querySelectorAll('b'));
+    new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; var t0=performance.now();
+      (function f(t){ var k=Math.min(1,(t-t0)/1100), v=1-Math.pow(1-k,3); nums.forEach(function(n){ n.textContent=Math.round(+n.dataset.to*v); }); if(k<1) requestAnimationFrame(f); })(t0); }); },{threshold:.5}).observe(stats);
+  }
 })();
 </script>
 </body>
