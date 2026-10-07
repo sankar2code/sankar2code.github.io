@@ -2866,6 +2866,9 @@
     /* ── Build skyline: city of hours + work-rhythm cards ── */
     .bsky { position: relative; height: 140px; border-radius: 12px; overflow: hidden;
       background: linear-gradient(180deg, #0c1230 0%, #1d2a5a 50%, #3b2a5e 100%); border: 1px solid rgba(125,211,252,0.12); }
+    .bsky-tod { position: absolute; top: 34px; transform: translateX(-50%); font-size: 0.56rem; font-weight: 700;
+      letter-spacing: 0.04em; color: #fff7ed; background: rgba(15,14,34,0.45); border: 1px solid rgba(253,186,116,0.45);
+      border-radius: 999px; padding: 0 6px; white-space: nowrap; pointer-events: none; z-index: 1; }
     .bsky-stars { position: absolute; inset: 0; opacity: 0.6; pointer-events: none;
       background-image: radial-gradient(1px 1px at 6% 22%, #fff, transparent), radial-gradient(1px 1px at 19% 12%, #fff, transparent),
         radial-gradient(1px 1px at 33% 30%, #fff, transparent), radial-gradient(1px 1px at 71% 16%, #fff, transparent),
@@ -2875,8 +2878,8 @@
     .bsky-moon { position: absolute; top: 16px; width: 18px; height: 18px; border-radius: 50%; box-shadow: -5px 3px 0 0 #e2e8f0; }
     .bsky-bld { position: absolute; bottom: 0; border-radius: 3px 3px 0 0; background-color: #0f0e22;
       border: 1px solid rgba(125,211,252,0.18); border-bottom: 0; cursor: default;
-      background-image: radial-gradient(circle, rgba(251,191,36,0.95) 1.2px, transparent 1.6px);
-      background-size: 7px 9px; background-position: 2px 4px; transition: height 0.8s cubic-bezier(.2,.8,.2,1); }
+      background-image: radial-gradient(circle, var(--wc, rgba(251,191,36,0.95)) 1.2px, transparent 1.6px), linear-gradient(180deg, rgba(255,255,255,0.08), rgba(0,0,0,0.25));
+      background-size: 7px 9px, 100% 100%; background-position: 2px 4px, 0 0; transition: height 0.8s cubic-bezier(.2,.8,.2,1); }
     .bsky-bld.dark { background-image: radial-gradient(circle, rgba(125,211,252,0.12) 1px, transparent 1.4px); }
     .bsky-bld.peak { border-color: #fbbf24; box-shadow: 0 0 18px rgba(251,191,36,0.35); }
     .bsky-bld:hover { border-color: #7dd3fc; }
@@ -2888,20 +2891,21 @@
     .brhy-ic { font-size: 1.15rem; line-height: 1; }
     .brhy-blk b { display: block; font-size: 1.05rem; color: var(--white); line-height: 1.15; }
     .brhy-blk span { font-size: 0.62rem; color: var(--muted); }
-    .brhy-blk em { font-style: normal; color: #fbbf24; font-weight: 700; }
-    .brhy-fill { position: absolute; left: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, #2563eb, #38bdf8); }
-    .brhy-blk.top { border-color: rgba(251,191,36,0.5); background: rgba(251,191,36,0.06); }
-    .brhy-blk.top .brhy-fill { background: linear-gradient(90deg, #f59e0b, #fde68a); }
+    .brhy-blk em { font-style: normal; color: var(--rc2, #fbbf24); font-weight: 700; white-space: nowrap; }
+    .brhy-blk { border-color: color-mix(in srgb, var(--rc2, #7dd3fc) 18%, var(--border)); }
+    .brhy-fill { position: absolute; left: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, var(--rc1, #2563eb), var(--rc2, #38bdf8)); }
+    .brhy-blk.top { border-color: color-mix(in srgb, var(--rc2, #fbbf24) 60%, transparent); background: color-mix(in srgb, var(--rc1, #fbbf24) 12%, transparent); }
     html.light .bsky { background: linear-gradient(180deg, #bfdbfe 0%, #c7d2fe 55%, #e9d5ff 100%); border-color: rgba(29,78,216,0.15); }
     html.light .bsky-stars { opacity: 0; }
+    html.light .bsky-tod { color: #7c2d12; background: rgba(255,255,255,0.7); border-color: rgba(234,88,12,0.4); }
     html.light .bsky-moon { box-shadow: -5px 3px 0 0 #64748b; }
     html.light .bsky-bld { background-color: #1e293b; border-color: rgba(30,41,59,0.4); }
     html.light .brhy-blk { background: #f8fafc; }
-    html.light .brhy-blk em { color: #b45309; }
-    html.light .brhy-blk.top { background: #fffbeb; border-color: rgba(217,119,6,0.45); }
+    html.light .brhy-blk em { color: var(--rc1, #b45309); }
+    html.light .brhy-blk.top { background: color-mix(in srgb, var(--rc2, #fbbf24) 14%, #fff); border-color: color-mix(in srgb, var(--rc1, #d97706) 50%, transparent); }
     @media (max-width: 600px) {
       .bsky { height: 120px; }
-      .bsky-bld { background-size: 5px 8px; background-position: 1px 3px; }
+      .bsky-bld { background-size: 5px 8px, 100% 100%; background-position: 1px 3px, 0 0; }
       .brhy { grid-template-columns: repeat(2, 1fr); }
     }
     @media (prefers-reduced-motion: reduce) { .bsky-bld { transition: none; } }
@@ -12279,6 +12283,13 @@
       heatmapEl.style.display = 'block';
     }
 
+    const BSKY_BODY = ['#0f0e22','#0f0e22','#0f0e22','#0f0e22','#151236','#3b1d4a',
+      '#9a3412','#c2410c','#b45309','#1d4ed8','#1e40af','#1e40af',
+      '#1e3a8a','#1e40af','#1e40af','#1d4ed8','#4338ca','#be185d',
+      '#9d174d','#6b21a8','#3b1d4a','#151236','#0f0e22','#0f0e22'];
+    const BSKY_WIN = (() => { const w = []; for (let h = 0; h < 24; h++) {
+      w.push(h >= 9 && h <= 16 ? 'rgba(186,230,253,0.9)' : (h >= 5 && h <= 8) || (h >= 17 && h <= 20) ? 'rgba(254,215,170,0.95)' : 'rgba(251,191,36,0.95)'); } return w; })();
+
     function renderSkyline(city, hourTotals) {
       const hl = (i) => (i === 0 ? '12am' : i === 12 ? '12pm' : i > 12 ? (i - 12) + 'pm' : i + 'am');
       const maxV = Math.max(0, ...hourTotals);
@@ -12290,6 +12301,8 @@
       const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       city.innerHTML = '<div class="bsky-stars"></div>' +
+        '<span class="bsky-tod" style="left:25%">🌅 Sunrise</span>' +
+        '<span class="bsky-tod" style="left:75%">🌇 Sunset</span>' +
         '<span class="bsky-moon" style="left:' + (2 * W).toFixed(2) + '%"></span>' +
         '<span class="bsky-sun" style="left:calc(' + (sunAt * W).toFixed(2) + '% - 12px)"></span>' +
         '<span class="bsky-moon" style="left:' + (21.5 * W).toFixed(2) + '%"></span>';
@@ -12298,6 +12311,9 @@
       hourTotals.forEach((v, i) => {
         const b = document.createElement('div');
         b.className = 'bsky-bld' + (v ? '' : ' dark') + (i === peak ? ' peak' : '');
+        // Tint each building by time of day: night, sunrise glow, daylight, sunset glow.
+        b.style.backgroundColor = BSKY_BODY[i];
+        b.style.setProperty('--wc', BSKY_WIN[i]);
         b.style.left = 'calc(' + (i * W).toFixed(3) + '% + 2px)';
         b.style.width = 'calc(' + W.toFixed(3) + '% - 4px)';
         b.title = v + ' update' + (v === 1 ? '' : 's') + ' around ' + hl(i) + ' ET';
@@ -12342,14 +12358,14 @@
       // Work-rhythm cards: share of updates per 6-hour block.
       const rhythm = document.getElementById('bsky-rhythm');
       if (!rhythm) return;
-      const B = [['🌙', 'Night', '12–6am', 0, 6], ['🌅', 'Morning', '6am–12pm', 6, 12],
-                 ['☀️', 'Afternoon', '12–6pm', 12, 18], ['🌆', 'Evening', '6pm–12am', 18, 24]];
+      const B = [['🌙', 'Night', '12–6am', 0, 6, '#6366f1', '#a5b4fc'], ['🌅', 'Morning', '6am–12pm', 6, 12, '#ea580c', '#fdba74'],
+                 ['☀️', 'Afternoon', '12–6pm', 12, 18, '#1d4ed8', '#93c5fd'], ['🌆', 'Evening', '6pm–12am', 18, 24, '#be185d', '#c084fc']];
       const sums = B.map((b) => hourTotals.slice(b[3], b[4]).reduce((a, c) => a + c, 0));
       const top = Math.max(...sums);
       rhythm.innerHTML = B.map((b, i) => {
         const pct = total ? Math.round((sums[i] / total) * 100) : 0;
         const isTop = total > 0 && sums[i] === top;
-        return '<div class="brhy-blk' + (isTop ? ' top' : '') + '">' +
+        return '<div class="brhy-blk' + (isTop ? ' top' : '') + '" style="--rc1:' + b[5] + ';--rc2:' + b[6] + '">' +
           '<span class="brhy-ic" aria-hidden="true">' + b[0] + '</span>' +
           '<div><b>' + pct + '%</b><span>' + b[1] + ' · ' + b[2] + (isTop ? ' · <em>my zone</em>' : '') + '</span></div>' +
           '<i class="brhy-fill" style="width:' + pct + '%"></i></div>';
