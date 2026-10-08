@@ -7079,21 +7079,44 @@
     .footer-award span span { font-size: 0.72rem; color: #5b3a0a; }
     html.light .footer-award { box-shadow: 0 4px 18px rgba(180,83,9,0.25); animation: none; }
     @media (prefers-reduced-motion: reduce) { .footer-award { animation: none; } }
+    /* WDA side tab: vote heart (option 4) that slides out into a drawer (option 1) */
     .wda-tab {
-      position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 90;
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-decoration: none;
+      position: fixed; right: 0; top: 50%; z-index: 90; display: flex; align-items: center; text-decoration: none;
+      transform: translate(250px, -50%); transition: transform .45s cubic-bezier(.2,.9,.3,1.15);
+    }
+    .wda-tab:hover, .wda-tab:focus-visible { transform: translate(0, -50%); }
+    .wda-col {
+      position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
       background: linear-gradient(180deg, #fef3c7 0%, #fbbf24 55%, #f59e0b 100%); color: #3b2405;
-      border: 1px solid rgba(253,230,138,0.9); border-right: 0; border-radius: 12px 0 0 12px; padding: 0.6rem 0.35rem;
-      box-shadow: -8px 0 30px rgba(0,0,0,0.4), 0 0 0 0 rgba(251,191,36,0.55); transition: padding .2s;
+      border: 1px solid rgba(253,230,138,0.9); border-right: 0; border-radius: 16px 0 0 16px; padding: 0.6rem 0.45rem 0.7rem;
       animation: wdaGlow 2.8s ease-in-out infinite;
     }
-    .wda-tab:hover { padding-right: 0.75rem; }
-    .wda-tab img { width: 56px; height: 56px; display: block; }
-    .wda-tab span { writing-mode: vertical-rl; transform: rotate(180deg); font: 700 0.62rem 'Space Grotesk', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
+    .wda-col img { width: 88px; height: 88px; display: block; }
+    .wda-heart { width: 36px; height: 36px; border-radius: 50%; background: #3b2405; display: grid; place-items: center; font-size: 1.05rem; animation: wdaBeat 1.6s ease-in-out infinite; }
+    .wda-label { writing-mode: vertical-rl; transform: rotate(180deg); font: 800 0.66rem 'Space Grotesk', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
+    .wda-go { font: 800 0.72rem 'Space Grotesk', sans-serif; background: #3b2405; color: #fde68a; border-radius: 999px; padding: 0.1rem 0.5rem; }
+    .wda-burst { position: absolute; left: -10px; top: 45%; pointer-events: none; }
+    .wda-burst i { position: absolute; right: 0; font-style: normal; font-size: 0.85rem; opacity: 0; animation: wdaFloat 2.4s ease-out infinite; }
+    .wda-burst i:nth-child(2) { animation-delay: .8s; right: 14px; }
+    .wda-burst i:nth-child(3) { animation-delay: 1.6s; right: -8px; }
+    .wda-tab:hover .wda-burst { opacity: 0; }
+    .wda-panel {
+      width: 250px; align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 0.55rem;
+      background: #15131f; border: 1px solid rgba(251,191,36,0.5); border-left: 0; border-right: 0; padding: 1rem 1.1rem;
+      color: var(--white); box-shadow: -10px 0 30px rgba(0,0,0,0.45);
+    }
+    .wda-panel b { font: 700 0.95rem 'Space Grotesk', sans-serif; }
+    .wda-panel small { font-size: 0.74rem; line-height: 1.45; color: var(--muted); }
+    .wda-vote {
+      align-self: flex-start; margin-top: 0.2rem; font: 700 0.74rem 'Space Grotesk', sans-serif; padding: 0.4rem 0.9rem; border-radius: 999px;
+      background: linear-gradient(90deg, #fef3c7 0%, #fbbf24 55%, #f59e0b 100%); color: #3b2405;
+    }
+    html.light .wda-panel { background: #fff; color: #1e1b2e; box-shadow: -10px 0 30px rgba(0,0,0,0.12); }
     @keyframes wdaGlow { 0%,100% { box-shadow: -8px 0 30px rgba(0,0,0,0.4), -2px 0 14px rgba(251,191,36,0.35); } 50% { box-shadow: -8px 0 30px rgba(0,0,0,0.4), -4px 0 28px rgba(251,191,36,0.75); } }
-    .wda-tab:hover { filter: brightness(1.06); }
-    html.light .wda-tab { box-shadow: -8px 0 24px rgba(180,83,9,0.25); }
-    @media (prefers-reduced-motion: reduce) { .wda-tab { animation: none; } }
+    @keyframes wdaBeat { 0%,60%,100% { transform: scale(1); } 10%,30% { transform: scale(1.18); } 20% { transform: scale(1.05); } }
+    @keyframes wdaFloat { 0% { transform: translate(0,0) scale(.6); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(-30px,-80px) scale(1.1); opacity: 0; } }
+    html.light .wda-col { box-shadow: -8px 0 24px rgba(180,83,9,0.25); animation: none; }
+    @media (prefers-reduced-motion: reduce) { .wda-tab { transition: none; } .wda-col, .wda-heart, .wda-burst i { animation: none; } }
     @media (max-width: 640px) { .wda-tab { display: none; } .hero-award { font-size: 0.66rem; } }
 
     footer {
