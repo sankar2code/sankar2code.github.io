@@ -7081,6 +7081,45 @@
     }
 
     /* ─── FOOTER ─────────────────────────────────── */
+    /* Web Design Awards badge: hero pill, footer card, side tab */
+    .hero-badges { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .hero-badges .hero-badge { margin-bottom: 0; }
+    .hero-award {
+      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem 0.4rem 0.45rem;
+      border: 1.5px solid rgba(251,191,36,0.5); border-radius: 50px; background: rgba(251,191,36,0.08);
+      color: #fde68a; text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-size: 0.74rem;
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: background .2s, border-color .2s;
+    }
+    .hero-award img { width: 22px; height: 22px; border-radius: 50%; display: block; }
+    .hero-award:hover { background: rgba(251,191,36,0.16); border-color: rgba(251,191,36,0.8); }
+    html.light .hero-award { color: #92400e; background: #fffbeb; border-color: rgba(217,119,6,0.45); }
+    .footer-award {
+      display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; text-align: left;
+      border: 1px solid var(--border); border-radius: 14px; padding: 0.5rem 1rem 0.5rem 0.5rem; margin-bottom: 1rem;
+      background: rgba(255,255,255,0.02); transition: border-color .2s;
+    }
+    .footer-award:hover { border-color: rgba(56,189,248,0.5); }
+    .footer-award img { width: 64px; height: 64px; display: block; flex-shrink: 0; }
+    .footer-award strong { display: block; font-size: 0.85rem; color: var(--white); font-weight: 600; }
+    .footer-award span span { font-size: 0.72rem; color: var(--muted); }
+    html.light .footer-award { background: #fff; }
+    .wda-tab {
+      position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 90;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-decoration: none;
+      background: linear-gradient(180deg, #fef3c7 0%, #fbbf24 55%, #f59e0b 100%); color: #3b2405;
+      border: 1px solid rgba(253,230,138,0.9); border-right: 0; border-radius: 12px 0 0 12px; padding: 0.6rem 0.35rem;
+      box-shadow: -8px 0 30px rgba(0,0,0,0.4), 0 0 0 0 rgba(251,191,36,0.55); transition: padding .2s;
+      animation: wdaGlow 2.8s ease-in-out infinite;
+    }
+    .wda-tab:hover { padding-right: 0.75rem; }
+    .wda-tab img { width: 56px; height: 56px; display: block; }
+    .wda-tab span { writing-mode: vertical-rl; transform: rotate(180deg); font: 700 0.62rem 'Space Grotesk', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
+    @keyframes wdaGlow { 0%,100% { box-shadow: -8px 0 30px rgba(0,0,0,0.4), -2px 0 14px rgba(251,191,36,0.35); } 50% { box-shadow: -8px 0 30px rgba(0,0,0,0.4), -4px 0 28px rgba(251,191,36,0.75); } }
+    .wda-tab:hover { filter: brightness(1.06); }
+    html.light .wda-tab { box-shadow: -8px 0 24px rgba(180,83,9,0.25); }
+    @media (prefers-reduced-motion: reduce) { .wda-tab { animation: none; } }
+    @media (max-width: 640px) { .wda-tab { display: none; } .hero-award { font-size: 0.66rem; } }
+
     footer {
       text-align: center;
       padding: 2rem;
@@ -7726,9 +7765,15 @@
     </div>
 
     <!-- Badge -->
-    <div class="hero-badge">
-      <span class="dot-live"></span>
-      Available for opportunities
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <span class="dot-live"></span>
+        Available for opportunities
+      </div>
+      <a class="hero-award" href="https://www.webdesignawards.io/nominees/sankar-kumar-palaniappan-ai-product-manager?ref=badge" target="_blank" rel="noopener" title="Featured on Web Design Awards - view full award profile on Web Design Awards">
+        <img src="https://www.webdesignawards.io/badges/2026/nominee_2026.webp" alt="Nominee – Web Design Awards" width="22" height="22" />
+        Web Design Awards · Nominee 2026
+      </a>
     </div>
 
     <!-- Name -->
@@ -11451,8 +11496,18 @@
 <button id="back-to-top" aria-label="Back to top">🚀</button>
 
 <footer>
+  <a class="footer-award" href="https://www.webdesignawards.io/nominees/sankar-kumar-palaniappan-ai-product-manager?ref=badge" target="_blank" rel="noopener" title="Featured on Web Design Awards - view full award profile on Web Design Awards">
+    <img src="https://www.webdesignawards.io/badges/2026/nominee_2026.webp" alt="Nominee – Web Design Awards" width="64" height="64" loading="lazy" />
+    <span><strong>Featured on Web Design Awards</strong><span>Nominee 2026 · webdesignawards.io</span></span>
+  </a>
   <p>© 2026 Sankar Kumar Palaniappan · Built with care <span id="footer-like" class="footer-like-icon" aria-hidden="true"></span></p>
 </footer>
+
+<!-- Web Design Awards side tab -->
+<a class="wda-tab" href="https://www.webdesignawards.io/nominees/sankar-kumar-palaniappan-ai-product-manager?ref=badge" target="_blank" rel="noopener" title="Featured on Web Design Awards - view full award profile on Web Design Awards" aria-label="Featured on Web Design Awards: Nominee 2026">
+  <img src="https://www.webdesignawards.io/badges/2026/nominee_2026.webp" alt="Nominee – Web Design Awards" width="56" height="56" />
+  <span>WDA Nominee</span>
+</a>
 
 <!-- ───────────────────────────────────────────
   SCIENCEAI MODAL
