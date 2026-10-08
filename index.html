@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261008-2">
+  <link rel="stylesheet" href="styles.css?v=20261009-1">
 </head>
 <body>
 
@@ -3406,7 +3406,8 @@
         <div class="brhy" id="bsky-rhythm"></div>
       </div>
 
-      <div class="heatmap-body" id="heatmap-grid-view" style="display:none;">
+      <div class="heatmap-body iso-mode" id="heatmap-grid-view" style="display:none;">
+        <div class="bsky-iso" id="bsky-iso"></div>
         <div class="heatmap-hourlabels" id="heatmap-hourlabels"></div>
         <div class="heatmap-row">
           <div class="heatmap-daylabels">
@@ -4818,8 +4819,57 @@
         }
       }
       renderSkyline(skylineSvg, hourTotals);
+      renderIsoCity(document.getElementById('bsky-iso'), counts);
 
       heatmapEl.style.display = 'block';
+    }
+
+    // 3-week view as an isometric city block: same grid as before
+    // (hours left→right, Sun..Sat front-to-back), each active slot is a
+    // building whose height is its update count, coloured by time of day.
+    const ISO_TOP = ['#6366f1','#6366f1','#6366f1','#6366f1','#6366f1','#fb923c','#fb923c','#fb923c','#fdba74','#7dd3fc','#7dd3fc','#7dd3fc','#7dd3fc','#7dd3fc','#7dd3fc','#7dd3fc','#a5b4fc','#f472b6','#f472b6','#c084fc','#a78bfa','#818cf8','#6366f1','#6366f1'];
+    function renderIsoCity(host, counts) {
+      if (!host) return;
+      const NS = 'http://www.w3.org/2000/svg';
+      const mk = (t, a, p) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); if (p) p.appendChild(n); return n; };
+      const DN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const hl = (h) => (h === 0 ? '12am' : h === 12 ? '12pm' : h > 12 ? (h - 12) + 'pm' : h + 'am');
+      const W = 940, H = 400, cw = 30, ch = 15, ox = 250, oy = 120;
+      const mx = Math.max(1, ...counts.map((r) => Math.max(...r)));
+      const pos = (h, d) => [ox + h * cw * 0.9 - d * cw * 0.95, oy + h * ch * 0.45 + d * ch];
+      const P = (pts) => pts.map((p) => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+      host.innerHTML = '';
+      const s = mk('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Build activity by weekday and hour over the last 3 weeks, drawn as a 3D city' }, host);
+      const cells = [];
+      for (let d = 0; d < 7; d++) for (let h = 0; h < 24; h++) cells.push([d, h]);
+      cells.forEach(([d, h]) => {
+        const [x, y] = pos(h, d);
+        mk('polygon', { class: 'iso-tile', points: P([[x, y], [x + cw * 0.9, y + ch * 0.45], [x - cw * 0.05, y + ch * 1.45], [x - cw * 0.95, y + ch]]) }, s);
+      });
+      cells.sort((a, b) => (a[0] + a[1] * 0.5) - (b[0] + b[1] * 0.5));
+      const blds = [];
+      cells.forEach(([d, h]) => {
+        const v = counts[d][h]; if (!v) return;
+        const [x, y] = pos(h, d), ht = 14 + (v / mx) * 150;
+        const a = [x + cw * 0.12, y + ch * 0.3], b = [x + cw * 0.78, y + ch * 0.63], c = [x + cw * 0.18, y + ch * 1.25], dd = [x - cw * 0.48, y + ch * 0.92];
+        const up = (p) => [p[0], p[1] - ht];
+        const g = mk('g', { class: 'iso-bld' }, s);
+        g.style.transformOrigin = c[0].toFixed(1) + 'px ' + c[1].toFixed(1) + 'px';
+        mk('title', {}, g).textContent = v + ' update' + (v === 1 ? '' : 's') + ' on ' + DN[d] + 's around ' + hl(h) + ' ET';
+        mk('polygon', { points: P([dd, c, up(c), up(dd)]), fill: BSKY_BODY[h] }, g);
+        mk('polygon', { points: P([c, b, up(b), up(c)]), fill: BSKY_BODY[h], opacity: 0.72 }, g);
+        mk('polygon', { points: P([up(a), up(b), up(c), up(dd)]), fill: ISO_TOP[h] }, g);
+        for (let r = 8; r < ht - 6; r += 9) {
+          mk('line', { x1: dd[0] + 3, y1: dd[1] - r + 1, x2: c[0] - 3, y2: c[1] - r - 1, stroke: BSKY_WIN[h], 'stroke-width': 1.6, 'stroke-dasharray': '2 3' }, g);
+        }
+        blds.push(g);
+      });
+      [0, 6, 12, 18].forEach((h) => { const [x, y] = pos(h, 7.3); mk('text', { class: 'iso-lbl', x: x - 4, y: y + 10 }, s).textContent = hl(h); });
+      for (let d = 0; d < 7; d++) { const [x, y] = pos(-1.2, d); mk('text', { class: 'iso-lbl iso-day', x: x - 6, y: y + ch, 'text-anchor': 'end' }, s).textContent = DN[d]; }
+      host._isoReplay = () => {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        blds.forEach((g, i) => { g.style.animation = 'none'; void g.getBoundingClientRect(); g.style.animation = 'isoRise .7s cubic-bezier(.2,.8,.2,1) ' + (i * 0.025).toFixed(3) + 's both'; });
+      };
     }
 
     const BSKY_BODY = ['#0f0e22','#0f0e22','#0f0e22','#0f0e22','#151236','#3b1d4a',
@@ -4923,6 +4973,7 @@
         skylineView.style.display = 'none';
         gridView.style.display = 'block';
         subLabel.textContent = 'By hour, over 3 weeks · ET';
+        const iso = document.getElementById('bsky-iso'); if (iso && iso._isoReplay) iso._isoReplay();
       } else {
         skylineView.style.display = 'block';
         gridView.style.display = 'none';

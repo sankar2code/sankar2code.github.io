@@ -7603,3 +7603,21 @@
 .footer-award-wrap > a strong { color: #3b2405; font-weight: 700 !important; }
 html.light .footer-award-wrap > a { box-shadow: 0 4px 18px rgba(180,83,9,0.25); animation: none; }
 @media (prefers-reduced-motion: reduce) { .footer-award-wrap > a { animation: none; } }
+
+/* 3-week view: isometric city block (replaces the dot grid) */
+.heatmap-body.iso-mode .heatmap-hourlabels, .heatmap-body.iso-mode .heatmap-row, .heatmap-body.iso-mode .heatmap-legend { display: none; }
+.bsky-iso { border-radius: 12px; overflow: hidden; border: 1px solid rgba(125,211,252,0.12);
+  background: radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.7), transparent), radial-gradient(1px 1px at 38% 10%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1px 1px at 66% 22%, rgba(255,255,255,.6), transparent), radial-gradient(1px 1px at 88% 12%, rgba(255,255,255,.7), transparent),
+    linear-gradient(180deg, #0c1230 0%, #1d2a5a 60%, #3b2a5e 100%); }
+.bsky-iso svg { display: block; width: 100%; height: auto; }
+.bsky-iso .iso-tile { fill: rgba(255,255,255,0.035); stroke: rgba(125,211,252,0.09); }
+.bsky-iso .iso-lbl { fill: #a5a8c8; font: 500 11px 'Inter', system-ui, sans-serif; }
+.bsky-iso .iso-day { fill: #cfd2e8; }
+.bsky-iso .iso-bld { cursor: default; }
+.bsky-iso .iso-bld:hover { filter: brightness(1.25); }
+@keyframes isoRise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+html.light .bsky-iso { background: linear-gradient(180deg, #bfdbfe 0%, #c7d2fe 55%, #e9d5ff 100%); border-color: rgba(29,78,216,0.15); }
+html.light .bsky-iso .iso-tile { fill: rgba(255,255,255,0.35); stroke: rgba(30,41,59,0.12); }
+html.light .bsky-iso .iso-lbl { fill: #334155; }
+@media (max-width: 600px) { .bsky-iso .iso-lbl { font-size: 15px; } }
