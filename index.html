@@ -7085,24 +7085,30 @@
     .hero-badges { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.6rem; margin-bottom: 1.5rem; }
     .hero-badges .hero-badge { margin-bottom: 0; }
     .hero-award {
-      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem 0.4rem 0.45rem;
-      border: 1.5px solid rgba(251,191,36,0.5); border-radius: 50px; background: rgba(251,191,36,0.08);
-      color: #fde68a; text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-size: 0.74rem;
-      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: background .2s, border-color .2s;
+      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.3rem 1rem 0.3rem 0.3rem;
+      border: 1px solid rgba(253,230,138,0.9); border-radius: 50px;
+      background: linear-gradient(90deg, #fef3c7 0%, #fbbf24 55%, #f59e0b 100%); color: #3b2405;
+      text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-size: 0.74rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      animation: wdaPillGlow 2.8s ease-in-out infinite; transition: filter .2s;
     }
-    .hero-award img { width: 22px; height: 22px; border-radius: 50%; display: block; }
-    .hero-award:hover { background: rgba(251,191,36,0.16); border-color: rgba(251,191,36,0.8); }
-    html.light .hero-award { color: #92400e; background: #fffbeb; border-color: rgba(217,119,6,0.45); }
+    .hero-award img { width: 30px; height: 30px; border-radius: 50%; display: block; }
+    .hero-award:hover { filter: brightness(1.06); }
+    @keyframes wdaPillGlow { 0%,100% { box-shadow: 0 0 12px rgba(251,191,36,0.35); } 50% { box-shadow: 0 0 26px rgba(251,191,36,0.7); } }
+    html.light .hero-award { box-shadow: 0 4px 18px rgba(180,83,9,0.25); animation: none; }
+    @media (prefers-reduced-motion: reduce) { .hero-award { animation: none; } }
     .footer-award {
-      display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; text-align: left;
-      border: 1px solid var(--border); border-radius: 14px; padding: 0.5rem 1rem 0.5rem 0.5rem; margin-bottom: 1rem;
-      background: rgba(255,255,255,0.02); transition: border-color .2s;
+      display: inline-flex; align-items: center; gap: 12px; text-decoration: none; text-align: left;
+      border: 1px solid rgba(253,230,138,0.9); border-radius: 14px; padding: 0.5rem 1.1rem 0.5rem 0.5rem; margin-bottom: 1rem;
+      background: linear-gradient(90deg, #fef3c7 0%, #fbbf24 55%, #f59e0b 100%); color: #3b2405;
+      animation: wdaPillGlow 2.8s ease-in-out infinite; transition: filter .2s;
     }
-    .footer-award:hover { border-color: rgba(56,189,248,0.5); }
+    .footer-award:hover { filter: brightness(1.06); }
     .footer-award img { width: 64px; height: 64px; display: block; flex-shrink: 0; }
-    .footer-award strong { display: block; font-size: 0.85rem; color: var(--white); font-weight: 600; }
-    .footer-award span span { font-size: 0.72rem; color: var(--muted); }
-    html.light .footer-award { background: #fff; }
+    .footer-award strong { display: block; font-size: 0.88rem; color: #3b2405; font-weight: 700; }
+    .footer-award span span { font-size: 0.72rem; color: #5b3a0a; }
+    html.light .footer-award { box-shadow: 0 4px 18px rgba(180,83,9,0.25); animation: none; }
+    @media (prefers-reduced-motion: reduce) { .footer-award { animation: none; } }
     .wda-tab {
       position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 90;
       display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-decoration: none;
@@ -7771,7 +7777,7 @@
         Available for opportunities
       </div>
       <a class="hero-award" href="https://www.webdesignawards.io/nominees/sankar-kumar-palaniappan-ai-product-manager?ref=badge" target="_blank" rel="noopener" title="Featured on Web Design Awards - view full award profile on Web Design Awards">
-        <img src="https://www.webdesignawards.io/badges/2026/nominee_2026.webp" alt="Nominee – Web Design Awards" width="22" height="22" />
+        <img src="https://www.webdesignawards.io/badges/2026/nominee_2026.webp" alt="Nominee – Web Design Awards" width="30" height="30" />
         Web Design Awards · Nominee 2026
       </a>
     </div>
