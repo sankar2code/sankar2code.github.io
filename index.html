@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261009-7">
+  <link rel="stylesheet" href="styles.css?v=20261009-8">
 </head>
 <body>
 
@@ -5146,7 +5146,49 @@
       'Enterprise-AI-Data-Copilot-Suite': '🗂️',
       'Claude-Skill_SubAgent-Builder-Collections': '🧩',
       'AI-Analyst-Builder': '📊',
+      'Agentic-Clinical-Trial-Matching': '🩺',
+      'ClinicalAI-TrialAnalysis': '🧬',
     };
+
+    // Friendly product names for repos (fallback: repo name with dashes as spaces)
+    const REPO_NAMES = {
+      'sankar2code.github.io': 'Portfolio site',
+      'Claude-Skill_SubAgent-Builder-Collections': 'PM Builder Kit',
+      'Agentic-Clinical-Trial-Matching': 'Agentic Clinical Trial Matching',
+      'ClinicalAI-TrialAnalysis': 'ClinicalAI-TrialAnalysis',
+      'Compliance-Lease-Tool': 'Compliance Lease Tool',
+      'Enterprise-AI-Data-Copilot-Suite': 'Enterprise AI Data Copilot Suite',
+      'AI-Analyst-Builder': 'AI Analyst Builder',
+    };
+    function friendlyName(repo) { return REPO_NAMES[repo] || repo.replace(/[-_]+/g, ' '); }
+    const escHtml = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    // GitHub Desktop's default summaries ("Update index.html") say nothing - hide them.
+    const GENERIC_MSG = /^((update|updated|create|created|delete|deleted|add|added|rename|renamed)\s+[\w.\-\/]+|add files via upload|initial commit)$/i;
+    function classifyMsgs(msgs) {
+      const all = msgs.join(' ').toLowerCase();
+      const ver = (msgs.join(' ').match(/\bv\d+\.\d+(\.\d+)?\b/) || [])[0];
+      let tag = ['Update', 'ship-tag-update'];
+      if (/\b(fix|fixed|fixes|bug|broken|typo|error)\b/.test(all)) tag = ['Fix', 'ship-tag-fix'];
+      if (/\b(add|adds|added|new|launch|launched|feature|introduce|build|built)\b/.test(all)) tag = ['Feature', 'ship-tag-feature'];
+      if (!/\b(add|new|launch|feature|fix|bug)\b/.test(all) && /\b(post|copy|content|text|readme|docs?|wording|article|pdf)\b/.test(all)) tag = ['Content', 'ship-tag-content'];
+      return { tag, ver };
+    }
+    function cacheGet(k) { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); return v && Date.now() - v.t < 30 * 60 * 1000 ? v.d : null; } catch (e) { return null; } }
+    function cacheSet(k, d) { try { localStorage.setItem(k, JSON.stringify({ t: Date.now(), d })); } catch (e) { /* storage unavailable */ } }
+    function fetchCommits(repoFull) {
+      const key = 'rs-commits:' + repoFull;
+      const hit = cacheGet(key);
+      if (hit) return Promise.resolve(hit);
+      const since = new Date(Date.now() - 14 * 864e5).toISOString();
+      return fetch(`https://api.github.com/repos/${repoFull}/commits?per_page=30&since=${since}`)
+        .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then((arr) => {
+          const d = arr.map((c) => ({ m: (c.commit && c.commit.message || '').split('\n')[0], t: c.commit && c.commit.author && c.commit.author.date }));
+          cacheSet(key, d);
+          return d;
+        });
+    }
 
     // Push events are the bulk of activity and don't carry any signal beyond
     // "code changed" - so any repo NOT in the curated map above still needs
@@ -5186,10 +5228,11 @@
         const branch = (ev.payload.ref || '').split('/').pop();
         return {
           repoFull: ev.repo.name,
+          isPush: true,
           icon: repoIcon || fallbackPushIcon(ev.repo.name),
           tagClass: 'ship-tag-update',
           tag: 'Update',
-          text: `Pushed updates to <strong>${repo}</strong>${branch ? ` (${branch})` : ''}`,
+          text: `Pushed updates to <strong>${friendlyName(repo)}</strong>${branch ? ` (${branch})` : ''}`,
           when: ev.created_at,
         };
       }
@@ -5260,17 +5303,42 @@
           })
           .slice(0, 6);
 
-        if (items.length) {
+        const renderItems = () => {
           listEl.innerHTML = '<div class="ship-rail"></div>' + items.map((item) => `
             <div class="ship-item visible">
               <span class="ship-icon">${item.icon}</span>
               <div class="ship-body">
-                <p class="ship-text">${item.text}<span class="ship-tag ${item.tagClass}">${item.tag}</span></p>
-                <p class="ship-when">${timeAgo(item.when)}</p>
+                <p class="ship-text">${item.text}<span class="ship-tag ${item.tagClass}">${item.tag}</span>${item.ver ? `<span class="ship-tag ship-tag-version">${escHtml(item.ver)}</span>` : ''}</p>
+                <p class="ship-when">${timeAgo(item.when)}${item.count ? ` · ${item.count} commit${item.count > 1 ? 's' : ''} in 14 days` : ''}</p>
+                ${item.msgs && item.msgs.length ? `<ul class="ship-msgs">${item.msgs.slice(0, 3).map((m) => `<li>${escHtml(m)}</li>`).join('')}</ul>` : ''}
+                ${item.msgs && item.msgs.length > 3 ? `<a class="ship-more" href="https://github.com/${item.repoFull}/commits" target="_blank" rel="noopener">+${item.msgs.length - 3} more →</a>` : ''}
               </div>
             </div>
           `).join('');
+        };
+        if (items.length) {
+          renderItems();
           if (subEl) subEl.textContent = 'Live from GitHub';
+          // Enrich push items with real commit messages (the events feed no
+          // longer carries them). Cached 30 min; on any failure the plain
+          // "Pushed updates" line stays.
+          const pushItems = items.filter((it) => it.isPush);
+          Promise.allSettled(pushItems.map((it) => fetchCommits(it.repoFull).then((cs) => {
+            const seen = new Set();
+            const msgs = cs.map((c) => c.m.trim()).filter((m) => m && !/^merge\b/i.test(m) && !GENERIC_MSG.test(m) && !seen.has(m) && seen.add(m));
+            it.count = cs.length;
+            if (msgs.length) {
+              const { tag, ver } = classifyMsgs(msgs.slice(0, 5));
+              it.msgs = msgs;
+              it.tag = tag[0]; it.tagClass = tag[1]; it.ver = ver;
+            }
+            it.text = `<strong>${escHtml(friendlyName(repoName(it.repoFull)))}</strong>`;
+          }))).then((res) => {
+            if (res.some((r) => r.status === 'fulfilled')) {
+              renderItems();
+              playItemAnim();
+            }
+          });
         }
 
         // Compute the streak/commit stat only after the list DOM is settled,

@@ -7655,3 +7655,18 @@ a.hero-badge-link:focus-visible { outline: 2px solid #7dd3fc; outline-offset: 3p
 html.light .modal-tradeoffs li { background: rgba(124,58,237,.06); border-left-color: #7c3aed; }
 html.light .modal-tradeoffs strong { color: #5b21b6; }
 html.light .modal-tradeoffs .to-cost { color: #b91c1c; }
+
+/* Recently Shipped: real commit messages (option A) */
+.ship-msgs { list-style: none; margin: .45rem 0 0; padding: 0; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: .78rem; line-height: 1.6; color: #cbd5e1; }
+.ship-msgs li { position: relative; padding-left: 1.05rem; overflow-wrap: anywhere; }
+.ship-msgs li::before { content: "›"; position: absolute; left: 0; color: #64748b; }
+.ship-more { display: inline-block; margin-top: .25rem; font-size: .76rem; color: #60a5fa; text-decoration: none; }
+.ship-more:hover { text-decoration: underline; }
+.ship-tag-fix     { color: #f9a8d4; background: rgba(236,72,153,0.12); border: 1px solid rgba(236,72,153,0.35); }
+.ship-tag-content { color: #5eead4; background: rgba(20,184,166,0.12); border: 1px solid rgba(20,184,166,0.35); }
+.ship-tag-version { color: #7dd3fc; background: rgba(14,165,233,0.10); border: 1px solid rgba(14,165,233,0.35); }
+html.light .ship-msgs { color: #334155; }
+html.light .ship-tag-fix { color: #be185d; }
+html.light .ship-tag-content { color: #0f766e; }
+html.light .ship-tag-version { color: #0369a1; }
+@media (max-width: 600px) { .ship-msgs { font-size: .72rem; } }
