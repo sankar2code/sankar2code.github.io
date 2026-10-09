@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261009-1">
+  <link rel="stylesheet" href="styles.css?v=20261009-7">
 </head>
 <body>
 
@@ -204,13 +204,17 @@
 
     <!-- Badge -->
     <div class="hero-badges">
-      <div class="hero-badge">
+      <a class="hero-badge hero-badge-link" href="#contact" title="Get in touch">
         <span class="dot-live"></span>
         Available for opportunities
-      </div>
+      </a>
       <a class="hero-award" href="https://www.webdesignawards.io/nominees/sankar-kumar-palaniappan-ai-product-manager?ref=badge" target="_blank" rel="noopener" title="Featured on Web Design Awards - view full award profile on Web Design Awards">
         <img src="https://www.webdesignawards.io/badges/2026/nominee_2026.webp" alt="Nominee – Web Design Awards" width="30" height="30" />
         Web Design Awards · Nominee 2026
+      </a>
+      <a class="hero-award hero-award-sotd" href="https://www.webdesignawards.io/nominees/sankar-kumar-palaniappan-ai-product-manager?ref=badge" target="_blank" rel="noopener" title="Site of the Day - Web Design Awards">
+        <img src="https://www.webdesignawards.io/badges/2026/site_of_the_day_2026.webp" alt="Site of the Day – Web Design Awards" width="30" height="30" />
+        Awarded by Web Design Awards · Site of the Day
       </a>
     </div>
 
@@ -1056,6 +1060,15 @@
       </div>
 
       <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>Deterministic engines over LLM-only answers.</strong> Every number is reproducible and auditable. <span class="to-cost">Gives up: More components to build and maintain.</span></li>
+          <li><strong>MCP as the bridge over custom HTTP glue.</strong> Agents stay swappable and loosely coupled. <span class="to-cost">Gives up: A newer protocol layer to run and monitor.</span></li>
+          <li><strong>Synthetic, deliberately messy data over a real dataset.</strong> Safe to inspect end to end, PHI included. <span class="to-cost">Gives up: Can't yet prove results on a customer's own data.</span></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
         <h4>Status</h4>
         <p>Coming soon, targeting Q4 2026. Architecture and roadmap are defined, with the phased build plan documented in the repo.</p>
       </div>
@@ -1123,6 +1136,16 @@
       <div class="modal-section">
         <h4>Business Value</h4>
         <div class="modal-impact">⚡ Surfaces eligible patients that manual chart review misses ✦ Turns missing chart data into a clear "Unknown" with the next step to resolve it, instead of a false yes or no ✦ Per-criterion evidence links that clinicians and governance teams can audit ✦ Agent actions gated by clinician approval, with a full audit trail</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>A rules engine decides eligibility, not the model.</strong> Every verdict is explainable and cites source text. <span class="to-cost">Gives up: Criteria must be encoded, and fuzzy wording needs review.</span></li>
+          <li><strong>"Unknown" over a forced yes or no.</strong> No false eligibility calls from missing chart data. <span class="to-cost">Gives up: More patients land in a clinician's review queue.</span></li>
+          <li><strong>Clinician approval over full agent autonomy.</strong> Nothing leaves the system unchecked, with a full audit trail. <span class="to-cost">Gives up: Slower throughput than an autonomous agent.</span></li>
+          <li><strong>An 8-call tool cap per run.</strong> Predictable cost and latency. <span class="to-cost">Gives up: A run can stop before every piece of evidence is found.</span></li>
+        </ul>
       </div>
 
       <div class="modal-section">
@@ -1200,6 +1223,15 @@
       </div>
 
       <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>Stateless and login-free over accounts.</strong> Zero friction and no user data to protect. <span class="to-cost">Gives up: No saved history to revisit past investigations.</span></li>
+          <li><strong>ClinicalTrials.gov and PubMed only, over the open web.</strong> Every claim traces back to a primary source. <span class="to-cost">Gives up: Misses causes reported only in press releases or filings.</span></li>
+          <li><strong>Schema-enforced labels over prompt-only instructions.</strong> An unlabeled claim can never render. <span class="to-cost">Gives up: Stricter output means some answers are rejected, not shown.</span></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
         <h4>Documents</h4>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="https://clinicaltrialanalysis.sankar.work" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
@@ -1258,6 +1290,15 @@
       </div>
 
       <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>Bring-your-own-key over a hosted backend.</strong> No signup, no stored credentials, no running cost. <span class="to-cost">Gives up: Users need their own OpenAI key.</span></li>
+          <li><strong>Live web research over cached model knowledge.</strong> Current numbers with citations. <span class="to-cost">Gives up: A report takes up to a minute.</span></li>
+          <li><strong>GPT-4o-mini over a larger model.</strong> Low cost per report on the user's key. <span class="to-cost">Gives up: Less depth on complex financial reasoning.</span></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
         <h4>Documents</h4>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="https://sankar.work/company-comparison/" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
@@ -1313,6 +1354,15 @@
       <div class="modal-section">
         <h4>Business Value</h4>
         <div class="modal-impact">⚡ Targets sub-15-minute contract review against a 90–120 minute baseline, at roughly $0.10 in model cost per analysis ✦ Confidence scoring, page citations, and verbatim source sentences replace a black-box summary with something a user can actually verify ✦ Built end-to-end with Claude Code against a full PRD: eval suite, hallucination guardrails, and HHH launch criteria included, not just a UI mockup</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>Full contract as context over chunked retrieval.</strong> No clauses lost to bad chunking. <span class="to-cost">Gives up: Higher token cost per question, bounded by the context window.</span></li>
+          <li><strong>Show every confidence score over hiding weak ones.</strong> Users see uncertainty instead of false polish. <span class="to-cost">Gives up: Output looks less clean, with more warnings.</span></li>
+          <li><strong>Fixed term sets for NDAs and MSAs over any contract.</strong> Accuracy that can be measured against an F1 target. <span class="to-cost">Gives up: Other contract types aren't covered yet.</span></li>
+        </ul>
       </div>
 
       <div class="modal-section">
@@ -1377,6 +1427,14 @@
       </div>
 
       <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>A Claude Skill over a standalone SaaS.</strong> Usable in minutes at zero marginal cost. <span class="to-cost">Gives up: No dashboards, alerts or multi-user workflow of its own.</span></li>
+          <li><strong>Flag non-standard clauses over guessing.</strong> Fewer silent errors in compliance output. <span class="to-cost">Gives up: More items for a human to review.</span></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
         <h4>Documents</h4>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="https://github.com/sankar2code/Compliance-Lease-Tool" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#6366f1);">
@@ -1436,6 +1494,15 @@
       <div class="modal-section">
         <h4>Business Value</h4>
         <div class="modal-impact">⚡ Speed: Analyses that take weeks now take minutes. Insights arrive when they matter ✦ Productivity: One analyst becomes three. 80% less time on execution work ✦ Quality: Systematic, 4-layer validated methodology replaces intuition. Fewer errors reach stakeholders</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>18 specialised agents over one general agent.</strong> Each step can be checked and validated on its own. <span class="to-cost">Gives up: More orchestration and longer runs than a single prompt.</span></li>
+          <li><strong>Four validation layers before the deck.</strong> Wrong conclusions get caught before anyone presents them. <span class="to-cost">Gives up: Adds time to every run.</span></li>
+          <li><strong>AI runs execution, humans keep judgment.</strong> Speed without handing off decisions. <span class="to-cost">Gives up: An analyst still has to review the findings.</span></li>
+        </ul>
       </div>
 
       <div class="modal-section">
@@ -1508,6 +1575,15 @@
       </div>
 
       <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>One control center over channel-native tools.</strong> A unified view and much faster setup. <span class="to-cost">Gives up: Depends on four ad APIs that change often; some channel-only features are lost.</span></li>
+          <li><strong>Generated copy variants over hand-written ads.</strong> Testing at volume. <span class="to-cost">Gives up: Needs brand review to keep the voice consistent.</span></li>
+          <li><strong>Real-time optimization over scheduled reviews.</strong> Reacts to performance fast. <span class="to-cost">Gives up: Can over-react to short-term noise.</span></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
         <h4>Documents</h4>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="Ad-Genie-Pitch-Deck.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
@@ -1574,6 +1650,15 @@
       <div class="modal-section">
         <h4>Business Value</h4>
         <div class="modal-impact">⚡ Teams move fast with visual Kanban boards · Stay aligned with live, real-time collaboration · Ship together with AI-powered project insights · Reduce project overhead and context-switching · One tool replaces scattered workflows</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>Flat rate per workspace over per-seat pricing.</strong> Easy to adopt as a team grows. <span class="to-cost">Gives up: Revenue doesn't scale with headcount.</span></li>
+          <li><strong>Supabase Realtime over a custom sync layer.</strong> Shipped faster with less infrastructure. <span class="to-cost">Gives up: Tied to Supabase.</span></li>
+          <li><strong>An assistant that reads the whole backlog.</strong> Precise answers about the team's own work. <span class="to-cost">Gives up: Context grows with the backlog.</span></li>
+        </ul>
       </div>
 
 <div class="modal-section">
@@ -3458,6 +3543,12 @@
     <div class="lp-scroll-wrap">
     <div class="shipped-list shipped-list-scroll" id="live-post-list">
       <div class="ship-rail"></div>
+      <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/eYZT5RJs" target="_blank" rel="noopener">
+        <span class="ship-icon">💸</span>
+        <div class="ship-body">
+          <p class="ship-text">The $112 customer worth $8,793: referred customers were 20% of new customers but over 70% of new-customer profits, yet attribution hands the credit to paid ads. ButcherBox treated referrals as their own channel and halved acquisition costs<span class="ship-tag ship-tag-article">Article</span></p>
+        </div>
+      </a>
       <a class="ship-item ship-item-linked" data-cat="achievement" href="https://lnkd.in/p/ewkPx5-f" target="_blank" rel="noopener">
         <span class="ship-icon">🏅</span>
         <div class="ship-body">
@@ -3963,10 +4054,10 @@
   <img
     src="https://www.webdesignawards.io/badges/2026/nominee_2026.webp"
     alt="Nominee – Web Design Awards"
-    width="120"
-    height="120"
+    width="160"
+    height="160"
     loading="lazy"
-    style="display:block;flex-shrink:0;width:120px;height:auto;"
+    style="display:block;flex-shrink:0;width:160px;height:auto;"
   />
   <span style="display:inline-flex;flex-direction:column;font-size:12px;">
     <strong style="font-size:13px;font-weight:600;">Featured on Web Design Awards</strong>
@@ -4035,6 +4126,15 @@
       <div class="modal-section">
         <h4>Business Value</h4>
         <div class="modal-impact">⚡ Research time cut by 70% ✦ Sourced answers across 4+ literature types unified ✦ Insights delivered as on-demand audio &amp; podcasts</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>RAG on a graph database over a plain vector store.</strong> Connects papers, trials and competitors. <span class="to-cost">Gives up: More data-modelling and setup work.</span></li>
+          <li><strong>GPT-5-mini over a larger model.</strong> Fast, streaming, low-cost answers. <span class="to-cost">Gives up: Less depth on highly technical reasoning.</span></li>
+          <li><strong>Audio summaries and podcasts.</strong> Research you can listen to on the go. <span class="to-cost">Gives up: Adds text-to-speech cost per minute.</span></li>
+        </ul>
       </div>
 
       <div class="modal-section">
@@ -4108,6 +4208,14 @@
       </div>
 
       <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>An LLM classifier over a classic trained model.</strong> Handles free text without a large labelled dataset. <span class="to-cost">Gives up: Higher cost per review and less predictable output.</span></li>
+          <li><strong>Auto-drafted responses over manual replies.</strong> Much faster response times. <span class="to-cost">Gives up: Sensitive cases still need a human.</span></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
         <h4>Documents</h4>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="ReviewCategorization-GenAI.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
@@ -4174,6 +4282,14 @@
       <div class="modal-section">
         <h4>Business Value</h4>
         <div class="modal-impact">⚡ High-accuracy spam detection automated ✦ Phishing &amp; cyber-attack exposure reduced ✦ User trust and safety improved</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>A lightweight classifier over an LLM.</strong> Fast and cheap enough to run on every message. <span class="to-cost">Gives up: Weaker on new phishing wording it hasn't seen.</span></li>
+          <li><strong>Strict over lenient spam threshold.</strong> Fewer phishing texts get through. <span class="to-cost">Gives up: Some real messages get flagged.</span></li>
+        </ul>
       </div>
 
       <div class="modal-section">
@@ -4246,6 +4362,14 @@
       </div>
 
       <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>Interpretable drivers over a black-box score.</strong> Teams can act on why a booking is at risk. <span class="to-cost">Gives up: May give up some raw accuracy.</span></li>
+          <li><strong>Early flagging over waiting for certainty.</strong> More lead time to adjust policy or inventory. <span class="to-cost">Gives up: False alarms can lead to over-booking or stricter terms.</span></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
         <h4>Documents</h4>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
           <a href="HotelBooking-Prediction.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
@@ -4312,6 +4436,14 @@
       <div class="modal-section">
         <h4>Business Value</h4>
         <div class="modal-impact">⚡ Feedback analysis time cut by 80% ✦ Actionable insights surfaced in real time ✦ Faster product and CX decisions</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>Automatic categorisation over manual tagging.</strong> Analysis runs about 80% faster. <span class="to-cost">Gives up: Categories can miss nuance a person would catch.</span></li>
+          <li><strong>Real-time insights over periodic deep dives.</strong> Signals reach the team while they're fresh. <span class="to-cost">Gives up: More noise to filter.</span></li>
+        </ul>
       </div>
 
       <div class="modal-section">

@@ -7599,7 +7599,6 @@
   animation: wdaPillGlow 2.8s ease-in-out infinite; transition: filter .2s;
 }
 .footer-award-wrap > a:hover { filter: brightness(1.06); }
-.footer-award-wrap > a img { width: 72px !important; }
 .footer-award-wrap > a strong { color: #3b2405; font-weight: 700 !important; }
 html.light .footer-award-wrap > a { box-shadow: 0 4px 18px rgba(180,83,9,0.25); animation: none; }
 @media (prefers-reduced-motion: reduce) { .footer-award-wrap > a { animation: none; } }
@@ -7621,3 +7620,38 @@ html.light .bsky-iso { background: linear-gradient(180deg, #bfdbfe 0%, #c7d2fe 5
 html.light .bsky-iso .iso-tile { fill: rgba(255,255,255,0.35); stroke: rgba(30,41,59,0.12); }
 html.light .bsky-iso .iso-lbl { fill: #334155; }
 @media (max-width: 600px) { .bsky-iso .iso-lbl { font-size: 15px; } }
+
+/* Site of the Day badge (official embed kept verbatim in the footer) */
+.footer-award-wrap { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; }
+.footer-award-wrap > a + a { background: none; border: 0; padding: 0; animation: none; box-shadow: none; }
+.footer-award-wrap > a + a img { width: 104px !important; height: auto; display: block; filter: drop-shadow(0 4px 14px rgba(251,191,36,.35)); transition: transform .2s; }
+.footer-award-wrap > a + a:hover img { transform: translateY(-2px) scale(1.04); }
+.hero-award-sotd img { object-fit: contain; background: #fff; }
+
+.footer-award-wrap > a:first-child img { width: 96px !important; }
+
+/* Site of the Day hero pill: green "awarded" variant */
+.hero-award.hero-award-sotd {
+  border-color: rgba(167,243,208,0.9); color: #053b24;
+  background: linear-gradient(90deg, #d1fae5 0%, #34d399 55%, #10b981 100%);
+  animation-name: sotdPillGlow;
+}
+@keyframes sotdPillGlow { 0%,100% { box-shadow: 0 0 12px rgba(52,211,153,0.35); } 50% { box-shadow: 0 0 26px rgba(52,211,153,0.7); } }
+html.light .hero-award.hero-award-sotd { box-shadow: 0 4px 18px rgba(4,120,87,0.25); animation: none; }
+@media (prefers-reduced-motion: reduce) { .hero-award.hero-award-sotd { animation: none; } }
+
+/* "Available for opportunities" badge links to #contact */
+a.hero-badge-link { text-decoration: none; cursor: pointer; transition: transform .2s, filter .2s; }
+a.hero-badge-link:hover { transform: translateY(-1px); filter: brightness(1.15); }
+a.hero-badge-link:focus-visible { outline: 2px solid #7dd3fc; outline-offset: 3px; }
+
+/* Project modals: Trade-Offs */
+.modal-tradeoffs { list-style: none; padding: 0; margin: 0; display: grid; gap: .55rem; }
+.modal-tradeoffs li { position: relative; padding: .65rem .9rem .65rem 2.3rem; border-radius: 10px; line-height: 1.55; font-size: .92rem;
+  background: rgba(167,139,250,.08); border-left: 3px solid #a78bfa; color: inherit; }
+.modal-tradeoffs li::before { content: "⚖️"; position: absolute; left: .7rem; top: .62rem; font-size: .95rem; }
+.modal-tradeoffs strong { color: #c4b5fd; font-weight: 700; }
+.modal-tradeoffs .to-cost { display: block; margin-top: .2rem; font-size: .84rem; color: #fca5a5; opacity: .9; }
+html.light .modal-tradeoffs li { background: rgba(124,58,237,.06); border-left-color: #7c3aed; }
+html.light .modal-tradeoffs strong { color: #5b21b6; }
+html.light .modal-tradeoffs .to-cost { color: #b91c1c; }
