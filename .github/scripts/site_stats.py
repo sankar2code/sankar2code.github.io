@@ -70,8 +70,10 @@ def main():
     # Daily counts: history first, GoatCounter overrides from SINCE on.
     per_day = {d: int(n) for d, n in hist.get("days") or [] if d < SINCE}
     gc_start = max(since, win_start)
+    events = int(hist.get("events") or 0) if (hist.get("days") or [["9999"]])[-1][0] >= win_start.isoformat() else 0
     if gc_start <= today:
         tot = get_range("/stats/total", gc_start, today)
+        events += int(tot.get("total") or 0) + int(tot.get("total_events") or 0)
         for s in tot.get("stats") or []:
             day = (s.get("day") or "")[:10]
             if not day:
@@ -118,6 +120,7 @@ def main():
         "end": today.isoformat(),
         "period": period,
         "total": total,
+        "events": events,
         "days": days,
         "countries": countries,
         "countries_total": max(ctotal, sum(counts.values())),

@@ -29,7 +29,7 @@
   <!-- GoatCounter: cookie-free visit count for the Site Snapshot panel -->
   <script data-goatcounter="https://sankarwork.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 
-  <link rel="stylesheet" href="styles.css?v=20261014-2">
+  <link rel="stylesheet" href="styles.css?v=20261014-3">
 </head>
 <body>
 
@@ -4013,8 +4013,10 @@
     </div>
     <div class="ssn" id="ssn">
       <div class="ssn-main">
-        <h4 class="ssn-h">Visitors</h4>
-        <div class="ssn-big" id="ssn-total">…</div>
+        <div class="ssn-stats">
+          <div><h4 class="ssn-h">Visitors</h4><div class="ssn-big" id="ssn-total">…</div></div>
+          <div id="ssn-ev" hidden><h4 class="ssn-h">Event count</h4><div class="ssn-big ssn-big2" id="ssn-events"></div></div>
+        </div>
         <div class="ssn-s" id="ssn-period">&nbsp;</div>
         <div class="ssn-rel"><div class="ssn-bars" id="ssn-bars" role="img" aria-label="Daily visitors, last 14 days"></div><div class="lsn-tip" id="ssn-tip"></div></div>
         <div class="ssn-axis"><span id="ssn-a0"></span><span id="ssn-a1"></span></div>
@@ -8801,6 +8803,13 @@
 
     totalTo = total;
     $('ssn-total').textContent = '0';
+    const ev = parseInt(d.events, 10) || 0;
+    if (ev > 0) {
+      const el = $('ssn-events');
+      el.textContent = ev >= 1000 ? (Math.round(ev / 100) / 10) + 'K' : String(ev);
+      el.title = fmt(ev) + ' events: page views, scrolls and clicks';
+      $('ssn-ev').hidden = false;
+    }
     let sub = 'visitors · ' + (d.period || 'last 90 days');
     if (days.length >= 14) {
       const sum = (a) => a.reduce((s, x) => s + (+x[1] || 0), 0);

@@ -7715,3 +7715,6 @@ html.light .wda-sotd .wda-col { box-shadow: -8px 0 24px rgba(4,120,87,0.25); ani
     html.light .ssn-main, html.light .ssn-side { background: #fff; }
     html.light .ssn-ctry .bar { background: rgba(15,23,42,0.07); }
     #site-snapshot[hidden], .mega-link[hidden] { display: none !important; }
+    .ssn-stats { display: flex; gap: 2.2rem; flex-wrap: wrap; align-items: flex-end; }
+    .ssn-stats [hidden] { display: none !important; }
+    .ssn-big2 { background: linear-gradient(135deg, #6366f1, #a5b4fc); -webkit-background-clip: text; background-clip: text; cursor: help; }
