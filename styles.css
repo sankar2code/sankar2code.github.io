@@ -7714,3 +7714,4 @@ html.light .wda-sotd .wda-col { box-shadow: -8px 0 24px rgba(4,120,87,0.25); ani
     @media (prefers-reduced-motion: reduce) { .ssn-bars i, .ssn-ctry .bar i { transition: none; } }
     html.light .ssn-main, html.light .ssn-side { background: #fff; }
     html.light .ssn-ctry .bar { background: rgba(15,23,42,0.07); }
+    #site-snapshot[hidden], .mega-link[hidden] { display: none !important; }
