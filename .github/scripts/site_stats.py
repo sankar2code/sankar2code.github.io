@@ -71,17 +71,33 @@ def main():
     per_day = {d: int(n) for d, n in hist.get("days") or [] if d < SINCE}
     gc_start = max(since, win_start)
     events = int(hist.get("events") or 0) if (hist.get("days") or [["9999"]])[-1][0] >= win_start.isoformat() else 0
+    top_events = []
     if gc_start <= today:
-        tot = get_range("/stats/total", gc_start, today)
-        events += int(tot.get("total") or 0) + int(tot.get("total_events") or 0)
-        for s in tot.get("stats") or []:
-            day = (s.get("day") or "")[:10]
-            if not day:
+        # Per-path stats: page paths give daily visitors; event paths
+        # (clicks sent by the site, e.g. "project-ctm-agentic") give events.
+        res = get_range("/stats/hits", gc_start, today, limit=100)
+        hits = res.get("hits") or []
+        if res.get("more"):
+            print("warning: more than 100 paths; extra event paths not counted")
+        page_visits = clicks = 0
+        for h in hits:
+            if h.get("event"):
+                n = int(h.get("count") or 0)
+                clicks += n
+                top_events.append([h.get("path") or "", n])
                 continue
-            n = s.get("daily")
-            if n is None:
-                n = sum(s.get("hourly") or [])
-            per_day[day] = per_day.get(day, 0) + int(n)
+            for st in h.get("stats") or []:
+                day = (st.get("day") or "")[:10]
+                if not day:
+                    continue
+                n = st.get("daily")
+                if n is None:
+                    n = sum(st.get("hourly") or [])
+                per_day[day] = per_day.get(day, 0) + int(n)
+                page_visits += int(n)
+        # Same meaning as Google Analytics' event count: page views + interactions.
+        events += page_visits + clicks
+        top_events.sort(key=lambda x: -x[1])
 
     first = min([d for d in per_day] + [gc_start.isoformat()])
     start = max(win_start, dt.date.fromisoformat(first))
@@ -121,6 +137,7 @@ def main():
         "period": period,
         "total": total,
         "events": events,
+        "top_events": top_events[:10],
         "days": days,
         "countries": countries,
         "countries_total": max(ctotal, sum(counts.values())),

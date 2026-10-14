@@ -8875,5 +8875,50 @@
     .catch(() => start(null));
 })();
 </script>
+<script>
+/* ─── GoatCounter click events: feeds "Event count" in Site Snapshot ─── */
+(function () {
+  const last = {};
+  function track(name, title) {
+    name = String(name).toLowerCase().replace(/[^a-z0-9._\-\/]+/g, '-').replace(/-+/g, '-').slice(0, 120);
+    const now = Date.now();
+    if (last[name] && now - last[name] < 1500) return;   // ignore double clicks
+    last[name] = now;
+    try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: title || name, event: true }); } catch (e) { /* never break the page */ }
+  }
+  window.trackEvent = track;
+  document.addEventListener('click', function (e) {
+    const t = e.target;
+    if (!t || !t.closest) return;
+    const card = t.closest('.project-card[onclick]');
+    if (card) {
+      const m = (card.getAttribute('onclick') || '').match(/openProjectModal\([^,]*,\s*'([^']+)'/);
+      const h = card.querySelector('h3');
+      if (m) track('project-' + m[1].replace(/-modal$/, ''), 'Opened project: ' + (h ? h.textContent.trim() : m[1]));
+    }
+    const intent = t.closest('.ch-intent');
+    if (intent) track('contact-intent-' + (intent.dataset.tag || 'other'), 'Contact intent: ' + (intent.dataset.tag || ''));
+    if (t.closest('#contact-form-toggle-btn')) track('contact-open-form', 'Opened contact form');
+    const a = t.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href') || '';
+    if (/^mailto:/i.test(href)) return track('link-email', 'Email link');
+    if (/\.(pdf|pptx|mov)([?#]|$)/i.test(href)) {
+      const f = decodeURIComponent(href.split(/[?#]/)[0].split('/').pop());
+      return track('download-' + f, 'Downloaded ' + f);
+    }
+    if (a.closest('#live-post-list')) return track('live-post-' + href.replace(/^https?:\/\/(www\.)?/, ''), 'Live Post: ' + ((a.querySelector('.ship-text') || a).textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80));
+    let u;
+    try { u = new URL(href, location.href); } catch (_) { return; }
+    if (!/^https?:$/.test(u.protocol) || u.host === location.host) return;
+    const host = u.host.replace(/^www\./, '');
+    let name = 'outbound-' + host;
+    if (/(^|\.)linkedin\.com$/.test(host) && /^\/in\//.test(u.pathname)) name = 'link-linkedin-profile';
+    else if (host === 'github.com') name = 'link-github' + u.pathname.split('/').slice(0, 3).join('/');
+    else if (/substack\.com$/.test(host)) name = 'link-substack';
+    track(name, 'Outbound: ' + host + u.pathname);
+  }, true);
+})();
+</script>
 </body>
 </html>
