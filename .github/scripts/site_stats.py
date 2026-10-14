@@ -40,17 +40,17 @@ def get(path, params):
             if e.code == 429 and attempt < 3:
                 time.sleep(5 * (attempt + 1))
                 continue
-            raise
+            body = e.read().decode("utf-8", "replace")[:500]
+            sys.exit(f"GoatCounter API {path} failed: HTTP {e.code}: {body}")
 
 
 def get_range(path, start, end, **extra):
-    """GoatCounter accepts plain dates; fall back to RFC 3339 if it doesn't."""
-    try:
-        return get(path, {"start": start.isoformat(), "end": end.isoformat(), **extra})
-    except urllib.error.HTTPError as e:
-        if e.code != 400:
-            raise
-        return get(path, {"start": f"{start}T00:00:00Z", "end": f"{end}T23:59:59Z", **extra})
+    """GoatCounter wants RFC 3339 times rounded to the hour, not in the future."""
+    now = dt.datetime.now(dt.timezone.utc).replace(minute=0, second=0, microsecond=0)
+    stop = min(now, dt.datetime.combine(end, dt.time(23), tzinfo=dt.timezone.utc))
+    fmt = "%Y-%m-%dT%H:%M:%SZ"
+    begin = dt.datetime.combine(start, dt.time(0), tzinfo=dt.timezone.utc)
+    return get(path, {"start": begin.strftime(fmt), "end": stop.strftime(fmt), **extra})
 
 
 def main():
