@@ -621,6 +621,25 @@
   </div>
   <div class="projects-grid reveal">
 
+    <!-- Pre-Authorization Decision Support (Q4 2026) -->
+    <div class="project-card project-card--interactive" data-cat="genai agentic" onclick="openProjectModal(event, 'preauth-modal')">
+      <div class="project-header ph-1">📋</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-live">● Live Demo</span>
+          <span class="tag tag-coral">GenAI · Healthcare UM</span>
+          <span class="tag tag-purple">Human-in-the-loop</span>
+          <span class="tag tag-gold">Q4 2026</span>
+        </div>
+        <h3>Prior Authorization Decision Support</h3>
+        <div class="project-pills">
+          <span class="project-pill">Clickable source citations</span>
+          <span class="project-pill">Nurse stays the decider</span>
+          <span class="project-pill">5 golden-set cases</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Agentic Clinical Trial Matching (Q4 2026) -->
     <div class="project-card project-card--interactive" data-cat="genai agentic" onclick="openProjectModal(event, 'ctm-agentic-modal')">
       <div class="project-header ph-3">🩺</div>
@@ -1386,6 +1405,73 @@
   </div>
 </div>
 
+
+<!-- ───────────────────────────────────────────
+  PRIOR AUTHORIZATION MODAL
+──────────────────────────────────────────── -->
+<div class="modal-backdrop" id="preauth-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">📋 Prior Authorization Decision Support</div>
+        <div class="modal-tags">
+          <span class="tag tag-coral">GenAI · Healthcare UM</span>
+          <span class="tag tag-purple">Human-in-the-loop</span>
+          <span class="modal-year">Q4 2026</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeProjectModal('preauth-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Utilization management nurses read multi-page clinical packets by hand to decide inpatient level of care, and a reviewer can't trust an AI answer that doesn't show where it came from.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Extract the facts, match them to a hierarchy of criteria (NCD, LCD, payer policy, MCG), and cite the exact page and sentence for every finding. Ambiguous criteria are never guessed.</p>
+        <p><span class="qs-label qs-result">Result</span>A working end-to-end prototype across five golden-set cases: clean approval, provider clarification (standard and expedited), medical-director escalation, and a packet that fails to parse and routes to manual review.</p>
+      </div>
+
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Prior authorization review is slow because the evidence is buried in faxes, H&amp;Ps, cardiology clearances, labs and orders. Nurses have to find each fact, check it against layered coverage criteria, and defend the decision later. AI that summarizes without sources is unusable here: every assertion has to be traceable, and the cases that need judgment have to reach a human.</p>
+        </div>
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>A guided flow of extraction, criteria matching, review and determination, with a shared case header and audit trail throughout. Each criterion shows its status, the governing policy tier (NCD, then LCD, then payer policy, then MCG) and a clickable citation that opens the actual packet PDF with the cited sentence highlighted. An "Ask about this document" panel answers questions about the packet with links back into the source. A review-tier banner explains in plain language why a case needs a clarification request, an escalation to a medical director, or is ready to approve. The nurse, or for higher-risk cases a medical director, always makes the final call. Built with React 19, Vite and Tailwind v4, with pdf.js for in-browser rendering and highlighting. It runs on synthetic data with scripted behavior and no backend; it is not a clinical tool.</p>
+        </div>
+      </details>
+
+      <div class="modal-section">
+        <h4>Business Value</h4>
+        <div class="modal-impact">⚡ Every finding is traceable to a page and sentence, so reviewers verify instead of re-reading ✦ Review tiers route ambiguous and high-risk cases to the right human rather than auto-deciding ✦ Failure states (unparseable packets) are designed in and route to manual review</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>Cite or abstain over best-guess answers.</strong> Reviewers can trust every checkmark. <span class="to-cost">Gives up: More criteria land with a human instead of being auto-resolved.</span></li>
+          <li><strong>Scripted demo behavior over a live model.</strong> Deterministic, repeatable walkthroughs of all five cases. <span class="to-cost">Gives up: Not evidence of extraction accuracy on real packets.</span></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>Documents</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="https://github.com/sankar2code/Pre-Authorization" target="_blank" rel="noopener" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#6366f1);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub Repo
+          </a>
+          <a href="https://sankar.work/Pre-Authorization/" target="_blank" rel="noopener" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#06b6d4);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Live Demo
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- ───────────────────────────────────────────
   COMPLIANCE LEASE TOOL MODAL
@@ -7168,7 +7254,7 @@
   const ICON = { hub: '🙂', Companies: '🏢', Industries: '🏭', Skills: '🧠', Tools: '🛠️', Projects: '🚀', Certifications: '🎓', Impact: '📈' };
   const MODAL = {
     'ClinicalAI-TrialAnalysis': 'clinicaltrialanalysis-modal', 'Agentic Clinical Trial Matching': 'ctm-agentic-modal', 'ContractIQ': 'contractiq-modal',
-    'Company Comparison': 'companycomparison-modal', 'ProjectPilot AI': 'projectpilot-modal', 'Compliance Lease Tool': 'complianceleasetool-modal',
+    'Company Comparison': 'companycomparison-modal', 'ProjectPilot AI': 'projectpilot-modal', 'Compliance Lease Tool': 'complianceleasetool-modal', 'Prior Authorization Decision Support': 'preauth-modal',
     'Enterprise AI Data Copilot': 'datacopilot-modal', 'ScienceAI': 'scienceai-modal', 'Ad Genie': 'adgenie-modal', 'AI Analyst Builder': 'analyst-modal', 'SurveAI': 'feedback-modal'
   };
 
@@ -7206,6 +7292,7 @@
     ['ContractIQ', 'Projects', 2026, 'Contract review with cited terms · built with Claude Code · live app'],
     ['Company Comparison', 'Projects', 2026, 'BYOK equity research with live citations · live app'],
     ['ProjectPilot AI', 'Projects', 2026, 'AI project-management SaaS · live app'],
+    ['Prior Authorization Decision Support', 'Projects', 2026, 'Cited criteria matching for UM nurses, human decides · live demo'],
     ['Compliance Lease Tool', 'Projects', 2026, 'Lease compliance shipped as a Claude Skill'],
     ['Enterprise AI Data Copilot', 'Projects', 2026, 'Four agents; deterministic engines own the truth · now building'],
     ['ScienceAI', 'Projects', 2026, 'RAG research platform with audio summaries'],
