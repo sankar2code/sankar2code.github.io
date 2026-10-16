@@ -635,7 +635,7 @@
         <div class="project-pills">
           <span class="project-pill">Clickable source citations</span>
           <span class="project-pill">Nurse stays the decider</span>
-          <span class="project-pill">5 golden-set cases</span>
+          <span class="project-pill">6 golden-set cases</span>
         </div>
       </div>
     </div>
@@ -1427,7 +1427,7 @@
       <div class="modal-quicksum">
         <p><span class="qs-label qs-problem">Problem</span>Utilization management nurses read multi-page clinical packets by hand to decide inpatient level of care, and a reviewer can't trust an AI answer that doesn't show where it came from.</p>
         <p><span class="qs-label qs-approach">Approach</span>Extract the facts, match them to a hierarchy of criteria (NCD, LCD, payer policy, MCG), and cite the exact page and sentence for every finding. Ambiguous criteria are never guessed.</p>
-        <p><span class="qs-label qs-result">Result</span>A working end-to-end prototype across five golden-set cases: clean approval, provider clarification (standard and expedited), medical-director escalation, and a packet that fails to parse and routes to manual review.</p>
+        <p><span class="qs-label qs-result">Result</span>A working end-to-end prototype across six golden-set cases: clean approval, provider clarification (standard and expedited), medical-director escalation, and a packet that fails to parse and routes to manual review.</p>
       </div>
 
       <details class="modal-details">
@@ -1451,13 +1451,17 @@
         <h4>Trade-Offs</h4>
         <ul class="modal-tradeoffs">
           <li><strong>Cite or abstain over best-guess answers.</strong> Reviewers can trust every checkmark. <span class="to-cost">Gives up: More criteria land with a human instead of being auto-resolved.</span></li>
-          <li><strong>Scripted demo behavior over a live model.</strong> Deterministic, repeatable walkthroughs of all five cases. <span class="to-cost">Gives up: Not evidence of extraction accuracy on real packets.</span></li>
+          <li><strong>Scripted demo behavior over a live model.</strong> Deterministic, repeatable walkthroughs of all six cases. <span class="to-cost">Gives up: Not evidence of extraction accuracy on real packets.</span></li>
         </ul>
       </div>
 
       <div class="modal-section">
         <h4>Documents</h4>
         <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="Pre-Authorization-PRD.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            PRD
+          </a>
           <a href="https://github.com/sankar2code/Pre-Authorization" target="_blank" rel="noopener" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#6366f1);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
             GitHub Repo
