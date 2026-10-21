@@ -621,6 +621,25 @@
   </div>
   <div class="projects-grid reveal">
 
+    <!-- Pilot-to-Scale Toolkit (Q4 2026) -->
+    <div class="project-card project-card--interactive" data-cat="genai" onclick="openProjectModal(event, 'pilotscale-modal')">
+      <div class="project-header ph-2">🧭</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag tag-live">● Live App</span>
+          <span class="tag tag-coral">AI Transformation · Pilot to Scale</span>
+          <span class="tag tag-purple">Pharma mode</span>
+          <span class="tag tag-gold">Q4 2026</span>
+        </div>
+        <h3>Pilot-to-Scale Toolkit</h3>
+        <div class="project-pills">
+          <span class="project-pill">Diagnose, prioritise, workshop</span>
+          <span class="project-pill">PowerPoint + live-formula Excel</span>
+          <span class="project-pill">No login, stays in the browser</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Pre-Authorization Decision Support (Q4 2026) -->
     <div class="project-card project-card--interactive" data-cat="genai agentic" onclick="openProjectModal(event, 'preauth-modal')">
       <div class="project-header ph-1">📋</div>
@@ -1405,6 +1424,78 @@
   </div>
 </div>
 
+
+<!-- ───────────────────────────────────────────
+  PILOT-TO-SCALE TOOLKIT MODAL
+──────────────────────────────────────────── -->
+<div class="modal-backdrop" id="pilotscale-modal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">🧭 Pilot-to-Scale Toolkit</div>
+        <div class="modal-tags">
+          <span class="tag tag-coral">AI Transformation · Pilot to Scale</span>
+          <span class="tag tag-purple">Pharma mode</span>
+          <span class="modal-year">Q4 2026</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeProjectModal('pilotscale-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-quicksum">
+        <p><span class="qs-label qs-problem">Problem</span>Most AI programmes stall between pilot and scale: there's no shared view of readiness, too many pilots run at once, and leaders aren't aligned on which ones matter.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Three connected tools. A readiness diagnostic with a weakest-link stage and a 90-day roadmap, a use case prioritiser that maps value against feasibility and stops the shortlist at three, and a workshop designer that turns the shortlist into a timed agenda.</p>
+        <p><span class="qs-label qs-result">Result</span>A live app with a fictional pharma sample company, exports to PowerPoint, Excel with live formulas, PDF and Markdown, and 76 automated tests including a WCAG 2.1 AA accessibility audit.</p>
+      </div>
+
+      <details class="modal-details">
+        <summary>Read the full write-up</summary>
+        <div class="modal-section">
+          <h4>Problem Statement</h4>
+          <p>Leaders asking "how do we move AI from pilot to scale?" usually have scattered pilots, no baseline and no agreed criteria for what to fund next. Generic maturity surveys produce a score but no decision, and prioritisation spreadsheets rarely connect to the readiness gaps that will make a pilot fail.</p>
+        </div>
+        <div class="modal-section">
+          <h4>Solution</h4>
+          <p>Each tool feeds the next. Diagnostic gaps raise warnings on risky use cases in the prioritiser, and the shortlist becomes the content of the workshop agenda, down to a pre-mortem on the top pilot. Scoring is transparent: every formula is shown, feasibility weights are adjustable, and the maturity stage can never run more than one step ahead of the weakest area. An optional life-sciences mode adds GxP validation, 21 CFR Part 11 data integrity and human-oversight questions with matching roadmap actions. Optional Claude features tailor the roadmap and suggest use cases and scores; the organisation name is never sent, each visitor consents once, and every response is validated before it's shown. Built with Next.js 16, React 19, TypeScript and Tailwind. There is no login and no database: work stays in the browser and can be saved to a file.</p>
+        </div>
+      </details>
+
+      <div class="modal-section">
+        <h4>Business Value</h4>
+        <div class="modal-impact">⚡ Turns a readiness conversation into a scored baseline, three named pilots and a workshop agenda in about ten minutes ✦ Exports drop straight into a leadership pack: an 8-slide deck and an Excel model that recalculates when weights change ✦ Life-sciences mode puts validation and data integrity on the roadmap from day one</div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Trade-Offs</h4>
+        <ul class="modal-tradeoffs">
+          <li><strong>Browser-only over accounts and a database.</strong> No login and nothing stored on a server. <span class="to-cost">Gives up: Work lives in one browser unless saved to a file.</span></li>
+          <li><strong>Rule-based scoring first, AI as an option.</strong> Every score is explainable and the app works without a key. <span class="to-cost">Gives up: Tailored wording only when AI is switched on.</span></li>
+          <li><strong>Three pilots at most.</strong> The first pilots get real attention. <span class="to-cost">Gives up: Good ideas wait in "next in line".</span></li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <h4>Documents</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+          <a href="https://scale-toolkit.sankar.work" target="_blank" rel="noopener" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Live App
+          </a>
+          <a href="https://github.com/sankar2code/Pilot-to-Scale-Toolkit" target="_blank" rel="noopener" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#6366f1);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            GitHub Repo
+          </a>
+          <a href="https://github.com/sankar2code/Pilot-to-Scale-Toolkit/blob/main/docs/phase-0-spec.md" target="_blank" rel="noopener" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#06b6d4);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Spec
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- ───────────────────────────────────────────
   PRIOR AUTHORIZATION MODAL
@@ -7276,7 +7367,7 @@
   const ICON = { hub: '🙂', Companies: '🏢', Industries: '🏭', Skills: '🧠', Tools: '🛠️', Projects: '🚀', Certifications: '🎓', Impact: '📈' };
   const MODAL = {
     'ClinicalAI-TrialAnalysis': 'clinicaltrialanalysis-modal', 'Agentic Clinical Trial Matching': 'ctm-agentic-modal', 'ContractIQ': 'contractiq-modal',
-    'Company Comparison': 'companycomparison-modal', 'ProjectPilot AI': 'projectpilot-modal', 'Compliance Lease Tool': 'complianceleasetool-modal', 'Prior Authorization Decision Support': 'preauth-modal',
+    'Company Comparison': 'companycomparison-modal', 'ProjectPilot AI': 'projectpilot-modal', 'Compliance Lease Tool': 'complianceleasetool-modal', 'Prior Authorization Decision Support': 'preauth-modal', 'Pilot-to-Scale Toolkit': 'pilotscale-modal',
     'Enterprise AI Data Copilot': 'datacopilot-modal', 'ScienceAI': 'scienceai-modal', 'Ad Genie': 'adgenie-modal', 'AI Analyst Builder': 'analyst-modal', 'SurveAI': 'feedback-modal'
   };
 
@@ -7315,6 +7406,7 @@
     ['Company Comparison', 'Projects', 2026, 'BYOK equity research with live citations · live app'],
     ['ProjectPilot AI', 'Projects', 2026, 'AI project-management SaaS · live app'],
     ['Prior Authorization Decision Support', 'Projects', 2026, 'Cited criteria matching for UM nurses, human decides · live demo'],
+    ['Pilot-to-Scale Toolkit', 'Projects', 2026, 'Readiness diagnostic, use case prioritiser, workshop designer · live app'],
     ['Compliance Lease Tool', 'Projects', 2026, 'Lease compliance shipped as a Claude Skill'],
     ['Enterprise AI Data Copilot', 'Projects', 2026, 'Four agents; deterministic engines own the truth · now building'],
     ['ScienceAI', 'Projects', 2026, 'RAG research platform with audio summaries'],
@@ -7359,7 +7451,8 @@
     ['Agentic Clinical Trial Matching', 'Compliance (GxP)'], ['Enterprise AI Data Copilot', 'Compliance (GxP)'], ['Enterprise AI Data Copilot', 'Data & Analytics'],
     ['AI Analyst Builder', 'Data & Analytics'], ['SurveAI', 'AI/ML Product'], ['ClinicalAI-TrialAnalysis', 'AI/ML Product'], ['ContractIQ', 'AI/ML Product'],
     ['Ad Genie', 'Maven Agentic AI PM'], ['Compliance Lease Tool', 'Claude Code'], ['Company Comparison', 'AI/ML Product'], ['ProjectPilot AI', 'Product Ownership'],
-    ['Jira / Confluence', 'SAFe / Agile']
+    ['Jira / Confluence', 'SAFe / Agile'],
+    ['Pilot-to-Scale Toolkit', 'Next.js'], ['Pilot-to-Scale Toolkit', 'Pharma & Life Sciences'], ['Pilot-to-Scale Toolkit', 'Compliance (GxP)'], ['Pilot-to-Scale Toolkit', 'Product Ownership']
   ].forEach(([a, b]) => add(a, b, 1));
 
   const byId = Object.fromEntries(N.map((n) => [n.id, n]));
@@ -7644,6 +7737,11 @@
 
   /* 2. Architecture X-ray - 3D flip, timeline back */
   var XR = {
+    'Pilot-to-Scale Toolkit': [
+      ['io', 'Input', 'Profile, 12–15 answers, use cases · stays in the browser'],
+      ['det', 'Scoring · rules', 'Weakest-link stage, value × feasibility, timed agenda'],
+      ['llm', 'Tailoring · AI', 'Optional; every reply validated before display'],
+      ['hum', 'Leader · human', 'Accepts each suggestion and runs the workshop']],
     'Prior Authorization Decision Support': [
       ['io', 'Input', 'Faxed packet PDF · unreadable goes to manual review'],
       ['llm', 'Extraction · AI', 'Procedure, comorbidities, clearance, length of stay'],
