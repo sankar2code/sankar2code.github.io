@@ -6766,13 +6766,16 @@
     })(t0);
   }
 
-  // Wait (max ~2s) until the smooth scroll has actually reached the top
+  // Wait until the smooth scroll has actually reached the top. Phones (esp. iOS Safari)
+  // can take several seconds to smooth-scroll a long page and may settle a few px off 0,
+  // so allow up to 6s and a small tolerance; after 4s fire anyway if the hero is in view.
   function whenAtTop(fn) {
     const t0 = performance.now();
     (function chk(now) {
-      if (window.scrollY <= 4) fn();
-      else if (now - t0 < 2000) requestAnimationFrame(chk);
-    })(t0);
+      const el = now - t0, y = window.scrollY || document.documentElement.scrollTop || 0;
+      if (y <= 12 || (el > 4000 && y < window.innerHeight * 0.5)) fn();
+      else if (el < 6000) requestAnimationFrame(chk);
+    })(performance.now());
   }
 
   // Hyperspace arrival: star streaks burst from the hero, then hero content zooms back in
