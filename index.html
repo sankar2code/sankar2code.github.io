@@ -1543,8 +1543,8 @@
       <div class="modal-section">
         <h4>Trade-Offs</h4>
         <ul class="modal-tradeoffs">
+          <li><strong>Transparency over guaranteed accuracy.</strong> Live status and a cost estimate build trust and cut "where's my authorization" calls. Costs stay hidden until approval, are labeled as an estimate, and show the out-of-pocket maximum as a hard ceiling. <span class="to-cost">Gives up: The estimate relies on deductible data that can be days old, and a wrong number costs more trust than none. In production, deductibles would refresh before showing it.</span></li>
           <li><strong>Cite or abstain over best-guess answers.</strong> Reviewers can trust every checkmark. <span class="to-cost">Gives up: More criteria land with a human instead of being auto-resolved.</span></li>
-          <li><strong>Scripted demo behavior over a live model.</strong> Deterministic, repeatable walkthroughs of all six cases. <span class="to-cost">Gives up: Not evidence of extraction accuracy on real packets.</span></li>
           <li><strong>A generated, indexed packet over hand-made PDFs.</strong> Citations come from an index and a script verifies every quote, so a rebuilt packet can't break a citation. <span class="to-cost">Gives up: Clean synthetic pages, not real fax noise.</span></li>
         </ul>
       </div>
