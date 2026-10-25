@@ -736,26 +736,6 @@
       </div>
     </div>
 
-    <!-- 1: ProjectPilot AI (Q3 2026) -->
-    <div class="project-card project-card--interactive project-card--featured" data-cat="genai" onclick="openProjectModal(event, 'projectpilot-modal')">
-      <div class="project-header ph-4">🚀</div>
-      <div class="project-body">
-        <div class="project-tags">
-          <span class="tag tag-live">● Live App</span>
-          <span class="tag tag-coral">GenAI · Project Management</span>
-          <span class="tag tag-gold">Q3 2026</span>
-        </div>
-        <h3>ProjectPilot AI – AI-Powered Project Management</h3>
-        <div class="project-pills">
-          <span class="project-pill">Fast Kanban</span>
-          <span class="project-pill">Real-time sync</span>
-          <span class="project-pill">AI insights</span>
-          <span class="project-pill">Less overhead</span>
-          <span class="project-pill">One tool</span>
-        </div>
-      </div>
-    </div>
-
     <!-- 2: ScienceAI (Q2 2026) -->
     <div class="project-card project-card--interactive" data-cat="genai" onclick="openProjectModal(event, 'scienceai-modal')">
       <div class="project-header ph-1">🔬</div>
@@ -1818,76 +1798,6 @@
           <a href="https://sankar.work/Ad-Genie/index.html" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#38bdf8,#06b6d4);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
             Mockup
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ───────────────────────────────────────────
-  PROJECTPILOT AI MODAL
-──────────────────────────────────────────── -->
-<div class="modal-backdrop" id="projectpilot-modal" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <div>
-        <div class="modal-title">🚀 ProjectPilot AI – AI-Powered Project Management</div>
-        <div class="modal-tags">
-          <span class="tag tag-coral">GenAI · Project Management</span>
-          <span class="tag tag-purple">Collaboration Platform</span>
-          <span class="tag tag-cyan">AI Assistant</span>
-          <span class="modal-year">Q3 2026</span>
-        </div>
-      </div>
-      <button class="modal-close" onclick="closeProjectModal('projectpilot-modal')">✕</button>
-    </div>
-    <div class="modal-body">
-
-      <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>Teams lose alignment across scattered PM tools with no AI-powered visibility into priorities or dependencies.</p>
-        <p><span class="qs-label qs-approach">Approach</span>Built an AI-powered Kanban platform with a backlog-aware assistant, real-time sync, and secure multi-tenant workspaces.</p>
-        <p><span class="qs-label qs-result">Result</span>A live, shipped SaaS product: teams get instant natural-language answers about their own backlog instead of digging through boards.</p>
-      </div>
-
-      <details class="modal-details">
-        <summary>Read the full write-up</summary>
-        <div class="modal-section">
-          <h4>Problem Statement</h4>
-          <p>Modern teams struggle with scattered project management tools that lack intelligent collaboration features. Teams lose alignment across multiple platforms, lack AI-powered insights into priorities and dependencies, spend time context-switching between tools, and can't quickly query their backlog or create issues from natural language. Project tracking becomes an overhead burden instead of a tool that accelerates shipping.</p>
-        </div>
-
-        <div class="modal-section">
-          <h4>Solution</h4>
-          <p>ProjectPilot AI is an AI-powered project management platform combining visual Kanban boards, real-time collaboration, and an intelligent AI assistant. Features include drag-and-drop Kanban boards with unlimited columns, AI assistant that understands your entire backlog and creates issues from natural language, real-time sync powered by Supabase Realtime, secure multi-tenant team workspaces with granular role management (owner, admin, member), and simple flat-rate pricing per workspace (not per seat). The AI knows every issue, priority, and assignee, enabling instant answers to "What are the urgent issues?" and "Who has the most work assigned?"</p>
-        </div>
-      </details>
-
-      <div class="modal-section">
-        <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Teams move fast with visual Kanban boards · Stay aligned with live, real-time collaboration · Ship together with AI-powered project insights · Reduce project overhead and context-switching · One tool replaces scattered workflows</div>
-      </div>
-
-      <div class="modal-section">
-        <h4>Trade-Offs</h4>
-        <ul class="modal-tradeoffs">
-          <li><strong>Flat rate per workspace over per-seat pricing.</strong> Easy to adopt as a team grows. <span class="to-cost">Gives up: Revenue doesn't scale with headcount.</span></li>
-          <li><strong>Supabase Realtime over a custom sync layer.</strong> Shipped faster with less infrastructure. <span class="to-cost">Gives up: Tied to Supabase.</span></li>
-          <li><strong>An assistant that reads the whole backlog.</strong> Precise answers about the team's own work. <span class="to-cost">Gives up: Context grows with the backlog.</span></li>
-        </ul>
-      </div>
-
-<div class="modal-section">
-        <h4>Documents</h4>
-        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
-          <a href="https://app.sankar.work/ProjectPilotAI" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-            Live App
-          </a>
-          <a href="ProjectPilotAI-PRD.pdf" target="_blank" class="modal-download" style="background:linear-gradient(135deg,#2563eb,#38bdf8);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-            PRD
           </a>
         </div>
       </div>
@@ -7386,7 +7296,7 @@
   const ICON = { hub: '🙂', Companies: '🏢', Industries: '🏭', Skills: '🧠', Tools: '🛠️', Projects: '🚀', Certifications: '🎓', Impact: '📈' };
   const MODAL = {
     'ClinicalAI-TrialAnalysis': 'clinicaltrialanalysis-modal', 'Agentic Clinical Trial Matching': 'ctm-agentic-modal', 'ContractIQ': 'contractiq-modal',
-    'Company Comparison': 'companycomparison-modal', 'ProjectPilot AI': 'projectpilot-modal', 'Compliance Lease Tool': 'complianceleasetool-modal', 'Prior Authorization AI': 'preauth-modal', 'Pilot-to-Scale Toolkit': 'pilotscale-modal',
+    'Company Comparison': 'companycomparison-modal', 'Compliance Lease Tool': 'complianceleasetool-modal', 'Prior Authorization AI': 'preauth-modal', 'Pilot-to-Scale Toolkit': 'pilotscale-modal',
     'Enterprise AI Data Copilot': 'datacopilot-modal', 'ScienceAI': 'scienceai-modal', 'Ad Genie': 'adgenie-modal', 'AI Analyst Builder': 'analyst-modal', 'SurveAI': 'feedback-modal'
   };
 
@@ -7423,7 +7333,6 @@
     ['Agentic Clinical Trial Matching', 'Projects', 2026, 'Criterion-scored matching + agentic layer, clinician-approved · live app'],
     ['ContractIQ', 'Projects', 2026, 'Contract review with cited terms · built with Claude Code · live app'],
     ['Company Comparison', 'Projects', 2026, 'BYOK equity research with live citations · live app'],
-    ['ProjectPilot AI', 'Projects', 2026, 'AI project-management SaaS · live app'],
     ['Prior Authorization AI', 'Projects', 2026, 'Cited criteria matching for UM nurses + patient portal · live demo'],
     ['Pilot-to-Scale Toolkit', 'Projects', 2026, 'Readiness diagnostic, use case prioritiser, workshop designer · live app'],
     ['Compliance Lease Tool', 'Projects', 2026, 'Lease compliance shipped as a Claude Skill'],
@@ -7464,12 +7373,12 @@
     ['SAFe / Agile', 'SAFe 6 POPM'], ['SAFe / Agile', 'CSP-PO'], ['SAFe / Agile', 'CSM'], ['Product Ownership', 'A-CSPO'], ['Product Ownership', 'CSP-PO'],
     ['AI/ML Product', 'AWS Gen AI Developer – Pro'], ['AI/ML Product', 'Maven Agentic AI PM'], ['AI/ML Product', 'MIT No-Code AI & ML'],
     ['AI/ML Product', 'AWS AI Practitioner'], ['AI/ML Product', 'Anthropic AI Fluency'], ['Product Ownership', 'MIT Design Thinking'],
-    ['ContractIQ', 'Claude Code'], ['ProjectPilot AI', 'Supabase'], ['ProjectPilot AI', 'Claude Code'], ['Enterprise AI Data Copilot', 'Langflow'],
+    ['ContractIQ', 'Claude Code'], ['Enterprise AI Data Copilot', 'Langflow'],
     ['Enterprise AI Data Copilot', 'n8n'], ['ScienceAI', 'Langflow'], ['ScienceAI', 'RAG & Vector Search'], ['ScienceAI', 'Next.js'],
     ['Agentic Clinical Trial Matching', 'Next.js'], ['ClinicalAI-TrialAnalysis', 'Pharma & Life Sciences'], ['Agentic Clinical Trial Matching', 'Pharma & Life Sciences'],
     ['Agentic Clinical Trial Matching', 'Compliance (GxP)'], ['Enterprise AI Data Copilot', 'Compliance (GxP)'], ['Enterprise AI Data Copilot', 'Data & Analytics'],
     ['AI Analyst Builder', 'Data & Analytics'], ['SurveAI', 'AI/ML Product'], ['ClinicalAI-TrialAnalysis', 'AI/ML Product'], ['ContractIQ', 'AI/ML Product'],
-    ['Ad Genie', 'Maven Agentic AI PM'], ['Compliance Lease Tool', 'Claude Code'], ['Company Comparison', 'AI/ML Product'], ['ProjectPilot AI', 'Product Ownership'],
+    ['Ad Genie', 'Maven Agentic AI PM'], ['Compliance Lease Tool', 'Claude Code'], ['Company Comparison', 'AI/ML Product'],
     ['Jira / Confluence', 'SAFe / Agile'],
     ['Pilot-to-Scale Toolkit', 'Next.js'], ['Pilot-to-Scale Toolkit', 'Pharma & Life Sciences'], ['Pilot-to-Scale Toolkit', 'Compliance (GxP)'], ['Pilot-to-Scale Toolkit', 'Product Ownership']
   ].forEach(([a, b]) => add(a, b, 1));
@@ -7786,11 +7695,6 @@
       ['llm', 'Extraction · AI', 'Key terms in JSON, low temperature'],
       ['det', 'Guardrails · rules', 'Retry loop, "not found" tests, calibration'],
       ['hum', 'Reviewer · human', 'Confidence, page, source sentence for each term']],
-    'ProjectPilot AI': [
-      ['io', 'UI', 'Drag-and-drop Kanban boards'],
-      ['det', 'Data · rules', 'Supabase Realtime + role-based workspaces'],
-      ['llm', 'Assistant · AI', 'Answers backlog questions, creates issues'],
-      ['hum', 'Team · human', 'Owners and admins stay in control']],
     'ScienceAI': [
       ['io', 'Sources', 'Papers, trials, conferences, competitors'],
       ['det', 'Retrieval · rules', 'Langflow RAG over a GraphDB'],
