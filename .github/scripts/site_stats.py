@@ -67,9 +67,13 @@ def main():
     since = dt.date.fromisoformat(SINCE)
     win_start = today - dt.timedelta(days=WINDOW - 1)
 
-    # Daily counts: history first, GoatCounter overrides from SINCE on.
-    per_day = {d: int(n) for d, n in hist.get("days") or [] if d < SINCE}
+    # Daily counts: imported Google Analytics history is authoritative up to its
+    # last day (hist "end"); GoatCounter fills every day after that.
+    hist_days = hist.get("days") or []
+    hist_end = hist.get("end") or (hist_days[-1][0] if hist_days else (since - dt.timedelta(days=1)).isoformat())
+    per_day = {d: int(n) for d, n in hist_days if d <= hist_end}
     gc_start = max(since, win_start)
+    gc_count_from = max(gc_start, dt.date.fromisoformat(hist_end) + dt.timedelta(days=1))
     events = int(hist.get("events") or 0) if (hist.get("days") or [["9999"]])[-1][0] >= win_start.isoformat() else 0
     top_events = []
     if gc_start <= today:
@@ -82,19 +86,19 @@ def main():
         page_visits = clicks = 0
         for h in hits:
             if h.get("event"):
-                n = int(h.get("count") or 0)
-                clicks += n
-                top_events.append([h.get("path") or "", n])
-                continue
+                top_events.append([h.get("path") or "", int(h.get("count") or 0)])
             for st in h.get("stats") or []:
                 day = (st.get("day") or "")[:10]
-                if not day:
+                if not day or day < gc_count_from.isoformat():
                     continue
                 n = st.get("daily")
                 if n is None:
                     n = sum(st.get("hourly") or [])
-                per_day[day] = per_day.get(day, 0) + int(n)
-                page_visits += int(n)
+                if h.get("event"):
+                    clicks += int(n)
+                else:
+                    per_day[day] = per_day.get(day, 0) + int(n)
+                    page_visits += int(n)
         # Same meaning as Google Analytics' event count: page views + interactions.
         events += page_visits + clicks
         top_events.sort(key=lambda x: -x[1])
@@ -115,8 +119,8 @@ def main():
             counts[cid] += int(n)
             names[cid] = name
         ctotal += int(hist.get("countries_total") or sum(int(c[2]) for c in hist.get("countries") or []))
-    if gc_start <= today:
-        loc = get_range("/stats/locations", gc_start, today, limit=50)
+    if gc_count_from <= today:
+        loc = get_range("/stats/locations", gc_count_from, today, limit=50)
         for c in loc.get("stats") or loc.get("hits") or []:
             cid = (c.get("id") or "").strip()
             n = int(c.get("count") or 0)
