@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261025-8">
+  <link rel="stylesheet" href="styles.css?v=20261025-9">
 </head>
 <body>
 
@@ -6762,8 +6762,46 @@
         document.body.appendChild(p);
         setTimeout(() => p.remove(), 1100);
       }
-      if (t < 1) requestAnimationFrame(step); else f.remove();
+      if (t < 1) requestAnimationFrame(step); else { f.remove(); whenAtTop(hyperArrive); }
     })(t0);
+  }
+
+  // Wait (max ~2s) until the smooth scroll has actually reached the top
+  function whenAtTop(fn) {
+    const t0 = performance.now();
+    (function chk(now) {
+      if (window.scrollY <= 4) fn();
+      else if (now - t0 < 2000) requestAnimationFrame(chk);
+    })(t0);
+  }
+
+  // Hyperspace arrival: star streaks burst from the hero, then hero content zooms back in
+  function hyperArrive() {
+    const layer = document.createElement('div');
+    layer.className = 'hyper-layer'; layer.setAttribute('aria-hidden', 'true');
+    const cx = window.innerWidth / 2, cy = Math.min(window.innerHeight * 0.42, 380);
+    const reach = Math.hypot(window.innerWidth, window.innerHeight) * 0.6;
+    for (let i = 0; i < 70; i++) {
+      const l = document.createElement('i');
+      l.className = 'hyper-streak';
+      l.style.left = cx + 'px'; l.style.top = cy + 'px';
+      l.style.width = (60 + Math.random() * 120) + 'px';
+      l.style.setProperty('--a', (Math.random() * 360) + 'deg');
+      l.style.setProperty('--d', reach + 'px');
+      l.style.animationDelay = (Math.random() * 0.25) + 's';
+      layer.appendChild(l);
+    }
+    document.body.appendChild(layer);
+    setTimeout(() => layer.remove(), 1200);
+    if (heroInner) {
+      [...heroInner.children].forEach((el, i) => {
+        if (el.offsetParent === null) return;
+        el.animate(
+          [{ transform: 'scale(0.6)', opacity: 0, filter: 'blur(4px)' }, { transform: 'none', opacity: 1, filter: 'blur(0)' }],
+          { duration: 800, delay: 150 + i * 60, easing: 'cubic-bezier(.3,1.4,.5,1)', fill: 'backwards' }
+        );
+      });
+    }
   }
 
   if (backToTop) {

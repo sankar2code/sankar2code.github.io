@@ -1753,6 +1753,19 @@
       background: rgba(203,213,225,0.55);
       animation: rkPuff 1.1s ease-out forwards;
     }
+    .hyper-layer { position: fixed; inset: 0; z-index: 9997; pointer-events: none; overflow: hidden; }
+    .hyper-streak {
+      position: absolute; height: 1.5px; border-radius: 2px;
+      background: linear-gradient(90deg, transparent, #fff 70%, #7dd3fc);
+      transform-origin: left center; opacity: 0;
+      animation: hyperWarp 0.75s ease-in forwards;
+    }
+    html.light .hyper-streak { background: linear-gradient(90deg, transparent, #6366f1 70%, #2563eb); }
+    @keyframes hyperWarp {
+      from { transform: rotate(var(--a)) translateX(0) scaleX(0.1); opacity: 0; }
+      30%  { opacity: 1; }
+      to   { transform: rotate(var(--a)) translateX(var(--d)) scaleX(1); opacity: 0; }
+    }
     html.light .rk-puff { background: rgba(148,163,184,0.5); }
     @keyframes rkPuff {
       from { transform: scale(0.4); opacity: 0.9; }
