@@ -7801,3 +7801,4 @@ html.light .ss2-pin { fill: #fff; stroke: rgba(37,99,235,0.45); }
 .ss2-per > div { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 0.7rem 0.8rem; }
 .ss2-per .e { font-size: 1rem; } .ss2-per b { display: block; font: 700 1.35rem 'Space Grotesk', sans-serif; color: var(--white); margin-top: 2px; } .ss2-per small { font-size: 0.72rem; color: var(--muted); }
 html.light .ss2-per > div { background: #fff; }
+.hero-award.hero-award-wda img { width: 30px; height: 30px; border-radius: 50%; background: #fff; object-fit: contain; }
