@@ -7805,3 +7805,8 @@ html.light .ss2-per > div { background: #fff; }
 /* thinner Site of the Day pill */
 .hero-award.hero-award-sotd { padding: 0.15rem 0.9rem 0.15rem 0.2rem; font-size: 0.68rem; gap: 0.45rem; }
 .hero-award.hero-award-sotd img { width: 22px; height: 22px; }
+
+/* HBS x MIT Hackathon banner (Prior Authorization AI card) */
+.hackathon-banner { background: linear-gradient(90deg, #991b1b, #dc2626); color: #fff; font: 800 0.66rem 'Inter', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; padding: 0.4rem 0.6rem; }
+.tag-hackathon { background: rgba(220,38,38,0.16); color: #fca5a5; border: 1px solid rgba(248,113,113,0.35); }
+html.light .tag-hackathon { color: #b91c1c; }
