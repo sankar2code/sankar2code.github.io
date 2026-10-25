@@ -7749,3 +7749,18 @@ html.light .wda-stack.wda-left .wda-col {
 .wda-stack.wda-left .wda-panel { border-color: rgba(255,255,255,0.18); background: #000; }
 html.light .wda-stack.wda-left .wda-panel { background: #fff; }
 .wda-stack.wda-left .wda-tab { transition: transform .35s ease; }
+
+/* WDA ribbon on the right, stacked under the Awwwards ribbon (black, 53x171) */
+.wda-stack.wda-right { right: 0; top: calc(50% + 95px); transform: none; }
+.wda-stack.wda-right .wda-col,
+html.light .wda-stack.wda-right .wda-col {
+  width: 53px; height: 171px; padding: 10px 0 14px; gap: 10px; justify-content: flex-start;
+  background: #000; color: #fff; border: 0; border-radius: 0; box-shadow: none; animation: none;
+}
+.wda-stack.wda-right .wda-col img { width: 38px; height: 38px; }
+.wda-stack.wda-right .wda-heart, .wda-stack.wda-right .wda-burst, .wda-stack.wda-right .wda-go { display: none; }
+.wda-stack.wda-right .wda-label { margin-top: auto; font: 700 11px 'Inter', sans-serif; letter-spacing: 0.02em; text-transform: none; color: #fff; }
+.wda-stack.wda-right .wda-panel { border-color: rgba(255,255,255,0.18); background: #000; height: 171px; padding: 0.7rem 1rem; gap: 0.4rem; }
+html.light .wda-stack.wda-right .wda-panel { background: #fff; }
+.wda-stack.wda-right .wda-tab { transition: transform .35s ease; }
+@media (max-height: 560px) { .wda-stack.wda-right { display: none; } }
