@@ -7793,6 +7793,8 @@ html.light .wda-stack.wda-right .wda-panel { background: #fff; }
 @media (max-height: 560px) { .wda-stack.wda-right { display: none; } }
 /* Both ribbons now sit on the LEFT edge: Awwwards (inline left:0) with WDA stacked below */
 .wda-stack.wda-right.wda-left { left: 0; right: auto; align-items: flex-start; }
+/* Hide both award ribbons on phones */
+@media (max-width: 640px) { #awwwards, .wda-stack { display: none !important; } }
 
 /* ─── SITE SNAPSHOT v2 (weekly Google Analytics export) ─── */
 .ss2-wrap { margin-top: 1.5rem; }
