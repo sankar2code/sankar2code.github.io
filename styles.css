@@ -1737,12 +1737,26 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.12);
     }
 
-    #back-to-top.launch { animation: rocketLaunch 0.7s ease-in forwards; }
+    #back-to-top .btt-r { display: inline-block; }
+    #back-to-top.launch { opacity: 0; transform: scale(0.85); transition: opacity 0.35s 0.1s, transform 0.35s 0.1s; }
+    #back-to-top.launch .btt-r { visibility: hidden; }
 
-    @keyframes rocketLaunch {
-      0%   { transform: translateY(0) scale(1); opacity: 1; }
-      25%  { transform: translateY(4px) scale(0.94); }
-      100% { transform: translateY(-110px) scale(0.75); opacity: 0; }
+    /* flying rocket + smoke trail (spawned by JS on click) */
+    .rk-flyer {
+      position: fixed; z-index: 9999; pointer-events: none;
+      font-size: 1.35rem; line-height: 1; transform: rotate(-45deg);
+      filter: drop-shadow(0 0 6px rgba(251,146,60,0.7));
+    }
+    .rk-puff {
+      position: fixed; z-index: 9998; pointer-events: none;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: rgba(203,213,225,0.55);
+      animation: rkPuff 1.1s ease-out forwards;
+    }
+    html.light .rk-puff { background: rgba(148,163,184,0.5); }
+    @keyframes rkPuff {
+      from { transform: scale(0.4); opacity: 0.9; }
+      to   { transform: translate(var(--dx), 18px) scale(2.4); opacity: 0; }
     }
 
     /* ─── NAV SCROLLSPY UNDERLINE ───────────────── */

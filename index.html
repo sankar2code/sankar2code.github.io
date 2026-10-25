@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261025-7">
+  <link rel="stylesheet" href="styles.css?v=20261025-8">
 </head>
 <body>
 
@@ -4312,7 +4312,7 @@
 </section>
 
 <!-- ─── FOOTER ────────────────────────────── -->
-<button id="back-to-top" aria-label="Back to top">🚀</button>
+<button id="back-to-top" aria-label="Back to top"><span class="btt-r" aria-hidden="true">🚀</span></button>
 
 <footer>
   <p>© 2026 Sankar Kumar Palaniappan · Built with care <span class="fh" aria-hidden="true"><span class="fh-orb"><i></i><i></i><i></i><svg class="fh-beat" width="16" height="15" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12A5 5 0 0 1 12 6a5 5 0 0 1 9 3c0 6.4-9 12-9 12z"/></svg></span><svg class="fh-ecg" width="52" height="16" viewBox="0 0 56 18"><path d="M0 9h14l3-6 4 12 3-9 2 3h30"/></svg></span></p>
@@ -6742,14 +6742,40 @@
   }, { passive: true });
   onScrollFx();
 
+  // Rocket flies up the screen leaving a smoke trail while the page scrolls to top
+  function rocketTrail(r) {
+    const f = document.createElement('span');
+    f.className = 'rk-flyer'; f.textContent = '🚀'; f.setAttribute('aria-hidden', 'true');
+    const x = r.left + r.width / 2 - 11, y0 = r.top + r.height / 2 - 12;
+    f.style.left = x + 'px'; f.style.top = y0 + 'px';
+    document.body.appendChild(f);
+    const dur = 900, t0 = performance.now(); let last = 0;
+    (function step(now) {
+      const t = Math.min(1, (now - t0) / dur), y = y0 - (y0 + 60) * t * t;
+      f.style.top = y + 'px';
+      if (now - last > 35 && t < 0.95) {
+        last = now;
+        const p = document.createElement('span');
+        p.className = 'rk-puff'; p.setAttribute('aria-hidden', 'true');
+        p.style.left = (x + 4) + 'px'; p.style.top = (y + 24) + 'px';
+        p.style.setProperty('--dx', (Math.random() * 16 - 8) + 'px');
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1100);
+      }
+      if (t < 1) requestAnimationFrame(step); else f.remove();
+    })(t0);
+  }
+
   if (backToTop) {
     backToTop.addEventListener('click', () => {
+      if (backToTop.classList.contains('launch')) return;
       backToTop.classList.add('launch');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      if (!reduceMotion) rocketTrail(backToTop.getBoundingClientRect());
       setTimeout(() => {
         backToTop.classList.remove('launch');
         backToTop.classList.remove('show');
-      }, 750);
+      }, reduceMotion ? 50 : 950);
     });
   }
 
