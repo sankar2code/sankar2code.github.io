@@ -7736,3 +7736,16 @@ html.light .hero-award.hero-award-aww { box-shadow: 0 4px 18px rgba(0,0,0,0.25);
 html.light .wda-stack.wda-left .wda-col { box-shadow: 8px 0 24px rgba(180,83,9,0.25); }
 @keyframes wdaGlowL { 0%,100% { box-shadow: 8px 0 30px rgba(0,0,0,0.4), 2px 0 14px rgba(251,191,36,0.35); } 50% { box-shadow: 8px 0 30px rgba(0,0,0,0.4), 4px 0 28px rgba(251,191,36,0.75); } }
 @keyframes wdaFloatR { 0% { transform: translate(0,0) scale(.6); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(30px,-80px) scale(1.1); opacity: 0; } }
+
+/* WDA left ribbon, option B: black, same 53x171 flat shape as the Awwwards ribbon */
+.wda-stack.wda-left .wda-col,
+html.light .wda-stack.wda-left .wda-col {
+  width: 53px; height: 171px; padding: 10px 0 14px; gap: 10px; justify-content: flex-start;
+  background: #000; color: #fff; border: 0; border-radius: 0; box-shadow: none; animation: none;
+}
+.wda-stack.wda-left .wda-col img { width: 38px; height: 38px; }
+.wda-stack.wda-left .wda-heart, .wda-stack.wda-left .wda-burst, .wda-stack.wda-left .wda-go { display: none; }
+.wda-stack.wda-left .wda-label { margin-top: auto; font: 700 11px 'Inter', sans-serif; letter-spacing: 0.02em; text-transform: none; color: #fff; }
+.wda-stack.wda-left .wda-panel { border-color: rgba(255,255,255,0.18); background: #000; }
+html.light .wda-stack.wda-left .wda-panel { background: #fff; }
+.wda-stack.wda-left .wda-tab { transition: transform .35s ease; }
