@@ -1743,6 +1743,7 @@
 
     /* flying rocket + smoke trail (spawned by JS on click) */
     .rk-flyer {
+      will-change: transform, opacity;
       position: fixed; z-index: 9999; pointer-events: none;
       font-size: 1.35rem; line-height: 1; transform: rotate(-45deg);
       filter: drop-shadow(0 0 6px rgba(251,146,60,0.7));
@@ -1756,16 +1757,16 @@
     .hyper-layer { position: fixed; inset: 0; z-index: 9997; pointer-events: none; overflow: hidden; }
     .hyper-streak {
       position: absolute; height: 1.5px; border-radius: 2px;
-      background: linear-gradient(90deg, transparent, #fff 70%, #7dd3fc);
-      transform-origin: left center; opacity: 0;
-      animation: hyperWarp 0.75s ease-in forwards;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9) 70%, #7dd3fc);
+      transform-origin: left center; opacity: 0; will-change: transform, opacity;
     }
     html.light .hyper-streak { background: linear-gradient(90deg, transparent, #6366f1 70%, #2563eb); }
-    @keyframes hyperWarp {
-      from { transform: rotate(var(--a)) translateX(0) scaleX(0.1); opacity: 0; }
-      30%  { opacity: 1; }
-      to   { transform: rotate(var(--a)) translateX(var(--d)) scaleX(1); opacity: 0; }
+    .hyper-glow {
+      position: absolute; width: 360px; height: 360px; border-radius: 50%; opacity: 0;
+      background: radial-gradient(circle, rgba(125,211,252,0.35), rgba(99,102,241,0.18) 40%, transparent 70%);
+      will-change: transform, opacity;
     }
+    html.light .hyper-glow { background: radial-gradient(circle, rgba(99,102,241,0.22), rgba(56,189,248,0.12) 40%, transparent 70%); }
     html.light .rk-puff { background: rgba(148,163,184,0.5); }
     @keyframes rkPuff {
       from { transform: scale(0.4); opacity: 0.9; }
