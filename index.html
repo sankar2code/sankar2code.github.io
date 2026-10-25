@@ -6763,20 +6763,37 @@
         document.body.appendChild(p);
         setTimeout(() => p.remove(), 1100);
       }
-      if (t < 1) requestAnimationFrame(step); else { f.remove(); whenAtTop(hyperArrive); }
+      if (t < 1) requestAnimationFrame(step); else { f.remove(); fxLog('flight done, y=' + Math.round(window.scrollY)); whenAtTop(hyperArrive); }
     })(t0);
   }
 
-  // Wait until the smooth scroll has actually reached the top. Phones (esp. iOS Safari)
-  // can take several seconds to smooth-scroll a long page and may settle a few px off 0,
-  // so allow up to 6s and a small tolerance; after 4s fire anyway if the hero is in view.
+  // Optional on-screen log for testing on a phone: open sankar.work/?fxdebug
+  const FX_DEBUG = /[?&]fxdebug/.test(location.search);
+  function fxLog(msg) {
+    if (!FX_DEBUG) return;
+    let box = document.getElementById('fx-debug');
+    if (!box) {
+      box = document.createElement('div'); box.id = 'fx-debug';
+      box.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:100000;max-width:70vw;background:rgba(0,0,0,.8);color:#7dd3fc;font:11px/1.4 monospace;padding:6px 8px;border-radius:8px;pointer-events:none;white-space:pre-wrap';
+      document.body.appendChild(box);
+    }
+    box.textContent = (box.textContent + '\n' + msg).split('\n').slice(-8).join('\n').trim();
+  }
+  fxLog('fx ready · reduceMotion=' + reduceMotion + ' · animate=' + (typeof Element.prototype.animate));
+
+  // Fire once the page has reached (or settled near) the top. Phones, especially iOS Safari,
+  // can be slow to smooth-scroll a long page and may stop a few px short, so fire when either
+  // y <= 12, or the scroll has stopped moving while the hero is in view; give up after 7s.
   function whenAtTop(fn) {
-    const t0 = performance.now();
-    (function chk(now) {
-      const el = now - t0, y = window.scrollY || document.documentElement.scrollTop || 0;
-      if (y <= 12 || (el > 4000 && y < window.innerHeight * 0.5)) fn();
-      else if (el < 6000) requestAnimationFrame(chk);
-    })(performance.now());
+    const t0 = performance.now(); let lastY = -1, still = 0, fired = false;
+    function go(why) { if (fired) return; fired = true; fxLog('arrive: ' + why); try { fn(); } catch (e) { fxLog('error: ' + e.message); } }
+    (function chk() {
+      const el = performance.now() - t0, y = window.scrollY || document.documentElement.scrollTop || 0;
+      still = Math.abs(y - lastY) < 1 ? still + 1 : 0; lastY = y;
+      if (y <= 12) return go('top');
+      if (still >= 8 && y < window.innerHeight * 0.6) return go('settled y=' + Math.round(y));
+      if (el < 7000) requestAnimationFrame(chk); else fxLog('gave up, y=' + Math.round(y));
+    })();
   }
 
   // Hyperspace arrival: star streaks burst from the hero, then hero content zooms back in
@@ -6805,7 +6822,7 @@
       const a = Math.random() * 360, d0 = 10 + Math.random() * 40, d1 = reach * (0.7 + Math.random() * 0.3);
       l.animate(
         [{ transform: `rotate(${a}deg) translate3d(${d0}px,0,0) scaleX(0.05)`, opacity: 0 },
-         { opacity: 1, offset: 0.25 },
+         { transform: `rotate(${a}deg) translate3d(${d0 + (d1 - d0) * 0.2}px,0,0) scaleX(0.4)`, opacity: 1, offset: 0.25 },
          { transform: `rotate(${a}deg) translate3d(${d1}px,0,0) scaleX(1)`, opacity: 0 }],
         { duration: 1000 + Math.random() * 300, delay: Math.random() * 220, easing: 'cubic-bezier(.45,.05,.55,.95)', fill: 'both' }
       );
@@ -6829,6 +6846,7 @@
     backToTop.addEventListener('click', () => {
       if (backToTop.classList.contains('launch')) return;
       backToTop.classList.add('launch');
+      fxLog('rocket tapped, y=' + Math.round(window.scrollY));
       window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
       if (!reduceMotion) rocketTrail(backToTop.getBoundingClientRect());
       setTimeout(() => {
