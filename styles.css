@@ -7718,3 +7718,21 @@ html.light .wda-sotd .wda-col { box-shadow: -8px 0 24px rgba(4,120,87,0.25); ani
     .ssn-stats { display: flex; gap: 2.2rem; flex-wrap: wrap; align-items: flex-end; }
     .ssn-stats [hidden] { display: none !important; }
     .ssn-big2 { background: linear-gradient(135deg, #6366f1, #a5b4fc); -webkit-background-clip: text; background-clip: text; cursor: help; }
+
+/* Awwwards nominee hero pill */
+.hero-award.hero-award-aww { background: #0b0b0f; color: #fff; border-color: rgba(255,255,255,0.35); animation-name: awwPillGlow; }
+.hero-award-aww .aww-mark { width: 30px; height: 30px; border-radius: 50%; background: #fff; color: #0b0b0f; display: grid; place-items: center; font: 800 0.8rem 'Space Grotesk', sans-serif; letter-spacing: 0; }
+@keyframes awwPillGlow { 0%,100% { box-shadow: 0 0 10px rgba(255,255,255,0.12); } 50% { box-shadow: 0 0 22px rgba(255,255,255,0.3); } }
+html.light .hero-award.hero-award-aww { box-shadow: 0 4px 18px rgba(0,0,0,0.25); animation: none; }
+
+/* WDA tab moved to the left edge while the Awwwards ribbon owns the right */
+.wda-stack.wda-left { left: 0; right: auto; align-items: flex-start; }
+.wda-stack.wda-left .wda-tab { flex-direction: row-reverse; transform: translateX(-250px); }
+.wda-stack.wda-left .wda-tab:hover, .wda-stack.wda-left .wda-tab:focus-visible { transform: translateX(0); }
+.wda-stack.wda-left .wda-col { border-right: 1px solid rgba(253,230,138,0.9); border-left: 0; border-radius: 0 16px 16px 0; animation-name: wdaGlowL; }
+.wda-stack.wda-left .wda-panel { box-shadow: 10px 0 30px rgba(0,0,0,0.45); }
+.wda-stack.wda-left .wda-burst { left: auto; right: -10px; }
+.wda-stack.wda-left .wda-burst i { right: auto; left: 0; animation-name: wdaFloatR; }
+html.light .wda-stack.wda-left .wda-col { box-shadow: 8px 0 24px rgba(180,83,9,0.25); }
+@keyframes wdaGlowL { 0%,100% { box-shadow: 8px 0 30px rgba(0,0,0,0.4), 2px 0 14px rgba(251,191,36,0.35); } 50% { box-shadow: 8px 0 30px rgba(0,0,0,0.4), 4px 0 28px rgba(251,191,36,0.75); } }
+@keyframes wdaFloatR { 0% { transform: translate(0,0) scale(.6); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(30px,-80px) scale(1.1); opacity: 0; } }
