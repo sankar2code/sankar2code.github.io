@@ -640,7 +640,7 @@
       </div>
     </div>
 
-    <!-- Pre-Authorization Decision Support (Q4 2026) -->
+    <!-- Prior Authorization AI (Q4 2026) -->
     <div class="project-card project-card--interactive" data-cat="genai agentic" onclick="openProjectModal(event, 'preauth-modal')">
       <div class="project-header ph-1">📋</div>
       <div class="project-body">
@@ -650,10 +650,10 @@
           <span class="tag tag-purple">Human-in-the-loop</span>
           <span class="tag tag-gold">Q4 2026</span>
         </div>
-        <h3>Prior Authorization Decision Support</h3>
+        <h3>Prior Authorization AI</h3>
         <div class="project-pills">
-          <span class="project-pill">Clickable source citations</span>
-          <span class="project-pill">Nurse stays the decider</span>
+          <span class="project-pill">106-page packet, cited to the sentence</span>
+          <span class="project-pill">Nurse workflow + patient portal</span>
           <span class="project-pill">6 golden-set cases</span>
         </div>
       </div>
@@ -1504,7 +1504,7 @@
   <div class="modal">
     <div class="modal-header">
       <div>
-        <div class="modal-title">📋 Prior Authorization Decision Support</div>
+        <div class="modal-title">📋 Prior Authorization AI</div>
         <div class="modal-tags">
           <span class="tag tag-coral">GenAI · Healthcare UM</span>
           <span class="tag tag-purple">Human-in-the-loop</span>
@@ -1516,9 +1516,9 @@
     <div class="modal-body">
 
       <div class="modal-quicksum">
-        <p><span class="qs-label qs-problem">Problem</span>Utilization management nurses read multi-page clinical packets by hand to decide inpatient level of care, and a reviewer can't trust an AI answer that doesn't show where it came from.</p>
-        <p><span class="qs-label qs-approach">Approach</span>Extract the facts, match them to a hierarchy of criteria (NCD, LCD, payer policy, MCG), and cite the exact page and sentence for every finding. Ambiguous criteria are never guessed.</p>
-        <p><span class="qs-label qs-result">Result</span>A working end-to-end prototype across six golden-set cases: clean approval, provider clarification (standard and expedited), medical-director escalation, and a packet that fails to parse and routes to manual review.</p>
+        <p><span class="qs-label qs-problem">Problem</span>Utilization management nurses read 100-page faxed packets by hand to decide inpatient level of care, can't trust an AI answer that doesn't show its source, and patients wait with no idea where their request stands.</p>
+        <p><span class="qs-label qs-approach">Approach</span>Extract the facts, match them to criteria in policy order (NCD, LCD, payer policy, MCG), and cite the exact page and sentence for every finding. Ambiguous criteria are never guessed. The same case is live-linked to a patient portal.</p>
+        <p><span class="qs-label qs-result">Result</span>A working end-to-end prototype on a 106-page packet across six golden-set cases (approval, standard and expedited clarification, medical-director escalation, failed parse), plus the patient's side, nurse reports and an exportable audit trail.</p>
       </div>
 
       <details class="modal-details">
@@ -1529,13 +1529,15 @@
         </div>
         <div class="modal-section">
           <h4>Solution</h4>
-          <p>A guided flow of extraction, criteria matching, review and determination, with a shared case header and audit trail throughout. Each criterion shows its status, the governing policy tier (NCD, then LCD, then payer policy, then MCG) and a clickable citation that opens the actual packet PDF with the cited sentence highlighted. An "Ask about this document" panel answers questions about the packet with links back into the source. A review-tier banner explains in plain language why a case needs a clarification request, an escalation to a medical director, or is ready to approve. The nurse, or for higher-risk cases a medical director, always makes the final call. Built with React 19, Vite and Tailwind v4, with pdf.js for in-browser rendering and highlighting. It runs on synthetic data with scripted behavior and no backend; it is not a clinical tool.</p>
+          <p><strong>Nurse side.</strong> A guided flow of extraction, criteria matching, review and determination on a realistic 106-page faxed packet (notes, imaging, 24 PT visits, H&amp;P, cardiology clearance, labs, orders). Each criterion shows its status, its policy tier (NCD, then LCD, then payer policy, then MCG) and a citation that opens the packet PDF with the exact sentence highlighted. "Ask about this document" answers questions with links back into the source, a review-tier banner explains why a case needs clarification, escalation or is ready to approve, and the full audit trail exports to CSV. Reports track cases processed, escalations, clarifications, reviewer overrides of the AI, agreement rate and citations verified.</p>
+          <p><strong>Patient side.</strong> A portal live-linked to the same case: a five-step status tracker, the CMS decision clock (72 hours expedited, 7 days standard), what the plan is waiting on and who owns it. After approval, a pre-op checklist, calendar file and cost estimate with pay-now, pay-later or interest-free options and a financial-assistance check. After a denial, the reason in plain language, appeal rights and deadline, and an "ask my doctor to appeal" request. A scripted help assistant covers status, cost and prep questions in English and Spanish, with read-aloud, and medical questions go to the care team.</p>
+          <p><strong>Built with</strong> React 19, Vite and Tailwind v4, pdf.js for in-browser highlighting and Mermaid workflow diagrams. The packet is generated and indexed, and a script checks every citation quote is on its stated page. Synthetic data and scripted behavior, no backend; it is not a clinical tool. The nurse, or for higher-risk cases a medical director, always makes the final call.</p>
         </div>
       </details>
 
       <div class="modal-section">
         <h4>Business Value</h4>
-        <div class="modal-impact">⚡ Every finding is traceable to a page and sentence, so reviewers verify instead of re-reading ✦ Review tiers route ambiguous and high-risk cases to the right human rather than auto-deciding ✦ Failure states (unparseable packets) are designed in and route to manual review</div>
+        <div class="modal-impact">⚡ Every finding is traceable to a page and sentence, so reviewers verify instead of re-reading a 106-page packet ✦ Review tiers route ambiguous and high-risk cases to the right human, and reports track how often reviewers override the AI ✦ Patients see the same case in plain language, with the decision clock, costs and appeal rights, instead of calling to ask ✦ Failure states are designed in: unparseable packets route to manual review</div>
       </div>
 
       <div class="modal-section">
@@ -1543,6 +1545,7 @@
         <ul class="modal-tradeoffs">
           <li><strong>Cite or abstain over best-guess answers.</strong> Reviewers can trust every checkmark. <span class="to-cost">Gives up: More criteria land with a human instead of being auto-resolved.</span></li>
           <li><strong>Scripted demo behavior over a live model.</strong> Deterministic, repeatable walkthroughs of all six cases. <span class="to-cost">Gives up: Not evidence of extraction accuracy on real packets.</span></li>
+          <li><strong>A generated, indexed packet over hand-made PDFs.</strong> Citations come from an index and a script verifies every quote, so a rebuilt packet can't break a citation. <span class="to-cost">Gives up: Clean synthetic pages, not real fax noise.</span></li>
         </ul>
       </div>
 
@@ -1561,6 +1564,16 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
             Live Demo
           </a>
+          <button type="button" class="modal-download" style="background:linear-gradient(135deg,#6366f1,#a855f7);border:0;cursor:pointer;font-family:inherit;font-size:inherit;" aria-expanded="false" aria-controls="pa-video-wrap" onclick="(function(b){var w=document.getElementById('pa-video-wrap'),v=w.querySelector('video'),open=w.hidden;w.hidden=!open;b.setAttribute('aria-expanded',open);if(open){v.play().catch(function(){});if(window.trackEvent)window.trackEvent('video-preauth-walkthrough','Played Prior Authorization walkthrough');w.scrollIntoView({behavior:'smooth',block:'nearest'});}else{v.pause();}})(this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"/></svg>
+            Walkthrough Video
+          </button>
+        </div>
+        <div id="pa-video-wrap" hidden style="margin-top:1rem;">
+          <video class="modal-video" controls preload="none" playsinline poster="Pre-Auth-Walkthrough-poster.jpg" style="width:100%;border-radius:12px;">
+            <source src="Pre-Auth-Walkthrough.mp4" type="video/mp4">
+            Your browser can't play this video. <a href="Pre-Auth-Walkthrough.mp4" download>Download the walkthrough</a>.
+          </video>
         </div>
       </div>
 
@@ -3799,7 +3812,7 @@
       <a class="ship-item ship-item-linked" data-cat="update" href="https://lnkd.in/p/gwiD7dGP" target="_blank" rel="noopener">
         <span class="ship-icon">🩺</span>
         <div class="ship-body">
-          <p class="ship-text">Shipped a Prior Authorization Decision Support prototype built on one rule, no finding without a source: every citation opens the packet with the exact sentence highlighted, gaps become provider questions, and the nurse always makes the final call<span class="ship-tag ship-tag-update">Update</span></p>
+          <p class="ship-text">Shipped a Prior Authorization AI prototype built on one rule, no finding without a source: every citation opens the packet with the exact sentence highlighted, gaps become provider questions, and the nurse always makes the final call<span class="ship-tag ship-tag-update">Update</span></p>
         </div>
       </a>
       <a class="ship-item ship-item-linked" data-cat="article" href="https://lnkd.in/p/gPHSi3e6" target="_blank" rel="noopener">
@@ -7391,7 +7404,7 @@
   const ICON = { hub: '🙂', Companies: '🏢', Industries: '🏭', Skills: '🧠', Tools: '🛠️', Projects: '🚀', Certifications: '🎓', Impact: '📈' };
   const MODAL = {
     'ClinicalAI-TrialAnalysis': 'clinicaltrialanalysis-modal', 'Agentic Clinical Trial Matching': 'ctm-agentic-modal', 'ContractIQ': 'contractiq-modal',
-    'Company Comparison': 'companycomparison-modal', 'ProjectPilot AI': 'projectpilot-modal', 'Compliance Lease Tool': 'complianceleasetool-modal', 'Prior Authorization Decision Support': 'preauth-modal', 'Pilot-to-Scale Toolkit': 'pilotscale-modal',
+    'Company Comparison': 'companycomparison-modal', 'ProjectPilot AI': 'projectpilot-modal', 'Compliance Lease Tool': 'complianceleasetool-modal', 'Prior Authorization AI': 'preauth-modal', 'Pilot-to-Scale Toolkit': 'pilotscale-modal',
     'Enterprise AI Data Copilot': 'datacopilot-modal', 'ScienceAI': 'scienceai-modal', 'Ad Genie': 'adgenie-modal', 'AI Analyst Builder': 'analyst-modal', 'SurveAI': 'feedback-modal'
   };
 
@@ -7429,7 +7442,7 @@
     ['ContractIQ', 'Projects', 2026, 'Contract review with cited terms · built with Claude Code · live app'],
     ['Company Comparison', 'Projects', 2026, 'BYOK equity research with live citations · live app'],
     ['ProjectPilot AI', 'Projects', 2026, 'AI project-management SaaS · live app'],
-    ['Prior Authorization Decision Support', 'Projects', 2026, 'Cited criteria matching for UM nurses, human decides · live demo'],
+    ['Prior Authorization AI', 'Projects', 2026, 'Cited criteria matching for UM nurses + patient portal · live demo'],
     ['Pilot-to-Scale Toolkit', 'Projects', 2026, 'Readiness diagnostic, use case prioritiser, workshop designer · live app'],
     ['Compliance Lease Tool', 'Projects', 2026, 'Lease compliance shipped as a Claude Skill'],
     ['Enterprise AI Data Copilot', 'Projects', 2026, 'Four agents; deterministic engines own the truth · now building'],
@@ -7766,11 +7779,11 @@
       ['det', 'Scoring · rules', 'Weakest-link stage, value × feasibility, timed agenda'],
       ['llm', 'Tailoring · AI', 'Optional; every reply validated before display'],
       ['hum', 'Leader · human', 'Accepts each suggestion and runs the workshop']],
-    'Prior Authorization Decision Support': [
-      ['io', 'Input', 'Faxed packet PDF · unreadable goes to manual review'],
+    'Prior Authorization AI': [
+      ['io', 'Input', '106-page faxed packet · unreadable goes to manual review'],
       ['llm', 'Extraction · AI', 'Procedure, comorbidities, clearance, length of stay'],
       ['det', 'Criteria · rules', 'NCD → LCD → payer policy → MCG, every finding cited'],
-      ['hum', 'Nurse · human', 'Clarify or escalate; the nurse makes the final call']],
+      ['hum', 'Nurse + patient · human', 'Nurse makes the call; patient portal shows status, cost and appeal rights']],
     'Agentic Clinical Trial Matching': [
       ['io', 'Patient data', 'FHIR + NLP over notes and pathology'],
       ['det', 'Engine · rules', 'Scores each criterion, cites the source'],
