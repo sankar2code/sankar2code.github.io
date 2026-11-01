@@ -7856,3 +7856,14 @@ html.light .tag-hackathon { color: #b91c1c; }
 @keyframes fhEcg { to { stroke-dashoffset: -120; } }
 @keyframes fhOrbit { from { transform: rotate(0deg) translateX(17px) scale(1); } 50% { transform: rotate(180deg) translateX(17px) scale(0.5); } to { transform: rotate(360deg) translateX(17px) scale(1); } }
 @media (prefers-reduced-motion: reduce) { .fh-beat, .fh-orb i, .fh-ecg path { animation: none; } .fh-ecg path { stroke-dashoffset: 0; } }
+
+/* WDA 2026 Winner pill (gold base from .hero-award + a slow shine) */
+.hero-award.hero-award-win { position: relative; overflow: hidden; }
+.hero-award.hero-award-win img { background: #fff; object-fit: contain; }
+.hero-award.hero-award-win::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.6) 50%, transparent 70%);
+  transform: translateX(-120%); animation: winShine 3.2s ease-in-out infinite;
+}
+@keyframes winShine { 60%, 100% { transform: translateX(120%); } }
+@media (prefers-reduced-motion: reduce) { .hero-award.hero-award-win::after { animation: none; display: none; } }
