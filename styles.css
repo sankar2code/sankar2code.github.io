@@ -7942,3 +7942,20 @@ html.light .pt-shelf::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); }
 @media (max-width: 640px), (max-height: 560px) { .ptr { display: none; } }
 @media (prefers-reduced-motion: reduce) { .ptr, .ptr * { animation: none !important; transition: none !important; } }
 .ptr-lbl { white-space: nowrap; }
+
+/* Paper Tuesday: "next" countdown card + "Which paper next?" card */
+.pt-next .pt-thumb { background: radial-gradient(circle at 50% 40%, rgba(251,191,36,0.15), transparent 70%), var(--bg2); border: 1px dashed rgba(251,191,36,0.45); }
+.pt-next-in, .pt-sug-in { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; text-align: center; padding: 0 1rem; }
+.pt-next-k { font-size: 0.66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.pt-next-cd { font: 700 1.7rem 'Space Grotesk', sans-serif; color: #fbbf24; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+.pt-next, .pt-next .pt-title { cursor: default; }
+.pt-next .pt-title, .pt-suggest .pt-title { color: var(--muted); }
+.pt-suggest { text-decoration: none; }
+.pt-suggest .pt-thumb { background: var(--bg2); border: 1px dashed rgba(125,211,252,0.4); }
+.pt-suggest:hover .pt-thumb, .pt-suggest:focus-visible .pt-thumb { transform: translateY(-3px); border-color: rgba(125,211,252,0.8); }
+.pt-sug-in b { font: 700 0.95rem 'Space Grotesk', sans-serif; color: var(--white); }
+.pt-sug-in small { font-size: 0.76rem; color: var(--muted); }
+.pt-sug-go { margin-top: 0.3rem; font: 700 0.74rem 'Inter', sans-serif; color: #0b1220; background: #7dd3fc; padding: 0.4rem 0.8rem; border-radius: 999px; }
+html.light .pt-next-cd { color: #b45309; }
+.pt-of { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+.pt-stat b #pt-count { font-size: inherit; color: inherit; }

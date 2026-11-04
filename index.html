@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261103-3">
+  <link rel="stylesheet" href="styles.css?v=20261104-1">
 </head>
 <body>
 
@@ -1037,12 +1037,12 @@
 ──────────────────────────────────────────── -->
 <section id="paper-tuesday">
   <div class="reveal">
-    <span class="section-label">📚 Paper Tuesday · weekly</span>
+    <span class="section-label">📚 Paper Tuesday · Season 1</span>
     <h2 class="section-title">One AI paper, drawn out in a few minutes</h2>
-    <p class="section-sub">Every Tuesday I turn one new research paper into a short video explainer. No jargon, just the idea.</p>
+    <p class="section-sub">Every Tuesday for six months, I turn one new research paper into a short video explainer. No jargon, just the idea. Season 1 runs 26 episodes, Nov 2026 to Apr 2027.</p>
   </div>
   <div class="pt-wrap reveal">
-    <div class="pt-head"><div class="pt-stat"><b id="pt-count">1</b><span>episodes</span></div><div class="pt-stat"><b id="pt-next">-</b><span>next drop</span></div>
+    <div class="pt-head"><div class="pt-stat"><b><span id="pt-count">1</span> <small class="pt-of">/ 26</small></b><span>Season 1 episodes</span></div><div class="pt-stat"><b id="pt-next">-</b><span>next drop</span></div>
       <div class="pt-nav"><button type="button" class="pt-arrow" id="pt-prev" aria-label="Scroll episodes left">&#8249;</button><button type="button" class="pt-arrow" id="pt-nextbtn" aria-label="Scroll episodes right">&#8250;</button></div></div>
     <div class="pt-shelf" id="pt-shelf"></div>
   </div>
@@ -1073,16 +1073,35 @@
         '<span class="pt-play" aria-hidden="true">' + (e.video ? '▶' : '↗') + '</span></span>' +
         '<span class="pt-title">' + esc(e.title) + '</span><span class="pt-meta">' + fmt(d(e.date)) + ' · ' + esc(e.topic || 'AI research') + '</span></button>';
     });
-    for (var i = 1; i <= 3; i++) {
-      var nd = new Date(last.getTime() + i * 7 * 864e5);
-      html += '<div class="pt-card pt-soon" aria-hidden="true"><span class="pt-thumb"><span class="pt-doodle">🖍️</span></span><span class="pt-title">Episode ' + pad((eps[0] ? eps[0].n : 0) + i) + '</span><span class="pt-meta">Drops Tue, ' + fmt(nd) + '</span></div>';
+    // One "next" card with a live countdown, then a "Which paper next?" invite.
+    // The series runs 26 Tuesdays (Nov 3, 2026 - Apr 27, 2027); after the last one, neither card shows.
+    var LAST = 26, nextN = (eps[0] ? eps[0].n : 0) + 1;
+    var nd = new Date(last.getTime() + 7 * 864e5);
+    var target = Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth(), nd.getUTCDate(), 14); // ~9 AM Eastern
+    if (nextN <= LAST) {
+      html += '<div class="pt-card pt-next"><span class="pt-thumb"><span class="pt-next-in"><span class="pt-next-k">Episode ' + pad(nextN) + ' drops in</span><span class="pt-next-cd" id="pt-cd">-</span><span class="pt-next-k">Tue, ' + fmt(nd) + '</span></span></span>' +
+        '<span class="pt-title">Episode ' + pad(nextN) + (nextN === LAST ? ' · Season finale' : '') + '</span><span class="pt-meta">New paper, new doodles</span></div>';
+      html += '<a class="pt-card pt-suggest" href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/" target="_blank" rel="noopener"><span class="pt-thumb"><span class="pt-sug-in"><b>📬 Which paper next?</b><small>Send me an AI paper you&#39;d like explained.</small><span class="pt-sug-go">Suggest on LinkedIn →</span></span></span>' +
+        '<span class="pt-title">Your pick</span><span class="pt-meta">Reader suggestions welcome</span></a>';
     }
     shelf.innerHTML = html;
     document.getElementById('pt-count').textContent = eps.length;
     document.getElementById('pt-next').textContent = fmt(new Date(last.getTime() + 7 * 864e5));
+    var cdEl = document.getElementById('pt-cd');
+    if (cdEl) {
+      var tick = function () {
+        var ms = target - Date.now();
+        if (ms <= 0) { cdEl.textContent = 'Any moment now'; return false; }
+        var dd = Math.floor(ms / 864e5), hh = Math.floor(ms / 36e5) % 24, mm = Math.floor(ms / 6e4) % 60;
+        cdEl.textContent = (dd ? dd + 'd ' : '') + pad(hh) + 'h ' + pad(mm) + 'm';
+        return true;
+      };
+      if (tick()) { var iv = setInterval(function () { if (!tick()) clearInterval(iv); }, 30000); }
+    }
+    if (nextN > LAST) { var nx = document.getElementById('pt-next'); nx.textContent = 'Done'; nx.nextElementSibling.textContent = 'Season 1 complete'; }
     function open(e) {
       if (!e.video || !dlg || !dlg.showModal) { if (e.post) window.open(e.post, '_blank', 'noopener'); return; }
-      body.innerHTML = '<div class="pt-d-k">📚 Paper Tuesday · EP ' + pad(e.n) + ' · ' + fmt(d(e.date)) + '</div><h3>' + esc(e.title) + '</h3>' +
+      body.innerHTML = '<div class="pt-d-k">📚 Paper Tuesday · Season 1 · EP ' + pad(e.n) + ' · ' + fmt(d(e.date)) + '</div><h3>' + esc(e.title) + '</h3>' +
         '<video controls playsinline preload="metadata"' + (e.poster ? ' poster="' + esc(e.poster) + '"' : '') + '><source src="' + esc(e.video) + '" type="video/mp4"></video>' +
         '<div class="pt-d-links">' + (e.paper ? '<a href="' + esc(e.paper) + '" target="_blank" rel="noopener">📄 Read the paper</a>' : '') +
         (e.post ? '<a href="' + esc(e.post) + '" target="_blank" rel="noopener">💬 LinkedIn post</a>' : '') + '</div>';
@@ -9288,7 +9307,7 @@
   eps.sort(function (a, b) { return b.n - a.n; });
   var e = eps[0], p = e.date.split('-'), d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2], 12));
   var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  document.getElementById('ptr-ep').textContent = 'EP ' + (e.n < 10 ? '0' : '') + e.n + ' · ' + MON[d.getUTCMonth()] + ' ' + d.getUTCDate();
+  document.getElementById('ptr-ep').textContent = 'S1 · EP ' + (e.n < 10 ? '0' : '') + e.n + ' · ' + MON[d.getUTCMonth()] + ' ' + d.getUTCDate();
   document.getElementById('ptr-title').textContent = e.title;
   if (Date.now() - d.getTime() < 7 * 864e5) document.getElementById('ptr-new').hidden = false;
   r.addEventListener('click', function (ev) {
