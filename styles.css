@@ -7959,3 +7959,11 @@ html.light .pt-shelf::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); }
 html.light .pt-next-cd { color: #b45309; }
 .pt-of { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
 .pt-stat b #pt-count { font-size: inherit; color: inherit; }
+
+/* "Which paper next?" card: LinkedIn + email buttons */
+.pt-suggest { cursor: default; }
+.pt-suggest:hover .pt-thumb { transform: none; }
+.pt-sug-btns { display: flex; gap: 0.45rem; flex-wrap: wrap; justify-content: center; margin-top: 0.3rem; }
+.pt-sug-btns .pt-sug-go { margin-top: 0; text-decoration: none; transition: filter .15s, transform .15s; }
+.pt-sug-btns .pt-sug-go:hover, .pt-sug-btns .pt-sug-go:focus-visible { filter: brightness(1.1); transform: translateY(-1px); outline: none; }
+.pt-sug-mail { background: #fbbf24 !important; color: #1a1205 !important; }

@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261104-1">
+  <link rel="stylesheet" href="styles.css?v=20261105-1">
 </head>
 <body>
 
@@ -1081,8 +1081,10 @@
     if (nextN <= LAST) {
       html += '<div class="pt-card pt-next"><span class="pt-thumb"><span class="pt-next-in"><span class="pt-next-k">Episode ' + pad(nextN) + ' drops in</span><span class="pt-next-cd" id="pt-cd">-</span><span class="pt-next-k">Tue, ' + fmt(nd) + '</span></span></span>' +
         '<span class="pt-title">Episode ' + pad(nextN) + (nextN === LAST ? ' · Season finale' : '') + '</span><span class="pt-meta">New paper, new doodles</span></div>';
-      html += '<a class="pt-card pt-suggest" href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/" target="_blank" rel="noopener"><span class="pt-thumb"><span class="pt-sug-in"><b>📬 Which paper next?</b><small>Send me an AI paper you&#39;d like explained.</small><span class="pt-sug-go">Suggest on LinkedIn →</span></span></span>' +
-        '<span class="pt-title">Your pick</span><span class="pt-meta">Reader suggestions welcome</span></a>';
+      html += '<div class="pt-card pt-suggest"><span class="pt-thumb"><span class="pt-sug-in"><b>📬 Which paper next?</b><small>Send me an AI paper you&#39;d like explained.</small>' +
+        '<span class="pt-sug-btns"><a class="pt-sug-go" href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/" target="_blank" rel="noopener">in LinkedIn</a>' +
+        '<a class="pt-sug-go pt-sug-mail" href="mailto:hello@sankar.work?subject=Paper%20Tuesday%20suggestion&amp;body=Paper%20title%20or%20link%3A%20">✉️ Email</a></span></span></span>' +
+        '<span class="pt-title">Your pick</span><span class="pt-meta">Reader suggestions welcome · hello@sankar.work</span></div>';
     }
     shelf.innerHTML = html;
     document.getElementById('pt-count').textContent = eps.length;
