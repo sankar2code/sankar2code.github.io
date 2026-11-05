@@ -7967,3 +7967,7 @@ html.light .pt-next-cd { color: #b45309; }
 .pt-sug-btns .pt-sug-go { margin-top: 0; text-decoration: none; transition: filter .15s, transform .15s; }
 .pt-sug-btns .pt-sug-go:hover, .pt-sug-btns .pt-sug-go:focus-visible { filter: brightness(1.1); transform: translateY(-1px); outline: none; }
 .pt-sug-mail { background: #fbbf24 !important; color: #1a1205 !important; }
+
+.pt-sug-btns .pt-sug-go { display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; height: 32px; padding: 0 0.95rem; line-height: 1; white-space: nowrap; }
+.pt-sug-btns .pt-sug-go svg { flex: none; display: block; }
+.pt-sug-btns .pt-sug-go span { display: block; line-height: 1; transform: translateY(0.5px); }
