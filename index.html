@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261111-2">
+  <link rel="stylesheet" href="styles.css?v=20261111-3">
 </head>
 <body>
 
@@ -1086,7 +1086,7 @@
       var left = nextN <= LAST
         ? '<span class="pt-s-k">Next · EP ' + pad(nextN) + (nextN === LAST ? ' · Season finale' : '') + '</span><span class="pt-s-cd" id="pt-cd">-</span><span class="pt-s-k">Tue, ' + fmt(nd) + '</span>'
         : '<span class="pt-s-k">Season 1 complete</span>';
-      left += '<span class="pt-s-bar" role="progressbar" aria-label="Season 1 progress" aria-valuemin="0" aria-valuemax="' + LAST + '" aria-valuenow="' + eps.length + '"><i style="width:' + Math.min(100, eps.length / LAST * 100).toFixed(1) + '%"></i></span><span class="pt-s-k">' + eps.length + ' of ' + LAST + '</span>';
+      left += '<span class="pt-s-season">Season 1</span><span class="pt-s-bar" role="progressbar" aria-label="Season 1 progress" aria-valuemin="0" aria-valuemax="' + LAST + '" aria-valuenow="' + eps.length + '"><i style="width:' + Math.min(100, eps.length / LAST * 100).toFixed(1) + '%"></i></span><span class="pt-s-k">' + eps.length + ' of ' + LAST + ' episodes</span>';
       strip.innerHTML = '<div class="pt-s-l">' + left + '</div>' +
         '<div class="pt-s-r"><span class="pt-s-q">📬 Which paper next?</span>' +
         '<span class="pt-sug-btns"><a class="pt-sug-go" href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z"/></svg><span>LinkedIn</span></a>' +
