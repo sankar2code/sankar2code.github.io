@@ -1100,11 +1100,11 @@
       var tick = function () {
         var ms = target - Date.now();
         if (ms <= 0) { cdEl.textContent = 'Any moment now'; return false; }
-        var dd = Math.floor(ms / 864e5), hh = Math.floor(ms / 36e5) % 24, mm = Math.floor(ms / 6e4) % 60;
-        cdEl.textContent = (dd ? dd + 'd ' : '') + pad(hh) + 'h ' + pad(mm) + 'm';
+        var dd = Math.floor(ms / 864e5), hh = Math.floor(ms / 36e5) % 24, mm = Math.floor(ms / 6e4) % 60, ss = Math.floor(ms / 1e3) % 60;
+        cdEl.textContent = (dd ? dd + 'd ' : '') + pad(hh) + 'h ' + pad(mm) + 'm ' + pad(ss) + 's';
         return true;
       };
-      if (tick()) { var iv = setInterval(function () { if (!tick()) clearInterval(iv); }, 30000); }
+      if (tick()) { var iv = setInterval(function () { if (!tick()) clearInterval(iv); }, 1000); }
     }
     if (nextN > LAST) { var nx = document.getElementById('pt-next'); nx.textContent = 'Done'; nx.nextElementSibling.textContent = 'Season 1 complete'; }
     function open(e) {
