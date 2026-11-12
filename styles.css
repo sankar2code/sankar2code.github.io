@@ -7974,3 +7974,19 @@ html.light .pt-next-cd { color: #b45309; }
 
 /* Awwwards ribbon removed: center the Paper Tuesday ribbon on the left edge */
 .ptr { top: calc(50% - 86px); }
+
+/* Paper Tuesday footer strip (countdown + season progress + suggest) */
+.pt-head .pt-stat { display: none; }
+.pt-head { justify-content: flex-end; margin-bottom: 0.6rem; }
+.pt-strip { display: flex; align-items: center; justify-content: space-between; gap: 0.9rem 1.4rem; flex-wrap: wrap; margin-top: 0.9rem; padding: 0.8rem 1rem; border-radius: 14px; border: 1px solid var(--border); background: linear-gradient(90deg, rgba(251,191,36,0.08), rgba(125,211,252,0.06)); }
+.pt-strip:empty { display: none; }
+.pt-s-l, .pt-s-r { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.pt-s-k { font-size: 0.66rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.pt-s-cd { font: 700 1.15rem 'Space Grotesk', sans-serif; color: #fbbf24; font-variant-numeric: tabular-nums; }
+html.light .pt-s-cd { color: #b45309; }
+.pt-s-bar { display: inline-block; width: 140px; height: 6px; border-radius: 6px; background: rgba(255,255,255,0.08); overflow: hidden; }
+html.light .pt-s-bar { background: rgba(0,0,0,0.08); }
+.pt-s-bar i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, #f59e0b, #fde68a); }
+.pt-s-q { font: 700 0.82rem 'Inter', sans-serif; color: var(--white); }
+.pt-strip .pt-sug-btns { margin-top: 0; }
+@media (max-width: 640px) { .pt-strip { flex-direction: column; align-items: flex-start; } .pt-s-bar { width: 100px; } }

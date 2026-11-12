@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261111-1">
+  <link rel="stylesheet" href="styles.css?v=20261111-2">
 </head>
 <body>
 
@@ -1045,6 +1045,7 @@
     <div class="pt-head"><div class="pt-stat"><b><span id="pt-count">1</span> <small class="pt-of">/ 26</small></b><span>Season 1 episodes</span></div><div class="pt-stat"><b id="pt-next">-</b><span>next drop</span></div>
       <div class="pt-nav"><button type="button" class="pt-arrow" id="pt-prev" aria-label="Scroll episodes left">&#8249;</button><button type="button" class="pt-arrow" id="pt-nextbtn" aria-label="Scroll episodes right">&#8250;</button></div></div>
     <div class="pt-shelf" id="pt-shelf"></div>
+    <div class="pt-strip" id="pt-strip"></div>
   </div>
   <dialog class="pt-dialog" id="pt-dialog" aria-label="Paper Tuesday episode">
     <button type="button" class="pt-close" id="pt-close" aria-label="Close">✕</button>
@@ -1079,13 +1080,17 @@
     var LAST = 26, nextN = (eps[0] ? eps[0].n : 0) + 1;
     var nd = new Date(last.getTime() + 7 * 864e5);
     var target = Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth(), nd.getUTCDate(), 14); // ~9 AM Eastern
-    if (nextN <= LAST) {
-      html += '<div class="pt-card pt-next"><span class="pt-thumb"><span class="pt-next-in"><span class="pt-next-k">Episode ' + pad(nextN) + ' drops in</span><span class="pt-next-cd" id="pt-cd">-</span><span class="pt-next-k">Tue, ' + fmt(nd) + '</span></span></span>' +
-        '<span class="pt-title">Episode ' + pad(nextN) + (nextN === LAST ? ' · Season finale' : '') + '</span><span class="pt-meta">New paper, new doodles</span></div>';
-      html += '<div class="pt-card pt-suggest"><span class="pt-thumb"><span class="pt-sug-in"><b>📬 Which paper next?</b><small>Send me an AI paper you&#39;d like explained.</small>' +
+    // Footer strip under the shelf: next-episode countdown + Season 1 progress, and the "Which paper next?" invite.
+    var strip = document.getElementById('pt-strip');
+    if (strip) {
+      var left = nextN <= LAST
+        ? '<span class="pt-s-k">Next · EP ' + pad(nextN) + (nextN === LAST ? ' · Season finale' : '') + '</span><span class="pt-s-cd" id="pt-cd">-</span><span class="pt-s-k">Tue, ' + fmt(nd) + '</span>'
+        : '<span class="pt-s-k">Season 1 complete</span>';
+      left += '<span class="pt-s-bar" role="progressbar" aria-label="Season 1 progress" aria-valuemin="0" aria-valuemax="' + LAST + '" aria-valuenow="' + eps.length + '"><i style="width:' + Math.min(100, eps.length / LAST * 100).toFixed(1) + '%"></i></span><span class="pt-s-k">' + eps.length + ' of ' + LAST + '</span>';
+      strip.innerHTML = '<div class="pt-s-l">' + left + '</div>' +
+        '<div class="pt-s-r"><span class="pt-s-q">📬 Which paper next?</span>' +
         '<span class="pt-sug-btns"><a class="pt-sug-go" href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z"/></svg><span>LinkedIn</span></a>' +
-        '<a class="pt-sug-go pt-sug-mail" href="mailto:hello@sankar.work?subject=Paper%20Tuesday%20suggestion&amp;body=Paper%20title%20or%20link%3A%20"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>Email</span></a></span></span></span>' +
-        '<span class="pt-title">Your pick</span><span class="pt-meta">Reader suggestions welcome · hello@sankar.work</span></div>';
+        '<a class="pt-sug-go pt-sug-mail" href="mailto:hello@sankar.work?subject=Paper%20Tuesday%20suggestion&amp;body=Paper%20title%20or%20link%3A%20"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>Email</span></a></span></div>';
     }
     shelf.innerHTML = html;
     document.getElementById('pt-count').textContent = eps.length;
