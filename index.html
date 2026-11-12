@@ -27,7 +27,7 @@
     gtag('config', 'G-2ZWKVT2CXY');
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=20261111-3">
+  <link rel="stylesheet" href="styles.css?v=20261111-4">
 </head>
 <body>
 
@@ -1039,7 +1039,7 @@
   <div class="reveal">
     <span class="section-label">📚 Paper Tuesday · Season 1</span>
     <h2 class="section-title">One AI paper, drawn out in a few minutes</h2>
-    <p class="section-sub">Every Tuesday for six months, I turn one new research paper into a short video explainer. No jargon, just the idea. Season 1 runs 26 episodes, Nov 2026 to Apr 2027.</p>
+    <p class="section-sub">Every Tuesday for six months, I turn one new research paper into a short video explainer. No jargon, just the idea. Season 1 runs 26 episodes, Nov 2026 to May 2027.</p>
   </div>
   <div class="pt-wrap reveal">
     <div class="pt-head"><div class="pt-stat"><b><span id="pt-count">1</span> <small class="pt-of">/ 26</small></b><span>Season 1 episodes</span></div><div class="pt-stat"><b id="pt-next">-</b><span>next drop</span></div>
@@ -1053,53 +1053,69 @@
   </dialog>
   <script type="application/json" id="pt-data">[
     {"n":1,"date":"2026-11-03","title":"How do you grade a robot that writes code?","topic":"AI evaluation","post":"https://lnkd.in/p/dSWRHUsf","video":"Paper-Tuesday-01.mp4","poster":"Paper-Tuesday-01-poster.jpg","paper":"https://arxiv.org/abs/2604.24621"},
-    {"n":2,"date":"2026-11-10","title":"The Closet: an AI that gets smarter by saving its plans","topic":"AI agents & reasoning","video":"Paper-Tuesday-02.mp4","poster":"Paper-Tuesday-02-poster.jpg","paper":"https://arxiv.org/abs/2611.03618","post":"https://lnkd.in/p/ex-rtUBw"}
+    {"n":2,"date":"2026-11-10","title":"The Closet: an AI that gets smarter by saving its plans","topic":"AI agents & reasoning","video":"Paper-Tuesday-02.mp4","poster":"Paper-Tuesday-02-poster.jpg","paper":"https://arxiv.org/abs/2611.03618","post":"https://lnkd.in/p/ex-rtUBw"},
+    {"n": 3, "date": "2026-11-17", "title": "Two Brushes: a small model that reaches for precision only when it's unsure", "topic": "Efficient models", "video": "Paper-Tuesday-03.mp4", "poster": "Paper-Tuesday-03-poster.jpg", "paper": "https://arxiv.org/abs/2611.14418"},
+    {"n": 4, "date": "2026-11-24", "title": "One Question, Six Desks: an AI agent for drug-discovery code", "topic": "AI in drug discovery", "video": "Paper-Tuesday-04.mp4", "poster": "Paper-Tuesday-04-poster.jpg", "paper": "https://arxiv.org/abs/2611.13651"},
+    {"n": 5, "date": "2026-12-01", "title": "The Case of the Missing Math Expert: inside mixture-of-experts models", "topic": "How LLMs work", "video": "Paper-Tuesday-05.mp4", "poster": "Paper-Tuesday-05-poster.jpg", "paper": "https://arxiv.org/abs/2611.13975"},
+    {"n": 6, "date": "2026-12-08", "title": "Preventive Care for AI Agents: checkups, epidemiology-style", "topic": "AI agent safety", "video": "Paper-Tuesday-06.mp4", "poster": "Paper-Tuesday-06-poster.jpg", "paper": "https://arxiv.org/abs/2611.13333"},
+    {"n": 7, "date": "2026-12-15", "title": "The Shop at the End of the Lane: finding long-tail products with reviews", "topic": "Recommendation systems", "video": "Paper-Tuesday-07.mp4", "poster": "Paper-Tuesday-07-poster.jpg", "paper": "https://arxiv.org/abs/2611.13361"},
+    {"n": 8, "date": "2026-12-22", "title": "Living Constitutions: letting citizens shape a nation's AI", "topic": "AI alignment & governance", "video": "Paper-Tuesday-08.mp4", "poster": "Paper-Tuesday-08-poster.jpg", "paper": "https://arxiv.org/abs/2611.13402"},
+    {"n": 9, "date": "2026-12-29", "title": "Thinking…: why visible AI reasoning makes us defer too much", "topic": "Human–AI trust", "video": "Paper-Tuesday-09.mp4", "poster": "Paper-Tuesday-09-poster.jpg", "paper": "https://arxiv.org/abs/2611.13456"},
+    {"n": "ny2027", "special": "New Year special", "date": "2027-01-05", "title": "Welcome 2027: a year in review", "topic": "Season 1 special", "video": "Paper-Tuesday-NewYear-2027.mp4", "poster": "Paper-Tuesday-NewYear-2027-poster.jpg"}
   ]</script>
   <script>
   (function () {
     var shelf = document.getElementById('pt-shelf'), dataEl = document.getElementById('pt-data');
     if (!shelf || !dataEl) return;
     var eps; try { eps = JSON.parse(dataEl.textContent); } catch (e) { return; }
+    var allEps = eps.slice();
+    // Scheduled release: an episode appears only once its Tuesday 9 AM Eastern (14:00 UTC) has passed.
+    eps = eps.filter(function (e) { var p = e.date.split('-'); return Date.now() >= Date.UTC(+p[0], +p[1] - 1, +p[2], 14); });
     var dlg = document.getElementById('pt-dialog'), body = document.getElementById('pt-dialog-body');
     var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     function d(iso) { var p = iso.split('-'); return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2], 12)); }
     function fmt(dt) { return MON[dt.getUTCMonth()] + ' ' + dt.getUTCDate(); }
     function esc(t) { return String(t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
     function pad(n) { return (n < 10 ? '0' : '') + n; }
-    eps.sort(function (a, b) { return b.n - a.n; });
+    eps.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; }); // newest first; specials sit between episodes by date
     var last = eps.length ? d(eps[0].date) : new Date();
     var html = '';
+    var papers = eps.filter(function (e) { return !e.special; });
+    function label(e) { return e.special ? e.special : 'EP ' + pad(e.n); }
     eps.forEach(function (e) {
       html += '<button type="button" class="pt-card" data-n="' + e.n + '"><span class="pt-thumb"' + (e.poster ? ' style="background-image:url(' + esc(e.poster) + ')"' : '') + '>' +
-        '<span class="pt-ep">EP ' + pad(e.n) + '</span>' + (e.poster ? '' : '<span class="pt-doodle" aria-hidden="true">🖍️</span>') +
+        '<span class="pt-ep' + (e.special ? ' pt-ep-special' : '') + '">' + esc(label(e)) + '</span>' + (e.poster ? '' : '<span class="pt-doodle" aria-hidden="true">🖍️</span>') +
         '<span class="pt-play" aria-hidden="true">' + (e.video ? '▶' : '↗') + '</span></span>' +
         '<span class="pt-title">' + esc(e.title) + '</span><span class="pt-meta">' + fmt(d(e.date)) + ' · ' + esc(e.topic || 'AI research') + '</span></button>';
     });
     // One "next" card with a live countdown, then a "Which paper next?" invite.
-    // The series runs 26 Tuesdays (Nov 3, 2026 - Apr 27, 2027); after the last one, neither card shows.
-    var LAST = 26, nextN = (eps[0] ? eps[0].n : 0) + 1;
-    var nd = new Date(last.getTime() + 7 * 864e5);
+    // The series runs 26 paper episodes (Nov 3, 2026 - May 4, 2027, with a New Year special on Jan 5); after the last one, the strip shows Season 1 complete.
+    var LAST = 26, nextN = papers.reduce(function (m, e) { return Math.max(m, e.n); }, 0) + 1;
+    var nd = new Date(last.getTime() + 7 * 864e5), nextLabel = 'EP ' + pad(nextN) + (nextN === LAST ? ' · Season finale' : '');
+    // If the next scheduled item is already in the list (e.g. a special), count down to that one instead.
+    var upcoming = allEps.filter(function (e) { return eps.indexOf(e) < 0; }).sort(function (a, b) { return a.date < b.date ? -1 : 1; })[0];
+    if (upcoming) { nd = d(upcoming.date); nextLabel = upcoming.special ? upcoming.special : 'EP ' + pad(upcoming.n) + (upcoming.n === LAST ? ' · Season finale' : ''); }
     var target = Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth(), nd.getUTCDate(), 14); // ~9 AM Eastern
     // Footer strip under the shelf: next-episode countdown + Season 1 progress, and the "Which paper next?" invite.
     var strip = document.getElementById('pt-strip');
     if (strip) {
       var left = nextN <= LAST
-        ? '<span class="pt-s-k">Next · EP ' + pad(nextN) + (nextN === LAST ? ' · Season finale' : '') + '</span><span class="pt-s-cd" id="pt-cd">-</span><span class="pt-s-k">Tue, ' + fmt(nd) + '</span>'
+        ? '<span class="pt-s-k">Next · ' + esc(nextLabel) + '</span><span class="pt-s-cd" id="pt-cd">-</span><span class="pt-s-k">Tue, ' + fmt(nd) + '</span>'
         : '<span class="pt-s-k">Season 1 complete</span>';
-      left += '<span class="pt-s-season">Season 1</span><span class="pt-s-bar" role="progressbar" aria-label="Season 1 progress" aria-valuemin="0" aria-valuemax="' + LAST + '" aria-valuenow="' + eps.length + '"><i style="width:' + Math.min(100, eps.length / LAST * 100).toFixed(1) + '%"></i></span><span class="pt-s-k">' + eps.length + ' of ' + LAST + ' episodes</span>';
+      left += '<span class="pt-s-season">Season 1</span><span class="pt-s-bar" role="progressbar" aria-label="Season 1 progress" aria-valuemin="0" aria-valuemax="' + LAST + '" aria-valuenow="' + papers.length + '"><i style="width:' + Math.min(100, papers.length / LAST * 100).toFixed(1) + '%"></i></span><span class="pt-s-k">' + papers.length + ' of ' + LAST + ' episodes</span>';
       strip.innerHTML = '<div class="pt-s-l">' + left + '</div>' +
         '<div class="pt-s-r"><span class="pt-s-q">📬 Which paper next?</span>' +
         '<span class="pt-sug-btns"><a class="pt-sug-go" href="https://www.linkedin.com/in/sankar-kumar-palaniappan-pm/" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z"/></svg><span>LinkedIn</span></a>' +
         '<a class="pt-sug-go pt-sug-mail" href="mailto:hello@sankar.work?subject=Paper%20Tuesday%20suggestion&amp;body=Paper%20title%20or%20link%3A%20"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span>Email</span></a></span></div>';
     }
     shelf.innerHTML = html;
-    document.getElementById('pt-count').textContent = eps.length;
+    document.getElementById('pt-count').textContent = papers.length;
     document.getElementById('pt-next').textContent = fmt(new Date(last.getTime() + 7 * 864e5));
     var cdEl = document.getElementById('pt-cd');
     if (cdEl) {
       var tick = function () {
         var ms = target - Date.now();
-        if (ms <= 0) { cdEl.textContent = 'Any moment now'; return false; }
+        if (ms <= 0) { cdEl.innerHTML = '<a href="#paper-tuesday" onclick="location.reload();return false;" style="color:inherit">Out now · refresh ↻</a>'; return false; }
         var dd = Math.floor(ms / 864e5), hh = Math.floor(ms / 36e5) % 24, mm = Math.floor(ms / 6e4) % 60, ss = Math.floor(ms / 1e3) % 60;
         cdEl.textContent = (dd ? dd + 'd ' : '') + pad(hh) + 'h ' + pad(mm) + 'm ' + pad(ss) + 's';
         return true;
@@ -1109,7 +1125,7 @@
     if (nextN > LAST) { var nx = document.getElementById('pt-next'); nx.textContent = 'Done'; nx.nextElementSibling.textContent = 'Season 1 complete'; }
     function open(e) {
       if (!e.video || !dlg || !dlg.showModal) { if (e.post) window.open(e.post, '_blank', 'noopener'); return; }
-      body.innerHTML = '<div class="pt-d-k">📚 Paper Tuesday · Season 1 · EP ' + pad(e.n) + ' · ' + fmt(d(e.date)) + '</div><h3>' + esc(e.title) + '</h3>' +
+      body.innerHTML = '<div class="pt-d-k">📚 Paper Tuesday · Season 1 · ' + esc(label(e)) + ' · ' + fmt(d(e.date)) + '</div><h3>' + esc(e.title) + '</h3>' +
         '<video controls playsinline preload="metadata"' + (e.poster ? ' poster="' + esc(e.poster) + '"' : '') + '><source src="' + esc(e.video) + '" type="video/mp4"></video>' +
         '<div class="pt-d-links">' + (e.paper ? '<a href="' + esc(e.paper) + '" target="_blank" rel="noopener">📄 Read the paper</a>' : '') +
         (e.post ? '<a href="' + esc(e.post) + '" target="_blank" rel="noopener">💬 LinkedIn post</a>' : '') + '</div>';
@@ -1119,7 +1135,7 @@
     }
     shelf.addEventListener('click', function (ev) {
       var c = ev.target.closest('.pt-card[data-n]'); if (!c) return;
-      var n = +c.dataset.n; eps.forEach(function (e) { if (e.n === n) open(e); });
+      var n = c.dataset.n; eps.forEach(function (e) { if (String(e.n) === n) open(e); });
     });
     function close() { var v = body.querySelector('video'); if (v) v.pause(); body.innerHTML = ''; if (dlg.open) dlg.close(); }
     if (dlg) {
@@ -9315,11 +9331,13 @@
   var r = document.getElementById('ptr'), dataEl = document.getElementById('pt-data');
   if (!r || !dataEl) return;
   var eps; try { eps = JSON.parse(dataEl.textContent); } catch (e) { return; }
+  // Scheduled release: an episode appears only once its Tuesday 9 AM Eastern (14:00 UTC) has passed.
+  eps = eps.filter(function (e) { var p = e.date.split('-'); return Date.now() >= Date.UTC(+p[0], +p[1] - 1, +p[2], 14); });
   if (!eps.length) return;
-  eps.sort(function (a, b) { return b.n - a.n; });
+  eps.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; }); // newest first; specials sit between episodes by date
   var e = eps[0], p = e.date.split('-'), d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2], 12));
   var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  document.getElementById('ptr-ep').textContent = 'S1 · EP ' + (e.n < 10 ? '0' : '') + e.n + ' · ' + MON[d.getUTCMonth()] + ' ' + d.getUTCDate();
+  document.getElementById('ptr-ep').textContent = 'S1 · ' + (e.special ? e.special : 'EP ' + (e.n < 10 ? '0' : '') + e.n) + ' · ' + MON[d.getUTCMonth()] + ' ' + d.getUTCDate();
   document.getElementById('ptr-title').textContent = e.title;
   if (Date.now() - d.getTime() < 7 * 864e5) document.getElementById('ptr-new').hidden = false;
   r.addEventListener('click', function (ev) {

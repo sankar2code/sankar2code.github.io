@@ -7992,3 +7992,4 @@ html.light .pt-s-bar { background: rgba(0,0,0,0.08); }
 @media (max-width: 640px) { .pt-strip { flex-direction: column; align-items: flex-start; } .pt-s-bar { width: 100px; } }
 .pt-s-season { font: 800 0.62rem 'Space Grotesk', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #1a1205; background: linear-gradient(135deg, #fde68a, #fbbf24); padding: 3px 9px; border-radius: 999px; }
 .pt-s-bar { width: 96px; } .pt-s-l { gap: 0.6rem; }
+.pt-ep.pt-ep-special { background: linear-gradient(135deg, #fde68a, #f472b6); }
